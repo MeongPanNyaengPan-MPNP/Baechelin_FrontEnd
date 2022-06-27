@@ -1,9 +1,10 @@
 import React from 'react';
 import './styles/css/reset.css';
-import {BrowserRouter} from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import * as ReactDOM from 'react-dom/client';
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import CssBaseline from '@mui/material/CssBaseline';
 import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
@@ -12,6 +13,7 @@ root.render(
   <BrowserRouter>
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen />
+      <CssBaseline />
       <App />
     </QueryClientProvider>
   </BrowserRouter>,

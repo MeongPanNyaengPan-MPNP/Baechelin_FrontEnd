@@ -1,4 +1,3 @@
-import { DefaultTheme } from 'styled-components';
 
 const bgColor = {
   white: '#fff',
@@ -11,7 +10,7 @@ const colors = {
 };
 export type ColorsTypes = typeof colors;
 export type BgColorTypes = typeof bgColor;
-const theme: DefaultTheme = {
+const theme = {
   colors,
   bgColor,
 };
