@@ -1,7 +1,7 @@
 import React from "react";
 import Button,{ButtonProps} from '@mui/material/Button';
 
-interface ButtonTypes extends ButtonProps{
+export interface ButtonTypes extends ButtonProps{
   children?:React.ReactNode;
 }
 function Buttons({children, ...props}:ButtonTypes){

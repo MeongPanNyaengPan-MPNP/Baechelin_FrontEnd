@@ -9,7 +9,7 @@ function Main() {
     <Container maxWidth="sm">
         <Box sx={{ my: 4 }}>
           <Typography variant="h4" component="h1" gutterBottom />
-          <Buttons type="button" size="large">으앙</Buttons>
+          <Buttons type="button" size="large" >으앙</Buttons>
         </Box>
       </Container>
   )
