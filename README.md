@@ -31,11 +31,11 @@
 
 ### Tech
 
-기술 스택들 (ex. Java11, Spring Boot, Spring Security, JPA, MySQL, Gradle, Junit5 등)
+기술 스택들
 
 ### Tools
 
-사용한 툴들(ex. IntelliJ, Swagger, Slack, Notion 등?)
+사용한 툴들
 
 ## 2-3. Libaray
 
