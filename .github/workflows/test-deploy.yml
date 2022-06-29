@@ -35,9 +35,9 @@ jobs:
             --recursive \
             --region ap-northeast-2 \
             build s3://baechelin-frontend
-      - name: AWS Cloudfront Invalidate Action
-        uses: awact/cloudfront-action@0.1.2
+      - name: Invalidate cache CloudFront
+        uses: chetan/invalidate-cloudfront-action@master
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.SECRET_KEY }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
-          DISTRIBUTION_ID: ${{ secrets.DEV_DISTRIBUTION_ID }}
+          DISTRIBUTION: ${{ secrets.DEV_DISTRIBUTION_ID }}
+          PATHS: '/index.html'
+        continue-on-error: true
