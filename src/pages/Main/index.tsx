@@ -10,7 +10,7 @@ function Main() {
     <Container maxWidth='sm'>
       <Box sx={{ my: 4 }}>
         <Typography variant='h4' component='h1' gutterBottom />
-        <Link to='/login' >로그인</Link>
+        <Link to='/login' >로그인123</Link>
       </Box>
     </Container>
   );

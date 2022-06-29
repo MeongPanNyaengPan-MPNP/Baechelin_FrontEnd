@@ -39,6 +39,7 @@
   "scripts": {
     "start": "set PORT=12345 && craco start",
     "build": "craco build",
+    "invalidate": "aws cloudfront create-invalidation --profil=baechelin-frontend --distribution-id E3DCGEBV8N3CHS",
     "test": "craco test",
       "lint": "eslint ./src/**/*.{ts,tsx,js,jsx}",
       "lint:fix": "eslint --fix ./src/**/*.{ts,tsx,js,jsx}",
