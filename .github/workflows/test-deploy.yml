@@ -35,3 +35,5 @@ jobs:
             --recursive \
             --region ap-northeast-2 \
             build s3://baechelin-frontend
+      - name: Invalidate CloudFront Cache
+        run: aws cloudfront create-invalidation --distribution-id ${{secrets.DEV_DISTRIBUTION_ID}} --paths "/*"
