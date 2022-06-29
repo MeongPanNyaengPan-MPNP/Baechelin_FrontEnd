@@ -1,5 +1,5 @@
 # 1. 배슐랭 - FrontEnd
-
+[![baechelin-frontend-build](https://github.com/MeongPanNyaengPan-MPNP/Baechelin_FrontEnd/actions/workflows/test-deploy.yml/badge.svg)](https://github.com/MeongPanNyaengPan-MPNP/Baechelin_FrontEnd/actions/workflows/test-deploy.yml)
 ## 1-1. Introduce
 
 배리어프리 음식점/카페 소개 앱
