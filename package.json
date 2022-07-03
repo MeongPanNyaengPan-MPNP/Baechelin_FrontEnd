@@ -41,8 +41,8 @@
     "build": "craco build",
     "invalidate": "aws cloudfront create-invalidation --profil=baechelin-frontend --distribution-id E3DCGEBV8N3CHS",
     "test": "craco test",
-      "lint": "eslint ./src/**/*.{ts,tsx,js,jsx}",
-      "lint:fix": "eslint --fix ./src/**/*.{ts,tsx,js,jsx}",
+    "lint": "eslint ./src/**/*.{ts,tsx,js,jsx}",
+    "lint:fix": "eslint --fix ./src/**/*.{ts,tsx,js,jsx}",
     "prettier": "prettier --write ./src/**/*.{ts,tsx}",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
@@ -71,7 +71,6 @@
       }
     ]
   },
-  "prettier": "prettier --write --config ./.prettierrc './src/**/*.{ts,tsx}'",
   "browserslist": {
     "production": [
       ">0.2%",

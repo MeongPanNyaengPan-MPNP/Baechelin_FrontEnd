@@ -1,6 +1,6 @@
 import React from 'react';
 import { Story, ComponentMeta } from '@storybook/react';
-import Buttons,{ButtonTypes} from '@atoms/Buttons/index';
+import Buttons, { ButtonTypes } from '@atoms/Button/index';
 
 export default {
   title: 'Material Button',
@@ -9,4 +9,4 @@ export default {
 
 const Template: Story<ButtonTypes> = (args) => <Buttons {...args} />;
 export const Large = Template.bind({});
-Large.args = {size: "small"};
+Large.args = { size: 'small' };
