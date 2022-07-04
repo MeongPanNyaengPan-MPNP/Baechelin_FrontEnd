@@ -5,6 +5,7 @@ import { ButtonGroup } from '@mui/material';
 import CommonIcon from '@atoms/Logo/CommonIcon.svg';
 
 import Logo from '@atoms/Logo';
+import Star from '@atoms/Star';
 
 const Container = styled.div`
   width: 100vw;
@@ -17,6 +18,7 @@ function Header() {
     <Container>
       <ButtonGroup />
       <Logo src={CommonIcon} width="5rem" height="5rem" />
+      <Star />
     </Container>
   );
 }

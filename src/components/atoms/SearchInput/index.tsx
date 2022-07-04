@@ -1,38 +1,61 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import React from 'react';
 import styled from 'styled-components';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
-export interface SearchInputProps {
-  width: number | string;
-  height: number | string;
-  cursor?: string;
-  src?: string;
-  alt?: string;
+export interface SearchInputProps<OptionType> {
+  disableCloseOnSelect?: boolean;
+  autoComplete?: boolean;
+  autoHighlight?: boolean;
+  value?: OptionType[];
+  getOptionLabel?: (option: OptionType) => string;
+  onChange?: (event: object, value: OptionType | OptionType[] | null, reason: string) => void;
+}
+
+interface IFormInput {
+  inputValue: string;
 }
 
 const StyledSearchInput = styled(Autocomplete)``;
 
-function SearchInput(): JSX.Element {
+function SearchInput(props: SearchInputProps<any>) {
+  const { control, handleSubmit } = useForm<IFormInput>();
+
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    console.log(data);
+  };
+
   return (
-    <StyledSearchInput
-      freeSolo
-      id="free-solo-2-demo"
-      disableClearable
-      options={top100Films.map((option) => option.title)}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          label="Search input"
-          InputProps={{
-            ...params.InputProps,
-            type: 'search',
-          }}
-        />
-      )}
-    />
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <StyledSearchInput
+        freeSolo
+        multiple={false}
+        id="free-solo-2-demo"
+        disableClearable
+        options={top100Films.map((option) => option.title)}
+        renderInput={(params) => (
+          <Controller
+            name="inputValue"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...params}
+                label="Search input"
+                InputProps={{
+                  ...params.InputProps,
+                  type: 'search',
+                }}
+                {...field}
+              />
+            )}
+          />
+        )}
+        {...props}
+      />
+    </form>
   );
 }
 
