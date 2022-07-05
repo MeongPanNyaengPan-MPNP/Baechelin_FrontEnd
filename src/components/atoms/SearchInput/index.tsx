@@ -11,6 +11,7 @@ export interface SearchInputProps<OptionType> {
   autoComplete?: boolean;
   autoHighlight?: boolean;
   value?: OptionType[];
+  width?: string;
   getOptionLabel?: (option: OptionType) => string;
   onChange?: (event: object, value: OptionType | OptionType[] | null, reason: string) => void;
 }
@@ -19,15 +20,16 @@ interface IFormInput {
   inputValue: string;
 }
 
-const StyledSearchInput = styled(Autocomplete)``;
+const StyledSearchInput = styled(Autocomplete)`
+  width: ${(props: SearchInputProps<any>) => props.width || '200px'};
+`;
 
-function SearchInput(props: SearchInputProps<any>) {
+function SearchInput({ width, ...props }: SearchInputProps<any>) {
   const { control, handleSubmit } = useForm<IFormInput>();
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     console.log(data);
   };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <StyledSearchInput
@@ -53,6 +55,7 @@ function SearchInput(props: SearchInputProps<any>) {
             )}
           />
         )}
+        width={width}
         {...props}
       />
     </form>

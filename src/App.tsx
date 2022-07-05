@@ -11,7 +11,6 @@ import Oauth from '@pages/Oauth';
 import Mypage from '@pages/Mypage';
 import Header from '@organisms/Header';
 
-import SearchInput from '@atoms/SearchInput';
 import GlobalStyle from './styles/GlobalStyle';
 
 library.add(fas);
@@ -20,9 +19,6 @@ function App() {
     <RecoilRoot>
       <GlobalStyle />
       <Header />
-      <div style={{ width: '20rem' }}>
-        <SearchInput />
-      </div>
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
