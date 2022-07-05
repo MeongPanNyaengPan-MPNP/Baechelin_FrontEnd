@@ -8,6 +8,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.1.18",
+    "@hookform/resolvers": "^2.9.3",
     "@mui/material": "^5.8.5",
     "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest",
     "@testing-library/jest-dom": "^5.14.1",
@@ -32,17 +33,19 @@
     "recoil": "^0.7.3",
     "recoil-persist": "^4.2.0",
     "styled-components": "^5.3.5",
+    "swiper": "^8.2.6",
     "tsconfig-paths-webpack-plugin": "^3.5.2",
     "typescript": "^4.4.2",
-    "web-vitals": "^2.1.0"
+    "web-vitals": "^2.1.0",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "set PORT=12345 && craco start",
     "build": "craco build",
     "invalidate": "aws cloudfront create-invalidation --profil=baechelin-frontend --distribution-id E3DCGEBV8N3CHS",
     "test": "craco test",
-      "lint": "eslint ./src/**/*.{ts,tsx,js,jsx}",
-      "lint:fix": "eslint --fix ./src/**/*.{ts,tsx,js,jsx}",
+    "lint": "eslint ./src/**/*.{ts,tsx,js,jsx}",
+    "lint:fix": "eslint --fix ./src/**/*.{ts,tsx,js,jsx}",
     "prettier": "prettier --write ./src/**/*.{ts,tsx}",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
