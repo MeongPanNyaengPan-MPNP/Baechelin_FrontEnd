@@ -5,12 +5,16 @@ import TextInput from '@atoms/TextInput';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import SelectBox from '@atoms/SelectBox';
-import CheckBoxForm from '../../molcules/CheckBoxForm';
+import TextAreaInput from '@atoms/TextAreaInput';
+import AddImage from '@molecules/AddImage';
+import CheckBoxForm from '@molecules/CheckBoxForm';
 
-type FormValues = {
+export type FormValues = {
   test: string;
   meow: { [prop: string]: boolean };
+  textarea: string;
   wow: string | ReadonlyArray<string> | number | undefined;
+  files: File[]
 };
 
 function ReviewForm() {
@@ -21,6 +25,8 @@ function ReviewForm() {
   const {
     handleSubmit,
     control,
+    setValue,
+    getValues,
     formState: { errors },
   } = useForm<FormValues>({
     mode: 'onChange',
@@ -63,6 +69,8 @@ function ReviewForm() {
         <TextInput name='test'
                    control={control} errors={errors} />
         <SelectBox name='wow' label='wow' control={control} options={SelectBoxDummyData} />
+        <TextAreaInput name='textarea' control={control} />
+        <AddImage name='files' getValues={getValues} setValue={setValue} control={control} />
         <button type='submit'>제출</button>
       </form>
     </Container>

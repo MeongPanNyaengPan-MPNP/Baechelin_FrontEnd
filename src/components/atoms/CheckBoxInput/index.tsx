@@ -11,7 +11,7 @@ export type CheckBoxInputProps = {
   label?: string;
   [prop: string]: any;
 } & CheckboxProps;
-
+ 
 const CheckBoxItem = styled(Checkbox)`
   ${(props) => {
     if (props.hidden) {
