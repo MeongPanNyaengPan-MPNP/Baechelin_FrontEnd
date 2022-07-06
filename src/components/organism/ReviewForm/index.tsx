@@ -1,78 +1,44 @@
 import React from 'react';
 import Container from '@mui/material/Container';
-import { useForm } from 'react-hook-form';
-import TextInput from '@atoms/TextInput';
+import { FormProvider, useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import SelectBox from '@atoms/SelectBox';
-import TextAreaInput from '@atoms/TextAreaInput';
-import AddImage from '@molecules/AddImage';
 import CheckBoxForm from '@molecules/CheckBoxForm';
+import { CheckBoxProps } from '../../../types/formTypes';
 
 export type FormValues = {
-  test: string;
-  meow: { [prop: string]: boolean };
-  textarea: string;
-  wow: string | ReadonlyArray<string> | number | undefined;
-  files: File[]
+  facility: CheckBoxProps[];
 };
 
 function ReviewForm() {
-  const validationSchema = Yup.object().shape({
-    test: Yup.string().required('Fullname is required').max(5, '넘침'),
-    meowCheck: Yup.bool().oneOf([true], 'Accept Terms is required'),
-  });
-  const {
-    handleSubmit,
-    control,
-    setValue,
-    getValues,
-    formState: { errors },
-  } = useForm<FormValues>({
+  const validationSchema = Yup.object().shape({ checkbox: Yup.bool().oneOf([true], 'Accept Terms is required') });
+  const methods = useForm({
     mode: 'onChange',
     resolver: yupResolver(validationSchema),
   });
-  const onSubmit = (data: FormValues) => {
-    console.log('data', data);
+
+  const onSubmit = (data: any) => {
+    alert(JSON.stringify(data));
   };
-  const checkBoxDummyData = {
-    meowCheck:
-      [{
-        text: '으앙1',
-        name: '으앙1',
-      }, {
-        text: '으앙2',
-        name: '으앙2',
-      }, {
-        text: '으앙3',
-        name: '으앙3',
-      }, {
-        text: '으앙4',
-        name: '으앙4',
-      }],
-  };
-  const SelectBoxDummyData = [{
-    value: 10,
-    label: '으어1',
+  const meowCheck = [{
+    label: '시설정보1',
+    checked: false,
   },
     {
-      value: 11,
-      label: '으dddddddddddddddddddd어2',
+      label: '시설정보2',
+      checked: false,
     }, {
-      value: 12,
-      label: '으어3',
+      label: '시설정보3',
+      checked: false,
     }];
   return (
     <Container maxWidth='sm'>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <CheckBoxForm checkBoxItems={checkBoxDummyData.meowCheck} control={control} errors={errors} />
-        <TextInput name='test'
-                   control={control} errors={errors} />
-        <SelectBox name='wow' label='wow' control={control} options={SelectBoxDummyData} />
-        <TextAreaInput name='textarea' control={control} />
-        <AddImage name='files' getValues={getValues} setValue={setValue} control={control} />
-        <button type='submit'>제출</button>
-      </form>
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(onSubmit)}>
+          <CheckBoxForm data={meowCheck} name='facility' />
+          <button type='submit'>제출</button>
+        </form>
+      </FormProvider>
     </Container>
   );
 }
