@@ -9,6 +9,7 @@ import NotFound from '@pages/NotFound';
 import Oauth from '@pages/Oauth';
 import Mypage from '@pages/Mypage';
 import { ThemeProvider } from '@mui/material';
+import ReviewWrite from '@pages/ReviewWrite';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
 
@@ -22,6 +23,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Main />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/reviewWrite' element={<ReviewWrite />} />
           <Route path='/mypage' element={<Mypage />} />
           <Route path='/user/oauth/:social' element={<Oauth />} />
           <Route path='*' element={<NotFound />} />

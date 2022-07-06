@@ -30,7 +30,7 @@ const S = {
     display: flex;
     justify-content: center;
     align-items: stretch;
-    font-size: ${(props) => (props.fontSize ? props.fontSize : `16px`)};
+    font-size: ${(props) => (props.fontSize ? props.fontSize : `1.4rem`)};
     border-radius: ${(props) => (props.round ? props.round : `0`)};
     border: ${(props) => (props.border === 'none' ? 'none' : `1px solid ${props.border}`)};
     background: ${(props) => (props.transparent ? 'transparent' : `${props.bgColor}`)};

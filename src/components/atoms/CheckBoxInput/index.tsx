@@ -1,5 +1,5 @@
 import React from 'react';
-import { Controller } from 'react-hook-form';
+import { Control, Controller, FieldValue } from 'react-hook-form';
 import { Checkbox, CheckboxProps, FormControlLabel } from '@mui/material';
 import styled, { css } from 'styled-components';
 
@@ -9,9 +9,10 @@ export type StyledCheckBoxProps = {
 export type CheckBoxInputProps = {
   name: string;
   label?: string;
+  control?: Control<FieldValue<any>> | undefined;
   [prop: string]: any;
 } & CheckboxProps;
- 
+
 const CheckBoxItem = styled(Checkbox)`
   ${(props) => {
     if (props.hidden) {
