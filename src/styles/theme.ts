@@ -11,6 +11,7 @@ const theme = createTheme({
       },
     },
   },
+  typography: { fontSize: 19.6 },
 });
 
 export default theme;
