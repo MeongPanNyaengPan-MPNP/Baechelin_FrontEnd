@@ -1,17 +1,17 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { Control, Controller, FieldValue } from 'react-hook-form';
-import Thumb from '@atoms/Thumb';
 import { UseFormGetValues, UseFormSetValue } from 'react-hook-form/dist/types/form';
 import Buttons from '@atoms/Buttons';
 import styled from 'styled-components';
-import { FormValues } from '../../organism/ReviewForm';
+import { FormValues } from '@organisms/ReviewForm';
+import Thumb from '@atoms/Thumbnail';
 
 type FileLeaderProps = {
   name: any;
   control: Control<FieldValue<any>> | undefined;
   setValue: UseFormSetValue<FormValues>;
   getValues: UseFormGetValues<FormValues>;
-}
+};
 const StyledInput = styled.input`
   visibility: hidden;
   height: 0;
@@ -20,12 +20,7 @@ const StyledInput = styled.input`
   left: -100000px;
 `;
 
-function AddImage({
-                    name,
-                    control,
-                    setValue,
-                    getValues,
-                  }: FileLeaderProps) {
+function AddImage({ name, control, setValue, getValues }: FileLeaderProps) {
   const inputRef = useRef<any>();
 
   const [imgSrc, setImgSrc] = useState<(string | ArrayBuffer | null)[]>([]);
@@ -33,28 +28,22 @@ function AddImage({
     const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
     fileReader.onload = () => {
-      setImgSrc(values => [...values, fileReader.result]);
+      setImgSrc((values) => [...values, fileReader.result]);
     };
   }, []);
   const clickAddImage = () => {
     inputRef.current.click();
   };
   return (
-    <div className='uploader-wrapper'>
+    <div className="uploader-wrapper">
       <Controller
         name={name}
         control={control}
-
-        render={({
-                   field: {
-                     ref,
-                     ...restField
-                   },
-                 }) => (
+        render={({ field: { ref, ...restField } }) => (
           <>
             <StyledInput
-              type='file'
-              accept='image/*'
+              type="file"
+              accept="image/*"
               id={name}
               ref={inputRef}
               {...restField}
@@ -63,19 +52,18 @@ function AddImage({
                 restField.onChange(() => {
                   if (files !== null && files?.length > 0) {
                     saveImage(files[0]);
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-ignore
                     setValue(name, [...prevValue, files[0]]);
                   }
                 });
               }}
             />
-            <Buttons type='button' onClick={clickAddImage}>
-              사진추가</Buttons>
+            <Buttons type="button" onClick={clickAddImage}>
+              사진추가
+            </Buttons>
           </>
-        )} />
-      {imgSrc.map((src) => typeof src === 'string' && <Thumb key={src} alt='preview' src={src} />)}
-
+        )}
+      />
+      {imgSrc.map((src) => typeof src === 'string' && <Thumb key={src} alt="preview" src={src} />)}
     </div>
   );
 }
