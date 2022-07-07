@@ -1,15 +1,16 @@
 import React from 'react';
-import { FormGroup } from '@mui/material';
-import { useFormContext } from 'react-hook-form';
+import { FormGroup, FormHelperText } from '@mui/material';
+import { Control, DeepMap, FieldError, FieldValue } from 'react-hook-form';
 import CheckBoxInput from '@atoms/CheckBoxInput';
-import { FormValues } from '../../organism/ReviewForm';
-import { CheckBoxProps } from '../../../types/formTypes';
+import { CheckBoxType } from '@interfaces/formTypes';
 
 
 type CheckBoxFormProps = {
   boxHidden?: boolean;
-  data?: CheckBoxProps[];
+  data?: CheckBoxType[];
   name: string;
+  control: Control<FieldValue<any>> | undefined;
+  errors?: DeepMap<any, FieldError>
   [prop: string]: any;
 }
 
@@ -17,14 +18,18 @@ function CheckBoxForm({
                         boxHidden = false,
                         data,
                         name,
+                        control,
+                        errors,
                       }: CheckBoxFormProps) {
-  const methods = useFormContext<FormValues>();
   return (
     <FormGroup>
-      {data?.map((item, index) => (
-          <CheckBoxInput item={item} name={name} key={item.label} number={index} boxHidden={boxHidden} {...methods} />
-        ),
-      )}
+      {
+        data?.map((item, index) => (
+          <CheckBoxInput item={item} key={item.label} number={index} bo xHidden={boxHidden}
+                         name={name} control={control} errors={errors} />
+        ))
+      }
+      <FormHelperText>{errors?.checkbox?.message}</FormHelperText>
     </FormGroup>
   );
 }

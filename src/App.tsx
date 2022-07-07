@@ -25,7 +25,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/reviewWrite' element={<ReviewWrite />} />
           <Route path='/mypage' element={<Mypage />} />
-          <Route path='/user/oauth/:social' element={<Oauth />} />
+          <Route path='/user/oauth' element={<Oauth />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </ThemeProvider>

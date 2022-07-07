@@ -32,8 +32,8 @@
       "@utils/*": [
         "./utils/*"
       ],
-      "@types/*": [
-        "./types/*"
+      "@interfaces/*": [
+        "./interfaces/*"
       ]
     }
   }

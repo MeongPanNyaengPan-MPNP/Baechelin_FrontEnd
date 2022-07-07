@@ -1,16 +1,17 @@
 import React from 'react';
-import { Controller } from 'react-hook-form';
+import { Control, Controller, FieldValue } from 'react-hook-form';
 import { Checkbox, CheckboxProps, FormControlLabel } from '@mui/material';
 import styled, { css } from 'styled-components';
-import { CheckBoxProps } from '../../../types/formTypes';
+import { CheckBoxType } from '@interfaces/formTypes';
 
 export type StyledCheckBoxProps = {
   boxHidden?: boolean;
 }
 export type CheckBoxInputProps = {
   name: string;
-  item: CheckBoxProps;
+  item: CheckBoxType;
   label?: string;
+  control: Control<FieldValue<any>> | undefined;
   [prop: string]: any;
 } & CheckboxProps;
 
@@ -57,7 +58,7 @@ function CheckBoxInput({
                          item,
                          number,
                          boxHidden = true,
-                         ...methods
+                         control,
                        }: CheckBoxInputProps & StyledCheckBoxProps,
 ) {
   return (
@@ -68,7 +69,7 @@ function CheckBoxInput({
         control={
           <Controller
             name={`${name}.${number}.checked`}
-            {...methods}
+            control={control}
             defaultValue={false}
             render={({ field }) => (
               <CheckBoxItem
