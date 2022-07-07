@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -10,16 +10,16 @@ import Oauth from '@pages/Oauth';
 import Mypage from '@pages/Mypage';
 import { ThemeProvider } from '@mui/material';
 import ReviewWrite from '@pages/ReviewWrite';
+import Header from '@organisms/Header';
 import GlobalStyle from './styles/GlobalStyle';
-import theme from './styles/theme';
 
 library.add(fas);
-
 function App() {
   return (
     <RecoilRoot>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
+        <Header />
         <Routes>
           <Route path='/' element={<Main />} />
           <Route path='/login' element={<Login />} />
