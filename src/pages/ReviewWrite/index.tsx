@@ -1,10 +1,8 @@
 import React from 'react';
-import ReviewForm from '../../components/organism/ReviewForm';
+import ReviewForm from '../../components/organisms/ReviewForm';
 
 function ReviewWrite() {
-  return (
-    <ReviewForm />
-  );
+  return <ReviewForm />;
 }
 
 export default ReviewWrite;
