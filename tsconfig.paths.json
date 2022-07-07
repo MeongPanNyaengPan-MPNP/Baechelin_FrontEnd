@@ -2,16 +2,39 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
-      "@assets/*": ["./components/assets/*"],
-      "@atoms/*": ["./components/atoms/*"],
-      "@molecules/*": ["./components/molecules/*"],
-      "@organisms/*": ["./components/organisms/*"],
-      "@templates/*": ["./templates/*"],
-      "@pages/*": ["./pages/*"],
-      "@hooks/*": ["./hooks/*"],
-      "@service/*": ["./service/*"],
-      "@recoil/*": ["./recoil/*"],
-      "@utils/*": ["./utils/*"]
+      "@assets/*": [
+        "./components/assets/*"
+      ],
+      "@atoms/*": [
+        "./components/atoms/*"
+      ],
+      "@molecules/*": [
+        "./components/molecules/*"
+      ],
+      "@organisms/*": [
+        "./components/organisms/*"
+      ],
+      "@templates/*": [
+        "./templates/*"
+      ],
+      "@pages/*": [
+        "./pages/*"
+      ],
+      "@hooks/*": [
+        "./hooks/*"
+      ],
+      "@service/*": [
+        "./service/*"
+      ],
+      "@recoil/*": [
+        "./recoil/*"
+      ],
+      "@utils/*": [
+        "./utils/*"
+      ],
+      "@interfaces/*": [
+        "./interfaces/*"
+      ]
     }
   }
 }

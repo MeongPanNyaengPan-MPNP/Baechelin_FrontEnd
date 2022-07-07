@@ -1,19 +1,15 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import {Link} from "react-router-dom";
+import Link from '@atoms/Link';
+import Badge from '@atoms/Badge';
 
 function Main() {
-
   return (
-    <Container maxWidth='sm'>
-      <Box sx={{ my: 4 }}>
-        <Typography variant='h4' component='h1' gutterBottom />
-        <Link to='/login' >로그인123</Link>
-      </Box>
-    </Container>
+    <>
+      <Link to='/ReviewWrite'>리뷰쓰기</Link>
+      <Badge size='l' alt='dd' src='https://ssl.pstatic.net/static/common/myarea/myInfo.gif' />
+    </>
   );
 }
+
 
 export default Main;

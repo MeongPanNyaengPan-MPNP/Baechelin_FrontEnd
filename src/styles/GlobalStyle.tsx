@@ -1,14 +1,18 @@
+import { createGlobalStyle, GlobalStyleComponent } from 'styled-components';
 
-import {createGlobalStyle, GlobalStyleComponent} from "styled-components";
-
-const GlobalStyle :GlobalStyleComponent<any,any> = createGlobalStyle`
+const GlobalStyle: GlobalStyleComponent<any, any> = createGlobalStyle`
   *, *::before, *::after {
     box-sizing: border-box;
     letter-spacing: -0.01em;
-    font-size:inherit;
   }
+
+  html {
+    font-size: 10px;
+  }
+
   body {
     margin: 0;
+    font-size: 1.4rem;
     font-family: 'Noto Sans KR', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
