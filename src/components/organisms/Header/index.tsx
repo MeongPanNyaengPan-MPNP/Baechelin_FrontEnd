@@ -1,41 +1,48 @@
 import React from 'react';
-import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
-import CommonIcon from '@atoms/Logo/CommonIcon.svg';
-
-import Logo from '@atoms/Logo';
+import LogoImg from '@assets/Logo.svg';
+import UserIcon from '@assets/UserIcon.svg';
 import Navigation from '@molecules/Navigation';
-import Button from '@atoms/Button';
+import Button from '@atoms/Buttons';
 import SearchInput from '@atoms/SearchInput';
+import Logo from '@atoms/Logo';
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 100vw;
-  height: 100px;
-  border-bottom: 2px solid lightgray;
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  width: 1280px;
-  justify-content: space-between;
-`;
+import * as S from './styles';
 
 function Header() {
+  const navigate = useNavigate();
+
+  const onClickLogo = () => {
+    navigate('/');
+  };
+  const onClickAbout = () => {};
+  const onClickMap = () => {};
+  const onClickUserIcon = () => {
+    navigate('/login');
+  };
+
   return (
-    <Container>
-      <Wrapper>
-        <Logo src={CommonIcon} width="5rem" height="5rem" />
-        <SearchInput width="500px" />
+    <S.Container>
+      <S.Wrapper>
+        <Logo src={LogoImg} width="12rem" height="5rem" onClick={onClickLogo} />
+        <SearchInput width="56.2rem" margin="0 0 0 9rem" />
         <Navigation>
-          <Button>배슐랭 소개</Button>
-          <Button>지도</Button>
-          <Button>로그인</Button>
+          <div>
+            <Button fontSize="1.6rem" onClick={onClickAbout}>
+              배슐랭 소개
+            </Button>
+          </div>
+          <div>
+            <Button fontSize="1.6rem" onClick={onClickMap}>
+              지도
+            </Button>
+          </div>
+          {/* userIcon */}
+          <Logo src={UserIcon} width="3rem" height="3rem" onClick={onClickUserIcon} />
         </Navigation>
-      </Wrapper>
-    </Container>
+      </S.Wrapper>
+    </S.Container>
   );
 }
 
