@@ -9,12 +9,12 @@ export default {
   component: Icon,
 };
 
-const Template: Story<IconProps> = (args) => <Icon {...args} />;
+const Template: Story<IconProps> = (args) => (
+  <>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <Icon {...args} />
+  </>
+);
 
 export const Primary = Template.bind({});
-Primary.args = {
-  height: '5rem',
-  width: '5rem',
-  src: 'https://cdn.icon-icons.com/icons2/2657/PNG/256/instagram_icon_161086.png',
-  cursor: 'pointer',
-};
+Primary.args = { iconName: 'star', color: 'blue', size: '1rem', cursor: 'pointer' };

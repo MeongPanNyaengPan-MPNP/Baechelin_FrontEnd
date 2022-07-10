@@ -11,6 +11,7 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 const queryClient = new QueryClient();
 root.render(
   <BrowserRouter>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen />
       <CssBaseline />
