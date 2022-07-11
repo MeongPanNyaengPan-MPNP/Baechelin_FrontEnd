@@ -3,7 +3,7 @@ import { Story } from '@storybook/react';
 import Badge, { BadgeProps } from '@atoms/Badge/index';
 
 export default {
-  title: 'Badge',
+  title: 'Atoms/Badge',
   component: Badge,
 };
 

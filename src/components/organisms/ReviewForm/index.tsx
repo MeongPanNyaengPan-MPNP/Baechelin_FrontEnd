@@ -3,11 +3,11 @@ import Container from '@mui/material/Container';
 import { FieldValues, useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import CheckBoxForm from '@molecules/CheckBoxForm';
 import TextInput from '@atoms/TextInput';
 import SelectBox from '@atoms/SelectBox';
 import TextAreaInput from '@atoms/TextAreaInput';
 import AddImage from '@molecules/AddImage';
+import CheckBoxGroup from '@molecules/CheckBoxGroup';
 
 function ReviewForm() {
   const validationSchema = Yup.object().shape({ checkbox: Yup.bool().oneOf([true], 'Accept Terms is required') });
@@ -56,9 +56,9 @@ function ReviewForm() {
   return (
     <Container maxWidth="sm">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <CheckBoxForm control={control} data={checkBoxDummyData} name="facility" />
+        <CheckBoxGroup control={control} data={checkBoxDummyData} name="facility" />
         <TextInput name="test" control={control} errors={errors} />
-        <SelectBox name="selectBox" label="selectBox" control={control} options={SelectBoxDummyData} />
+        <SelectBox name="selectBox" label="selectBox" control={control} data={SelectBoxDummyData} />
         <TextAreaInput name="textarea" control={control} />
         <AddImage name="files" getValues={getValues} setValue={setValue} control={control} />
         <button type="submit">제출</button>

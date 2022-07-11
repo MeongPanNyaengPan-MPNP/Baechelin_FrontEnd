@@ -7,7 +7,7 @@ import { Theme } from '@mui/material/styles';
 
 export type SelectBoxProps = {
   label: string;
-  options: {
+  data: {
     value: string | ReadonlyArray<string> | number | undefined;
     label: string;
   }[];
@@ -15,14 +15,14 @@ export type SelectBoxProps = {
 } & SelectProps &
   UseControllerProps;
 
-function SelectBox({ name, label, control, options, sx = { width: 150 } }: SelectBoxProps) {
+function SelectBox({ name, label, control, data, sx = { width: 150 } }: SelectBoxProps) {
   return (
     <FormControl sx={sx}>
       <InputLabel id={label}>{label}</InputLabel>
       <Controller
         render={({ field }) => (
           <Select labelId={label} label={label} id={name} {...field} autoWidth={false}>
-            {options.map((item) => (
+            {data.map((item) => (
               <MenuItem sx={sx} key={item.label} value={item.value}>
                 {item.label}
               </MenuItem>

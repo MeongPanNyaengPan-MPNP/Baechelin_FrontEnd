@@ -51,7 +51,13 @@ const CheckBoxArea = styled.div<StyledCheckBoxProps>`
   }}
 `;
 
-function CheckBoxInput({ name, item, number, boxHidden = true, control }: CheckBoxInputProps & StyledCheckBoxProps) {
+function CheckBoxInput({
+  name,
+  item,
+  number = 0,
+  boxHidden = true,
+  control,
+}: CheckBoxInputProps & StyledCheckBoxProps) {
   return (
     <CheckBoxArea boxHidden={boxHidden}>
       <FormControlLabel
