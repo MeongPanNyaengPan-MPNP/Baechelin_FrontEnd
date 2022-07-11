@@ -1,23 +1,20 @@
 import React from 'react';
-import styled from 'styled-components';
+import { Icon as MuiIcon } from '@mui/material';
 
 export interface IconProps {
-  width: number | string;
-  height: number | string;
+  iconName: string;
+  color?: string;
+  size?: string;
   cursor?: string;
-  src?: string;
-  alt?: string;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-const StyledIcon = styled.img<IconProps>`
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
-  object-fit: fill;
-  cursor: ${(props) => props.cursor || null};
-`;
-
-function Icon({ width = '1rem', height = '1rem', cursor = 'pointer', src, alt = 'IconAlt' }: IconProps): JSX.Element {
-  return <StyledIcon width={width} height={height} cursor={cursor} src={src} alt={alt} />;
+function Icon({ iconName, color = 'black', size = '1rem', onClick, cursor = 'null' }: IconProps): JSX.Element {
+  return (
+    <MuiIcon sx={{ color }} style={{ fontSize: size, cursor }} onClick={onClick}>
+      {iconName}
+    </MuiIcon>
+  );
 }
 
 export default Icon;

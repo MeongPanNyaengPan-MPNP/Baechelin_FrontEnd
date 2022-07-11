@@ -6,7 +6,8 @@ export interface SpanProps {
   color?: string;
   textAlign?: 'left' | 'right' | 'center';
   width?: string;
-  size?: 'small' | 'normal' | 'big' | 'title';
+  fontSize?: number | string;
+  size?: string;
   blockWidth?: boolean;
   className?: string;
   del?: boolean;
@@ -20,6 +21,7 @@ const StyledSpan = styled.span<SpanProps>`
   width: ${(props) => (props.blockWidth ? '100%' : props.width)};
   word-wrap: break-word;
   word-break: break-all;
+  font-size: ${(props) => props.fontSize};
 
   &.del {
     text-decoration: line-through;
@@ -50,6 +52,7 @@ const Span = ({
   color = 'inherit',
   textAlign = 'left',
   width = 'auto',
+  fontSize = '1rem',
   size = 'normal',
   className,
   blockWidth = false,
@@ -59,6 +62,7 @@ const Span = ({
     color,
     textAlign,
     width,
+    fontSize,
     size,
     blockWidth,
   };
