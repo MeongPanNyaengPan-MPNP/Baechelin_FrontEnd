@@ -1,17 +1,15 @@
 import React from 'react';
 import { FormGroup, FormHelperText } from '@mui/material';
-import { Control, DeepMap, FieldError, FieldValue } from 'react-hook-form';
+import { DeepMap, FieldError, UseControllerProps } from 'react-hook-form';
 import CheckBoxInput from '@atoms/CheckBoxInput';
 import { CheckBoxType } from '@interfaces/formTypes';
 
 type CheckBoxFormProps = {
   boxHidden?: boolean;
   data?: CheckBoxType[];
-  name: string;
-  control: Control<FieldValue<any>> | undefined;
   errors?: DeepMap<any, FieldError>;
   [prop: string]: any;
-};
+} & UseControllerProps;
 
 function CheckBoxForm({ boxHidden = false, data, name, control, errors }: CheckBoxFormProps) {
   return (

@@ -1,17 +1,14 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { Control, Controller, FieldValue } from 'react-hook-form';
+import { Controller, FieldValues, UseControllerProps } from 'react-hook-form';
 import { UseFormGetValues, UseFormSetValue } from 'react-hook-form/dist/types/form';
 import Buttons from '@atoms/Buttons';
 import styled from 'styled-components';
-import { FormValues } from '@organisms/ReviewForm';
 import Thumb from '@atoms/Thumbnail';
 
 type FileLeaderProps = {
-  name: any;
-  control: Control<FieldValue<any>> | undefined;
-  setValue: UseFormSetValue<FormValues>;
-  getValues: UseFormGetValues<FormValues>;
-};
+  setValue: UseFormSetValue<FieldValues>;
+  getValues: UseFormGetValues<FieldValues>;
+} & UseControllerProps;
 const StyledInput = styled.input`
   visibility: hidden;
   height: 0;
@@ -22,7 +19,6 @@ const StyledInput = styled.input`
 
 function AddImage({ name, control, setValue, getValues }: FileLeaderProps) {
   const inputRef = useRef<any>();
-
   const [imgSrc, setImgSrc] = useState<(string | ArrayBuffer | null)[]>([]);
   const saveImage = useCallback((file: any) => {
     const fileReader = new FileReader();
