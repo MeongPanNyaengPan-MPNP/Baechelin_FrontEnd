@@ -5,8 +5,9 @@ import CommonIcon from '@atoms/Logo/CommonIcon.svg';
 
 import Logo from '@atoms/Logo';
 import Navigation from '@molecules/Navigation';
-import Button from '@atoms/Button';
+import Button from '@atoms/Buttons';
 import SearchInput from '@atoms/SearchInput';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -24,6 +25,7 @@ const Wrapper = styled.div`
 `;
 
 function Header() {
+  const navigate = useNavigate();
   return (
     <Container>
       <Wrapper>
@@ -32,7 +34,7 @@ function Header() {
         <Navigation>
           <Button>배슐랭 소개</Button>
           <Button>지도</Button>
-          <Button>로그인</Button>
+          <Button onClick={() => navigate('/login')}>로그인</Button>
         </Navigation>
       </Wrapper>
     </Container>

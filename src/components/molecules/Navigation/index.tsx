@@ -1,10 +1,10 @@
 import React from 'react';
 
 import ButtonGroup, { ButtonGroupProps } from '@mui/material/ButtonGroup';
-import Button, { ButtonTypes } from '@atoms/Button';
+import Button, { ButtonsProps } from '@atoms/Buttons';
 
 interface ButtonGroupTypes extends ButtonGroupProps {
-  Buttons?: ButtonTypes[];
+  Buttons?: ButtonsProps[];
 }
 
 function Navigation({ Buttons, children, ...props }: ButtonGroupTypes) {

@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components';
 
 type GreetFunction = () => void;
 
-
 export interface StyledButtonProps {
   flex?: number | 'auto';
   color?: string;
@@ -19,7 +18,7 @@ export interface StyledButtonProps {
   [prop: string]: any;
 }
 
-export interface ButtonProps extends StyledButtonProps {
+export interface ButtonsProps extends StyledButtonProps {
   children?: React.ReactNode;
   onClick?: GreetFunction;
 }
@@ -62,21 +61,20 @@ const S = {
   `,
 };
 
-
 function Buttons({
-                   children,
-                   flex = 'auto',
-                   color = 'black',
-                   border = 'none',
-                   bgColor = 'white',
-                   transparent = false,
-                   size = 'medium',
-                   type = 'button',
-                   round,
-                   onClick,
-                   fontSize,
-                   ...props
-                 }: ButtonProps) {
+  children,
+  flex = 'auto',
+  color = 'black',
+  border = 'none',
+  bgColor = 'white',
+  transparent = false,
+  size = 'medium',
+  type = 'button',
+  round,
+  onClick,
+  fontSize,
+  ...props
+}: ButtonsProps) {
   const commonProps = {
     flex,
     color,
@@ -87,12 +85,13 @@ function Buttons({
     fontSize,
     type,
     round,
-
   };
 
-  return <S.Button onClick={onClick} {...commonProps}
-                   {...props}>{children}</S.Button>;
+  return (
+    <S.Button onClick={onClick} {...commonProps} {...props}>
+      {children}
+    </S.Button>
+  );
 }
 
 export default Buttons;
-
