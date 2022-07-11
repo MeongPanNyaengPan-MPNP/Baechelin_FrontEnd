@@ -1,28 +1,22 @@
 import React from 'react';
 import { TextareaAutosize, TextareaAutosizeProps } from '@mui/material';
-import { Control, Controller, FieldValue } from 'react-hook-form';
+import { Controller, UseControllerProps } from 'react-hook-form';
 import styled from 'styled-components';
 
-export type TextAreaInputProps = {
-  name: string;
-  control: Control<FieldValue<any>> | undefined;
-} & TextareaAutosizeProps
+export type TextAreaInputProps = TextareaAutosizeProps & UseControllerProps;
 
 const TextAreaBox = styled.div`
   width: 100%;
 `;
 
-function TextAreaInput({
-                         control,
-                         name,
-                       }: TextAreaInputProps) {
+function TextAreaInput({ control, name }: TextAreaInputProps) {
   return (
     <TextAreaBox>
       <Controller
         render={({ field }) => (
           <TextareaAutosize
-            aria-label='empty textarea'
-            placeholder='Empty'
+            aria-label="empty textarea"
+            placeholder="Empty"
             style={{
               width: '100%',
               border: '1px solid #efefef',
@@ -31,10 +25,9 @@ function TextAreaInput({
           />
         )}
         control={control}
-        defaultValue=''
+        defaultValue=""
         name={name}
       />
-
     </TextAreaBox>
   );
 }

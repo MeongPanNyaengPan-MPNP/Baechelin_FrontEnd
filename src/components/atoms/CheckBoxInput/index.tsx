@@ -1,19 +1,18 @@
 import React from 'react';
-import { Control, Controller, FieldValue } from 'react-hook-form';
+import { Controller, UseControllerProps } from 'react-hook-form';
 import { Checkbox, CheckboxProps, FormControlLabel } from '@mui/material';
 import styled, { css } from 'styled-components';
 import { CheckBoxType } from '@interfaces/formTypes';
 
 export type StyledCheckBoxProps = {
   boxHidden?: boolean;
-}
+};
 export type CheckBoxInputProps = {
-  name: string;
   item: CheckBoxType;
   label?: string;
-  control: Control<FieldValue<any>> | undefined;
   [prop: string]: any;
-} & CheckboxProps;
+} & CheckboxProps &
+  UseControllerProps;
 
 const CheckBoxItem = styled(Checkbox)`
   ${(props) => {
@@ -26,7 +25,7 @@ const CheckBoxItem = styled(Checkbox)`
         left: -100000px;
       `;
     }
-  }};;
+  }}; ;
 `;
 const CheckBoxArea = styled.div<StyledCheckBoxProps>`
   display: inline-block;
@@ -49,18 +48,10 @@ const CheckBoxArea = styled.div<StyledCheckBoxProps>`
         }
       `;
     }
-  }
-  }
+  }}
 `;
 
-function CheckBoxInput({
-                         name,
-                         item,
-                         number,
-                         boxHidden = true,
-                         control,
-                       }: CheckBoxInputProps & StyledCheckBoxProps,
-) {
+function CheckBoxInput({ name, item, number, boxHidden = true, control }: CheckBoxInputProps & StyledCheckBoxProps) {
   return (
     <CheckBoxArea boxHidden={boxHidden}>
       <FormControlLabel
@@ -71,18 +62,12 @@ function CheckBoxInput({
             name={`${name}.${number}.checked`}
             control={control}
             defaultValue={false}
-            render={({ field }) => (
-              <CheckBoxItem
-                {...field}
-                hidden={boxHidden}
-              />
-            )}
+            render={({ field }) => <CheckBoxItem {...field} hidden={boxHidden} />}
           />
         }
       />
     </CheckBoxArea>
-  )
-    ;
+  );
 }
 
 export default CheckBoxInput;
