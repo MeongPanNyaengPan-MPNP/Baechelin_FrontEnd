@@ -7,7 +7,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import Main from '@pages/Main';
 import Login from '@pages/Login';
 import NotFound from '@pages/NotFound';
-import Oauth from '@pages/Oauth';
+import Oauth from '@pages/User/Oauth';
 import Header from '@organisms/Header';
 
 import GlobalStyle from './styles/GlobalStyle';
@@ -21,8 +21,9 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />
+
+        <Route path="login" element={<Login />} />
         <Route path="/user">
-          <Route path="login" element={<Login />} />
           <Route path="oauth/redirect" element={<Oauth />} />
           <Route path="bookmark" element={<Login />} />
         </Route>

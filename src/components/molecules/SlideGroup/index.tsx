@@ -1,44 +1,67 @@
-import React, { useRef } from 'react';
-
+import React, { ReactNode } from 'react';
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import Thumbnail from '@atoms/Thumbnail';
 import 'swiper/css';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Navigation, Scrollbar } from 'swiper';
+import 'swiper/css/pagination';
+import { Pagination } from 'swiper';
 
-// Import Swiper styles
+export interface SlideItemsType<T> {
+  viewLength?: number;
+  spaceBetween?: number;
+  paginationId?: string;
+  slideItems: T;
+  children: ReactNode;
+}
 
-function FullSlide() {
-  const dummy = ['1', '2', '3'];
-  const prevRef = useRef<HTMLButtonElement>(null);
-  const nextRef = useRef<HTMLButtonElement>(null);
-  SwiperCore.use([Navigation, Scrollbar]);
-  const swiperSet = {
-    navigation: {
-      prevEl: prevRef.current,
-      nextEl: nextRef.current,
-    },
-    slidesPerView: 1,
-    autoplay: { delay: 5000 },
-    /*
-    onBeforeInit: (swiper: SwiperCore) => {
-      swiper.params.navigation.prevEl = prevRef.current;
-      swiper.params.navigation.nextEl = nextRef.current;
-      swiper.navigation.update();
-    },
-    */
-  };
+export function SlideButtonNext({ children }: { children: any }) {
+  const swiper = useSwiper();
   return (
-    <>
-      <Swiper
-        {...swiperSet}
-      >
-        {
-          dummy.map((item) => <SwiperSlide key={item}>{item}</SwiperSlide>)
-        }
-      </Swiper>
-      <button type='button' ref={prevRef}>PREV</button>
-      <button type='button' ref={nextRef}>NEXT</button>
-    </>
+    <button type="button" onClick={() => swiper.slideNext()}>
+      {children}
+    </button>
   );
 }
 
-export default FullSlide;
+export function SlideButtonPrev({ children }: { children: any }) {
+  const swiper = useSwiper();
+  return (
+    <button type="button" onClick={() => swiper.slidePrev()}>
+      {children}
+    </button>
+  );
+}
+
+function SlideGroup<T extends { src: string; alt: string }[]>({
+  viewLength = 1,
+  spaceBetween = 0,
+  slideItems,
+  children,
+  paginationId,
+}: SlideItemsType<T>) {
+  return (
+    <div>
+      <Swiper
+        className="banner"
+        spaceBetween={spaceBetween}
+        slidesPerView={viewLength}
+        modules={[Pagination]}
+        pagination={{
+          clickable: true,
+          el: `#${paginationId}`,
+          type: 'bullets',
+        }}
+        autoplay={{ delay: 5000 }}
+        loop
+      >
+        {slideItems.map(({ alt, src }) => (
+          <SwiperSlide key={alt}>
+            <Thumbnail alt={alt} src={src} />
+          </SwiperSlide>
+        ))}
+        {children}
+      </Swiper>
+    </div>
+  );
+}
+
+export default SlideGroup;

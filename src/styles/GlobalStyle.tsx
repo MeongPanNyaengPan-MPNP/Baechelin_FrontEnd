@@ -16,6 +16,7 @@ const GlobalStyle: GlobalStyleComponent<any, any> = createGlobalStyle`
     font-family: 'Noto Sans KR', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background: #F4F4F4
   }
 
 `;

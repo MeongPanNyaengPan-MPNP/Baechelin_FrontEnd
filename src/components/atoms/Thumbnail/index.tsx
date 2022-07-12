@@ -1,11 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export interface ImgProps {
+export interface ThumbNailProps extends ImageProps {
   borderSize?: number;
   round?: number;
-  alt: string;
-  src: string | undefined;
   width?: string;
   height?: string;
   fit?: boolean;
@@ -13,7 +11,12 @@ export interface ImgProps {
   [prop: string]: any;
 }
 
-const StyledFigure = styled.figure<ImgProps>`
+export interface ImageProps {
+  alt: string;
+  src: string;
+}
+
+const StyledFigure = styled.figure<ThumbNailProps>`
   display: block;
   width: ${(props) => (props.width ? `${props.width}` : '100%')};
   height: ${(props) => (props.height ? `${props.height}` : 'auto')};
@@ -30,8 +33,8 @@ const StyledFigure = styled.figure<ImgProps>`
   }
 `;
 
-function Figure({ round = 0, borderSize = 0, alt = '', src, width, height, fit = true }: ImgProps) {
-  const figureProps = {
+function Figure({ round = 0, borderSize = 0, alt = '', src, width, height, fit = true }: ThumbNailProps) {
+  const props = {
     borderSize,
     round,
     width,
@@ -39,7 +42,7 @@ function Figure({ round = 0, borderSize = 0, alt = '', src, width, height, fit =
     fit,
   };
   return (
-    <StyledFigure {...figureProps}>
+    <StyledFigure {...props}>
       <img alt={alt} src={src} />
     </StyledFigure>
   );

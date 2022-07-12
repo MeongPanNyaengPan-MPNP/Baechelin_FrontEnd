@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-import Button, { ButtonTypes } from '@atoms/Button';
+import Button, { ButtonsProps } from '@atoms/Buttons';
 import styled from 'styled-components';
 
 interface ButtonGroupTypes {
