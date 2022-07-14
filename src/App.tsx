@@ -21,7 +21,6 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />
-
         <Route path="login" element={<Login />} />
         <Route path="/user">
           <Route path="oauth/redirect" element={<Oauth />} />

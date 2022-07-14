@@ -19,6 +19,7 @@ function ReviewForm() {
     formState: { errors },
   } = useForm<FieldValues>({
     mode: 'onChange',
+    reValidateMode: 'onBlur',
     resolver: yupResolver(validationSchema),
   });
 

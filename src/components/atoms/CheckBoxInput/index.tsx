@@ -1,5 +1,5 @@
 import React from 'react';
-import { Controller, UseControllerProps } from 'react-hook-form';
+import { Control, useController } from 'react-hook-form';
 import { Checkbox, CheckboxProps, FormControlLabel } from '@mui/material';
 import styled, { css } from 'styled-components';
 import { CheckBoxType } from '@interfaces/formTypes';
@@ -7,26 +7,15 @@ import { CheckBoxType } from '@interfaces/formTypes';
 export type StyledCheckBoxProps = {
   boxHidden?: boolean;
 };
-export type CheckBoxInputProps = {
+export type CheckBoxInputProps<T> = {
   item: CheckBoxType;
   label?: string;
+  changeEvent?: any;
+  control: Control<T>;
+  name: any;
   [prop: string]: any;
-} & CheckboxProps &
-  UseControllerProps;
+} & CheckboxProps;
 
-const CheckBoxItem = styled(Checkbox)`
-  ${(props) => {
-    if (props.hidden) {
-      return css`
-        visibility: hidden;
-        width: 0;
-        height: 0;
-        position: absolute;
-        left: -100000px;
-      `;
-    }
-  }}; ;
-`;
 const CheckBoxArea = styled.div<StyledCheckBoxProps>`
   display: inline-block;
   margin: 0 10px;
@@ -50,25 +39,43 @@ const CheckBoxArea = styled.div<StyledCheckBoxProps>`
     }
   }}
 `;
+const CheckBoxItem = styled(Checkbox)`
+  ${(props) => {
+    if (props.hidden) {
+      return css`
+        visibility: hidden;
+        width: 0;
+        height: 0;
+        position: absolute;
+        left: -100000px;
+      `;
+    }
+  }}; ;
+`;
 
-function CheckBoxInput({
-  name,
+function CheckBoxInput<T>({
   item,
-  number = 0,
   boxHidden = true,
   control,
-}: CheckBoxInputProps & StyledCheckBoxProps) {
+  changeEvent,
+  name,
+}: CheckBoxInputProps<T> & StyledCheckBoxProps) {
+  const {field: { onChange },} = useController({
+    control,
+    name,
+  });
+
   return (
     <CheckBoxArea boxHidden={boxHidden}>
       <FormControlLabel
         label={item.label}
         hidden={boxHidden}
         control={
-          <Controller
-            name={`${name}.${number}.checked`}
-            control={control}
-            defaultValue={false}
-            render={({ field }) => <CheckBoxItem {...field} hidden={boxHidden} />}
+          <CheckBoxItem
+            onChange={(event, checked) => {
+              onChange(checked ? item.label : checked);
+              changeEvent?.();
+            }}
           />
         }
       />

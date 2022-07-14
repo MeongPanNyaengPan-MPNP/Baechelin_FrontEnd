@@ -16,7 +16,43 @@ function Main() {
       src: '/img/banner/img_banner01.png',
     },
   ];
-  return <MainTemplates slideItems={mainVisualSlideItems} />;
+  const cateItems = [
+    {
+      label: 'cate1',
+      checked: false,
+    },
+    {
+      label: 'cate2',
+      checked: false,
+    },
+    {
+      label: 'cate3',
+      checked: false,
+    },
+  ];
+  const facilityItems = [
+    {
+      label: 'facility1',
+      checked: false,
+    },
+    {
+      label: 'facility2',
+      checked: false,
+    },
+    {
+      label: 'facility3',
+      checked: false,
+    },
+    {
+      label: 'facility4',
+      checked: false,
+    },
+    {
+      label: 'facility5',
+      checked: false,
+    },
+  ];
+  return <MainTemplates facilityItems={facilityItems} slideItems={mainVisualSlideItems} cateItems={cateItems} />;
 }
 
 export default Main;

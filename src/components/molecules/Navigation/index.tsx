@@ -3,11 +3,10 @@ import React, { ReactNode } from 'react';
 import Button, { ButtonsProps } from '@atoms/Buttons';
 import styled from 'styled-components';
 
-interface ButtonGroupTypes {
-  Buttons?: ButtonTypes[];
+export interface ButtonGroupTypes extends ButtonGroupProps {
+  Buttons?: ButtonsProps[];
   children: ReactNode;
 }
-
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
