@@ -1,20 +1,27 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-import ButtonGroup, { ButtonGroupProps } from '@mui/material/ButtonGroup';
 import Button, { ButtonsProps } from '@atoms/Buttons';
+import styled from 'styled-components';
 
 export interface ButtonGroupTypes extends ButtonGroupProps {
   Buttons?: ButtonsProps[];
+  children: ReactNode;
 }
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 31.2rem;
+`;
 
 function Navigation({ Buttons, children, ...props }: ButtonGroupTypes) {
   return (
-    <ButtonGroup {...props}>
+    <Container {...props}>
       {Buttons?.map((v) => (
         <Button {...v}>{v.children}</Button>
       ))}
       {children}
-    </ButtonGroup>
+    </Container>
   );
 }
 
