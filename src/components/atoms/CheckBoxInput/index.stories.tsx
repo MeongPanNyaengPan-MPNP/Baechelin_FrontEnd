@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story } from '@storybook/react';
 import CheckBoxInput, { CheckBoxInputProps } from '@atoms/CheckBoxInput/index';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 
 export default {
   title: 'Atoms/CheckBoxInput',
@@ -9,9 +9,9 @@ export default {
   argTypes: { textSize: { control: 'number' } },
 };
 
-const Template: Story<CheckBoxInputProps> = (args) => {
+const Template: Story<CheckBoxInputProps<any>> = (args) => {
   const { control } = useForm();
-  return <CheckBoxInput control={control} {...args} />;
+  return <CheckBoxInput<FieldValues> {...args} control={control} />;
 };
 
 const dummyData = {

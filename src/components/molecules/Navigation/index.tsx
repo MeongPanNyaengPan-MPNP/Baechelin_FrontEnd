@@ -3,7 +3,7 @@ import React from 'react';
 import ButtonGroup, { ButtonGroupProps } from '@mui/material/ButtonGroup';
 import Button, { ButtonsProps } from '@atoms/Buttons';
 
-interface ButtonGroupTypes extends ButtonGroupProps {
+export interface ButtonGroupTypes extends ButtonGroupProps {
   Buttons?: ButtonsProps[];
 }
 
