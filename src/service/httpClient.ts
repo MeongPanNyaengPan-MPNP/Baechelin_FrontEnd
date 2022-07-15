@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 
-const API_DEV = 'http://15.164.93.211/';
+const API_DEV = 'http://3.39.221.218:9000/';
 const baseURL = process.env.NODE_ENV === 'development' ? API_DEV : API_DEV;
 
 // 토큰 가져오기
@@ -29,6 +29,21 @@ Api.interceptors.request.use((config) => {
   }
   return config;
 });
+
+export const request = async <T = unknown>(config: AxiosRequestConfig): Promise<T> => {
+  try {
+    const { data } = await Api(config);
+
+    if (data.code === 200) {
+      return data.data;
+    }
+    throw new Error(data.code);
+  } catch (err: any) {
+    console.error(err);
+
+    throw new Error(err);
+  }
+};
 
 //
 
