@@ -7,6 +7,7 @@ import CardGroupSlide from '@organisms/CardGroupSlide';
 import Container from '@mui/material/Container';
 import { FacilityTypes, StoreBasicInfoTypes } from '@interfaces/StoreTypes';
 import Link from '@atoms/Link';
+import { UserLoctaionType } from '@interfaces/LocationTypes';
 import * as S from './styles';
 
 export type ArroundStoreType = FacilityTypes & StoreBasicInfoTypes;
@@ -16,9 +17,11 @@ export interface MainTemplateProps {
   cateItems: CheckBoxType[];
   facilityItems: CheckBoxType[];
   arroundStoreItems: Array<ArroundStoreType>;
+  userLocation: UserLoctaionType;
 }
 
-function MainTemplates({ slideItems, cateItems, facilityItems, arroundStoreItems }: MainTemplateProps) {
+function MainTemplates({ slideItems, cateItems, userLocation, facilityItems, arroundStoreItems }: MainTemplateProps) {
+  console.log('userLocation', userLocation);
   return (
     <S.Container>
       <MainVisualSlide slideItems={slideItems} />
@@ -27,15 +30,19 @@ function MainTemplates({ slideItems, cateItems, facilityItems, arroundStoreItems
       </S.StoreCategorySnbArea>
       <Container>
         <S.MainStoreListSection>
-          <Link to="/">배슐랭님 주변 밥집</Link>
-          <CardGroupSlide<ArroundStoreType> // 가까운순
-            cardItems={arroundStoreItems}
-            paginationId="arroundStorePagination"
-            slideId="arroundStore"
-            slidesPerView={4}
-            spaceBetween={40}
-            size="M"
-          />
+          {userLocation && (
+            <>
+              <Link to="/">배슐랭님 주변 밥집</Link>
+              <CardGroupSlide<ArroundStoreType> // 가까운순
+                cardItems={arroundStoreItems}
+                paginationId="arroundStorePagination"
+                slideId="arroundStore"
+                slidesPerView={4}
+                spaceBetween={40}
+                size="M"
+              />
+            </>
+          )}
         </S.MainStoreListSection>
         <S.MainStoreListSection>
           <Link to="/">별점이 높은 가게 </Link>

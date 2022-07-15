@@ -12,6 +12,7 @@ import Header from '@organisms/Header';
 
 import { ThemeProvider } from '@mui/material';
 
+import ReviewWrite from '@pages/ReviewWrite';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
 
@@ -33,6 +34,9 @@ function App() {
           <Route path="/store" element={<Main />}>
             <Route path="detail" />
             <Route path=":storeName" />
+          </Route>
+          <Route path="/review">
+            <Route path="write" element={<ReviewWrite />} />
           </Route>
           <Route path="/store/list" />
           <Route path="/map" />

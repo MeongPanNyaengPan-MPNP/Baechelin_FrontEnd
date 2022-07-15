@@ -146,7 +146,6 @@ function Main() {
     },
   ];
   const [userLocation, setUserLocation] = useRecoilState(locationAtom);
-  console.log('userLocation', userLocation);
 
   useEffect(() => {
     getPosition()
@@ -164,6 +163,7 @@ function Main() {
       arroundStoreItems={cardItems}
       slideItems={mainVisualSlideItems}
       cateItems={cateItems}
+      userLocation={userLocation}
     />
   );
 }
