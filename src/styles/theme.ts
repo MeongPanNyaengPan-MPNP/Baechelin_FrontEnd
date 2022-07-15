@@ -1,6 +1,17 @@
 import { createTheme } from '@mui/material';
 
+const customFontFamiliy = [
+  'Noto sans kr',
+  'Roboto',
+  '"Helvetica Neue"',
+  'Arial',
+  'sans-serif',
+  '"Apple Color Emoji"',
+  '"Segoe UI Emoji"',
+  '"Segoe UI Symbol"',
+].join(',');
 const theme = createTheme({
+  typography: { fontFamily: customFontFamiliy },
   breakpoints: {
     values: {
       xs: 0,
@@ -21,7 +32,6 @@ const theme = createTheme({
     },
     MuiContainer: { styleOverrides: { root: { width: 'inherit' } } },
   },
-  typography: { fontSize: 19.6 },
 });
 
 export default theme;

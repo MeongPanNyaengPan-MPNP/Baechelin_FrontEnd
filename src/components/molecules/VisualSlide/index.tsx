@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import Thumbnail, { ThumbNailProps } from '@atoms/Thumbnail';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -11,24 +11,6 @@ export interface SlideGroupProps {
   paginationId?: string;
   slideItems: ThumbNailProps[];
   children?: ReactNode;
-}
-
-export function SlideButtonNext({ children }: { children: any }) {
-  const swiper = useSwiper();
-  return (
-    <button type="button" onClick={() => swiper.slideNext()}>
-      {children}
-    </button>
-  );
-}
-
-export function SlideButtonPrev({ children }: { children: any }) {
-  const swiper = useSwiper();
-  return (
-    <button type="button" onClick={() => swiper.slidePrev()}>
-      {children}
-    </button>
-  );
 }
 
 function VisualSlide({ viewLength = 1, spaceBetween = 0, slideItems, children, paginationId }: SlideGroupProps) {

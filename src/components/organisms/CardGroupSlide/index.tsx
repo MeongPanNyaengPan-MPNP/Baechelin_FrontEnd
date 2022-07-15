@@ -2,47 +2,65 @@ import React, { ReactNode } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Pagination } from 'swiper';
-import StoreCard from '@molecules/StoreCard';
+import { Navigation, Pagination } from 'swiper';
+import StoreCard, { CardStylesProps } from '@molecules/StoreCard';
+import SlidePagination from '@atoms/SlidePagination';
+import SlideButtonsArea from '@molecules/SlideButtons';
+import * as S from './styles';
 
-export type CardGroupSlideProps<TNearStore> = {
-  viewLength?: number;
+export type CardGroupSlideProps<T> = {
+  slidesPerView?: number;
   spaceBetween?: number;
   paginationId?: string;
   children?: ReactNode;
-  cardItems: TNearStore[];
-};
+  cardItems: T[];
+  slideId: string;
+  hasNavigation?: boolean;
+} & CardStylesProps;
 
-function CardGroupSlide<TNearStore>({
-  viewLength = 1,
+function CardGroupSlide<T>({
+  slidesPerView = 4,
   spaceBetween = 0,
   cardItems,
   children,
   paginationId,
-}: CardGroupSlideProps<TNearStore>) {
+  slideId = 'slide',
+  size,
+  hasNavigation = true,
+}: CardGroupSlideProps<T>) {
+  const PrevButtonId = `${slideId}PrevButton`;
+  const NextButtonId = `${slideId}NextButton`;
   return (
-    <Swiper
-      className="banner"
-      height={420}
-      spaceBetween={spaceBetween}
-      slidesPerView={viewLength}
-      modules={[Pagination]}
-      pagination={{
-        clickable: true,
-        el: `#${paginationId}`,
-        type: 'bullets',
-      }}
-      autoplay={{ delay: 5000 }}
-      loop
-    >
-      {cardItems.map((cardItem, index) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <SwiperSlide key={index}>
-          <StoreCard cardItem={cardItem} />
-        </SwiperSlide>
-      ))}
-      {children}
-    </Swiper>
+    <S.CardSlideGroup id={slideId} paginationId={paginationId}>
+      <Swiper
+        className="banner"
+        height={420}
+        spaceBetween={spaceBetween}
+        slidesPerView={slidesPerView}
+        modules={[Pagination, Navigation]}
+        pagination={{
+          clickable: true,
+          el: `#${paginationId}`,
+          type: 'bullets',
+        }}
+        navigation={{
+          prevEl: `#${PrevButtonId}`,
+          nextEl: `#${NextButtonId}`,
+        }}
+        autoplay={{ delay: 5000 }}
+        loop={cardItems.length >= slidesPerView}
+      >
+        {cardItems.map((cardItem, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <SwiperSlide key={index}>
+            <StoreCard<T> {...cardItem} size={size} />
+          </SwiperSlide>
+        ))}
+        {children}
+        {paginationId && <SlidePagination paginationId={paginationId} />}
+      </Swiper>
+      {hasNavigation && <SlideButtonsArea hover prevId={PrevButtonId} nextId={NextButtonId} />}
+    </S.CardSlideGroup>
   );
 }
 

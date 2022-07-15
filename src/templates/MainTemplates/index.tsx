@@ -3,34 +3,63 @@ import React from 'react';
 import { ThumbNailProps } from '@atoms/Thumbnail';
 import { CheckBoxType } from '@interfaces/formTypes';
 import StoreCategorySnb from '@organisms/StoreCategorySnb';
-
 import CardGroupSlide from '@organisms/CardGroupSlide';
+import Container from '@mui/material/Container';
+import { FacilityTypes, StoreBasicInfoTypes } from '@interfaces/StoreTypes';
+import Link from '@atoms/Link';
 import * as S from './styles';
 
-export interface MainTemplateProps<TNearStore> {
+export type ArroundStoreType = FacilityTypes & StoreBasicInfoTypes;
+
+export interface MainTemplateProps {
   slideItems: ThumbNailProps[];
   cateItems: CheckBoxType[];
   facilityItems: CheckBoxType[];
-  NearStoreItems: TNearStore[];
+  arroundStoreItems: Array<ArroundStoreType>;
 }
 
-function MainTemplates<TNearStore>({
-  slideItems,
-  cateItems,
-  facilityItems,
-  NearStoreItems,
-}: MainTemplateProps<TNearStore>) {
+function MainTemplates({ slideItems, cateItems, facilityItems, arroundStoreItems }: MainTemplateProps) {
   return (
     <S.Container>
       <MainVisualSlide slideItems={slideItems} />
-      <StoreCategorySnb cateItems={cateItems} facilityItems={facilityItems} />
-
-      <CardGroupSlide<TNearStore> // 가까운순
-        cardItems={NearStoreItems}
-        paginationId="bestBookMark"
-        viewLength={3}
-        spaceBetween={40}
-      />
+      <S.StoreCategorySnbArea>
+        <StoreCategorySnb cateItems={cateItems} facilityItems={facilityItems} />
+      </S.StoreCategorySnbArea>
+      <Container>
+        <S.MainStoreListSection>
+          <Link to="/">배슐랭님 주변 밥집</Link>
+          <CardGroupSlide<ArroundStoreType> // 가까운순
+            cardItems={arroundStoreItems}
+            paginationId="arroundStorePagination"
+            slideId="arroundStore"
+            slidesPerView={4}
+            spaceBetween={40}
+            size="M"
+          />
+        </S.MainStoreListSection>
+        <S.MainStoreListSection>
+          <Link to="/">별점이 높은 가게 </Link>
+          <CardGroupSlide<ArroundStoreType> // 가까운순
+            cardItems={arroundStoreItems}
+            slideId="bestScore"
+            paginationId="bestScorePagination"
+            slidesPerView={3}
+            spaceBetween={40}
+            size="L"
+          />
+        </S.MainStoreListSection>
+        <S.MainStoreListSection>
+          <Link to="/">저장 많이한 가게</Link>
+          <CardGroupSlide<ArroundStoreType> // 가까운순
+            cardItems={arroundStoreItems}
+            slideId="bestBookMark"
+            paginationId="bestBookMarkPagination"
+            slidesPerView={4}
+            spaceBetween={40}
+            size="M"
+          />
+        </S.MainStoreListSection>
+      </Container>
     </S.Container>
   );
 }

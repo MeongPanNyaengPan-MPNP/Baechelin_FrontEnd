@@ -18,21 +18,35 @@ export type CheckBoxInputProps<T> = {
 
 const CheckBoxArea = styled.div<StyledCheckBoxProps>`
   display: inline-block;
-  margin: 0 10px;
+  margin-right: 15px;
+
   ${(props) => {
     if (props.boxHidden === true) {
       return css`
+        .MuiButtonBase-root {
+          visibility: hidden;
+          width: 0;
+          height: 0;
+          position: absolute;
+          left: -100000px;
+        }
+
         .MuiFormControlLabel-root {
           margin: 0;
 
           .MuiFormControlLabel-label {
-            padding: 7px 16px;
-            background: #efefef;
+            padding: 8px 21px;
+            background: #ed6f2a;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 500;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
           }
 
           .Mui-checked + .MuiFormControlLabel-label {
-            background: #999;
-            color: #fff;
+            background: #fff;
+            color: #ed6f2a;
           }
         }
       `;
@@ -40,17 +54,13 @@ const CheckBoxArea = styled.div<StyledCheckBoxProps>`
   }}
 `;
 const CheckBoxItem = styled(Checkbox)`
-  ${(props) => {
-    if (props.hidden) {
-      return css`
-        visibility: hidden;
-        width: 0;
-        height: 0;
-        position: absolute;
-        left: -100000px;
-      `;
-    }
-  }}; ;
+  .MuiButtonBase-root {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: -100000px;
+  }
 `;
 
 function CheckBoxInput<T>({
@@ -69,7 +79,6 @@ function CheckBoxInput<T>({
     <CheckBoxArea boxHidden={boxHidden}>
       <FormControlLabel
         label={item.label}
-        hidden={boxHidden}
         control={
           <CheckBoxItem
             onChange={(event, checked) => {

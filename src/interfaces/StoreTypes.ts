@@ -1,7 +1,7 @@
 export interface StoreBasicInfoTypes {
   storeId: 0;
-  category: string[];
   name: string;
+  category?: string;
   address?: string;
   storeImageUrl?: string;
   storeModifiedAt?: string;
@@ -10,9 +10,9 @@ export interface StoreBasicInfoTypes {
 }
 
 export interface FacilityTypes {
-  elevator?: string;
-  toilet?: string;
-  parking?: string;
-  heightDifferent?: string;
-  approach?: string;
+  elevator?: 'Y' | 'N';
+  toilet?: 'Y' | 'N';
+  parking?: 'Y' | 'N';
+  heightDifferent?: 'Y' | 'N';
+  approach?: 'Y' | 'N';
 }

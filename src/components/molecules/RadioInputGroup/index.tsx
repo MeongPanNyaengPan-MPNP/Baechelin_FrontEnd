@@ -15,12 +15,11 @@ export type RadioGroupProps<T> = {
   [prop: string]: any;
 } & UseControllerProps<T>;
 
-function Index<T>({ boxHidden = false, data, name, control, changeEvent, curValue = '' }: RadioGroupProps<T>) {
+function Index<T>({ boxHidden, data, name, control, changeEvent, curValue = '' }: RadioGroupProps<T>) {
   const {field: { onChange },} = useController({
     control,
     name,
   });
-  console.log(curValue);
   return (
     <S.RadioInputGroup defaultValue={curValue}>
       <div>
@@ -28,9 +27,9 @@ function Index<T>({ boxHidden = false, data, name, control, changeEvent, curValu
           <FormControlLabel
             key={item.label}
             label={item.label}
-            hidden={boxHidden}
             control={
               <RadioInput
+                boxhidden={boxHidden}
                 value={item.label}
                 onChange={(event, checked) => {
                   onChange(checked ? item.label : checked);
