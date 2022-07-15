@@ -23,3 +23,9 @@ export const StoreReviewsContainer = styled.div`
   flex-direction: column;
   padding-bottom: 20rem;
 `;
+
+export const StoreDetailMapWrapper = styled.div`
+  height: 100%;
+  width: 73.5rem;
+  background-color: royalblue;
+`;

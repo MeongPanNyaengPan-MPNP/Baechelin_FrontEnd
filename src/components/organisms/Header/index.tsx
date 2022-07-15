@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom';
 
 import LogoImg from '@assets/Logo.svg';
 import UserIcon from '@assets/UserIcon.svg';
+
 import Navigation from '@molecules/Navigation';
 import Button from '@atoms/Buttons';
 import SearchInput from '@atoms/SearchInput';
 import Logo from '@atoms/Logo';
+
 import * as S from './styles';
 
 function Header() {
