@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 
@@ -9,7 +9,9 @@ import * as S from './styles';
 
 function StoreDetail() {
   const { storeName } = useParams();
-
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   const { data } = useQuery(['getShopDetail'], () => getStoreDetail(Number(storeName)));
   console.log('storedata', data);
 

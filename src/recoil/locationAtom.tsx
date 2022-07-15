@@ -1,7 +1,10 @@
 import { atom } from 'recoil';
 import { UserLoctaionType } from '@interfaces/LocationTypes';
 
-export default atom<UserLoctaionType | null>({
+export default atom<UserLoctaionType>({
   key: 'locationAtom',
-  default: null,
+  default: {
+    lat: null,
+    lng: null,
+  },
 });

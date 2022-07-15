@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import CheckBoxGroup from '@molecules/CheckBoxGroup';
 import { useForm } from 'react-hook-form';
 import { CheckBoxType } from '@interfaces/formTypes';
 import RadioInputGroup from '@molecules/RadioInputGroup';
 import Container from '@mui/material/Container';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { SnbGetValues, SnbQueryString } from '@recoil/mainSnbAtom';
+import { useRecoilValue } from 'recoil';
+import { useMutation, useQueryClient } from 'react-query';
+import { getNearStore } from '@service/storeListApi';
+import locationAtom from '@recoil/locationAtom';
 import * as S from './styles';
 
 export interface TopFixedSnbProps {
@@ -19,48 +21,39 @@ export type FormValues = {
 };
 
 function StoreCategorySnb(props: TopFixedSnbProps) {
-  const {
-    facilityItems,
-    cateItems
-  } = props;
-  const setSnbQueryString = useSetRecoilState(SnbQueryString);
-  const [snbValues, setSnbValues] = useRecoilState(SnbGetValues);
+  const { facilityItems, cateItems } = props;
+  const UserLocationState = useRecoilValue(locationAtom);
+  const queryClient = useQueryClient();
   const defaultValue = {
-    CategorySnb: 'cate3',
-    FacilitySnb: [false, false, false, 'facility4', false],
+    CategorySnb: '',
+    FacilitySnb: [false, false, false, false, false],
   };
-  const {
-    control,
-    getValues
-  } = useForm<FormValues>({
+  const { control, getValues } = useForm<FormValues>({
     mode: 'onChange',
     defaultValues: defaultValue,
   });
+  const nearStoreMutation = useMutation((resQuery: string) => getNearStore(0, 12, UserLocationState, resQuery), {
+    onSuccess: () => {
+      queryClient.refetchQueries('nearStore');
+    },
+  });
 
-  const setFilter = () => {
+  const setFilterData = useCallback(() => {
     const curValues = getValues();
-    console.log('curValues', curValues);
-    console.log('snbValues', snbValues);
-    const atom = {
-      CategorySnb: curValues.CategorySnb,
-      FacilitySnb: curValues.FacilitySnb.map((item) => item),
-    };
+
     // queryString 만들기
-    const cateQueryString = `${curValues?.CategorySnb}`;
+    const cateQueryString = curValues?.CategorySnb ? `&category=${curValues?.CategorySnb}` : '';
     const facilityCheckState = curValues?.FacilitySnb.filter((item) => !!item).map((value) => `&facility=${value}`);
-    const res = `?category=${cateQueryString}${facilityCheckState.join('')}`;
-    // recoil에 저장
-    setSnbQueryString(res);
-    setSnbValues(atom);
-  };
+    const resQuery = `${cateQueryString}${facilityCheckState.join('')}`;
+    nearStoreMutation.mutate(resQuery);
+  }, [getValues, nearStoreMutation]);
   return (
     <S.SnbWrap>
       <S.CategoryArea>
         <Container maxWidth="lg">
           <RadioInputGroup<FormValues>
-            curValue={snbValues.CategorySnb}
             name="CategorySnb"
-            changeEvent={setFilter}
+            changeEvent={setFilterData}
             control={control}
             data={cateItems}
           />
@@ -70,10 +63,9 @@ function StoreCategorySnb(props: TopFixedSnbProps) {
         <Container>
           <CheckBoxGroup<FormValues>
             name="FacilitySnb"
-            changeEvent={setFilter}
+            changeEvent={setFilterData}
             control={control}
             data={facilityItems}
-
           />
         </Container>
       </S.FacilityArea>

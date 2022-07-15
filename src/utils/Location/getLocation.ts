@@ -20,11 +20,9 @@ export function getPosition() {
 
 export const parseUserLocation = () => {
   const key = process.env.REACT_APP_USER_LOCATION_KEY;
-  if (key) {
-    const userLocation = localStorage.getItem(key);
-    if (userLocation) {
-      return JSON.parse(userLocation);
-    }
+  const userLocation = localStorage.getItem(key);
+  if (userLocation) {
+    return JSON.parse(userLocation);
   }
   return null;
 };

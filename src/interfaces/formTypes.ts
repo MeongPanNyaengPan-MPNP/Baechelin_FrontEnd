@@ -9,6 +9,7 @@ export type FormValues = {
 
 export interface CheckBoxType {
   label: string | undefined;
+  key: string | undefined;
   checked: boolean | undefined;
 }
 

@@ -16,6 +16,7 @@ const Template: Story<CheckBoxInputProps<any>> = (args) => {
 
 const dummyData = {
   label: 'CheckBoxInput',
+  key: 'CheckBoxInputValue',
   checked: false,
 };
 export const Basic = Template.bind({});

@@ -37,6 +37,7 @@ function CardGroupSlide<T>({
         height={420}
         spaceBetween={spaceBetween}
         slidesPerView={slidesPerView}
+        slidesPerGroup={slidesPerView}
         modules={[Pagination, Navigation]}
         pagination={{
           clickable: true,
