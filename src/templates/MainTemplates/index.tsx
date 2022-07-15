@@ -4,19 +4,33 @@ import { ThumbNailProps } from '@atoms/Thumbnail';
 import { CheckBoxType } from '@interfaces/formTypes';
 import StoreCategorySnb from '@organisms/StoreCategorySnb';
 
+import CardGroupSlide from '@organisms/CardGroupSlide';
 import * as S from './styles';
 
-export interface MainProps {
+export interface MainTemplateProps<TNearStore> {
   slideItems: ThumbNailProps[];
   cateItems: CheckBoxType[];
   facilityItems: CheckBoxType[];
+  NearStoreItems: TNearStore[];
 }
 
-function MainTemplates({ slideItems, cateItems, facilityItems }: MainProps) {
+function MainTemplates<TNearStore>({
+  slideItems,
+  cateItems,
+  facilityItems,
+  NearStoreItems,
+}: MainTemplateProps<TNearStore>) {
   return (
     <S.Container>
       <MainVisualSlide slideItems={slideItems} />
       <StoreCategorySnb cateItems={cateItems} facilityItems={facilityItems} />
+
+      <CardGroupSlide<TNearStore> // 가까운순
+        cardItems={NearStoreItems}
+        paginationId="bestBookMark"
+        viewLength={3}
+        spaceBetween={40}
+      />
     </S.Container>
   );
 }

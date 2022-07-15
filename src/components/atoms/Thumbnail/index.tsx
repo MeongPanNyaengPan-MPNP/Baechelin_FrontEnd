@@ -12,8 +12,8 @@ export interface ThumbNailProps extends ImageProps {
 }
 
 export interface ImageProps {
-  alt: string;
-  src: string;
+  alt: string | undefined;
+  src: string | undefined;
 }
 
 const StyledFigure = styled.figure<ThumbNailProps>`
@@ -33,7 +33,7 @@ const StyledFigure = styled.figure<ThumbNailProps>`
   }
 `;
 
-function Figure({ round = 0, borderSize = 0, alt = '', src, width, height, fit = true }: ThumbNailProps) {
+function ThumbNail({ round = 0, borderSize = 0, alt = '', src, width, height, fit = true }: ThumbNailProps) {
   const props = {
     borderSize,
     round,
@@ -48,4 +48,4 @@ function Figure({ round = 0, borderSize = 0, alt = '', src, width, height, fit =
   );
 }
 
-export default Figure;
+export default ThumbNail;

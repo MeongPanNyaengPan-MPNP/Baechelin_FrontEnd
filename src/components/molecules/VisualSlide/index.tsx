@@ -1,15 +1,15 @@
 import React, { ReactNode } from 'react';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
-import Thumbnail from '@atoms/Thumbnail';
+import Thumbnail, { ThumbNailProps } from '@atoms/Thumbnail';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper';
 
-export interface SlideGroupProps<T> {
+export interface SlideGroupProps {
   viewLength?: number;
   spaceBetween?: number;
   paginationId?: string;
-  slideItems: T;
+  slideItems: ThumbNailProps[];
   children?: ReactNode;
 }
 
@@ -31,13 +31,7 @@ export function SlideButtonPrev({ children }: { children: any }) {
   );
 }
 
-function SlideGroup<T extends { src: string; alt: string }[]>({
-  viewLength = 1,
-  spaceBetween = 0,
-  slideItems,
-  children,
-  paginationId,
-}: SlideGroupProps<T>) {
+function VisualSlide({ viewLength = 1, spaceBetween = 0, slideItems, children, paginationId }: SlideGroupProps) {
   return (
     <Swiper
       className="banner"
@@ -63,4 +57,4 @@ function SlideGroup<T extends { src: string; alt: string }[]>({
   );
 }
 
-export default SlideGroup;
+export default VisualSlide;

@@ -1,5 +1,5 @@
 import React from 'react';
-import SlideGroup, { SlideButtonNext, SlideButtonPrev } from '@molecules/SlideGroup';
+import SlideGroup, { SlideButtonNext, SlideButtonPrev } from '@molecules/VisualSlide';
 import { ThumbNailProps } from '@atoms/Thumbnail';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
