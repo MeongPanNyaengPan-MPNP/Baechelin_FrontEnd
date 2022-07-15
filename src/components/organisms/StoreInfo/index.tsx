@@ -12,8 +12,8 @@ function StoreInfo({ storeName }: StoreInfoProps) {
   console.log('storeName', storeName);
   return (
     <S.Container>
-      <StoreInfoTitle />
-      <StoreInfoContent />
+      <StoreInfoTitle storeName={storeName} />
+      <StoreInfoContent storeName={storeName} />
       <StoreInfoPhotos />
     </S.Container>
   );

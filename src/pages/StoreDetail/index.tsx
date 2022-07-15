@@ -9,9 +9,17 @@ import * as S from './styles';
 
 function StoreDetail() {
   const { storeName } = useParams();
-
-  const { data } = useQuery(['getShopDetail'], () => getStoreDetail(Number(storeName)));
-  console.log('storedata', data);
+  const { data: storeDetailData }: any = useQuery(
+    ['getShopDetail', storeName],
+    () => getStoreDetail(Number(storeName)),
+    {
+      // eslint-disable-next-line object-curly-newline
+      staleTime: 5000,
+      cacheTime: Infinity,
+      enabled: !!storeName,
+    },
+  );
+  console.log('storedata', storeDetailData);
 
   return (
     <S.Container>
