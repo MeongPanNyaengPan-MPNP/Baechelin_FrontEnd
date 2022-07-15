@@ -21,6 +21,6 @@ const dummyData = {
 export const Basic = Template.bind({});
 Basic.args = {
   name: 'checkbox',
-  boxHidden: true,
+  boxhidden: true,
   item: dummyData,
 };

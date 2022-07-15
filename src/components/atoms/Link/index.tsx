@@ -6,7 +6,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 const StyledLink = styled(Link)<LinkItemProps>`
   flex: ${(props) => props.flex};
   align-items: center;
-  font-size: ${(props) => `${props.textSize}rem`};
+  font-size: ${(props) => `${props.textsize}rem`};
   font-weight: ${(props) => props.fontWeight};
   padding: ${(props) => (props.padding ? `${props.padding}` : '0')};
   display: inline-flex;
@@ -20,13 +20,13 @@ const StyledArwItem = styled.span<LinkItemProps>`
   margin-left: 0.1em;
 
   > svg {
-    font-size: ${(props) => (props.textSize ? `${props.textSize}rem` : '1.3em')};
+    font-size: ${(props) => (props.textsize ? `${props.textsize}rem` : '1.3em')};
     margin-top: 0.11em;
   }
 `;
 
 export type LinkItemProps = {
-  textSize?: number;
+  textsize?: number;
   fontWeight?: 'normal' | 'light' | 'bold';
   padding?: string;
   arwDisplay?: boolean;
@@ -34,7 +34,7 @@ export type LinkItemProps = {
 } & LinkProps;
 
 function LinkItem({
-  textSize = 2.4,
+  textsize = 2.4,
   to = '/',
   children,
   fontWeight = 'bold',
@@ -42,7 +42,7 @@ function LinkItem({
   ...rest
 }: LinkItemProps) {
   return (
-    <StyledLink textSize={textSize} fontWeight={fontWeight} to={to} {...rest}>
+    <StyledLink textsize={textsize} fontWeight={fontWeight} to={to} {...rest}>
       {children}
       <StyledArwItem arwDisplay={arwDisplay}>
         <ChevronRightIcon />

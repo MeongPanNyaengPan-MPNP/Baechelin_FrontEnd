@@ -1,23 +1,16 @@
 import React from 'react';
-import SlideGroup, { SlideButtonNext, SlideButtonPrev } from '@molecules/SlideGroup';
+import SlideGroup from '@molecules/VisualSlide';
 import { ThumbNailProps } from '@atoms/Thumbnail';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import SlideButtonsArea from '@molecules/SlideButtons';
 import * as S from './styles';
 
 function MainVisualSlide({ slideItems }: { slideItems: ThumbNailProps[] }) {
   return (
     <S.MainVisualSlideWrap>
-      <SlideGroup slideItems={slideItems} paginationId="pagination">
-        <S.ButtonArea>
-          <SlideButtonPrev>
-            <ArrowBackIosNewIcon />
-          </SlideButtonPrev>
-          <SlideButtonNext>
-            <ArrowForwardIosIcon />
-          </SlideButtonNext>
-        </S.ButtonArea>
-        <S.PaginationArea id="pagination" />
+      <SlideGroup slideItems={slideItems} paginationId="MainVisualPagination">
+        <SlideButtonsArea color="#FFF" nextIcon={<ArrowForwardIosIcon />} prevIcon={<ArrowBackIosNewIcon />} />
       </SlideGroup>
     </S.MainVisualSlideWrap>
   );

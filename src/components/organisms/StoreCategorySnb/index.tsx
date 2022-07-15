@@ -19,14 +19,20 @@ export type FormValues = {
 };
 
 function StoreCategorySnb(props: TopFixedSnbProps) {
-  const { facilityItems, cateItems } = props;
+  const {
+    facilityItems,
+    cateItems
+  } = props;
   const setSnbQueryString = useSetRecoilState(SnbQueryString);
   const [snbValues, setSnbValues] = useRecoilState(SnbGetValues);
   const defaultValue = {
     CategorySnb: 'cate3',
     FacilitySnb: [false, false, false, 'facility4', false],
   };
-  const { control, getValues } = useForm<FormValues>({
+  const {
+    control,
+    getValues
+  } = useForm<FormValues>({
     mode: 'onChange',
     defaultValues: defaultValue,
   });
@@ -67,6 +73,7 @@ function StoreCategorySnb(props: TopFixedSnbProps) {
             changeEvent={setFilter}
             control={control}
             data={facilityItems}
+
           />
         </Container>
       </S.FacilityArea>

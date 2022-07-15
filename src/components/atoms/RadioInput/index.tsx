@@ -1,10 +1,10 @@
 import React from 'react';
 import { CheckboxProps } from '@mui/material';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Radio from '@mui/material/Radio';
 
 export type StyledRadioProps = {
-  boxHidden?: boolean;
+  boxhidden?: boolean;
 };
 export type RadioInputProps = {
   [prop: string]: any;
@@ -12,26 +12,22 @@ export type RadioInputProps = {
 
 const RadioItem = styled(Radio)<StyledRadioProps>`
   display: inline-block;
-  margin: 0 10px;
-  ${(props) => {
-    if (props.boxHidden === true) {
-      return css`
-        .MuiFormControlLabel-root {
-          margin: 0;
+  padding: 10px 20px;
+  font-size: 1.6rem;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: -100000px;
 
-          .MuiFormControlLabel-label {
-            padding: 7px 16px;
-            background: #efefef;
-          }
+  & + .MuiFormControlLabel-label {
+    padding: 10px 20px;
+    font-size: 1.6rem;
+  }
 
-          .Mui-checked + .MuiFormControlLabel-label {
-            background: #999;
-            color: #fff;
-          }
-        }
-      `;
-    }
-  }}
+  &.Mui-checked + .MuiFormControlLabel-label {
+    font-weight: bold;
+  }
 `;
 
 function RadioInput({ ...props }: RadioInputProps) {

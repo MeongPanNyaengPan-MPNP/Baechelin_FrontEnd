@@ -15,15 +15,7 @@ export type CheckBoxGroupProps<T> = {
   name: string;
 } & UseControllerProps<T>;
 
-function CheckBoxGroup<T>({
-  boxHidden = false,
-  data,
-  errors,
-  changeEvent,
-  control,
-  name,
-  prevValue,
-}: CheckBoxGroupProps<T>) {
+function CheckBoxGroup<T>({ boxHidden, data, errors, changeEvent, control, name, prevValue }: CheckBoxGroupProps<T>) {
   return (
     <S.CheckBoxGroup>
       {data?.map((item, index) => (

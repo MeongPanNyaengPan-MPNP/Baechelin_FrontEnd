@@ -7,16 +7,19 @@ export interface SpanProps {
   textAlign?: 'left' | 'right' | 'center';
   width?: string;
   fontSize?: number | string;
-  fontWeight?: string | number;
+  fontWeight?: string | number | 'bold' | 'normal';
   size?: string;
   blockWidth?: boolean;
   className?: string;
   del?: boolean;
-  [prop: string]: any;
   onClick?: (e: React.MouseEvent<HTMLSpanElement>) => void;
+  display?: string;
+
+  [prop: string]: any;
 }
 
 const StyledSpan = styled.span<SpanProps>`
+  display: ${(props) => props.display || 'inline'};
   color: ${(props: SpanProps) => props.color || 'black'};
   text-align: ${(props: SpanProps) => props.textAlign};
   width: ${(props) => (props.blockWidth ? '100%' : props.width)};
@@ -24,6 +27,7 @@ const StyledSpan = styled.span<SpanProps>`
   word-break: break-all;
   font-size: ${(props) => props.fontSize};
   font-weight: ${(props) => props.fontWeight};
+  line-height: 1;
 
   &.del {
     text-decoration: line-through;
@@ -60,15 +64,17 @@ const Span = ({
   className,
   blockWidth = false,
   onClick,
+  display,
 }: SpanProps) => {
   const needProps = {
     color,
     textAlign,
     width,
     fontSize,
-    fontWeight,
     size,
     blockWidth,
+    fontWeight,
+    display,
   };
 
   return (

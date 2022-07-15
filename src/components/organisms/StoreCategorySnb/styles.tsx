@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const SnbWrap = styled.div`
   position: relative;
   width: 100%;
+  margin-bottom: 45px;
 `;
 
 export const CategoryArea = styled.div`
@@ -10,6 +11,7 @@ export const CategoryArea = styled.div`
 `;
 export const FacilityArea = styled.div`
   width: 100%;
+  margin-top: 20px;
 `;
 export const Inner = styled.div`
   width: 100%;
