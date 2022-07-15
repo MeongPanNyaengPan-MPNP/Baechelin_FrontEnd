@@ -34,10 +34,7 @@ export const request = async <T = unknown>(config: AxiosRequestConfig): Promise<
   try {
     const { data } = await Api(config);
 
-    if (data.code === 200) {
-      return data.data;
-    }
-    throw new Error(data.code);
+    return data;
   } catch (err: any) {
     console.error(err);
 
