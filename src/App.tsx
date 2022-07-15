@@ -9,6 +9,8 @@ import Login from '@pages/Login';
 import NotFound from '@pages/NotFound';
 import Oauth from '@pages/User/Oauth';
 import Header from '@organisms/Header';
+import StoreDetail from '@pages/StoreDetail';
+import Search from '@pages/Search';
 
 import { ThemeProvider } from '@mui/material';
 
@@ -33,8 +35,9 @@ function App() {
           </Route>
           <Route path="/store" element={<Main />}>
             <Route path="detail" />
-            <Route path=":storeName" />
+            <Route path=":storeName" element={<StoreDetail />}/>
           </Route>
+          <Route path="/search/:keyword" element={<Search />} />
           <Route path="/review">
             <Route path="write" element={<ReviewWrite />} />
           </Route>
