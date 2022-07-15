@@ -5,6 +5,7 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import { useNavigate } from 'react-router-dom';
 
 export interface SearchInputProps<OptionType> {
   disableCloseOnSelect?: boolean;
@@ -27,10 +28,11 @@ const StyledSearchInput = styled(Autocomplete)`
 `;
 
 function SearchInput({ width, margin, ...props }: SearchInputProps<any>) {
+  const navigate = useNavigate();
   const { control, handleSubmit } = useForm<IFormInput>();
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
+    navigate(`search/${data.inputValue}`);
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -39,7 +41,8 @@ function SearchInput({ width, margin, ...props }: SearchInputProps<any>) {
         multiple={false}
         id="free-solo-2-demo"
         disableClearable
-        options={['option']}
+        // 자동검색
+        options={[]}
         renderInput={(params) => (
           <Controller
             name="inputValue"

@@ -9,6 +9,8 @@ import Login from '@pages/Login';
 import NotFound from '@pages/NotFound';
 import Oauth from '@pages/User/Oauth';
 import Header from '@organisms/Header';
+import StoreDetail from '@pages/StoreDetail';
+import Search from '@pages/Search';
 
 import GlobalStyle from './styles/GlobalStyle';
 
@@ -26,10 +28,10 @@ function App() {
           <Route path="oauth/redirect" element={<Oauth />} />
           <Route path="bookmark" element={<Login />} />
         </Route>
-        <Route path="/store" element={<Main />}>
-          <Route path="detail" />
-          <Route path=":storeName" />
+        <Route path="/store">
+          <Route path=":storeName" element={<StoreDetail />} />
         </Route>
+        <Route path="/search/:keyword" element={<Search />} />
         <Route path="/store/list" />
         <Route path="/map" />
         <Route path="*" element={<NotFound />} />
