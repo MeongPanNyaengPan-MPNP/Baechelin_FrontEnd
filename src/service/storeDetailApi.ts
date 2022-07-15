@@ -5,7 +5,6 @@ import Api from './httpClient';
 export const request = async <T = unknown>(config: AxiosRequestConfig): Promise<T> => {
   try {
     const { data } = await Api(config);
-
     if (data.code === 200) {
       return data.data;
     }
@@ -17,4 +16,8 @@ export const request = async <T = unknown>(config: AxiosRequestConfig): Promise<
   }
 };
 
-export const getStoreDetail = (storeId: number) => request({ method: 'GET', url: `/store/detail/${storeId}` });
+export const getStoreDetail = (storeId: number) =>
+  request({
+    method: 'GET',
+    url: `/store/detail/${storeId}`,
+  });

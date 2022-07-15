@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import MainTemplates from '@templates/MainTemplates';
 import { FacilityTypes, StoreBasicInfoTypes } from '@interfaces/StoreTypes';
-import { getPosition } from '@utils/Location/getLocation';
+import { getPosition, parseUserLocation } from '@utils/Location/getLocation';
 import locationAtom from '@recoil/locationAtom';
 import { useRecoilState } from 'recoil';
 
@@ -145,25 +145,22 @@ function Main() {
       approach: 'N',
     },
   ];
-  const [userLocation, setUserLocation] = useRecoilState(locationAtom);
+  const [userLocationState, setUserLocationState] = useRecoilState(locationAtom);
 
+  // 사용자 위치정보 얻기
   useEffect(() => {
-    getPosition()
-      .then((res) => {
-        setUserLocation(res);
-      })
-      .catch((error) => {
-        alert('위치 정보를 알 수 없습니다');
-        console.log(error);
-      });
-  }, [setUserLocation]);
+    getPosition();
+    const userLocation = parseUserLocation();
+    setUserLocationState(userLocation);
+  }, [setUserLocationState]);
+
   return (
     <MainTemplates
       facilityItems={facilityItems}
       arroundStoreItems={cardItems}
       slideItems={mainVisualSlideItems}
       cateItems={cateItems}
-      userLocation={userLocation}
+      userLocation={userLocationState}
     />
   );
 }

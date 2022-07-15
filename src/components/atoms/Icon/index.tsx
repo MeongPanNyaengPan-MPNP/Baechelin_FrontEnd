@@ -10,9 +10,24 @@ export interface IconProps {
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-function Icon({ iconName, color = 'black', size = '1.6rem', margin, onClick, cursor = 'null' }: IconProps): JSX.Element {
+function Icon({
+  iconName,
+  color = 'black',
+  size = '1.6rem',
+  margin,
+  onClick,
+  cursor = 'null',
+}: IconProps): JSX.Element {
   return (
-    <MuiIcon sx={{ color }} style={{ fontSize: size, cursor, margin }} onClick={onClick}>
+    <MuiIcon
+      sx={{ color }}
+      style={{
+        fontSize: size,
+        cursor,
+        margin,
+      }}
+      onClick={onClick}
+    >
       {iconName}
     </MuiIcon>
   );

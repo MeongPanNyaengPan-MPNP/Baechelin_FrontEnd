@@ -14,6 +14,8 @@ function Oauth() {
   // @ts-ignore
   console.log('refresh', refreshToken);
 
+
+  // TODO : 아직 토큰 테스트 중으로 하단 useEffect로 감싸야함
   const Api = axios.create({
     headers: { 'Access-Control-Allow-Origin': 'http://15.164.93.211' },
     timeout: 10000,

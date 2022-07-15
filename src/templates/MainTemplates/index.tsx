@@ -8,6 +8,8 @@ import Container from '@mui/material/Container';
 import { FacilityTypes, StoreBasicInfoTypes } from '@interfaces/StoreTypes';
 import Link from '@atoms/Link';
 import { UserLoctaionType } from '@interfaces/LocationTypes';
+import NoDataMessage from '@molecules/NodataMessage';
+import GetPositionButton from '@molecules/GetPositionButton';
 import * as S from './styles';
 
 export type ArroundStoreType = FacilityTypes & StoreBasicInfoTypes;
@@ -17,10 +19,10 @@ export interface MainTemplateProps {
   cateItems: CheckBoxType[];
   facilityItems: CheckBoxType[];
   arroundStoreItems: Array<ArroundStoreType>;
-  userLocation: UserLoctaionType;
+  userLocation: UserLoctaionType | null;
 }
 
-function MainTemplates({ slideItems, cateItems, userLocation, facilityItems, arroundStoreItems }: MainTemplateProps) {
+function MainTemplates({ slideItems, cateItems, facilityItems, userLocation, arroundStoreItems }: MainTemplateProps) {
   console.log('userLocation', userLocation);
   return (
     <S.Container>
@@ -30,7 +32,7 @@ function MainTemplates({ slideItems, cateItems, userLocation, facilityItems, arr
       </S.StoreCategorySnbArea>
       <Container>
         <S.MainStoreListSection>
-          {userLocation && (
+          {userLocation !== null ? (
             <>
               <Link to="/">배슐랭님 주변 밥집</Link>
               <CardGroupSlide<ArroundStoreType> // 가까운순
@@ -42,6 +44,11 @@ function MainTemplates({ slideItems, cateItems, userLocation, facilityItems, arr
                 size="M"
               />
             </>
+          ) : (
+            <NoDataMessage
+              message={['사용자의 위치정보가 없습니다.', '위치정보를 설정하시면 내 주변의 맛집을 찾을 수 있습니다.']}
+              buttonChildren={<GetPositionButton />}
+            />
           )}
         </S.MainStoreListSection>
         <S.MainStoreListSection>
