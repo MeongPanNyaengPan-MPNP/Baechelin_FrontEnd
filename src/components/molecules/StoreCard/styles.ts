@@ -11,12 +11,22 @@ export const CardContentAreaTop = styled.div``;
 export const StoreNameArea = styled.div`
   display: flex;
   align-items: center;
+
+  span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+`;
+export const CardContentAddressArea = styled.div`
+  margin-top: 15px;
 `;
 export const CardContentAddress = styled.div`
   font-size: 1.2rem;
   display: flex;
   align-items: center;
-  margin-top: 15px;
+
+  margin-top: 5px;
 
   span {
     padding-right: 5px;
@@ -44,6 +54,7 @@ export const CardContentFacilityArea = styled.div`
 `;
 export const CardItem = styled.article<CardStylesProps>`
   background: #fff;
+  cursor: pointer;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   ${(props) => {
     if (props.size === 'M') {

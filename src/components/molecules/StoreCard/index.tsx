@@ -4,20 +4,25 @@ import Span from '@atoms/Span';
 import Star from '@atoms/Star';
 import Icon from '@atoms/Icon';
 import Badge from '@atoms/Badge';
-import { FacilityTypes, StoreBasicInfoTypes } from '@interfaces/StoreTypes';
+import { StoreBasicInfoTypes } from '@interfaces/StoreTypes';
+import { useNavigate } from 'react-router-dom';
 import * as S from './styles';
 
 export type CardStylesProps = {
   size?: 'M' | 'L';
 };
 
-function StoreCard<T extends Partial<StoreBasicInfoTypes> & Partial<FacilityTypes>>(props: T & CardStylesProps) {
+function StoreCard<T extends Partial<StoreBasicInfoTypes>>(props: T & CardStylesProps) {
+  const noImage = '/img/ui/no_picture.svg';
+  const navigate = useNavigate();
   const {
+    storeId,
     size,
     name,
     address,
     category,
-    storeImageUrl,
+    phoneNumber,
+    storeImgList = noImage,
     pointAvg,
     elevator,
     toilet,
@@ -26,9 +31,13 @@ function StoreCard<T extends Partial<StoreBasicInfoTypes> & Partial<FacilityType
     heightDifferent,
   } = props;
   return (
-    <S.CardItem size={size}>
+    <S.CardItem size={size} onClick={() => navigate(`/store/${storeId}`)}>
       <S.CardFigureArea>
-        <ThumbNail alt={name} src={storeImageUrl} height="100%" />
+        {storeImgList.length < 1 ? (
+          <ThumbNail alt={name} src={noImage} height="100%" />
+        ) : (
+          <ThumbNail alt={name} src={storeImgList[0]} height="100%" />
+        )}
       </S.CardFigureArea>
       <S.CardContentArea>
         <S.CardContentAreaTop>
@@ -49,12 +58,20 @@ function StoreCard<T extends Partial<StoreBasicInfoTypes> & Partial<FacilityType
         </S.CardContentAreaTop>
         {size === 'M' && ( // 카드 스타일 구분, m일땐 하단에 주소, 뱃지 노출됨
           <>
-            <S.CardContentAddress>
-              <Icon iconName="location_on" />
-              <Span fontSize="1.2rem" display="block">
-                {address}
-              </Span>
-            </S.CardContentAddress>
+            <S.CardContentAddressArea>
+              <S.CardContentAddress>
+                <Icon iconName="location_on" />
+                <Span fontSize="1.2rem" display="block">
+                  {address}
+                </Span>
+              </S.CardContentAddress>
+              <S.CardContentAddress>
+                <Icon iconName="call" />
+                <Span fontSize="1.2rem" display="block">
+                  {phoneNumber}
+                </Span>
+              </S.CardContentAddress>
+            </S.CardContentAddressArea>
             <S.CardContentFacilityArea>
               <Badge name="elevator" state={elevator} />
               <Badge name="height" state={heightDifferent} />

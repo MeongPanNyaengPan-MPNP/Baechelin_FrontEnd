@@ -82,7 +82,7 @@ function CheckBoxInput<T>({
         control={
           <CheckBoxItem
             onChange={(event, checked) => {
-              onChange(checked ? item.label : checked);
+              onChange(checked ? item.key : checked);
               changeEvent?.();
             }}
           />

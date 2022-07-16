@@ -14,6 +14,8 @@ export interface StyledButtonProps {
   round?: string;
   fontSize?: string;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  align?: string;
+  display?: string;
 
   [prop: string]: any;
 }
@@ -26,9 +28,8 @@ export interface ButtonsProps extends StyledButtonProps {
 
 const Button = styled.button<StyledButtonProps>`
   flex: ${(props) => props.flex};
-  display: flex;
+  display: ${(props) => props.display || 'inline-block'};
   justify-content: center;
-  align-items: stretch;
   font-size: ${(props) => (props.fontSize ? props.fontSize : `1.4rem`)};
   border-radius: ${(props) => (props.round ? props.round : `0`)};
   border: ${(props) => (props.border === 'none' ? 'none' : `1px solid ${props.border}`)};
@@ -69,8 +70,10 @@ function Buttons({
   transparent = false,
   size = 'medium',
   type = 'button',
+  align,
   round,
   onClick,
+  display,
   fontSize,
   id,
   ...props
@@ -82,9 +85,12 @@ function Buttons({
     border,
     bgColor,
     transparent,
+
+    display,
     fontSize,
     type,
     round,
+    align,
   };
 
   return (

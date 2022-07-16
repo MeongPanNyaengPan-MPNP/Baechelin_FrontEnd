@@ -9,6 +9,9 @@ import * as S from './styles';
 
 function StoreDetail() {
   const { storeName } = useParams();
+  React.useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   const { data: storeDetailData }: any = useQuery(
     ['getShopDetail', storeName],
     () => getStoreDetail(Number(storeName)),

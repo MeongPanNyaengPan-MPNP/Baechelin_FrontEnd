@@ -8,6 +8,7 @@ import SelectBox from '@atoms/SelectBox';
 import TextAreaInput from '@atoms/TextAreaInput';
 import AddImage from '@molecules/AddImage';
 import CheckBoxGroup from '@molecules/CheckBoxGroup';
+import { facilityItems } from '@utils/DefaultData/defaultCategory';
 
 function ReviewForm() {
   const validationSchema = Yup.object().shape({ checkbox: Yup.bool().oneOf([true], 'Accept Terms is required') });
@@ -26,20 +27,7 @@ function ReviewForm() {
   const onSubmit = (data: FieldValues) => {
     console.log('data', data);
   };
-  const checkBoxDummyData = [
-    {
-      label: '시설정보1',
-      checked: false,
-    },
-    {
-      label: '시설정보2',
-      checked: false,
-    },
-    {
-      label: '시설정보3',
-      checked: false,
-    },
-  ];
+
   const SelectBoxDummyData = [
     {
       value: 10,
@@ -57,7 +45,7 @@ function ReviewForm() {
   return (
     <Container maxWidth="sm">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <CheckBoxGroup control={control} data={checkBoxDummyData} name="facility" />
+        <CheckBoxGroup control={control} data={facilityItems} name="facility" />
         <TextInput name="test" control={control} errors={errors} />
         <SelectBox name="selectBox" label="selectBox" control={control} data={SelectBoxDummyData} />
         <TextAreaInput name="textarea" control={control} />

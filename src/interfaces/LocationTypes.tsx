@@ -1,4 +1,4 @@
 export type UserLoctaionType = {
-  lat: number;
-  lng: number;
+  lat: number | null;
+  lng: number | null;
 };

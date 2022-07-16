@@ -32,7 +32,7 @@ function Index<T>({ boxHidden, data, name, control, changeEvent, curValue = '' }
                 boxhidden={boxHidden}
                 value={item.label}
                 onChange={(event, checked) => {
-                  onChange(checked ? item.label : checked);
+                  onChange(checked ? item.key : checked);
                   changeEvent?.();
                 }}
               />

@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
-const API_DEV = 'http://3.39.221.218:9000/';
+const API_DEV = process.env.REACT_APP_DEV_SERVER;
 const baseURL = process.env.NODE_ENV === 'development' ? API_DEV : API_DEV;
 
 // 토큰 가져오기
@@ -16,7 +16,7 @@ const getToken = (tokenName: string) => {
 };
 
 const Api = axios.create({
-  headers: { 'Access-Control-Allow-Origin': 'http://15.164.93.211' },
+  headers: { 'Access-Control-Allow-Origin': process.env.PUBLIC_URL },
   timeout: 10000,
   baseURL: `${baseURL}`,
   withCredentials: true,
@@ -30,10 +30,9 @@ Api.interceptors.request.use((config) => {
   return config;
 });
 
-export const request = async <T = unknown>(config: AxiosRequestConfig): Promise<T> => {
+export const request = async <T>(config: AxiosRequestConfig): Promise<T> => {
   try {
     const { data } = await Api(config);
-
     return data;
   } catch (err: any) {
     console.error(err);

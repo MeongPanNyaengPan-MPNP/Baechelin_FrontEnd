@@ -19,7 +19,15 @@ function Icon({
   cursor = 'null',
 }: IconProps): JSX.Element {
   return (
-    <MuiIcon sx={{ color }} style={{ fontSize: size, cursor, margin }} onClick={onClick}>
+    <MuiIcon
+      sx={{ color }}
+      style={{
+        fontSize: size,
+        cursor,
+        margin,
+      }}
+      onClick={onClick}
+    >
       {iconName}
     </MuiIcon>
   );

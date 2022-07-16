@@ -3,13 +3,12 @@ export interface StoreBasicInfoTypes {
   name: string;
   category?: string;
   address?: string;
-  storeImageUrl?: string;
+  phoneNumber: string;
+  storeImgList?: string[];
   storeModifiedAt?: string;
   pointAvg?: number;
-  bookmark?: string;
-}
-
-export interface FacilityTypes {
+  bookmark?: boolean;
+  bookmarkCount?: number;
   elevator?: 'Y' | 'N';
   toilet?: 'Y' | 'N';
   parking?: 'Y' | 'N';
