@@ -17,6 +17,7 @@ export interface MainTemplateProps {
   facilityItems: CheckBoxType[];
   arroundStoreItems: StoreBasicInfoTypes[] | undefined;
   userLocationState: UserLoctaionType;
+  refetch: any;
 }
 
 function MainTemplates({
@@ -25,12 +26,13 @@ function MainTemplates({
   facilityItems,
   arroundStoreItems,
   userLocationState,
+  refetch,
 }: MainTemplateProps) {
   return (
     <S.Wrapper>
       <MainVisualSlide slideItems={slideItems} />
       <S.StoreCategorySnbArea>
-        <StoreCategorySnb cateItems={cateItems} facilityItems={facilityItems} />
+        <StoreCategorySnb refetch={refetch} cateItems={cateItems} facilityItems={facilityItems} />
       </S.StoreCategorySnbArea>
       <S.MainStoreListSection>
         {userLocationState !== null && arroundStoreItems !== undefined ? (

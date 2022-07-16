@@ -2,11 +2,13 @@ import React, { useEffect } from 'react';
 import MainTemplates from '@templates/MainTemplates';
 import { getPosition, parseUserLocation } from '@utils/Location/getLocation';
 import locationAtom from '@recoil/locationAtom';
-import { useRecoilState } from 'recoil';
+
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { useQuery } from 'react-query';
 import { getNearStore } from '@service/storeListApi';
 
 import { cateItems, facilityItems } from '@utils/DefaultData/defaultCategory';
+import { SnbQueryString } from '@recoil/mainSnbAtom';
 
 function Main() {
   const mainVisualSlideItems = [
@@ -19,17 +21,20 @@ function Main() {
 
   const [userLocationState, setUserLocationState] = useRecoilState(locationAtom);
 
-  const { data } = useQuery('nearStore', () => getNearStore(0, 12, userLocationState), {
+  const SnbRecoilQuery = useRecoilValue(SnbQueryString);
+
+  const [recoilSnbQuery, setRecoilSnbQuery] = useRecoilState<string>(SnbQueryString);
+  const { data, refetch } = useQuery('nearStore', () => getNearStore(0, 12, userLocationState, SnbRecoilQuery), {
     staleTime: Infinity,
     cacheTime: Infinity,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     retry: 0,
-    onSuccess: () => {
-      console.log('query success');
-    },
     onError: (e) => {
       console.log(e);
+    },
+    onSuccess: () => {
+      console.log('data', data);
     },
   });
 
@@ -46,6 +51,7 @@ function Main() {
       arroundStoreItems={data?.data.cards}
       slideItems={mainVisualSlideItems}
       cateItems={cateItems}
+      refetch={refetch}
       userLocationState={userLocationState}
     />
   );
