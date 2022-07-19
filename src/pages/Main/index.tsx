@@ -1,12 +1,11 @@
 import React from 'react';
 import MainTemplates from '@templates/MainTemplates';
-
 import { useRecoilValue } from 'recoil';
-import { useQuery } from 'react-query';
-import { getNearStore } from '@service/storeListApi';
 import { SnbQueryString } from '@recoil/mainSnbAtom';
 import { STORE_FILTERS, STORELIST } from '@constants/index';
 import { StoreResponseTypes } from '@interfaces/StoreResponseTypes';
+import { useQueryAtLocation } from '@hooks/UseQueryAtLocation';
+import { UserLoctaionType } from '@interfaces/LocationTypes';
 import UseGeolocation from '@hooks/UseGeolocation';
 
 type ArroundQueryTypes = {
@@ -22,39 +21,108 @@ function Main() {
     },
   ];
   const SnbRecoilQuery = useRecoilValue(SnbQueryString);
+  const [userLocation, setUserLocation] = React.useState<UserLoctaionType | undefined>();
+  const reviewDummyData = [
+    {
+      name: '가게이름',
+      point: 4.5,
+      userName: '유저이름',
+      content: '리뷰내용',
+      reviewImageUrlList: ['/'],
+      // tagList: ['bKiosk', 'bWheelchair', 'bHelp', 'fDelicious', 'fClean'],
+      reviewId: 30,
+      storeId: 2092390,
+      userId: 291391,
+      address: '주소',
+    },
+    {
+      name: '가게이름',
+      point: 4.5,
+      userName: '유저이름',
+      content: '리뷰내용',
+      reviewImageUrlList: ['/'],
+      // tagList: ['bKiosk', 'bWheelchair', 'bHelp', 'fDelicious', 'fClean'],
+      reviewId: 30,
+      storeId: 2092390,
+      userId: 291391,
+      address: '주소',
+    },
+    {
+      name: '가게이름',
+      point: 4.5,
+      userName: '유저이름',
+      content: '리뷰내용',
+      reviewImageUrlList: ['/'],
+      // tagList: ['bKiosk', 'bWheelchair', 'bHelp', 'fDelicious', 'fClean'],
+      reviewId: 30,
+      storeId: 2092390,
+      userId: 291391,
+      address: '주소',
+    },
+    {
+      name: '가게이름',
+      point: 4.5,
+      userName: '유저이름',
+      content: '리뷰내용',
+      reviewImageUrlList: ['/'],
+      // tagList: ['bKiosk', 'bWheelchair', 'bHelp', 'fDelicious', 'fClean'],
+      reviewId: 30,
+      storeId: 2092390,
+      userId: 291391,
+      address: '주소',
+    },
+    {
+      name: '가게이름',
+      point: 4.5,
+      userName: '유저이름',
+      content: '리뷰내용',
+      reviewImageUrlList: ['/'],
+      // tagList: ['bKiosk', 'bWheelchair', 'bHelp', 'fDelicious', 'fClean'],
+      reviewId: 30,
+      storeId: 2092390,
+      userId: 291391,
+      address: '주소',
+    },
+    {
+      name: '가게이름',
+      point: 4.5,
+      userName: '유저이름',
+      content: '리뷰내용',
+      reviewImageUrlList: ['/'],
+      // tagList: ['bKiosk', 'bWheelchair', 'bHelp', 'fDelicious', 'fClean'],
+      reviewId: 30,
+      storeId: 2092390,
+      userId: 291391,
+      address: '주소',
+    },
+  ];
+
   const { currentLocation } = UseGeolocation();
 
+  const { useArroundStoreList } = useQueryAtLocation<ArroundQueryTypes>(currentLocation);
   const {
     data: arroundStoreData,
-    refetch,
-    isSuccess,
-  } = useQuery<ArroundQueryTypes>(
-    [STORELIST.NEARSTORE, SnbRecoilQuery],
-    () => getNearStore(currentLocation, SnbRecoilQuery),
-    {
-      staleTime: Infinity,
-      cacheTime: Infinity,
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-      retry: 0,
-      onSuccess: () => {
-        console.log('cards', arroundStoreData);
-      },
-      onError: (e) => {
-        console.log(e);
-      },
-    },
-  );
+    isSuccess: arroundStoreSuccess,
+    refetch: ArroundRefetch,
+  } = useArroundStoreList(STORELIST.ARROUNDSTORE, SnbRecoilQuery);
+  // 위치 useState
+  React.useEffect(() => {
+    (async function() {
+      await currentLocation;
+      setUserLocation(currentLocation);
+      console.log('currentLocation', currentLocation);
+    })();
+  }, [currentLocation]);
   return (
     <MainTemplates
       facilityItems={STORE_FILTERS.FACILITY}
-      arroundStoreItems={arroundStoreData?.cards}
-      arroundStoreItemState={isSuccess}
-      reviewList={arroundStoreData?.cards}
-      slideItems={mainVisualSlideItems}
       cateItems={STORE_FILTERS.CATEGORY}
-      refetch={refetch}
-      userLocationState={currentLocation}
+      arroundStoreItems={arroundStoreData?.cards}
+      arroundStoreItemState={arroundStoreSuccess}
+      reviewList={reviewDummyData}
+      slideItems={mainVisualSlideItems}
+      arroundRefetch={ArroundRefetch}
+      userLocationState={userLocation}
     />
   );
 }
