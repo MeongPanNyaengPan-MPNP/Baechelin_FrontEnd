@@ -1,2 +1,2 @@
 // eslint-disable-next-line import/prefer-default-export
-export const STORELIST = { NEARSTORE: 'NEARSTORE' };
+export const STORELIST = { ARROUNDSTORE: 'ARROUNDSTORE' };

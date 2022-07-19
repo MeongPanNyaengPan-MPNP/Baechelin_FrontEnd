@@ -11,7 +11,7 @@ import { UserLoctaionType } from '@interfaces/LocationTypes';
 import NoDataMessage from '@molecules/NodataMessage';
 import GetPositionButton from '@molecules/GetPositionButton';
 import ReviewGroupSlide from '@organisms/ReviewGroupSlide';
-import { StoreResponseTypes } from '@interfaces/StoreResponseTypes';
+import { StoreResponseTypes, StoreReviewResponseTypes } from '@interfaces/StoreResponseTypes';
 import * as S from './styles';
 
 export interface MainTemplateProps {
@@ -19,10 +19,10 @@ export interface MainTemplateProps {
   cateItems: CheckBoxType[];
   facilityItems: CheckBoxType[];
   arroundStoreItems: StoreResponseTypes[] | undefined;
-  reviewList: StoreResponseTypes[] | undefined;
+  reviewList: StoreReviewResponseTypes[] | undefined;
   userLocationState: UserLoctaionType | undefined;
   arroundStoreItemState: boolean;
-  refetch: any;
+  arroundRefetch: any;
 }
 
 function MainTemplates({
@@ -30,7 +30,7 @@ function MainTemplates({
   cateItems,
   facilityItems,
   userLocationState,
-  refetch,
+  arroundRefetch,
   arroundStoreItemState,
   arroundStoreItems = [],
   reviewList = [],
@@ -39,7 +39,7 @@ function MainTemplates({
     <S.Wrapper>
       <MainVisualSlide slideItems={slideItems} />
       <S.StoreCategorySnbArea>
-        <StoreCategorySnb refetch={refetch} cateItems={cateItems} facilityItems={facilityItems} />
+        <StoreCategorySnb refetch={arroundRefetch} cateItems={cateItems} facilityItems={facilityItems} />
       </S.StoreCategorySnbArea>
       <S.MainStoreListSection>
         {arroundStoreItemState && userLocationState !== null ? (
@@ -51,7 +51,7 @@ function MainTemplates({
               slideId="arroundStore"
               slidesPerView={4}
               spaceBetween={40}
-              autoplayDelay={6000}
+              autoplayDelay={3000}
               size="M"
             />
           </>
@@ -91,19 +91,23 @@ function MainTemplates({
           <NoDataMessage message={['Loading']} />
         )}
       </S.MainStoreListSection>
-      <S.MainStoreListSection>
+      <S.MainReviewListSection>
         <Link to="/">실시간 맛집 후기</Link>
         {arroundStoreItems !== undefined && (
-          <ReviewGroupSlide<StoreResponseTypes> // 가까운순
+          <ReviewGroupSlide<StoreReviewResponseTypes> // 가까운순
             cardItems={reviewList}
             paginationId="reviewListPagination"
             slideId="reviewList"
-            slidesPerView={4}
+            slidesPerView={2}
             spaceBetween={40}
+            speed={20000}
+            autoplayDelay={1}
+            slidesPerGroup={1}
+            hasNavigation={false}
             size="M"
           />
         )}
-      </S.MainStoreListSection>
+      </S.MainReviewListSection>
       {userLocationState === null && (
         <NoDataMessage
           message={['사용자의 위치정보가 없습니다.', '위치정보를 설정하시면 내 주변의 맛집을 찾을 수 있습니다.']}
