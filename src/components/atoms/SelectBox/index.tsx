@@ -7,10 +7,7 @@ import { Theme } from '@mui/material/styles';
 
 export type SelectBoxProps = {
   label: string;
-  data: {
-    value: string | ReadonlyArray<string> | number | undefined;
-    label: string;
-  }[];
+  data: any[];
   sx?: SxProps<Theme>;
 } & SelectProps &
   UseControllerProps;

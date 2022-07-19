@@ -10,10 +10,18 @@ function Star(props: StarTypes) {
   const onChangeStar = (event: React.SyntheticEvent, value: number | null) => {
     console.log(value);
   };
-  const { max, value, readOnly } = props;
+  const { max, value, readOnly, size } = props;
   return (
     <>
-      <MuiRating name="half-rating" defaultValue={2.5} precision={0.5} onChange={onChangeStar} {...props} />
+      <MuiRating
+        color="#ED6F2A"
+        name="half-rating"
+        size={size}
+        defaultValue={2.5}
+        precision={0.5}
+        onChange={onChangeStar}
+        {...props}
+      />
       <span className="rating-value">{max === 1 && readOnly && value}</span>
     </>
   );

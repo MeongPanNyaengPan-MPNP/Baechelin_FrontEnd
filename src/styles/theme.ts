@@ -31,6 +31,12 @@ const theme = createTheme({
       },
     },
     MuiContainer: { styleOverrides: { root: { width: 'inherit' } } },
+    MuiIcon: {
+      styleOverrides: {
+        fontSizeLarge: '2rem',
+        fontSizeSmall: '1.5rem',
+      },
+    },
   },
 });
 

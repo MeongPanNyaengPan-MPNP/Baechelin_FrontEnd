@@ -2,6 +2,7 @@ import React from 'react';
 import { Story } from '@storybook/react';
 import CheckBoxInput, { CheckBoxInputProps } from '@atoms/CheckBoxInput/index';
 import { FieldValues, useForm } from 'react-hook-form';
+import { STORE_FILTERS } from '../../../constants/storeFilters';
 
 export default {
   title: 'Atoms/CheckBoxInput',
@@ -14,14 +15,9 @@ const Template: Story<CheckBoxInputProps<any>> = (args) => {
   return <CheckBoxInput<FieldValues> {...args} control={control} />;
 };
 
-const dummyData = {
-  label: 'CheckBoxInput',
-  key: 'CheckBoxInputValue',
-  checked: false,
-};
 export const Basic = Template.bind({});
 Basic.args = {
   name: 'checkbox',
   boxhidden: true,
-  item: dummyData,
+  item: STORE_FILTERS.FACILITY[0],
 };

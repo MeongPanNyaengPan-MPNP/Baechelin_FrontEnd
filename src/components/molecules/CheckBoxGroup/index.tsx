@@ -21,7 +21,7 @@ function CheckBoxGroup<T>({ boxHidden, data, errors, changeEvent, control, name,
       {data?.map((item, index) => (
         <CheckBoxInput<T>
           item={item}
-          key={item.label}
+          key={item.LABEL}
           number={index}
           boxHidden={boxHidden}
           prevValue={prevValue}

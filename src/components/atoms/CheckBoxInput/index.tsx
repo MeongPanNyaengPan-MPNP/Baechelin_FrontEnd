@@ -9,7 +9,6 @@ export type StyledCheckBoxProps = {
 };
 export type CheckBoxInputProps<T> = {
   item: CheckBoxType;
-  label?: string;
   changeEvent?: any;
   control: Control<T>;
   name: any;
@@ -78,11 +77,11 @@ function CheckBoxInput<T>({
   return (
     <CheckBoxArea boxHidden={boxHidden}>
       <FormControlLabel
-        label={item.label}
+        label={item.LABEL}
         control={
           <CheckBoxItem
             onChange={(event, checked) => {
-              onChange(checked ? item.key : checked);
+              onChange(checked ? item.KEY : checked);
               changeEvent?.();
             }}
           />

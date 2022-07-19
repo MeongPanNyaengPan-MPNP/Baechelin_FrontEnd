@@ -2,7 +2,7 @@ import React from 'react';
 import Span from '@atoms/Span';
 import * as S from './styles';
 
-function NoDataMessage({ message, buttonChildren }: { message?: Array<string>; buttonChildren: any }) {
+function NoDataMessage({ message, buttonChildren }: { message?: Array<string>; buttonChildren?: any }) {
   return (
     <S.NoDataBox>
       <S.NodataImg />

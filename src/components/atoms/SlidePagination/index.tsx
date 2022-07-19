@@ -4,10 +4,8 @@ import styled from 'styled-components';
 export const PaginationArea = styled.div`
   display: flex;
   justify-content: center;
-  position: absolute;
-  z-index: 1;
-  bottom: 15px;
   width: 100%;
+  margin-top: 30px;
 
   .swiper-pagination-bullet {
     background: #a9a9a9;
