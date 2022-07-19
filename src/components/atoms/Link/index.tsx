@@ -43,7 +43,7 @@ function LinkItem({
 }: LinkItemProps) {
   return (
     <StyledLink textsize={textsize} fontWeight={fontWeight} to={to} {...rest}>
-      {children}
+      <span>{children}</span>
       <StyledArwItem arwDisplay={arwDisplay}>
         <ChevronRightIcon />
       </StyledArwItem>

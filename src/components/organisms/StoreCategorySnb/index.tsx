@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { CheckBoxType } from '@interfaces/formTypes';
 import RadioInputGroup from '@molecules/RadioInputGroup';
 import Container from '@mui/material/Container';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { SnbQueryString } from '@recoil/mainSnbAtom';
 import * as S from './styles';
 
@@ -21,7 +21,7 @@ export type FormValues = {
 
 function StoreCategorySnb(props: TopFixedSnbProps) {
   const { facilityItems, cateItems, refetch } = props;
-  const [recoilSnbQuery, setRecoilSnbQuery] = useRecoilState<string>(SnbQueryString);
+  const setRecoilSnbQuery = useSetRecoilState<string>(SnbQueryString);
   //  const [resQueryState, setResQueryState] = useState<string>('');
   const defaultValue = {
     CategorySnb: '',
@@ -37,13 +37,8 @@ function StoreCategorySnb(props: TopFixedSnbProps) {
     const facilityCheckState = curValues?.FacilitySnb.filter((item) => !!item).map((value) => `&facility=${value}`);
     const resQuery = `${cateQueryString}${facilityCheckState.join('')}`;
     setRecoilSnbQuery(resQuery);
-    // queryClient.refetchQueries('nearStore');
+    refetch();
   };
-  React.useEffect(() => {
-    const query = recoilSnbQuery;
-    console.log('query', query);
-    refetch(query);
-  }, [recoilSnbQuery, refetch, setRecoilSnbQuery]);
   return (
     <S.SnbWrap>
       <S.CategoryArea>

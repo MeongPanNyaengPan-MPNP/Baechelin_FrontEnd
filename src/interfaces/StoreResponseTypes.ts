@@ -16,14 +16,15 @@ export interface StoreResponseTypes {
   approach?: 'Y' | 'N';
 }
 
-export interface ReviewTypes {
-  name?: string;
-  address?: string;
+export interface StoreReviewResponseTypes {
   reviewId: number;
   storeId: number;
   userId: number;
   point: number;
   content: string;
   reviewImageUrlList: string[];
-  tagList: string[];
+  name?: string;
+  userName?: string;
+  address?: string;
+  tagList?: string[];
 }

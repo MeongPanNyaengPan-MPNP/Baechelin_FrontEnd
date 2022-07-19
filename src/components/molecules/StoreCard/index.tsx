@@ -4,15 +4,15 @@ import Span from '@atoms/Span';
 import Star from '@atoms/Star';
 import Icon from '@atoms/Icon';
 import Badge from '@atoms/Badge';
-import { StoreBasicInfoTypes } from '@interfaces/StoreTypes';
 import { useNavigate } from 'react-router-dom';
+import { StoreResponseTypes } from '@interfaces/StoreResponseTypes';
 import * as S from './styles';
 
 export type CardStylesProps = {
   size?: 'M' | 'L';
 };
 
-function StoreCard<T extends Partial<StoreBasicInfoTypes>>(props: T & CardStylesProps) {
+function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesProps) {
   const noImage = '/img/ui/no_picture.svg';
   const navigate = useNavigate();
   const {
@@ -73,11 +73,11 @@ function StoreCard<T extends Partial<StoreBasicInfoTypes>>(props: T & CardStyles
               </S.CardContentAddress>
             </S.CardContentAddressArea>
             <S.CardContentFacilityArea>
-              <Badge name="elevator" state={elevator} />
-              <Badge name="height" state={heightDifferent} />
               <Badge name="approach" state={approach} />
-              <Badge name="parking" state={parking} />
+              <Badge name="elevator" state={elevator} />
               <Badge name="toilet" state={toilet} />
+              <Badge name="parking" state={parking} />
+              <Badge name="height" state={heightDifferent} />
             </S.CardContentFacilityArea>
           </>
         )}

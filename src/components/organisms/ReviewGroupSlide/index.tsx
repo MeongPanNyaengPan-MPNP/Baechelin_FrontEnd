@@ -3,9 +3,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay, Navigation, Pagination } from 'swiper';
-import StoreCard, { CardStylesProps } from '@molecules/StoreCard';
+import { CardStylesProps } from '@molecules/StoreCard';
 import SlidePagination from '@atoms/SlidePagination';
 import SlideButtonsArea from '@molecules/SlideButtons';
+import ReviewCard from '@molecules/ReviewCard';
 import * as S from './styles';
 
 export type CardGroupSlideProps<T> = {
@@ -28,7 +29,6 @@ function ReviewGroupSlide<T>({
   children,
   paginationId,
   slideId = 'slide',
-  size,
   autoplayDelay,
   speed = 1000,
   slidesPerGroup = slidesPerView,
@@ -62,7 +62,7 @@ function ReviewGroupSlide<T>({
         {cardItems.map((cardItem, index) => (
           // eslint-disable-next-line react/no-array-index-key
           <SwiperSlide key={index}>
-            <StoreCard<T> {...cardItem} size={size} />
+            <ReviewCard<T> {...cardItem} />
           </SwiperSlide>
         ))}
         {children}
