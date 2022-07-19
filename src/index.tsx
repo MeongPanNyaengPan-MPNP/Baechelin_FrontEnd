@@ -5,8 +5,8 @@ import * as ReactDOM from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import CssBaseline from '@mui/material/CssBaseline';
+import ScrollToTop from '@utils/ScrollRestoration/ScrollTop';
 import App from './App';
-
 import 'swiper/css';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
@@ -21,6 +21,7 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen />
       <CssBaseline />
+      <ScrollToTop />
       <App />
     </QueryClientProvider>
   </BrowserRouter>,

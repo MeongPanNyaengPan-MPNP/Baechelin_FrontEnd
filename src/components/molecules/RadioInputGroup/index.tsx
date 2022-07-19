@@ -25,14 +25,14 @@ function Index<T>({ boxHidden, data, name, control, changeEvent, curValue = '' }
       <div>
         {data?.map((item) => (
           <FormControlLabel
-            key={item.label}
-            label={item.label}
+            key={item.LABEL}
+            label={item.LABEL}
             control={
               <RadioInput
                 boxhidden={boxHidden}
-                value={item.label}
+                value={item.LABEL}
                 onChange={(event, checked) => {
-                  onChange(checked ? item.key : checked);
+                  onChange(checked ? item.KEY : checked);
                   changeEvent?.();
                 }}
               />

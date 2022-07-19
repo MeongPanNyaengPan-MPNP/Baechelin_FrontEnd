@@ -1,14 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import MainTemplates from '@templates/MainTemplates';
-import { getPosition, parseUserLocation } from '@utils/Location/getLocation';
-import locationAtom from '@recoil/locationAtom';
 
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { useQuery } from 'react-query';
 import { getNearStore } from '@service/storeListApi';
-
-import { cateItems, facilityItems } from '@utils/DefaultData/defaultCategory';
 import { SnbQueryString } from '@recoil/mainSnbAtom';
+import { STORE_FILTERS, STORELIST } from '@constants/index';
+import { StoreResponseTypes } from '@interfaces/StoreResponseTypes';
+import UseGeolocation from '@hooks/UseGeolocation';
+
+type ArroundQueryTypes = {
+  cards?: StoreResponseTypes[];
+};
 
 function Main() {
   const mainVisualSlideItems = [
@@ -18,41 +21,40 @@ function Main() {
       src: '/img/banner/img_banner01.png',
     },
   ];
-
-  const [userLocationState, setUserLocationState] = useRecoilState(locationAtom);
-
   const SnbRecoilQuery = useRecoilValue(SnbQueryString);
+  const { currentLocation } = UseGeolocation();
 
-  const [recoilSnbQuery, setRecoilSnbQuery] = useRecoilState<string>(SnbQueryString);
-  const { data, refetch } = useQuery('nearStore', () => getNearStore(0, 12, userLocationState, SnbRecoilQuery), {
-    staleTime: Infinity,
-    cacheTime: Infinity,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    retry: 0,
-    onError: (e) => {
-      console.log(e);
+  const {
+    data: arroundStoreData,
+    refetch,
+    isSuccess,
+  } = useQuery<ArroundQueryTypes>(
+    [STORELIST.NEARSTORE, SnbRecoilQuery],
+    () => getNearStore(currentLocation, SnbRecoilQuery),
+    {
+      staleTime: Infinity,
+      cacheTime: Infinity,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      retry: 0,
+      onSuccess: () => {
+        console.log('cards', arroundStoreData);
+      },
+      onError: (e) => {
+        console.log(e);
+      },
     },
-    onSuccess: () => {
-      console.log('data', data);
-    },
-  });
-
-  // 사용자 위치정보 얻기, 얻은 후 nearStore refetching
-  useEffect(() => {
-    getPosition();
-    const userLocation = parseUserLocation();
-    setUserLocationState(userLocation);
-  }, [setUserLocationState]);
-
+  );
   return (
     <MainTemplates
-      facilityItems={facilityItems}
-      arroundStoreItems={data?.data.cards}
+      facilityItems={STORE_FILTERS.FACILITY}
+      arroundStoreItems={arroundStoreData?.cards}
+      arroundStoreItemState={isSuccess}
+      reviewList={arroundStoreData?.cards}
       slideItems={mainVisualSlideItems}
-      cateItems={cateItems}
+      cateItems={STORE_FILTERS.CATEGORY}
       refetch={refetch}
-      userLocationState={userLocationState}
+      userLocationState={currentLocation}
     />
   );
 }

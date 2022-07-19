@@ -5,19 +5,12 @@ export const Wrapper = styled.div`
   position: relative;
 `;
 export const MainStoreListSection = styled.section`
-  margin-bottom: 30px;
   position: relative;
   max-width: 1240px;
-  margin: 0 auto;
+  margin: 30px auto 70px;
 
   & > a {
     margin-bottom: 18px;
   }
-
-  .swiper-slide {
-    margin-bottom: 40px;
-  }
 `;
-export const StoreCategorySnbArea = styled.section`
-  margin-bottom: 45px;
-`;
+export const StoreCategorySnbArea = styled.section``;
