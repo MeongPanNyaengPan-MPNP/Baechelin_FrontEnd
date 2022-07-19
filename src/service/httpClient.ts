@@ -1,7 +1,8 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
-const API_DEV = process.env.REACT_APP_DEV_SERVER;
-const baseURL = process.env.NODE_ENV === 'development' ? API_DEV : API_DEV;
+const API_DEV = process.env.REACT_APP_API_DEV;
+const API_PROD = process.env.REACT_APP_API_PROD;
+const baseURL = process.env.REACT_APP_MODE === 'development' ? API_DEV : API_PROD;
 
 // 토큰 가져오기
 const getToken = (tokenName: string) => {
@@ -16,7 +17,6 @@ const getToken = (tokenName: string) => {
 };
 
 const Api = axios.create({
-  headers: { 'Access-Control-Allow-Origin': process.env.PUBLIC_URL },
   timeout: 10000,
   baseURL: `${baseURL}`,
   withCredentials: true,
