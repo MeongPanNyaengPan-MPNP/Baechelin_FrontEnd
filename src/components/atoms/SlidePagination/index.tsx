@@ -1,12 +1,19 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const PaginationArea = styled.div`
+type PaginationProps = { paginationLength: number; paginationId?: string };
+export const PaginationArea = styled.div<PaginationProps>`
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-top: 30px;
 
+  ${(props) => {
+    if (props.paginationLength > 0) {
+      return css`
+        margin-top: 30px;
+      `;
+    }
+  }}
   .swiper-pagination-bullet {
     background: #a9a9a9;
     opacity: 1;
@@ -18,8 +25,9 @@ export const PaginationArea = styled.div`
   }
 `;
 
-function SlidePagination({ paginationId }: { paginationId?: string }) {
-  return <PaginationArea id={paginationId} />;
+function SlidePagination(props: PaginationProps) {
+  const { paginationLength, paginationId } = props;
+  return <PaginationArea paginationLength={paginationLength} id={paginationId} />;
 }
 
 export default SlidePagination;

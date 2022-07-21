@@ -2,7 +2,7 @@ import React from 'react';
 import { Story } from '@storybook/react';
 import CheckBoxInput, { CheckBoxInputProps } from '@atoms/CheckBoxInput/index';
 import { FieldValues, useForm } from 'react-hook-form';
-import { STORE_FILTERS } from '../../../constants/storeFilters';
+import { STORE_FILTERS } from '@constants/store';
 
 export default {
   title: 'Atoms/CheckBoxInput',

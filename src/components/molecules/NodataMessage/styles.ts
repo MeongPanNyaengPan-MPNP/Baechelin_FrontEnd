@@ -12,6 +12,8 @@ export const NodataImg = styled.figure`
 `;
 export const NoDataBox = styled.div`
   width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
   padding: 50px 0;
   text-align: center;
   background: #fff;

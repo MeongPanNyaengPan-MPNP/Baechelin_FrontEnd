@@ -15,7 +15,7 @@ export const MainReviewListSection = styled.section`
     transition-timing-function: linear;
   }
 
-  & > a {
+  & p[aria-label='link'] {
     display: flex;
     margin-bottom: 30px;
     justify-content: center;

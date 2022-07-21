@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+export { Container } from '@styles/layout';
 export const SnbWrap = styled.div`
   position: relative;
   width: 100%;

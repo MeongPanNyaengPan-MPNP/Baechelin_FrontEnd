@@ -8,7 +8,7 @@ import StoreCategorySnb from '@organisms/StoreCategorySnb';
 import Link from '@atoms/Link';
 import ReviewGroupSlide from '@organisms/ReviewGroupSlide';
 import MainSlideSection from '@organisms/MainSlideSection';
-import { STORE_LIST, STORE_TOPIC } from '@constants/index';
+import { STORE_LIST, STORE_LIST_TITLE, STORE_TOPIC } from '@constants/index';
 import * as S from './styles';
 
 export interface MainTemplateProps {
@@ -35,7 +35,7 @@ function MainTemplates({ slideItems, cateItems, facilityItems }: MainTemplatePro
         hiddenNoLocationState
         size="M"
       >
-        <Link to="/store/list/point">배슐랭님 주변 밥집</Link>
+        <Link to={`/store/list/${STORE_TOPIC.ARROUND}`}>배슐랭{STORE_LIST_TITLE.ARROUND}</Link>
       </MainSlideSection>
       <MainSlideSection
         slideId="bestScore"
@@ -47,7 +47,7 @@ function MainTemplates({ slideItems, cateItems, facilityItems }: MainTemplatePro
         autoplayDelay={6000}
         size="L"
       >
-        <Link to="/store/list/point">별점 높은 가게</Link>
+        <Link to={`/store/list/${STORE_TOPIC.POINT}`}>{STORE_LIST_TITLE.POINT}</Link>
       </MainSlideSection>
       <MainSlideSection // 가까운순
         slideId="bookMark"
@@ -59,10 +59,10 @@ function MainTemplates({ slideItems, cateItems, facilityItems }: MainTemplatePro
         autoplayDelay={6000}
         size="L"
       >
-        <Link to="/store/list/bookmark">저장 많이 한 가게</Link>
+        <Link to={`/store/list/${STORE_TOPIC.BOOKMARK}`}>{STORE_LIST_TITLE.BOOKMARK}</Link>
       </MainSlideSection>
       <S.MainReviewListSection>
-        <Link to="/">실시간 맛집 후기</Link>
+        <Link to="/">{STORE_LIST_TITLE.RECENT_REVIEW}</Link>
         <ReviewGroupSlide // 가까운순
           slideId="reviewList"
           slidesPerView={2}

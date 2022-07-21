@@ -1,17 +1,17 @@
+// TODO:
+
 import React from 'react';
 import CheckBoxGroup from '@molecules/CheckBoxGroup';
 import { useForm } from 'react-hook-form';
 import { CheckBoxType } from '@interfaces/formTypes';
 import RadioInputGroup from '@molecules/RadioInputGroup';
-import Container from '@mui/material/Container';
-import { useSetRecoilState } from 'recoil';
 import { SnbQueryString } from '@recoil/mainSnbAtom';
+import { useSetRecoilState } from 'recoil';
 import * as S from './styles';
 
 export interface TopFixedSnbProps {
   cateItems: CheckBoxType[];
   facilityItems: CheckBoxType[];
-  refetch: any;
 }
 
 export type FormValues = {
@@ -20,41 +20,33 @@ export type FormValues = {
 };
 
 function StoreCategorySnb(props: TopFixedSnbProps) {
-  const { facilityItems, cateItems, refetch } = props;
+  const { facilityItems, cateItems } = props;
   const setRecoilSnbQuery = useSetRecoilState<string>(SnbQueryString);
-  //  const [resQueryState, setResQueryState] = useState<string>('');
-  const defaultValue = {
-    CategorySnb: '',
-    FacilitySnb: [false, false, false, false, false],
-  };
-  const { control, getValues } = useForm<FormValues>({
-    mode: 'onChange',
-    defaultValues: defaultValue,
-  });
-  const setFilter = () => {
+  const { control, getValues } = useForm<FormValues>({ mode: 'onChange' });
+  const setFilter = React.useCallback(() => {
     const curValues = getValues();
     const cateQueryString = curValues?.CategorySnb ? `&category=${curValues?.CategorySnb}` : '';
     const facilityCheckState = curValues?.FacilitySnb.filter((item) => !!item).map((value) => `&facility=${value}`);
     const resQuery = `${cateQueryString}${facilityCheckState.join('')}`;
     setRecoilSnbQuery(resQuery);
-    refetch();
-  };
+  }, [getValues, setRecoilSnbQuery]);
+
   return (
     <S.SnbWrap>
       <S.CategoryArea>
-        <Container maxWidth="lg">
+        <S.Container>
           <RadioInputGroup<FormValues> name="CategorySnb" changeEvent={setFilter} control={control} data={cateItems} />
-        </Container>
+        </S.Container>
       </S.CategoryArea>
       <S.FacilityArea>
-        <Container>
+        <S.Container>
           <CheckBoxGroup<FormValues>
             name="FacilitySnb"
             changeEvent={setFilter}
             control={control}
             data={facilityItems}
           />
-        </Container>
+        </S.Container>
       </S.FacilityArea>
     </S.SnbWrap>
   );

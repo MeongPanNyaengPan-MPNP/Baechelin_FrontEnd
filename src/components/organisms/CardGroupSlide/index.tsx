@@ -9,12 +9,12 @@ import SlideButtonsArea from '@molecules/SlideButtons';
 import * as S from './styles';
 
 export type CardGroupSlideProps<T> = {
+  slideId?: string;
   slidesPerView?: number;
   spaceBetween?: number;
   paginationId?: string;
   children?: ReactNode;
-  cardItems: T[];
-  slideId: string;
+  cardItems?: T[];
   hasNavigation?: boolean;
   autoplayDelay?: number;
   slidesPerGroup?: number;
@@ -24,7 +24,7 @@ export type CardGroupSlideProps<T> = {
 function ReviewGroupSlide<T>({
   slidesPerView = 4,
   spaceBetween = 0,
-  cardItems,
+  cardItems = [],
   children,
   paginationId,
   slideId = 'slide',
@@ -66,7 +66,7 @@ function ReviewGroupSlide<T>({
           </SwiperSlide>
         ))}
         {children}
-        {paginationId && <SlidePagination paginationId={paginationId} />}
+        {paginationId && <SlidePagination paginationLength={cardItems?.length} paginationId={paginationId} />}
       </Swiper>
       {hasNavigation && <SlideButtonsArea hover prevId={PrevButtonId} nextId={NextButtonId} />}
     </S.CardSlideGroup>

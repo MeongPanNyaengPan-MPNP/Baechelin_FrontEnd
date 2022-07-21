@@ -12,6 +12,7 @@ const StyledLink = styled.p<LinkItemProps>`
   display: inline-flex;
   justify-content: ${(props) => (props.align ? `${props.align}` : 'inherit')};
   line-height: 1;
+  cursor: pointer;
   text-decoration: none;
 `;
 
@@ -40,13 +41,20 @@ function LinkItem({
   textsize = 2.4,
   to = '/',
   children,
+  padding,
   fontWeight = 'bold',
   arwDisplay = true,
   state,
 }: LinkItemProps) {
   const navigate = useNavigate();
   return (
-    <StyledLink textsize={textsize} fontWeight={fontWeight} onClick={() => navigate(`${to}`, { state })}>
+    <StyledLink
+      aria-label="link"
+      textsize={textsize}
+      fontWeight={fontWeight}
+      onClick={() => navigate(`${to}`, { state })}
+      padding={padding}
+    >
       <span>{children}</span>
       <StyledArwItem arwDisplay={arwDisplay}>
         <ChevronRightIcon />

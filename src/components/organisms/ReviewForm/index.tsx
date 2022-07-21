@@ -7,7 +7,7 @@ import TextInput from '@atoms/TextInput';
 import TextAreaInput from '@atoms/TextAreaInput';
 import AddImage from '@molecules/AddImage';
 import CheckBoxGroup from '@molecules/CheckBoxGroup';
-import { STORE_FILTERS } from '../../../constants/storeFilters';
+import { STORE_FILTERS } from '@constants/store';
 
 function ReviewForm() {
   const validationSchema = Yup.object().shape({ checkbox: Yup.bool().oneOf([true], 'Accept Terms is required') });

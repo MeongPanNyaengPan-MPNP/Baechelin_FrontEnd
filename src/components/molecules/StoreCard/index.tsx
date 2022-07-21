@@ -17,7 +17,7 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
   const navigate = useNavigate();
   const {
     storeId,
-    size,
+    size = 'M',
     name,
     address,
     category,

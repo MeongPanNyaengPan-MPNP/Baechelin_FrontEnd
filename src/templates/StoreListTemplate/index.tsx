@@ -9,9 +9,10 @@ export interface StoreListTemplateProps {
   cateItems: CheckBoxType[];
   facilityItems: CheckBoxType[];
   topic?: string | undefined;
+  title?: string;
 }
 
-function StoreListTemplate({ topic, cateItems, facilityItems }: StoreListTemplateProps) {
+function StoreListTemplate({ topic, cateItems, facilityItems, title }: StoreListTemplateProps) {
   return (
     <S.Wrapper>
       <section>
@@ -19,7 +20,7 @@ function StoreListTemplate({ topic, cateItems, facilityItems }: StoreListTemplat
       </section>
       <S.Container>
         <S.CardGroup>
-          {topic ? <StoreCardList topic={topic} /> : <NoDataMessage message={['잘못된 접근입니다']} />}
+          {topic ? <StoreCardList topic={topic} title={title} /> : <NoDataMessage message={['잘못된 접근입니다']} />}
         </S.CardGroup>
       </S.Container>
     </S.Wrapper>
