@@ -16,15 +16,6 @@ export interface StoreResponseTypes {
   approach?: 'Y' | 'N';
 }
 
-export interface StoreReviewResponseTypes {
-  reviewId: number;
-  storeId: number;
-  userId: number;
-  point: number;
-  content: string;
-  reviewImageUrlList: string[];
-  name?: string;
-  userName?: string;
-  address?: string;
-  tagList?: string[];
-}
+export type StoreListQueryTypes = {
+  cards?: StoreResponseTypes[];
+};

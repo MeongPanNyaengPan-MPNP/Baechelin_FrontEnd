@@ -1,13 +1,21 @@
 import { UserLoctaionType } from '@interfaces/LocationTypes';
 import { request } from './httpClient';
 
-// eslint-disable-next-line import/prefer-default-export
-export const getNearStore = <T>(locationData: UserLoctaionType, query = '', page = 0, size = 12) => {
-  const locationQuery = () => (locationData !== null ? `&lat=${locationData.lat}&lng=${locationData.lng}` : '');
-  const defaultLocation = '&lat=37.55328547489251&lng=126.97260152154756 ';
-  console.log('url', `/store/near?page=${page}&size=${size}${query}${locationQuery()}`);
+export const getNearStore = <T>(locationData: UserLoctaionType, query = '', topic = 'near', page = 0, size = 12) => {
+  const lat = 37.55853959813331;
+  const lng = 126.9627248474625;
+  const locationQuery = () => (locationData !== null ? `&lat=${lat}&lng=${lng}` : '');
   return request<T>({
     method: 'GET',
-    url: `/store/near?page=${page}&size=${size}${query}${defaultLocation}`,
+    url: `/store/${topic}?page=${page}&size=${size}${query}${locationQuery()}`,
+  });
+};
+export const getBookmarkStoreList = <T>(locationData: UserLoctaionType, query = '', limit = 12) => {
+  const lat = 37.55853959813331;
+  const lng = 126.9627248474625;
+  const locationQuery = () => (locationData !== null ? `&lat=${lat}&lng=${lng}` : '');
+  return request<T>({
+    method: 'GET',
+    url: `/store/bookmark?limit=${limit}${query}${locationQuery()}`,
   });
 };

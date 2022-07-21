@@ -11,11 +11,7 @@ import 'swiper/css';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 const queryClient = new QueryClient({ defaultOptions: { queries: { refetchOnWindowFocus: false } } });
-/* axios.create({
-  headers: { 'Access-Control-Allow-Origin': 'http://15.164.93.211' },
-  baseURL: 'http://15.164.93.211',
-  withCredentials: true,
-}); */
+
 root.render(
   <BrowserRouter>
     <QueryClientProvider client={queryClient}>

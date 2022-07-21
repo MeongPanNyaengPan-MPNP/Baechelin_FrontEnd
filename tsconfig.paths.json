@@ -37,6 +37,9 @@
       ],
       "@constants/*": [
         "./constants/*"
+      ],
+      "@styles/*": [
+        "./styles/*"
       ]
     }
   }

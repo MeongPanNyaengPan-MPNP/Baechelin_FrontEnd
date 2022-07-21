@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { UserLoctaionType } from '@interfaces/LocationTypes';
 import { LOCAL_STORAGE_KEY } from '@constants/index';
+import { useSetRecoilState } from 'recoil';
+import locationAtom from '@recoil/locationAtom';
 
 const localStorageKey = LOCAL_STORAGE_KEY.USER_LOCATION;
 
@@ -18,7 +20,7 @@ export const SavePositionAtLocalStorage = (position: UserLoctaionType) => {
   localStorage.setItem(localStorageKey, JSON.stringify(position));
 };
 export const UseGeolocation = () => {
-  const [currentLocation, setCurrentLocation] = useState<UserLoctaionType>(null);
+  const [currentLocation, setCurrentLocation] = useState<UserLoctaionType | null>(null);
   const onSuccess = (position: GeolocationPosition) =>
     setCurrentLocation({
       lat: position.coords.latitude,
@@ -40,8 +42,8 @@ export const UseGeolocation = () => {
       timeout: 0,
     });
   }, []);
-
-  SavePositionAtLocalStorage(currentLocation);
+  const setLocationAtom = useSetRecoilState(locationAtom);
+  setLocationAtom(currentLocation);
   return {
     currentLocation,
     setCurrentLocation,

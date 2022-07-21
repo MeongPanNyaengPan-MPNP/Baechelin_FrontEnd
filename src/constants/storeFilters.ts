@@ -94,3 +94,10 @@ export const STORE_REVIEW_TAG = {
   fGoodToEat: '먹기 편한',
   fPrice: '가격이 착한',
 };
+
+export const STORE_TOPIC = {
+  ARROUND: 'near',
+  POINT: 'point',
+  BOOKMARK: 'bookmark',
+  RECENT_REVIEW: 'recent-review',
+};
