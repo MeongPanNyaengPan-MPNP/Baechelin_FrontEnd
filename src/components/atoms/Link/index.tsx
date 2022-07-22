@@ -1,9 +1,9 @@
-import React from 'react';
-import { Link, LinkProps } from 'react-router-dom';
+import React, { ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
-const StyledLink = styled(Link)<LinkItemProps>`
+const StyledLink = styled.p<LinkItemProps>`
   flex: ${(props) => props.flex};
   align-items: center;
   font-size: ${(props) => `${props.textsize}rem`};
@@ -12,6 +12,7 @@ const StyledLink = styled(Link)<LinkItemProps>`
   display: inline-flex;
   justify-content: ${(props) => (props.align ? `${props.align}` : 'inherit')};
   line-height: 1;
+  cursor: pointer;
   text-decoration: none;
 `;
 
@@ -30,19 +31,30 @@ export type LinkItemProps = {
   fontWeight?: 'normal' | 'light' | 'bold';
   padding?: string;
   arwDisplay?: boolean;
+  state?: any;
+  to: string;
+  children: ReactNode;
   [prop: string]: any;
-} & LinkProps;
+};
 
 function LinkItem({
   textsize = 2.4,
   to = '/',
   children,
+  padding,
   fontWeight = 'bold',
   arwDisplay = true,
-  ...rest
+  state,
 }: LinkItemProps) {
+  const navigate = useNavigate();
   return (
-    <StyledLink textsize={textsize} fontWeight={fontWeight} to={to} {...rest}>
+    <StyledLink
+      aria-label="link"
+      textsize={textsize}
+      fontWeight={fontWeight}
+      onClick={() => navigate(`${to}`, { state })}
+      padding={padding}
+    >
       <span>{children}</span>
       <StyledArwItem arwDisplay={arwDisplay}>
         <ChevronRightIcon />

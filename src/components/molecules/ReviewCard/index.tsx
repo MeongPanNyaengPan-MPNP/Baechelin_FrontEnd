@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import ThumbNail from '@atoms/Thumbnail';
 import Star from '@atoms/Star';
 import TagList from '@molecules/TagListProps';
-import { StoreReviewResponseTypes } from '@interfaces/StoreResponseTypes';
+import { StoreReviewResponseTypes } from '@interfaces/ReviewTypes';
 import * as S from './styles';
 
 export type ReviewCardProps = {
@@ -13,7 +13,7 @@ export type ReviewCardProps = {
 
 function ReviewCard<T extends Partial<StoreReviewResponseTypes>>(props: T) {
   const navigate = useNavigate();
-  const { name, point, content, tagList, reviewImageUrlList, address, storeId, userName } = props;
+  const { storeName, point, content, tagList, reviewImageUrlList, address, storeId, userName } = props;
   return (
     <S.CardItem onClick={() => navigate(`/store/${storeId}`)}>
       <S.CardItemInner>
@@ -21,14 +21,14 @@ function ReviewCard<T extends Partial<StoreReviewResponseTypes>>(props: T) {
           <S.CardContentTop>
             <S.CardStoreInfoArea>
               <Span fontSize="1.6rem" fontWeight="bold">
-                {name}
+                {storeName}
               </Span>
               <Span fontSize="1.2rem" color="#3B3b3b">
                 {address}
               </Span>
             </S.CardStoreInfoArea>
             <S.CardUserInfoArea>
-              <ThumbNail round={100} width="50px" height="50px" alt={name} src="./" />
+              <ThumbNail round={100} width="50px" height="50px" alt={storeName} src="./" />
               <S.UserInfoArea>
                 <S.UserName fontSize="2rem" fontWeight="bold">
                   {userName}
@@ -44,7 +44,13 @@ function ReviewCard<T extends Partial<StoreReviewResponseTypes>>(props: T) {
             <S.CardImageList>
               <li>
                 {reviewImageUrlList?.map((item: string) => (
-                  <ThumbNail width="100px" height="100px" key="src" alt={`${name}에 작성된 리뷰 사진`} src={item} />
+                  <ThumbNail
+                    width="100px"
+                    height="100px"
+                    key="src"
+                    alt={`${storeName}에 작성된 리뷰 사진`}
+                    src={item}
+                  />
                 ))}
               </li>
             </S.CardImageList>

@@ -2,53 +2,58 @@
 export const STORE_FILTERS = {
   CATEGORY: [
     {
-      LABEL: '밥집',
-      KEY: '밥집',
+      LABEL: '전체',
+      KEY: 'ALL',
       CHECKED: false,
     },
     {
+      LABEL: '한식',
+      KEY: 'KOREAN',
+      CHECKED: true,
+    },
+    {
       LABEL: '중식',
-      KEY: '중식',
+      KEY: 'CHINESE',
       CHECKED: false,
     },
     {
       LABEL: '양식',
-      KEY: '양식',
+      KEY: 'WESTERN',
       CHECKED: false,
     },
     {
       LABEL: '일식',
-      KEY: '일식',
+      KEY: 'JAPANESE',
       CHECKED: false,
     },
     {
       LABEL: '아시안음식',
-      KEY: '아시안음식',
+      KEY: 'ASIAN',
       CHECKED: false,
     },
     {
       LABEL: '패밀리레스토랑',
-      KEY: '패밀리레스토랑',
+      KEY: 'FAMILY',
       CHECKED: false,
     },
     {
       LABEL: '간식',
-      KEY: '간식',
+      KEY: 'SNACK',
       CHECKED: false,
     },
     {
       LABEL: '카페',
-      KEY: '카페',
+      KEY: 'CAFE',
       CHECKED: false,
     },
     {
       LABEL: '술집',
-      KEY: '술집',
+      KEY: 'HOFF',
       CHECKED: false,
     },
     {
       LABEL: '기타',
-      KEY: '기타',
+      KEY: 'ETC',
       CHECKED: false,
     },
   ],
@@ -93,4 +98,20 @@ export const STORE_REVIEW_TAG = {
   fQuantity: '양이 많은',
   fGoodToEat: '먹기 편한',
   fPrice: '가격이 착한',
+};
+export const STORE_DEFAULT_VALUES = {
+  CATEGORY: 'ALL',
+  FACILITY: [''],
+};
+export const STORE_TOPIC = {
+  ARROUND: 'near',
+  POINT: 'point',
+  BOOKMARK: 'bookmark',
+  RECENT_REVIEW: 'recent-review',
+};
+export const STORE_LIST_TITLE = {
+  ARROUND: '님 주변 밥집',
+  POINT: '별점이 높은 가게',
+  BOOKMARK: '저장 많이한 가게',
+  RECENT_REVIEW: '실시간 맛집 후기',
 };

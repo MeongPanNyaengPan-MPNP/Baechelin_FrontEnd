@@ -15,6 +15,7 @@ import Search from '@pages/Search';
 import { ThemeProvider } from '@mui/material';
 
 import ReviewWrite from '@pages/ReviewWrite';
+import StoreList from '@pages/StoreList';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
 
@@ -35,6 +36,7 @@ function App() {
           </Route>
           <Route path="/store">
             <Route path=":storeName" element={<StoreDetail />} />
+            <Route path="list/:topic" element={<StoreList />} />
           </Route>
           <Route path="/search/:keyword" element={<Search />} />
           <Route path="/review">

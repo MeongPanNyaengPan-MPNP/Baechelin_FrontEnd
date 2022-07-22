@@ -1,47 +1,34 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-
-import Cookie from 'js-cookie';
-import Api from '@service/httpClient';
-
-const refreshToken = Cookie.get('refresh_token');
+import userAtom from '@recoil/userAtom';
+import { useSetRecoilState } from 'recoil';
+import { LOGIN } from '@constants/errorCode';
 
 function Oauth() {
   const [searchParams] = useSearchParams();
-  const token = searchParams.get('token');
-
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  console.log('refresh', refreshToken);
-
-  Api.interceptors.request.use((config) => {
-    if (token) {
-      config.headers = { Authorization: `Bearer ${token}` };
+  const setUserToken = useSetRecoilState(userAtom);
+  const tokenFalse = useCallback((error: string, provider: string) => {
+    if (error === LOGIN.ALREADY_LOGIN_ACCOUNT) {
+      console.log(`${provider}으로 회원가입`);
     }
-    return config;
-  });
-  const getUser = () => {
-    Api.get('/user')
-      .then((res) => console.log(res.data))
-      .catch((e) => {
-        Api.get('/auth/refresh').then((res) => {
-          console.log(e);
-          console.log('new Response', res);
-        });
-      });
-  };
-  return (
-    <>
-      <div>access : {token}</div>
-      <div>refresh : {refreshToken}</div>
-      <button type="button" onClick={() => alert(document.cookie)}>
-        Check Cookie
-      </button>
-      <button type="button" onClick={getUser}>
-        유저정보 가져오기
-      </button>
-    </>
+  }, []);
+  const tokenTrue = useCallback(
+    (token: string) => {
+      setUserToken(token);
+    },
+    [setUserToken],
   );
+  useEffect(() => {
+    const token = searchParams.get('token');
+    if (!token) {
+      const error = searchParams.get('error');
+      const provider = searchParams.get('provider_type');
+      if (error && provider) tokenFalse(error, provider);
+    } else {
+      tokenTrue(token);
+    }
+  }, [searchParams, setUserToken, tokenFalse, tokenTrue]);
+  return <div>로그인중</div>;
 }
 
 export default Oauth;

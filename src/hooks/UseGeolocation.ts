@@ -18,7 +18,7 @@ export const SavePositionAtLocalStorage = (position: UserLoctaionType) => {
   localStorage.setItem(localStorageKey, JSON.stringify(position));
 };
 export const UseGeolocation = () => {
-  const [currentLocation, setCurrentLocation] = useState<UserLoctaionType>(null);
+  const [currentLocation, setCurrentLocation] = useState<UserLoctaionType | null>(null);
   const onSuccess = (position: GeolocationPosition) =>
     setCurrentLocation({
       lat: position.coords.latitude,
@@ -37,15 +37,13 @@ export const UseGeolocation = () => {
     navigator.geolocation.getCurrentPosition(onSuccess, onError, {
       enableHighAccuracy: false,
       maximumAge: 0,
-      timeout: 0,
+      timeout: 100000,
     });
   }, []);
 
-  SavePositionAtLocalStorage(currentLocation);
   return {
     currentLocation,
     setCurrentLocation,
   };
 };
-
 export default UseGeolocation;

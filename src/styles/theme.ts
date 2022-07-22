@@ -6,9 +6,9 @@ const customFontFamiliy = [
   '"Helvetica Neue"',
   'Arial',
   'sans-serif',
-  '"Apple Color Emoji"',
-  '"Segoe UI Emoji"',
-  '"Segoe UI Symbol"',
+  'Apple Color Emoji',
+  'Segoe UI Emoji',
+  'Segoe UI Symbol',
 ].join(',');
 const theme = createTheme({
   typography: { fontFamily: customFontFamiliy },
@@ -17,7 +17,7 @@ const theme = createTheme({
       xs: 0,
       sm: 600,
       md: 900,
-      lg: 1280,
+      lg: 1240,
       xl: 1536,
     },
   },
