@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { UserLoctaionType } from '@interfaces/LocationTypes';
 import { LOCAL_STORAGE_KEY } from '@constants/index';
-import { useSetRecoilState } from 'recoil';
-import locationAtom from '@recoil/locationAtom';
 
 const localStorageKey = LOCAL_STORAGE_KEY.USER_LOCATION;
 
@@ -39,15 +37,13 @@ export const UseGeolocation = () => {
     navigator.geolocation.getCurrentPosition(onSuccess, onError, {
       enableHighAccuracy: false,
       maximumAge: 0,
-      timeout: 0,
+      timeout: 100000,
     });
   }, []);
-  const setLocationAtom = useSetRecoilState(locationAtom);
-  setLocationAtom(currentLocation);
+
   return {
     currentLocation,
     setCurrentLocation,
   };
 };
-
 export default UseGeolocation;

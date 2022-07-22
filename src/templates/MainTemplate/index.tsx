@@ -3,8 +3,7 @@
 import MainVisualSlide from '@organisms/MainVisualSlide';
 import React from 'react';
 import { ThumbNailProps } from '@atoms/Thumbnail';
-import { CheckBoxType } from '@interfaces/formTypes';
-import StoreCategorySnb from '@organisms/StoreCategorySnb';
+import StoreCategorySnb, { FiltersType } from '@organisms/StoreCategorySnb';
 import Link from '@atoms/Link';
 import ReviewGroupSlide from '@organisms/ReviewGroupSlide';
 import MainSlideSection from '@organisms/MainSlideSection';
@@ -13,16 +12,15 @@ import * as S from './styles';
 
 export interface MainTemplateProps {
   slideItems: ThumbNailProps[];
-  cateItems: CheckBoxType[];
-  facilityItems: CheckBoxType[];
+  filters: FiltersType;
 }
 
-function MainTemplates({ slideItems, cateItems, facilityItems }: MainTemplateProps) {
+function MainTemplates({ slideItems, filters }: MainTemplateProps) {
   return (
     <S.Wrapper>
       <MainVisualSlide slideItems={slideItems} />
       <S.StoreCategorySnbArea>
-        <StoreCategorySnb cateItems={cateItems} facilityItems={facilityItems} />
+        <StoreCategorySnb filters={filters} />
       </S.StoreCategorySnbArea>
       <MainSlideSection
         slideId="arroundStore"

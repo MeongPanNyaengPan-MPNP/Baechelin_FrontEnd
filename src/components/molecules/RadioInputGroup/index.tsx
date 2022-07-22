@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { Control, useController, UseControllerProps } from 'react-hook-form';
 import { CheckBoxType } from '@interfaces/formTypes';
@@ -8,35 +9,27 @@ import * as S from './styles';
 export type RadioGroupProps<T> = {
   boxHidden?: boolean;
   data?: CheckBoxType[];
-  changeEvent?: any;
   control: Control<T>;
   name: string;
-  curValue?: string;
   [prop: string]: any;
 } & UseControllerProps<T>;
 
-function Index<T>({ boxHidden, data, name, control, changeEvent, curValue = '' }: RadioGroupProps<T>) {
-  const {field: { onChange },} = useController({
+function Index<T>({ boxHidden, data, name, control, curValue = '' }: RadioGroupProps<T>) {
+  const {field: { onChange, ...restField },} = useController({
     control,
     name,
   });
+
   return (
-    <S.RadioInputGroup defaultValue={curValue}>
+    <S.RadioInputGroup defaultValue={curValue || ''} value={curValue}>
       <div>
         {data?.map((item) => (
           <FormControlLabel
+            {...restField}
             key={item.LABEL}
             label={item.LABEL}
-            control={
-              <RadioInput
-                boxhidden={boxHidden}
-                value={item.LABEL}
-                onChange={(event, checked) => {
-                  onChange(checked ? item.KEY : checked);
-                  changeEvent?.();
-                }}
-              />
-            }
+            value={item.KEY || ''}
+            control={<RadioInput boxhidden={boxHidden} value={item.KEY ? item.KEY : ''} onChange={onChange} />}
           />
         ))}
       </div>

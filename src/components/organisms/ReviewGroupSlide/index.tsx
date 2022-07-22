@@ -113,11 +113,7 @@ function ReviewGroupSlide({
     },
   ];
   const { UseRecentReviewForMain } = UseReviewList();
-  const { data: recentReviewData, isLoading } = UseRecentReviewForMain<StoreReviewResponseTypes[]>(
-    REVIEW.RECENT_REVIEW_LIST,
-  );
-  console.log('recentReviewData', recentReviewData);
-
+  const { isLoading } = UseRecentReviewForMain<StoreReviewResponseTypes[]>(REVIEW.RECENT_REVIEW_LIST);
   const PrevButtonId = `${slideId}PrevButton`;
   const NextButtonId = `${slideId}NextButton`;
   return (

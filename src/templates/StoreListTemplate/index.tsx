@@ -1,22 +1,20 @@
 import React from 'react';
-import StoreCategorySnb from '@organisms/StoreCategorySnb';
-import { CheckBoxType } from '@interfaces/formTypes';
+import StoreCategorySnb, { FiltersType } from '@organisms/StoreCategorySnb';
 import StoreCardList from '@organisms/StoreCardList';
 import NoDataMessage from '@molecules/NodataMessage';
 import * as S from './styles';
 
 export interface StoreListTemplateProps {
-  cateItems: CheckBoxType[];
-  facilityItems: CheckBoxType[];
+  filters: FiltersType;
   topic?: string | undefined;
   title?: string;
 }
 
-function StoreListTemplate({ topic, cateItems, facilityItems, title }: StoreListTemplateProps) {
+function StoreListTemplate({ filters, topic, title }: StoreListTemplateProps) {
   return (
     <S.Wrapper>
       <section>
-        <StoreCategorySnb cateItems={cateItems} facilityItems={facilityItems} />
+        <StoreCategorySnb filters={filters} />
       </section>
       <S.Container>
         <S.CardGroup>

@@ -29,14 +29,7 @@ function Search() {
       setTitle(STORE_LIST_TITLE.BOOKMARK);
     }
   }, [topic]);
-  return (
-    <StoreListTemplate
-      topic={topic}
-      title={title}
-      facilityItems={STORE_FILTERS.FACILITY}
-      cateItems={STORE_FILTERS.CATEGORY}
-    />
-  );
+  return <StoreListTemplate topic={topic} title={title} filters={STORE_FILTERS} />;
 }
 
 export default Search;

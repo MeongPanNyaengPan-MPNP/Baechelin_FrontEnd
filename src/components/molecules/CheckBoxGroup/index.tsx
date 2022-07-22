@@ -8,14 +8,22 @@ import * as S from './styles';
 export type CheckBoxGroupProps<T> = {
   boxHidden?: boolean;
   data?: CheckBoxType[];
-  prevValue?: any;
+  curValue?: string[];
   errors?: DeepMap<any, FieldError>;
   changeEvent?: any;
   control: Control<T>;
   name: string;
 } & UseControllerProps<T>;
 
-function CheckBoxGroup<T>({ boxHidden, data, errors, changeEvent, control, name, prevValue }: CheckBoxGroupProps<T>) {
+function CheckBoxGroup<T>({
+  boxHidden,
+  data,
+  errors,
+  changeEvent,
+  control,
+  name,
+  curValue = [''],
+}: CheckBoxGroupProps<T>) {
   return (
     <S.CheckBoxGroup>
       {data?.map((item, index) => (
@@ -24,7 +32,7 @@ function CheckBoxGroup<T>({ boxHidden, data, errors, changeEvent, control, name,
           key={item.LABEL}
           number={index}
           boxHidden={boxHidden}
-          prevValue={prevValue}
+          curValue={curValue[index]}
           name={`${name}.${index}`}
           control={control}
           errors={errors}

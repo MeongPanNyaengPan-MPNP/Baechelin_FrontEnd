@@ -1,6 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import MainTemplates from '@templates/MainTemplate';
-import { STORE_FILTERS } from '@constants/index';
+import { STORE_FILTERS } from '@constants/store';
+import UseGeolocation from '@hooks/UseGeolocation';
+import { useRecoilState } from 'recoil';
+import locationAtom from '@recoil/locationAtom';
 // TODO : 초기화, 전체 카테고리 넣기
 
 const mainVisualSlideItems = [
@@ -12,13 +16,15 @@ const mainVisualSlideItems = [
 ];
 
 function Main() {
-  return (
-    <MainTemplates
-      facilityItems={STORE_FILTERS.FACILITY}
-      cateItems={STORE_FILTERS.CATEGORY}
-      slideItems={mainVisualSlideItems}
-    />
-  );
+  const { currentLocation } = UseGeolocation();
+  const [location, setLocation] = useRecoilState(locationAtom);
+  React.useEffect(() => {
+    if (currentLocation !== null && location === null) {
+      // localstorage 초기 셋팅ㄴ
+      setLocation(currentLocation);
+    }
+  }, [currentLocation]);
+  return <MainTemplates filters={STORE_FILTERS} slideItems={mainVisualSlideItems} />;
 }
 
 export default Main;

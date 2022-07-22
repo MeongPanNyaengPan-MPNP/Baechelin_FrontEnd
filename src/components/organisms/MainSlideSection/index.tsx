@@ -7,7 +7,7 @@ import { useRecoilValue } from 'recoil';
 import { SnbQueryString } from '@recoil/mainSnbAtom';
 import locationAtom from '@recoil/locationAtom';
 import GetPositionButton from '@molecules/GetPositionButton';
-import { STORE_LIST } from '@constants/useQueryKey';
+import { STORE_TOPIC } from '@constants/store';
 import * as S from './styles';
 
 type MainSlideListProps = {
@@ -28,11 +28,13 @@ function MainSlideSection({
   //   const defaultLocation = '&lat=37.55328547489251&lng=126.97260152154756 ';
   const SnbRecoilQuery = useRecoilValue(SnbQueryString);
   const { UseGetStoreList, UseGetBookmarkStoreList } = UseStoreListHooks<StoreListQueryTypes>(location);
+
   const { data, isSuccess, isLoading, isError } =
-    listTopic === STORE_LIST.BEST_BOOKMARK_STORE
+    listTopic === STORE_TOPIC.BOOKMARK
       ? UseGetBookmarkStoreList(queryKey, SnbRecoilQuery)
       : UseGetStoreList(queryKey, SnbRecoilQuery, listTopic);
   // console.log('section', queryKey, SnbRecoilQuery, isSuccess, isLoading);
+
   return (
     <S.MainStoreListSection>
       {hiddenNoLocationState && location == null ? (
