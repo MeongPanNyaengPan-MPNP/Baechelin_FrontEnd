@@ -6,4 +6,7 @@ export const STORE_LIST = {
 };
 
 export const REVIEW = { RECENT_REVIEW_LIST: 'RECENT_REVIEW_LIST' };
-export const USER_TOKEN = { USER_TOKEN: 'USER_TOKEN' };
+export const USER = {
+  TOKEN: 'USER_TOKEN',
+  INFO: 'USER_INFO',
+};

@@ -45,8 +45,10 @@ Api.interceptors.response.use(
   async (error) => {
     const prevRequest = error.config.request;
     if (error.response.status === 401) {
+      // TODO : 토큰 조작->강제 로그아웃
       console.log(error);
     } else if (error.response.status === 402) {
+      // TODO : 토큰만료 or 없음으로 인한 재요청 로직
       const { UseQueryToken } = UseFetchToken();
       const { refetch } = UseQueryToken(true);
       refetch();
