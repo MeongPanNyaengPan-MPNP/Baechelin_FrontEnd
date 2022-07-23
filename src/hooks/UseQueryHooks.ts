@@ -2,11 +2,11 @@ import { getBookmarkStoreList, getNearStore } from '@service/storeListApi';
 import { useQuery } from 'react-query';
 import { UserLoctaionType } from '@interfaces/LocationTypes';
 import { getRecentReviewList } from '@service/reviewApi';
-import { TokenResponseType } from '@interfaces/TokenType';
-import { tokenRefresh } from '@service/getUserApi';
+import { TokenResponseType, UserInfoType } from '@interfaces/TokenType';
+import { getUserInfo, tokenRefresh } from '@service/getUserApi';
 import { useSetRecoilState } from 'recoil';
 import { userToken } from '@recoil/userAtom';
-import { USER_TOKEN } from '@constants/useQueryKey';
+import { USER } from '@constants/useQueryKey';
 
 const queryOption = {
   staleTime: Infinity,
@@ -46,25 +46,30 @@ export const UseReviewList = () => {
 
 export const UseFetchToken = () => {
   const setUserTokenState = useSetRecoilState(userToken);
-  const UseQueryToken = (refreshToken: boolean) =>
-    useQuery<TokenResponseType>([USER_TOKEN, refreshToken], () => tokenRefresh(), {
+  const UseQueryToken = (userInfoStateState: boolean) =>
+    useQuery<TokenResponseType>([USER.TOKEN, userInfoStateState], () => tokenRefresh(), {
       refetchOnWindowFocus: false,
       refetchOnMount: false,
       refetchOnReconnect: false,
       retry: 2,
       refetchInterval: 1 * 60 * 1000, // 1분
       refetchIntervalInBackground: true,
-      enabled: !!refreshToken,
+      enabled: userInfoStateState,
       onSuccess: (data) => {
-        console.log('UseFetchToken');
-        console.log(!!refreshToken);
+        console.log('userInfoStateState');
+        console.log('onSuccess', userInfoStateState);
         setUserTokenState(data.access_token);
       },
       onError: (err) => {
-        console.log('UseFetchToken error');
+        console.log('useQuery error', userInfoStateState, err);
         console.log(err);
-        console.log(!!refreshToken);
+        console.log('onError', userInfoStateState);
       },
     });
   return { UseQueryToken };
+};
+export const UseUserQuery = () => {
+  // 메인에 위치한 실시간 리뷰
+  const UseGetUserInfo = () => useQuery<UserInfoType>(USER.INFO, () => getUserInfo(), queryOption);
+  return { UseGetUserInfo };
 };
