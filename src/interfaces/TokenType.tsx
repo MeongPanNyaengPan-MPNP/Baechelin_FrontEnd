@@ -3,3 +3,7 @@ export interface TokenType {
   sub: string;// email
   exp: number;
 }
+
+export interface TokenResponseType {
+  access_token: string
+}

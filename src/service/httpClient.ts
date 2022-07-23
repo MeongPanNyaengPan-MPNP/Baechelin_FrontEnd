@@ -1,49 +1,65 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from 'axios';
+import { LOCAL_STORAGE_KEY, LOGIN } from '@constants/index';
+import { userLogout } from '@service/getUserApi';
+import { useQuery } from 'react-query';
 
-
-const API_DEV = 'http://localhost:10004'
-const API_PRODUCT = 'http://localhost:10004'
-const baseURL = process.env.NODE_ENV === "development" ? API_DEV : API_PRODUCT;
-
+const API_DEV = process.env.REACT_APP_API_DEV;
+const API_PROD = process.env.REACT_APP_API_PROD;
+const baseURL = process.env.REACT_APP_MODE === 'development' ? API_DEV : API_PROD;
 // 토큰 가져오기
 const getToken = (tokenName: string) => {
   const localToken = localStorage.getItem('recoil-persist');
   if (localToken) {
-    const tokenParseJson = JSON.parse(localToken)
+    const tokenParseJson = JSON.parse(localToken);
     if (tokenParseJson !== '') {
-      const token = tokenParseJson[tokenName]
-      return token
+      const token = tokenParseJson[tokenName];
+      return token;
     }
   }
-}
-// 기본 axios
-const axiosApi = (url: string, options?: object) => {
-  const instanceDefault = axios.create({
-    baseURL: `${url}`,
-    ...options
-  });
-  return instanceDefault;
 };
-// 토큰 axios
-const authTokenInstance = axios.create({
+const Api = axios.create({
   timeout: 10000,
-  baseURL: `${baseURL}`
+  baseURL: `${baseURL}`,
+  withCredentials: true,
 });
-authTokenInstance.interceptors.request.use(
+Api.interceptors.request.use(
   (config) => {
-    const token = getToken('userToken')
-    // 토큰만료 체크 필요
+    const token = getToken(LOCAL_STORAGE_KEY.ACCESS_TOKEN);
     if (token) {
-      config.headers = {'X-AUTH-TOKEN': `${token}`,}
+      config.headers = { Authorization: `Bearer ${token}` };
     }
-    try {
-      return config
-    } catch (err) {
-      console.error(`[_axios.interceptors.request] config : ${err}`);
+    return config;
+  },
+  (error) => Promise.reject(error),
+);
+Api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (error.response.code === LOGIN.WRONG_TYPE_SIGNATURE) {
+      console.log('WRONG_TYPE_SIGNATURE');
+      userLogout();
     }
-    return config
-  }
-)
+    if (error.code === LOGIN.WRONG_TYPE_TOKEN) {
+      console.log('WRONG_TYPE_TOKEN');
+      userLogout();
+    }
+    if (error.code === LOGIN.EXPIRED_TOKEN) {
+      useQuery(['access-token', '/']);
+    }
+  },
+);
 
-export const defaultInstance = axiosApi(baseURL);
-export const authInstance = authTokenInstance;
+export const request = async <T>(config: AxiosRequestConfig): Promise<T> => {
+  try {
+    const { data } = await Api(config);
+    return data;
+  } catch (err: any) {
+    console.error(err);
+
+    throw new Error(err);
+  }
+};
+
+//
+
+export default Api;
