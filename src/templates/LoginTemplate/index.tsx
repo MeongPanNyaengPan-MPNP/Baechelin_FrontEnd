@@ -1,8 +1,8 @@
 import React from 'react';
-import SocialLoginButtons from '@organisms/SocialLoginButtons';
+import SocialLoginBox from '@organisms/SocialLoginBox';
 
-function LoginTemplate() {
-  return <SocialLoginButtons />;
+function LoginTemplate({ state }: { state: any }) {
+  return <SocialLoginBox state={state} />;
 }
 
 export default LoginTemplate;

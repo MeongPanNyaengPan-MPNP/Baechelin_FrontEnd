@@ -1,13 +1,16 @@
 import React from 'react';
-import Container from '@mui/material/Container';
+import { useLocation } from 'react-router-dom';
 import LoginTemplate from '@templates/LoginTemplate';
 
 function Login() {
+  const { state }: any = useLocation();
+
   return (
-    <Container>
-      <LoginTemplate />
-    </Container>
+    <div>
+      <LoginTemplate state={state} />
+    </div>
   );
+  // return <LoginTemplate prevPath="dd" />;
 }
 
 export default Login;

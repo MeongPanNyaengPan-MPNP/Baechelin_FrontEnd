@@ -126,7 +126,7 @@ node_modules
 bower_components
 .idea
 *.sublime*
-yarn.lock
+
 psd
 thumb
 sketch

@@ -20,6 +20,9 @@ function TextAreaInput({ control, name }: TextAreaInputProps) {
             style={{
               width: '100%',
               border: '1px solid #efefef',
+              padding: '20px',
+              background: '#F2F2F2',
+              minHeight: '250px',
             }}
             {...field}
           />
