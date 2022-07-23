@@ -38,7 +38,6 @@ select,
 textarea,
 input,
 fieldset,
-legend,
 a,
 span,
 strong,
@@ -93,7 +92,6 @@ section {
 }
 
 html {
-    font-size: 16px;
     /*  letter-spacing: -.05em;*/
     width: 100%;
     overflow-x: hidden;
@@ -102,6 +100,7 @@ html {
     color: #000;
 
 }
+
 body {
     width: 100%;
     min-height: 100%;
@@ -162,12 +161,6 @@ caption {
     display: block;
     position: absolute;
     left: -9999px;
-}
-
-legend {
-    position: absolute;
-    left: -9999em;
-    top: -9999em;
 }
 
 button {
@@ -238,6 +231,7 @@ em {
 .hide_wrap {
     position: relative;
 }
+
 .hide_area {
     position: absolute;
     top: 0;
@@ -260,21 +254,27 @@ em {
 .vaT {
     vertical-align: top !important;
 }
+
 .vaM {
     vertical-align: middle !important;
 }
+
 .vaB {
     vertical-align: bottom !important;
 }
+
 .taL {
     text-align: left !important;
 }
+
 .taC {
     text-align: center !important;
 }
+
 .taR {
     text-align: right !important;
 }
+
 .taJ {
     text-align: justify;
     -moz-text-align-last: justify;
@@ -291,6 +291,7 @@ em {
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
 }
+
 .centered_r {
     position: absolute;
     right: 0;
@@ -299,6 +300,7 @@ em {
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 }
+
 .centered_b {
     position: absolute;
     left: 50%;
@@ -307,6 +309,7 @@ em {
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
 }
+
 .centered_l {
     position: absolute;
     left: 0;
@@ -315,6 +318,7 @@ em {
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 }
+
 .centered_c,
 .btn_ico > .ico {
     position: absolute;
@@ -325,7 +329,9 @@ em {
     transform: translate(-50%, -50%);
 }
 
-.mob {display: none;}
+.mob {
+    display: none;
+}
 
 /*-------------------------------------------------------------------
 	## Form Controls
@@ -392,18 +398,21 @@ input {
     -moz-appearance: none;
     -o-appearance: none;
 }
+
 input[type='radio'] {
     /*appearance: radio;*/
     -webkit-appearance: radio;
     -moz-appearance: radio;
     -o-appearance: radio;
 }
+
 input[type='checkbox'] {
     /*appearance: checkbox;*/
     -webkit-appearance: checkbox;
     -moz-appearance: checkbox;
     -o-appearance: checkbox;
 }
+
 textarea {
     width: 100%;
     vertical-align: middle;
@@ -415,12 +424,14 @@ textarea {
     -moz-appearance: none;
     -o-appearance: none;
 }
+
 select {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
     -o-appearance: none;
 }
+
 select::-ms-expand {
     display: none;
 }
@@ -428,10 +439,12 @@ select::-ms-expand {
 :root select {
     padding: 0px 30px 0px 5px;
 }
+
 .ie9 select {
     padding: 5px 35px 4px 5px;
     background: none;
 }
+
 .ie9 :root select {
     padding: 0;
     font-size: 0;

@@ -1,31 +1,15 @@
-import React, {useEffect} from "react";
-import {Navigate,Outlet} from "react-router-dom";
-import { useRecoilValue } from 'recoil';
-import userToken from "@recoil/userAtom"
+import React from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
+import { LOCAL_STORAGE_KEY } from '@constants/localStorage';
 
 interface PrivateRouteProps {
-  path?: string;
+  children: JSX.Element;
 }
 
-function PrivateRoute({path}: PrivateRouteProps) {
-  const token = useRecoilValue(userToken)
-  const isLogin = !!token
-  console.log('private',token,isLogin)
-  useEffect(() => {
-    if (!isLogin) {
-      alert('로그인이 필요합니다')
-    }
-  }, [isLogin])
-  console.log('path',path)
-  return (
-    <div>
-      {
-        isLogin ?
-          <Outlet/>
-          : <Navigate to="/login" state={path}/>
-      }
-    </div>
-  )
+function PrivateRoute({ children }: PrivateRouteProps) {
+  const token = localStorage.getItem(LOCAL_STORAGE_KEY.ACCESS_TOKEN);
+  const path = useLocation();
+  return <div>{token ? children : <Navigate to="/login" state={{ path }} />}</div>;
 }
 
-export default PrivateRoute
+export default PrivateRoute;
