@@ -1,15 +1,16 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { LOCAL_STORAGE_KEY } from '@constants/localStorage';
+import { useRecoilValue } from 'recoil';
+import { userToken } from '@recoil/userAtom';
 
 interface PrivateRouteProps {
   children: JSX.Element;
 }
 
 function PrivateRoute({ children }: PrivateRouteProps) {
-  const token = localStorage.getItem(LOCAL_STORAGE_KEY.ACCESS_TOKEN);
+  const userTokenState = useRecoilValue(userToken);
   const path = useLocation();
-  return <div>{token ? children : <Navigate to="/login" state={{ path }} />}</div>;
+  return <div>{userTokenState ? children : <Navigate to="/login" state={{ path }} />}</div>;
 }
 
 export default PrivateRoute;

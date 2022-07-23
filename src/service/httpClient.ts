@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { LOCAL_STORAGE_KEY, LOGIN } from '@constants/index';
+import { LOCAL_STORAGE_KEY } from '@constants/index';
 import { userLogout } from '@service/getUserApi';
-import { useQuery } from 'react-query';
+import { UseFetchToken } from '@hooks/UseQueryHooks';
 
 const API_DEV = process.env.REACT_APP_API_DEV;
 const API_PROD = process.env.REACT_APP_API_PROD;
@@ -17,6 +17,13 @@ const getToken = (tokenName: string) => {
     }
   }
 };
+const forceLogout = () => {
+  console.log('보안상의 문제로 인해 로그아웃 되었습니다');
+  localStorage.removeItem('recoil-persist');
+  userLogout();
+  window.location.reload();
+};
+console.log(forceLogout);
 const Api = axios.create({
   timeout: 10000,
   baseURL: `${baseURL}`,
@@ -25,6 +32,7 @@ const Api = axios.create({
 Api.interceptors.request.use(
   (config) => {
     const token = getToken(LOCAL_STORAGE_KEY.ACCESS_TOKEN);
+
     if (token) {
       config.headers = { Authorization: `Bearer ${token}` };
     }
@@ -35,17 +43,17 @@ Api.interceptors.request.use(
 Api.interceptors.response.use(
   (response) => response,
   async (error) => {
-    if (error.response.code === LOGIN.WRONG_TYPE_SIGNATURE) {
-      console.log('WRONG_TYPE_SIGNATURE');
-      userLogout();
+    const prevRequest = error.config.request;
+    if (error.response.status === 401) {
+      console.log(error);
+    } else if (error.response.status === 402) {
+      const { UseQueryToken } = UseFetchToken();
+      const { refetch } = UseQueryToken(true);
+      refetch();
+      console.log('토큰 재요청', error, prevRequest);
+      return prevRequest();
     }
-    if (error.code === LOGIN.WRONG_TYPE_TOKEN) {
-      console.log('WRONG_TYPE_TOKEN');
-      userLogout();
-    }
-    if (error.code === LOGIN.EXPIRED_TOKEN) {
-      useQuery(['access-token', '/']);
-    }
+    console.log('http', error.response.data.message);
   },
 );
 
@@ -54,8 +62,6 @@ export const request = async <T>(config: AxiosRequestConfig): Promise<T> => {
     const { data } = await Api(config);
     return data;
   } catch (err: any) {
-    console.error(err);
-
     throw new Error(err);
   }
 };

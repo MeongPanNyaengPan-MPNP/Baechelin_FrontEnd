@@ -10,7 +10,7 @@ function StoreReviewsTitle() {
   const navigate = useNavigate();
 
   const onClickReviewButton = () => {
-    navigate('/');
+    navigate('/review/write');
   };
   return (
     <S.Container>

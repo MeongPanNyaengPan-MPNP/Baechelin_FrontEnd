@@ -4,6 +4,9 @@ import { UserLoctaionType } from '@interfaces/LocationTypes';
 import { getRecentReviewList } from '@service/reviewApi';
 import { TokenResponseType } from '@interfaces/TokenType';
 import { tokenRefresh } from '@service/getUserApi';
+import { useSetRecoilState } from 'recoil';
+import { userToken } from '@recoil/userAtom';
+import { USER_TOKEN } from '@constants/useQueryKey';
 
 const queryOption = {
   staleTime: Infinity,
@@ -42,15 +45,26 @@ export const UseReviewList = () => {
 };
 
 export const UseFetchToken = () => {
-  const UseQueryToken = (pathname: string, refreshToken: boolean) =>
-    useQuery<TokenResponseType>(['access-token', pathname], () => tokenRefresh(), {
+  const setUserTokenState = useSetRecoilState(userToken);
+  const UseQueryToken = (refreshToken: boolean) =>
+    useQuery<TokenResponseType>([USER_TOKEN, refreshToken], () => tokenRefresh(), {
       refetchOnWindowFocus: false,
       refetchOnMount: false,
       refetchOnReconnect: false,
       retry: 2,
-      refetchInterval: 26 * 60 * 1000, // 1시간 인 상황
+      refetchInterval: 1 * 60 * 1000, // 1분
       refetchIntervalInBackground: true,
       enabled: !!refreshToken,
+      onSuccess: (data) => {
+        console.log('UseFetchToken');
+        console.log(!!refreshToken);
+        setUserTokenState(data.access_token);
+      },
+      onError: (err) => {
+        console.log('UseFetchToken error');
+        console.log(err);
+        console.log(!!refreshToken);
+      },
     });
   return { UseQueryToken };
 };
