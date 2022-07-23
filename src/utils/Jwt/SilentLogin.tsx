@@ -3,10 +3,9 @@
 // TODO : auth class 만들기
 import { useLocation } from 'react-router-dom';
 import React from 'react';
-import { userToken } from '@recoil/userAtom';
-import { useSetRecoilState } from 'recoil';
 
 import Cookie from 'js-cookie';
+import { useQueryClient } from 'react-query';
 import { UseFetchToken } from '@hooks/UseQueryHooks';
 
 /*
@@ -24,20 +23,29 @@ export const loginSuccess = (res: AxiosResponse<{ access_token: string }>) => {
 
 export function SilentLogin({ children }: { children: any }) {
   const { pathname } = useLocation();
-  const setUserTokenState = useSetRecoilState(userToken);
-  const refreshToken = Cookie.get('refresh_token');
-  const { UseQueryToken } = UseFetchToken();
-  console.log('silent');
+  const queryClient = useQueryClient();
   // eslint-disable-next-line react/react-in-jsx-scope
-  const { data, isSuccess, isError, error } = UseQueryToken(pathname, !!refreshToken);
+  const refreshToken = Cookie.get('refresh_token');
+  const [refreshTokenState, setRefreshTokenState] = React.useState<boolean>(!!refreshToken);
+
+  const { UseQueryToken } = UseFetchToken();
+  const { refetch } = UseQueryToken(refreshTokenState);
+
   React.useEffect(() => {
-    if (isSuccess) {
-      setUserTokenState(data.access_token);
+    const refreshCookie = Cookie.get('refresh_token');
+    setRefreshTokenState(!!refreshCookie);
+    console.log('!!refreshCookie', !!refreshCookie);
+  }, [pathname, queryClient]); // 페이지 바뀔때마다 refreshCookie 상태 검사
+
+  React.useEffect(() => {
+    console.log('silent refetch effect');
+    if (refreshTokenState) {
+      refetch();
+      console.log('refetch');
+    } else {
+      console.log(refreshTokenState, 'no refetch');
     }
-    if (isError) {
-      console.log(error);
-    }
-  }, [UseQueryToken, data?.access_token, error, isError, isSuccess, pathname, refreshToken, setUserTokenState]);
+  }, [refetch, refreshTokenState]); // refresh토큰 상태가 바뀌었으면 token 재발급
 
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment

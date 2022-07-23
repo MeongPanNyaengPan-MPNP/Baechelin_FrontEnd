@@ -16,7 +16,8 @@ import { ThemeProvider } from '@mui/material';
 import ReviewWrite from '@pages/ReviewWrite';
 import StoreList from '@pages/StoreList';
 import SnackBarsContainer from '@molecules/SnackBarsContainer';
-import SilentLogin from '@utils/Jwt/refresh';
+import SilentLogin from '@utils/Jwt/SilentLogin';
+
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
 import PrivateRoute from './routes/PrivateRoutes';
