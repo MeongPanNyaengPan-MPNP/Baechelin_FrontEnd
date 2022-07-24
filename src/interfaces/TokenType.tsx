@@ -5,7 +5,7 @@ export interface TokenType {
 }
 
 export interface TokenResponseType {
-  access_token: string;
+  token: string;
 }
 
 export interface UserInfoType {

@@ -46,30 +46,30 @@ export const UseReviewList = () => {
 
 export const UseFetchToken = () => {
   const setUserTokenState = useSetRecoilState(userToken);
-  const UseQueryToken = (userInfoStateState: boolean) =>
-    useQuery<TokenResponseType>([USER.TOKEN, userInfoStateState], () => tokenRefresh(), {
+
+  const UseQueryToken = (loginState: boolean) =>
+    useQuery<TokenResponseType>([USER.TOKEN, loginState], () => tokenRefresh(), {
       refetchOnWindowFocus: false,
       refetchOnMount: false,
       refetchOnReconnect: false,
-      retry: 2,
+      retry: 1,
       refetchInterval: 1 * 60 * 1000, // 1분
       refetchIntervalInBackground: true,
-      enabled: userInfoStateState,
+      enabled: loginState,
       onSuccess: (data) => {
-        console.log('userInfoStateState');
-        console.log('onSuccess', userInfoStateState);
-        setUserTokenState(data.access_token);
+        console.log('userInfoStateState', data);
+        console.log('onSuccess', data);
+        setUserTokenState(data.token);
       },
       onError: (err) => {
-        console.log('useQuery error', userInfoStateState, err);
+        console.log('useQuery error', loginState, err);
         console.log(err);
-        console.log('onError', userInfoStateState);
+        console.log('onError', loginState);
       },
     });
   return { UseQueryToken };
 };
 export const UseUserQuery = () => {
-  // 메인에 위치한 실시간 리뷰
   const UseGetUserInfo = () => useQuery<UserInfoType>(USER.INFO, () => getUserInfo(), queryOption);
   return { UseGetUserInfo };
 };

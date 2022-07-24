@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import React from 'react';
 import { useQueryClient } from 'react-query';
 import { UseFetchToken, UseUserQuery } from '@hooks/UseQueryHooks';
+import { USER } from '@constants/useQueryKey';
 
 /*
 
@@ -26,23 +27,16 @@ export function SilentLogin({ children }: { children: any }) {
   const [userInfoState, setUserInfoState] = React.useState<boolean>(false);
 
   const { UseQueryToken } = UseFetchToken();
-  const { dataUpdatedAt, refetch } = UseQueryToken(userInfoState);
+  const { data, dataUpdatedAt } = UseQueryToken(userInfoState);
   const { UseGetUserInfo } = UseUserQuery();
   const { isSuccess: userState } = UseGetUserInfo();
   React.useEffect(() => {
+    queryClient.invalidateQueries(USER.TOKEN);
     console.log('getUserInfo isSuccess', userState);
+    console.log('getuserInfodata', UseGetUserInfo);
+    console.log('queryToken', data, dataUpdatedAt);
     setUserInfoState(userState);
-  }, [userState, pathname, queryClient]); // 페이지 바뀔때마다 refreshCookie 상태 검사
-
-  React.useEffect(() => {
-    console.log('silent refetch effect', userInfoState);
-    if (userInfoState) {
-      refetch();
-      console.log('refetch', dataUpdatedAt);
-    } else {
-      console.log(userInfoState, 'no refetch');
-    }
-  }, [dataUpdatedAt, refetch, userState, userInfoState]); // refresh토큰 상태가 바뀌었으면 token 재발급
+  }, [UseGetUserInfo, data, pathname, dataUpdatedAt, queryClient, userState]); // 페이지 바뀔때마다 refreshCookie 상태 검사
 
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment

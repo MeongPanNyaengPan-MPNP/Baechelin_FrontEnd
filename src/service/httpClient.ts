@@ -1,7 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { LOCAL_STORAGE_KEY } from '@constants/index';
-import { userLogout } from '@service/getUserApi';
-import { UseFetchToken } from '@hooks/UseQueryHooks';
 
 const API_DEV = process.env.REACT_APP_API_DEV;
 const API_PROD = process.env.REACT_APP_API_PROD;
@@ -16,14 +14,13 @@ const getToken = (tokenName: string) => {
       return token;
     }
   }
-};
+}; /*
 const forceLogout = () => {
   console.log('보안상의 문제로 인해 로그아웃 되었습니다');
   localStorage.removeItem('recoil-persist');
   userLogout();
   window.location.reload();
-};
-console.log(forceLogout);
+}; */
 const Api = axios.create({
   timeout: 10000,
   baseURL: `${baseURL}`,
@@ -44,18 +41,19 @@ Api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const prevRequest = error.config.request;
-    if (error.response.status === 401) {
-      // TODO : 토큰 조작->강제 로그아웃
-      console.log(error);
-    } else if (error.response.status === 402) {
-      // TODO : 토큰만료 or 없음으로 인한 재요청 로직
-      const { UseQueryToken } = UseFetchToken();
-      const { refetch } = UseQueryToken(true);
-      refetch();
-      console.log('토큰 재요청', error, prevRequest);
-      return prevRequest();
-    }
+    /*     if (error.response.status === 401) {
+          // TODO : 토큰 조작->강제 로그아웃
+          console.log(error);
+        } else if (error.response.status === 402) {
+          // TODO : 토큰만료 or 없음으로 인한 재요청 로직
+          const { UseQueryToken } = UseFetchToken();
+          const { refetch } = UseQueryToken(true);
+          refetch();
+          console.log('토큰 재요청', error, prevRequest);
+          return prevRequest();
+        } */
     console.log('http', error.response.data.message);
+    console.log('prevRequest', prevRequest);
   },
 );
 
