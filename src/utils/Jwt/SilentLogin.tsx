@@ -4,9 +4,9 @@
 import { useLocation } from 'react-router-dom';
 import React from 'react';
 import { useQueryClient } from 'react-query';
-import { UseFetchToken } from '@hooks/UseQueryHooks';
+import { UseFetchToken, UseUserQuery } from '@hooks/UseQueryHooks';
 import { USER } from '@constants/useQueryKey';
-import Cookie from 'js-cookie';
+import Cookies from 'js-cookie';
 
 /*
 
@@ -26,15 +26,20 @@ export function SilentLogin() {
   const queryClient = useQueryClient();
   const [userTokenState, setUserTokenState] = React.useState<boolean>(false);
   const { UseQueryToken } = UseFetchToken();
-  UseQueryToken(userTokenState);
+  const { UseGetUserInfo } = UseUserQuery();
+  const { isSuccess, data: userInfo } = UseGetUserInfo();
+  const refreshToken = Cookies.get('refresh_token');
+  console.log('refreshToken', refreshToken);
+  console.log('userInfo', userInfo);
   //  const { isSuccess: userState } = UseGetUserInfo();
+
+  UseQueryToken(userTokenState);
   React.useEffect(() => {
-    const refreshToken = Cookie.get('refresh_token');
-    setUserTokenState(!!refreshToken);
+    setUserTokenState(isSuccess);
     queryClient.invalidateQueries(USER.TOKEN);
-    console.log('refreshToken', !!refreshToken);
+    console.log('userData for refreshToken', isSuccess);
     console.log('invalidateQueries');
-  }, [pathname, queryClient]); // 페이지 바뀔때마다 refreshCookie 상태 검사
+  }, [pathname, queryClient, isSuccess]); // 페이지 바뀔때마다 refreshCookie 상태 검사
 
   return null;
 }
