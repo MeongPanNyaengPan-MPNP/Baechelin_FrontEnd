@@ -43,13 +43,15 @@ export const request = async <T>(config: AxiosRequestConfig): Promise<T> => {
     return data;
   } catch (err: any) {
     const prevRequest = err.config.request;
-    if (err.response.status === 401) {
+    if (err.response.status === 401 && process.env.REACT_APP_MODE === 'production') {
       // TODO : 토큰 조작->강제 로그아웃
       localStorage.clear();
       Api.post('/user/logout');
       window.location.reload();
       console.log('401_error', err);
-    } else if (err.response.status === 402) {
+    }
+
+    if (err.response.status === 402) {
       console.log('토큰 재요청 ', err, prevRequest);
     }
     throw new Error(err);

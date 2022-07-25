@@ -2,7 +2,6 @@
 import React from 'react';
 import { useQueryClient } from 'react-query';
 import { UseFetchToken } from '@hooks/UseQueryHooks';
-import { USER } from '@constants/useQueryKey';
 import UseLoginHooks from '@hooks/UseLogin';
 import { useLocation } from 'react-router-dom';
 
@@ -25,11 +24,9 @@ export function SilentLogin() {
   const { UseQueryToken } = UseFetchToken();
   const { tokenExist } = UseLoginHooks();
   UseQueryToken(tokenExist, pathname);
-
-  console.log('silentLoginComponent mount');
+  console.log('silentLoginComponent mount', tokenExist, 'tokenExist');
 
   React.useEffect(() => {
-    queryClient.invalidateQueries(USER.TOKEN);
     console.log('silentLogin useEffect');
   }, [queryClient, tokenExist]); // 페이지 바뀔때마다 refreshCookie 상태 검사
 

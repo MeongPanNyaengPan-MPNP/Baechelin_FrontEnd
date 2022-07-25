@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { userToken } from '@recoil/userAtom';
 import { userLogout } from '@service/getUserApi';
+import Cookies from 'js-cookie';
 
 export const UseLoginHooks = () => {
   const accessToken = useRecoilValue(userToken);
@@ -14,8 +15,11 @@ export const UseLoginHooks = () => {
 
   const UseLogout = useCallback(() => {
     resetAccessToken(); // accesstoken 리셋
-    userLogout(); // 로그아웃 api 호출
-    window.location.reload();
+    userLogout().then((res) => {
+      console.log(res);
+    }); // 로그아웃 api 호출
+    // window.location.reload();
+    Cookies.remove('refresh_token');
   }, [resetAccessToken]);
 
   return {

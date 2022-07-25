@@ -27,7 +27,6 @@ library.add(fas);
 function App() {
   const location = useLocation();
   const state = location.state as { locationState?: Location };
-  console.log('app state', state);
   return (
     <RecoilRoot>
       <ThemeProvider theme={theme}>
