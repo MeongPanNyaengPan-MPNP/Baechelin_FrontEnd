@@ -13,6 +13,10 @@ function SocialLoginBox() {
 https://bae-chelin.com/user/oauth/redirect/${prevPath || ''}`,
     [prevPath],
   );
+  const redirectTest = `http://localhost:12345/user/oauth/redirect/${
+    prevPath || ''
+  }?token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMzE4MTQ3MTIwIiwicm9sZSI6I
+lJPTEVfQURNSU4iLCJleHAiOjE2NTk3NjA0NTR9.juziYqYYeUHoxdCn-0egZ62zRyz6Kzh0hO2zVY3uX6M`;
   return (
     <>
       <S.Title>
@@ -24,9 +28,7 @@ https://bae-chelin.com/user/oauth/redirect/${prevPath || ''}`,
           <LoginButton src={getLink('naver')} socialType="naver" />
           <LoginButton src={getLink('google')} socialType="google" />
         </S.LoginButtonArea>
-        {/*        <Buttons type="button" onClick={redirect}>
-          set dummytoken
-        </Buttons> */}
+        <a href={redirectTest}>set dummytoken</a>
         <S.TextArea>
           <Span fontSize="1.8rem" textAlign="center">
             배슐랭은 사회적 교통약자가 쉽게 이용할 수 있는 배리어 프리 식당이나 카페 등 가게 정보를 알려주고 사용자 맞춤

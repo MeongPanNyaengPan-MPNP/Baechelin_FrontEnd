@@ -28,6 +28,7 @@ function Oauth() {
   );
   useEffect(() => {
     const token = searchParams.get('token');
+    console.log('token', token);
     if (!token) {
       const error = searchParams.get('error');
       const provider = searchParams.get('provider_type');
@@ -41,7 +42,7 @@ function Oauth() {
       setSnackBar((prev) => [...prev, '로그인 완료']);
     }
     const pathArray = prevPath?.split('-').join('/');
-    window.location.href = `${pathArray || '/'}`;
+    navigate(`${pathArray || '/'}`);
   }, [navigate, prevPath, searchParams, setSnackBar, tokenExist, tokenNotFound]);
 
   return <div />;

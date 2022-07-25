@@ -58,7 +58,7 @@ function App() {
               <Route path="" element={<NotFound />} />
             </Route> */}
             <Route path="/review/write/*" element={<PrivateRoute prevPath="/review/write" />}>
-              <Route element={<ReviewWrite />} />
+              <Route path="*" element={<ReviewWrite />} />
             </Route>
             <Route path="/store/list" />
             <Route path="/map" />

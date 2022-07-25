@@ -47,8 +47,8 @@ export const UseReviewList = () => {
 export const UseFetchToken = () => {
   const setUserTokenState = useSetRecoilState(userToken);
 
-  const UseQueryToken = (loginState: boolean) =>
-    useQuery<TokenResponseType>([USER.TOKEN, loginState], () => tokenRefresh(), {
+  const UseQueryToken = (loginState: boolean, pathname?: string) =>
+    useQuery<TokenResponseType>([USER.TOKEN, loginState, pathname], () => tokenRefresh(), {
       refetchOnWindowFocus: false,
       refetchOnMount: false,
       refetchOnReconnect: false,
