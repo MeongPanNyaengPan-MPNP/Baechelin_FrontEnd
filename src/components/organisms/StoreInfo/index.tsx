@@ -9,7 +9,6 @@ interface StoreInfoProps {
 }
 
 function StoreInfo({ storeName }: StoreInfoProps) {
-  console.log('storeName', storeName);
   return (
     <S.Container>
       <StoreInfoTitle storeName={storeName} />

@@ -1,8 +1,7 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useCallback } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import LogoImg from '@assets/Logo.svg';
-import UserIcon from '@assets/UserIcon.svg';
 
 import Navigation from '@molecules/Navigation';
 import Button from '@atoms/Buttons';
@@ -13,14 +12,12 @@ import * as S from './styles';
 
 function Header() {
   const navigate = useNavigate();
-  const onClickLogo = () => {
+  const location = useLocation();
+  const onClickLogo = useCallback(() => {
     navigate('/');
-  };
+  }, [navigate]);
   const onClickAbout = () => {};
   const onClickMap = () => {};
-  const onClickUserIcon = () => {
-    navigate('/login');
-  };
 
   return (
     <S.Container>
@@ -39,7 +36,12 @@ function Header() {
             </Button>
           </div>
           {/* userIcon */}
-          <Logo src={UserIcon} width="3rem" height="3rem" onClick={onClickUserIcon} />
+          <div>
+            {/* <Logo src={UserIcon} width="3rem" height="3rem" /> */}
+            <Link to="/login" state={{ locationState: location }}>
+              로그인
+            </Link>
+          </div>
         </Navigation>
       </S.Wrapper>
     </S.Container>

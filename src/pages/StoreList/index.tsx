@@ -15,7 +15,6 @@ function Search() {
     if (params) {
       const paramsTopic = params.topic;
       setTopic(paramsTopic);
-      console.log(params);
     }
   }, [params, params.topic]);
   React.useEffect(() => {

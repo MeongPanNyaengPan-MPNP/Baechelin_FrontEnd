@@ -23,9 +23,6 @@ function StoreInfoTitle({ storeName }: StoreInfoTitleProps) {
       enabled: !!storeName,
     },
   );
-  console.log(storeName);
-  console.log(storeDetailData);
-
   const onClickIcon = () => {};
 
   return (

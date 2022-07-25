@@ -1,11 +1,11 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 
 import Main from '@pages/Main';
-import Login from '@pages/Login';
+import Login from '@pages/LoginModal';
 import NotFound from '@pages/NotFound';
 import Oauth from '@pages/User/Oauth';
 import Header from '@organisms/Header';
@@ -25,26 +25,28 @@ import PrivateRoute from './routes/PrivateRoutes';
 library.add(fas);
 
 function App() {
+  const location = useLocation();
+  const state = location.state as { locationState?: Location };
+  console.log('app state', state);
   return (
     <RecoilRoot>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <SnackBarsContainer>
           <Header />
-          <Routes>
+          <SilentLogin />
+          <Routes location={state?.locationState}>
             <Route path="/" element={<Main />} />
-            <Route path="login" element={<Login />} />
             <Route path="/user">
               <Route path="oauth/redirect/:prevPath" element={<Oauth />} />
               <Route path="oauth/redirect" element={<Oauth />} />
-              <Route path="bookmark" element={<Login />} />
             </Route>
             <Route path="/store">
               <Route path=":storeName" element={<StoreDetail />} />
               <Route path="list/:topic" element={<StoreList />} />
             </Route>
             <Route path="/search/:keyword" element={<Search />} />
-            <Route path="/review">
+            {/*            <Route path="/review">
               <Route
                 path="/review/write"
                 element={
@@ -54,12 +56,20 @@ function App() {
                 }
               />
               <Route path="" element={<NotFound />} />
+            </Route> */}
+            <Route path="/review/write/*" element={<PrivateRoute prevPath="/review/write" />}>
+              <Route element={<ReviewWrite />} />
             </Route>
             <Route path="/store/list" />
             <Route path="/map" />
             <Route path="*" element={<NotFound />} />
+            <Route path="login" element={<Login />} />
           </Routes>
-          <SilentLogin />
+          {state?.locationState && (
+            <Routes>
+              <Route path="login" element={<Login />} />
+            </Routes>
+          )}
         </SnackBarsContainer>
       </ThemeProvider>
     </RecoilRoot>
