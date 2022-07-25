@@ -4,8 +4,9 @@
 import { useLocation } from 'react-router-dom';
 import React from 'react';
 import { useQueryClient } from 'react-query';
-import { UseFetchToken, UseUserQuery } from '@hooks/UseQueryHooks';
+import { UseFetchToken } from '@hooks/UseQueryHooks';
 import { USER } from '@constants/useQueryKey';
+import Cookie from 'js-cookie';
 
 /*
 
@@ -20,28 +21,22 @@ export const loginSuccess = (res: AxiosResponse<{ access_token: string }>) => {
 };
 */
 
-export function SilentLogin({ children }: { children: any }) {
+export function SilentLogin() {
   const { pathname } = useLocation();
   const queryClient = useQueryClient();
-  // eslint-disable-next-line react/react-in-jsx-scope
-  const [userInfoState, setUserInfoState] = React.useState<boolean>(false);
-
+  const [userTokenState, setUserTokenState] = React.useState<boolean>(false);
   const { UseQueryToken } = UseFetchToken();
-  const { data, dataUpdatedAt } = UseQueryToken(userInfoState);
-  const { UseGetUserInfo } = UseUserQuery();
-  const { isSuccess: userState } = UseGetUserInfo();
+  UseQueryToken(userTokenState);
+  //  const { isSuccess: userState } = UseGetUserInfo();
   React.useEffect(() => {
+    const refreshToken = Cookie.get('refresh_token');
+    setUserTokenState(!!refreshToken);
     queryClient.invalidateQueries(USER.TOKEN);
-    console.log('getUserInfo isSuccess', userState);
-    console.log('getuserInfodata', UseGetUserInfo);
-    console.log('queryToken', data, dataUpdatedAt);
-    setUserInfoState(userState);
-  }, [UseGetUserInfo, data, pathname, dataUpdatedAt, queryClient, userState]); // 페이지 바뀔때마다 refreshCookie 상태 검사
+    console.log('refreshToken', !!refreshToken);
+    console.log('invalidateQueries');
+  }, [pathname, queryClient]); // 페이지 바뀔때마다 refreshCookie 상태 검사
 
-  return (
-    // eslint-disable-next-line react/jsx-no-useless-fragment
-    <>{children}</>
-  );
+  return null;
 }
 
 export default SilentLogin;

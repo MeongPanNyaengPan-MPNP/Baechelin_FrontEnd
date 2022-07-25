@@ -57,14 +57,12 @@ export const UseFetchToken = () => {
       refetchIntervalInBackground: true,
       enabled: loginState,
       onSuccess: (data) => {
-        console.log('userInfoStateState', data);
-        console.log('onSuccess', data);
+        console.log('useQueryToken onSuccess', data);
         setUserTokenState(data.token);
       },
       onError: (err) => {
-        console.log('useQuery error', loginState, err);
+        console.log('useQueryToken ERROR', err);
         console.log(err);
-        console.log('onError', loginState);
       },
     });
   return { UseQueryToken };

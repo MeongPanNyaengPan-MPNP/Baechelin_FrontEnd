@@ -40,9 +40,8 @@ function Oauth() {
       tokenExist(token);
       setSnackBar((prev) => [...prev, '로그인 완료']);
     }
-
     const pathArray = prevPath?.split('-').join('/');
-    navigate(`${pathArray || '/'}`);
+    window.location.href = `${pathArray || '/'}`;
   }, [navigate, prevPath, searchParams, setSnackBar, tokenExist, tokenNotFound]);
 
   return <div />;

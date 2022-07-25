@@ -29,7 +29,6 @@ const Api = axios.create({
 Api.interceptors.request.use(
   (config) => {
     const token = getToken(LOCAL_STORAGE_KEY.ACCESS_TOKEN);
-
     if (token) {
       config.headers = { Authorization: `Bearer ${token}` };
     }
@@ -52,7 +51,7 @@ Api.interceptors.response.use(
           console.log('토큰 재요청', error, prevRequest);
           return prevRequest();
         } */
-    console.log('http', error.response.data.message);
+    console.log('http', error);
     console.log('prevRequest', prevRequest);
   },
 );

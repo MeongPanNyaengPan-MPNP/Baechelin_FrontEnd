@@ -30,37 +30,36 @@ function App() {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <SnackBarsContainer>
-          <SilentLogin>
-            <Header />
-            <Routes>
-              <Route path="/" element={<Main />} />
-              <Route path="login" element={<Login />} />
-              <Route path="/user">
-                <Route path="oauth/redirect/:prevPath" element={<Oauth />} />
-                <Route path="oauth/redirect" element={<Oauth />} />
-                <Route path="bookmark" element={<Login />} />
-              </Route>
-              <Route path="/store">
-                <Route path=":storeName" element={<StoreDetail />} />
-                <Route path="list/:topic" element={<StoreList />} />
-              </Route>
-              <Route path="/search/:keyword" element={<Search />} />
-              <Route path="/review">
-                <Route
-                  path="/review/write"
-                  element={
-                    <PrivateRoute>
-                      <ReviewWrite />
-                    </PrivateRoute>
-                  }
-                />
-                <Route path="" element={<NotFound />} />
-              </Route>
-              <Route path="/store/list" />
-              <Route path="/map" />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </SilentLogin>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="login" element={<Login />} />
+            <Route path="/user">
+              <Route path="oauth/redirect/:prevPath" element={<Oauth />} />
+              <Route path="oauth/redirect" element={<Oauth />} />
+              <Route path="bookmark" element={<Login />} />
+            </Route>
+            <Route path="/store">
+              <Route path=":storeName" element={<StoreDetail />} />
+              <Route path="list/:topic" element={<StoreList />} />
+            </Route>
+            <Route path="/search/:keyword" element={<Search />} />
+            <Route path="/review">
+              <Route
+                path="/review/write"
+                element={
+                  <PrivateRoute>
+                    <ReviewWrite />
+                  </PrivateRoute>
+                }
+              />
+              <Route path="" element={<NotFound />} />
+            </Route>
+            <Route path="/store/list" />
+            <Route path="/map" />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          <SilentLogin />
         </SnackBarsContainer>
       </ThemeProvider>
     </RecoilRoot>
