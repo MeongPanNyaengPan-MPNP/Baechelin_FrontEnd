@@ -115,3 +115,65 @@ export const STORE_LIST_TITLE = {
   BOOKMARK: '저장 많이한 가게',
   RECENT_REVIEW: '실시간 맛집 후기',
 };
+
+export const REVIEW_FILTERS = {
+  FACILITY: [
+    {
+      LABEL: '배리어프리 키오스크',
+      KEY: 'bKiosk',
+      CHECKED: false,
+    },
+    {
+      LABEL: '입식 테이블',
+      KEY: 'bTable',
+      CHECKED: false,
+    },
+    {
+      LABEL: '점자 메뉴판',
+      KEY: 'bMenu',
+      CHECKED: false,
+    },
+    {
+      LABEL: '휠체어가 들어갈 수 있는',
+      KEY: 'bWheelchair',
+      CHECKED: false,
+    },
+    {
+      LABEL: '직원에 도움 요청',
+      KEY: 'bHelp',
+      CHECKED: false,
+    },
+  ],
+  QUALITY: [
+    {
+      LABEL: '음식이 맛있는',
+      KEY: 'fDelicious',
+      CHECKED: false,
+    },
+    {
+      LABEL: '매장이 깔끔한',
+      KEY: 'fClean',
+      CHECKED: false,
+    },
+    {
+      LABEL: '분위기 좋은',
+      KEY: 'fVibe',
+      CHECKED: false,
+    },
+    {
+      LABEL: '양이 많은',
+      KEY: 'fQuantity',
+      CHECKED: false,
+    },
+    {
+      LABEL: '먹기 편한',
+      KEY: 'fGoodToEat',
+      CHECKED: false,
+    },
+    {
+      LABEL: '가격이 착한',
+      KEY: 'fPrice',
+      CHECKED: false,
+    },
+  ],
+};

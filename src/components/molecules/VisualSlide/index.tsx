@@ -4,6 +4,7 @@ import Thumbnail, { ThumbNailProps } from '@atoms/Thumbnail';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper';
+import * as S from './styles';
 
 export interface SlideGroupProps {
   viewLength?: number;
@@ -29,9 +30,14 @@ function VisualSlide({ viewLength = 1, spaceBetween = 0, slideItems, children, p
       autoplay={{ delay: 5000 }}
       loop
     >
-      {slideItems.map(({ alt, src }) => (
+      {slideItems.map(({ alt, src, txt }) => (
         <SwiperSlide key={alt}>
-          <Thumbnail alt={alt} src={src} height="100%" />
+          <S.SlideArea>
+            <Thumbnail alt={alt} src={src} height="100%" />
+            <S.TextArea>
+              <img alt={alt} src={txt} />
+            </S.TextArea>
+          </S.SlideArea>
         </SwiperSlide>
       ))}
       {children}

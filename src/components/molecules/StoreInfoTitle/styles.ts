@@ -9,8 +9,10 @@ export const Container = styled.div`
 export const TitleWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  min-height: 65px;
   justify-content: space-between;
   align-items: flex-start;
+
   span {
     line-height: 1;
   }

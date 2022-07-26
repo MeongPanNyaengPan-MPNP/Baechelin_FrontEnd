@@ -30,7 +30,8 @@ const StyledSpan = styled.span<SpanProps>`
   word-break: break-all;
   font-size: ${(props) => props.fontSize};
   font-weight: ${(props) => props.fontWeight};
-  line-height: 1;
+  line-height: 1.4;
+  white-space: pre-wrap;
 
   &.del {
     text-decoration: line-through;
