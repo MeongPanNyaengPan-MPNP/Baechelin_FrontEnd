@@ -29,12 +29,6 @@ function StoreDetailTemplate({ storeName }: StoreDetailProps) {
         <S.StoreDetailMapWrapper>
           <StoreDetailMap latitude={storeDetailData?.latitude} longitude={storeDetailData?.longitude} />
         </S.StoreDetailMapWrapper>
-        {/* <img
-          alt="map"
-          style={{ width: '73.5rem' }}
-          // eslint-disable-next-line max-len
-          src="https://devtalk.kakao.com/uploads/default/original/2X/7/7db951d2d9d5f686c61df08e2eb8ce5e294ddf1d.PNG"
-        /> */}
       </S.InfoWrapper>
       <S.StoreReviewsContainer>
         <StoreReviewsList />

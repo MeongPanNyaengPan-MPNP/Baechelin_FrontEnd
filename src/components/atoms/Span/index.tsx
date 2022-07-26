@@ -15,6 +15,7 @@ export interface SpanProps {
   del?: boolean;
   onClick?: (e: React.MouseEvent<HTMLSpanElement>) => void;
   display?: string;
+  cursor?: string;
   style?: any;
 
   [prop: string]: any;
@@ -30,6 +31,7 @@ const StyledSpan = styled.span<SpanProps>`
   word-break: break-all;
   font-size: ${(props) => props.fontSize};
   font-weight: ${(props) => props.fontWeight};
+  cursor: ${(props: SpanProps) => (props.cursor ? props.cursor : null)};
   line-height: 1.4;
   white-space: pre-wrap;
 
@@ -72,6 +74,7 @@ const Span = ({
   size = 'normal',
   className,
   blockWidth = false,
+  cursor = 'null',
   onClick,
   display,
   style,
@@ -86,6 +89,7 @@ const Span = ({
     blockWidth,
     fontWeight,
     display,
+    cursor,
     style,
   };
 

@@ -1,12 +1,14 @@
 import React from 'react';
 import Icon from '@atoms/Icon';
 import BookmarkRegister from '@organisms/BookmarkRegister';
+import { Color } from '@constants/styles';
 
 interface BookmarkProps {
   size?: string;
+  marked?: string;
 }
 
-function Bookmark({ size }: BookmarkProps) {
+function Bookmark({ size, marked = Color.darkGrey }: BookmarkProps) {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -15,7 +17,7 @@ function Bookmark({ size }: BookmarkProps) {
 
   return (
     <>
-      <Icon iconName="bookmark" color="#ED6F2A" size={size} cursor="pointer" onClick={handleClick} />
+      <Icon iconName="bookmark" color={marked} size={size} cursor="pointer" onClick={handleClick} />
       <BookmarkRegister anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
     </>
   );

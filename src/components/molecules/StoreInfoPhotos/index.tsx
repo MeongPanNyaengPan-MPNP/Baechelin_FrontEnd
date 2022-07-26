@@ -1,31 +1,72 @@
 import React from 'react';
+import { useQuery } from 'react-query';
+
+import { getStoreDetail } from '@service/storeDetailApi';
+import { Link } from 'react-router-dom';
+
 import * as S from './styles';
 
-function StoreInfoPhotos() {
-  const photos = [
-    'https://photos.bigoven.com/recipe/hero/best-spaghetti-bolognese-2ea1ce.jpg?h=300&w=300',
-    'https://www.garciadepou.com/blog/wp-content/uploads/2016/08/pizza.jpg',
-    'https://www.recipegirl.com/wp-content/uploads/2021/08/Spaghetti-and-Meatballs-1-200x200.jpeg',
-    'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-homemade-pizza-horizontal-1542310072.png',
-  ];
+interface StoreInfoPhotosProps {
+  storeName: string | undefined;
+}
 
-  const onClickPhoto = () => {
-    alert('사진 캐루셀');
-  };
+// const style = {
+//   position: 'absolute' as const,
+//   top: '50%',
+//   left: '50%',
+//   transform: 'translate(-50%, -50%)',
+//   width: 400,
+//   bgcolor: 'background.paper',
+//   border: '2px solid #000',
+//   boxShadow: 24,
+//   p: 4,
+// };
+
+function StoreInfoPhotos({ storeName }: StoreInfoPhotosProps) {
+  const { data: storeDetailData }: any = useQuery(
+    ['getShopDetail', storeName],
+    () => getStoreDetail(Number(storeName)),
+    {
+      // eslint-disable-next-line object-curly-newline
+      staleTime: 5000,
+      cacheTime: Infinity,
+      enabled: !!storeName,
+    },
+  );
+
+  const photos = [
+    {
+      img: 'https://images.assetsdelivery.com/compings_v2/yehorlisnyi/yehorlisnyi2104/yehorlisnyi210400016.jpg',
+      key: 1,
+    },
+    {
+      img: 'https://images.assetsdelivery.com/compings_v2/yehorlisnyi/yehorlisnyi2104/yehorlisnyi210400016.jpg',
+      key: 2,
+    },
+    {
+      img: 'https://images.assetsdelivery.com/compings_v2/yehorlisnyi/yehorlisnyi2104/yehorlisnyi210400016.jpg',
+      key: 3,
+    },
+    {
+      img: 'https://images.assetsdelivery.com/compings_v2/yehorlisnyi/yehorlisnyi2104/yehorlisnyi210400016.jpg',
+      key: 4,
+    },
+  ];
 
   return (
     <S.Container>
       <S.Wrapper>
-        <S.Photo
-          src="https://content.api.news/v3/images/bin/104903dc87c2963a2d3e722aa85fe923?width=650"
-          onClick={onClickPhoto}
-        />
+        <Link to="/photosModal" state={{ data: storeDetailData?.storeImgList }}>
+          <S.Photo src={storeDetailData?.storeImgList[0]?.storeImageUrl} key="main" />
+        </Link>
       </S.Wrapper>
-      <S.Wrapper>
+      <S.PhotosWrapper>
         {photos.map((v) => (
-          <S.Photos src={v} key={v} onClick={onClickPhoto} />
+          <Link to="/photosModal" state={{ data: storeDetailData?.storeImgList }}>
+            <S.Photos src={v.img} key={v.key} />
+          </Link>
         ))}
-      </S.Wrapper>
+      </S.PhotosWrapper>
     </S.Container>
   );
 }

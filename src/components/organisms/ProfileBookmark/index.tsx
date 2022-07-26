@@ -7,6 +7,8 @@ import Icon from '@atoms/Icon';
 import Span from '@atoms/Span';
 
 import { Color } from '@constants/styles';
+import { useNavigate } from 'react-router-dom';
+
 import * as S from './styles';
 
 interface ProfileBookmarkProps {
@@ -15,11 +17,17 @@ interface ProfileBookmarkProps {
 }
 
 function ProfileBookmark({ anchorEl, setAnchorEl }: ProfileBookmarkProps) {
+  const navigate = useNavigate();
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const onClickMyFolder = () => {
+    handleClose();
+    navigate('/user/bookmark');
   };
 
   return (
@@ -41,7 +49,9 @@ function ProfileBookmark({ anchorEl, setAnchorEl }: ProfileBookmarkProps) {
           </Span>
           <div>
             <Icon iconName="folder" color={Color.orange} size="2rem" />
-            <Span fontSize="1.6rem">내 폴더</Span>
+            <Span fontSize="1.6rem" onClick={onClickMyFolder} cursor="pointer">
+              내 폴더
+            </Span>
           </div>
         </S.ContentTitle>
         <ProfileBookmarkContent />

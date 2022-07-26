@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Span from '@atoms/Span';
+import UseLoginHooks from '@hooks/UseLogin';
 
 import * as S from './styles';
 
@@ -10,8 +11,10 @@ interface ProfileBookmarkTitleProps {
 }
 
 function ProfileBookmarkTitle({ name, email }: ProfileBookmarkTitleProps) {
+  const { UseLogout } = UseLoginHooks();
+
   const onClickLogout = () => {
-    alert('로그아웃');
+    UseLogout();
   };
 
   return (
@@ -22,9 +25,11 @@ function ProfileBookmarkTitle({ name, email }: ProfileBookmarkTitleProps) {
         </Span>
         <Span>{email}</Span>
       </S.Wrapper>
-      <Span onClick={onClickLogout} styles={{ cursor: 'pointer' }}>
-        로그아웃
-      </Span>
+      <div>
+        <Span onClick={onClickLogout} cursor="pointer">
+          로그아웃
+        </Span>
+      </div>
     </S.Container>
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Icon from '@atoms/Icon';
 // import Span from '@atoms/Span';
@@ -13,9 +13,9 @@ interface BookmarkFolderCardProps {
 }
 
 function BookmarkFolderCard({ type = null }: BookmarkFolderCardProps) {
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-  const [status, setStatus] = React.useState<string | null>(type);
-  const [folderName, setFolderName] = React.useState<string>('북마크 폴더');
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [status, setStatus] = useState<string | null>(type);
+  const [folderName, setFolderName] = useState<string>('북마크 폴더');
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
