@@ -6,6 +6,7 @@ export interface SpanProps {
   color?: string;
   textAlign?: 'left' | 'right' | 'center';
   width?: string;
+  maxWidth?: string;
   fontSize?: number | string;
   fontWeight?: string | number | 'bold' | 'normal';
   size?: string;
@@ -14,6 +15,7 @@ export interface SpanProps {
   del?: boolean;
   onClick?: (e: React.MouseEvent<HTMLSpanElement>) => void;
   display?: string;
+  style?: any;
 
   [prop: string]: any;
 }
@@ -23,12 +25,12 @@ const StyledSpan = styled.span<SpanProps>`
   color: ${(props: SpanProps) => props.color || 'black'};
   text-align: ${(props: SpanProps) => props.textAlign};
   width: ${(props) => (props.blockWidth ? '100%' : props.width)};
+  max-width: ${(props) => (props.maxWidth ? null : props.maxWidth)};
   word-wrap: break-word;
   word-break: break-all;
   font-size: ${(props) => props.fontSize};
   font-weight: ${(props) => props.fontWeight};
   line-height: 1;
-  white-space: pre-wrap;
 
   &.del {
     text-decoration: line-through;
@@ -63,6 +65,7 @@ const Span = ({
   color = 'inherit',
   textAlign = 'left',
   width = 'auto',
+  maxWidth = '100%',
   fontSize = '1rem',
   fontWeight = '500',
   size = 'normal',
@@ -70,20 +73,23 @@ const Span = ({
   blockWidth = false,
   onClick,
   display,
+  style,
 }: SpanProps) => {
   const needProps = {
     color,
     textAlign,
     width,
+    maxWidth,
     fontSize,
     size,
     blockWidth,
     fontWeight,
     display,
+    style,
   };
 
   return (
-    <StyledSpan {...needProps} className={className} onClick={onClick}>
+    <StyledSpan {...needProps} className={className} onClick={onClick} style={style}>
       {children}
     </StyledSpan>
   );

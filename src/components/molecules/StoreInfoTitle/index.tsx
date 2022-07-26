@@ -5,6 +5,7 @@ import Icon from '@atoms/Icon';
 
 import { useQuery } from 'react-query';
 import { getStoreDetail } from '@service/storeDetailApi';
+import Bookmark from '@molecules/Bookmark';
 
 import * as S from './styles';
 
@@ -32,7 +33,7 @@ function StoreInfoTitle({ storeName }: StoreInfoTitleProps) {
     <S.Container>
       <S.TitleWrapper>
         <Span fontSize="4rem">{storeDetailData?.name}</Span>
-        <Icon iconName="bookmark" color="#ED6F2A" size="4rem" cursor="pointer" />
+        <Bookmark size="4rem" />
       </S.TitleWrapper>
       <S.Wrapper>
         <Icon iconName="star" color="#ED6F2A" size="2rem" onClick={onClickIcon} margin="0 0.5rem 0 0" />

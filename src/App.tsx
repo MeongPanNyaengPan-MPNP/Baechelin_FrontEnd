@@ -11,6 +11,7 @@ import Oauth from '@pages/User/Oauth';
 import Header from '@organisms/Header';
 import StoreDetail from '@pages/StoreDetail';
 import Search from '@pages/Search';
+import Bookmark from '@pages/Bookmark';
 import { ThemeProvider } from '@mui/material';
 
 import ReviewWrite from '@pages/ReviewWrite';
@@ -38,7 +39,7 @@ function App() {
               <Route path="/user">
                 <Route path="oauth/redirect/:prevPath" element={<Oauth />} />
                 <Route path="oauth/redirect" element={<Oauth />} />
-                <Route path="bookmark" element={<Login />} />
+                <Route path="bookmark" element={<Bookmark />} />
               </Route>
               <Route path="/store">
                 <Route path=":storeName" element={<StoreDetail />} />
