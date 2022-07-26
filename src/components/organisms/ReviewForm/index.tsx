@@ -52,7 +52,12 @@ function ReviewForm() {
                 이 장소는 어떤 편의 시설이 있었나요? (복수 선택 가능)
               </Span>
             </h5>
-            <CheckBoxGroup control={control} data={STORE_FILTERS.CATEGORY} name="facility" boxStyleProps={boxStyled} />
+            <CheckBoxGroup
+              control={control}
+              data={STORE_FILTERS.CATEGORY}
+              name="review_facility"
+              boxStyleProps={boxStyled}
+            />
           </S.QuestionSection>
           <S.QuestionSection>
             <h5>
@@ -60,7 +65,12 @@ function ReviewForm() {
                 이 장소의 분위기는 어떤가요? (복수 선택 가능)
               </Span>
             </h5>
-            <CheckBoxGroup control={control} data={STORE_FILTERS.CATEGORY} name="facility" boxStyleProps={boxStyled} />
+            <CheckBoxGroup
+              control={control}
+              data={STORE_FILTERS.CATEGORY}
+              name="review_mood"
+              boxStyleProps={boxStyled}
+            />
           </S.QuestionSection>
           <S.QuestionSection>
             <h5>

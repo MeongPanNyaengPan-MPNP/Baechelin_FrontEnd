@@ -1,10 +1,27 @@
 import React from 'react';
+import Span from '@atoms/Span';
+import * as S from './styles';
 
-function LoginButton({ src }: { src: string }) {
+function LoginButton({ src, socialType }: { src: string; socialType: 'naver' | 'kakao' | 'google' }) {
+  const [socialName, setSocialName] = React.useState<string>('');
+  React.useEffect(() => {
+    if (socialType === 'naver') {
+      setSocialName('네이버');
+    }
+    if (socialType === 'kakao') {
+      setSocialName('카카오');
+    }
+    if (socialType === 'google') {
+      setSocialName('구글');
+    }
+  }, [socialType]);
   return (
-    <a href={src}>
-      <img src="/img/ui/kakao_login_medium_narrow.png" alt="카카오 로그인 버튼" />
-    </a>
+    <S.LoginBtn href={src} socialType={socialType}>
+      <figure>{socialType}아이콘</figure>
+      <Span fontSize="1.8rem" fontWeight="bold">
+        <>{socialName}로 시작하기</>
+      </Span>
+    </S.LoginBtn>
   );
 }
 
