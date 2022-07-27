@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import Span from '@atoms/Span';
 
-export const CardItem = styled.div`
+export const CardItem = styled.div<{ showTagList?: boolean }>`
   position: relative;
   margin: 0 20px;
-  height: 370px;
+  height: ${(props) => (props.showTagList ? `310px` : `370px`)};
   cursor: pointer;
 `;
 export const CardItemInner = styled.div`
@@ -12,7 +12,7 @@ export const CardItemInner = styled.div`
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  align-items: baseline;
+  align-items: stretch;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   padding: 25px 30px;
   background: #fff;

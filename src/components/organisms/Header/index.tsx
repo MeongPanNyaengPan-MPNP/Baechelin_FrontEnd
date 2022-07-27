@@ -23,7 +23,7 @@ function Header() {
   return (
     <S.Container>
       <S.Wrapper>
-        <Logo src={LogoImg} width="12rem" height="5rem" onClick={onClickLogo} />
+        <Logo src={LogoImg} width="9.6rem" height="5rem" onClick={onClickLogo} />
         <SearchInput width="56.2rem" margin="0 0 0 9rem" />
         <Navigation>
           <div>

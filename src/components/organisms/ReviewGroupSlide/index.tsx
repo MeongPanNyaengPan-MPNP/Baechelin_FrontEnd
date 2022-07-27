@@ -10,7 +10,7 @@ import ReviewCard from '@molecules/ReviewCard';
 import { UseReviewList } from '@hooks/UseQueryHooks';
 import { REVIEW } from '@constants/index';
 import NoDataMessage from '@molecules/NodataMessage';
-import { StoreReviewResponseTypes } from '@interfaces/ReviewTypes';
+import { RecentReviewResponseType } from '@interfaces/ReviewTypes';
 import * as S from './styles';
 
 export type CardGroupSlideProps = {
@@ -23,6 +23,7 @@ export type CardGroupSlideProps = {
   autoplayDelay?: number;
   slidesPerGroup?: number;
   speed?: number;
+  showTagList?: boolean;
 } & CardStylesProps;
 
 // 리뷰 리스트 더미 데이터
@@ -35,90 +36,20 @@ function ReviewGroupSlide({
   slideId = 'slide',
   autoplayDelay,
   speed = 1000,
+  showTagList = true,
   slidesPerGroup = slidesPerView,
   hasNavigation = true,
 }: CardGroupSlideProps) {
-  const data: StoreReviewResponseTypes[] = [
-    {
-      storeName: '가게이름',
-      point: 4.5,
-      userName: '유저이름',
-      content: '리뷰내용',
-      reviewImageUrlList: ['/'],
-      // tagList: ['bKiosk', 'bWheelchair', 'bHelp', 'fDelicious', 'fClean'],
-      reviewId: 30,
-      storeId: 2092390,
-      userId: 291391,
-      address: '주소',
-    },
-    {
-      storeName: '가게이름',
-      point: 4.5,
-      userName: '유저이름',
-      content: '리뷰내용',
-      reviewImageUrlList: ['/'],
-      // tagList: ['bKiosk', 'bWheelchair', 'bHelp', 'fDelicious', 'fClean'],
-      reviewId: 30,
-      storeId: 1231231,
-      userId: 291391,
-      address: '주소',
-    },
-    {
-      storeName: '가게이름',
-      point: 4.5,
-      userName: '유저이름',
-      content: '리뷰내용',
-      reviewImageUrlList: ['/'],
-      // tagList: ['bKiosk', 'bWheelchair', 'bHelp', 'fDelicious', 'fClean'],
-      reviewId: 30,
-      storeId: 5435643,
-      userId: 291391,
-      address: '주소',
-    },
-    {
-      storeName: '가게이름',
-      point: 4.5,
-      userName: '유저이름',
-      content: '리뷰내용',
-      reviewImageUrlList: ['/'],
-      // tagList: ['bKiosk', 'bWheelchair', 'bHelp', 'fDelicious', 'fClean'],
-      reviewId: 30,
-      storeId: 4234,
-      userId: 291391,
-      address: '주소',
-    },
-    {
-      storeName: '가게이름',
-      point: 4.5,
-      userName: '유저이름',
-      content: '리뷰내용',
-      reviewImageUrlList: ['/'],
-      // tagList: ['bKiosk', 'bWheelchair', 'bHelp', 'fDelicious', 'fClean'],
-      reviewId: 30,
-      storeId: 209213122390,
-      userId: 291391,
-      address: '주소',
-    },
-    {
-      storeName: '가게이름',
-      point: 4.5,
-      userName: '유저이름',
-      content: '리뷰내용',
-      reviewImageUrlList: ['/'],
-      // tagList: ['bKiosk', 'bWheelchair', 'bHelp', 'fDelicious', 'fClean'],
-      reviewId: 30,
-      storeId: 21092390,
-      userId: 291391,
-      address: '주소',
-    },
-  ];
   const { UseRecentReviewForMain } = UseReviewList();
-  const { isLoading } = UseRecentReviewForMain<StoreReviewResponseTypes[]>(REVIEW.RECENT_REVIEW_LIST);
+  const { isLoading, data: recentReviewData } = UseRecentReviewForMain<RecentReviewResponseType[]>(
+    REVIEW.RECENT_REVIEW_LIST,
+  );
+
   const PrevButtonId = `${slideId}PrevButton`;
   const NextButtonId = `${slideId}NextButton`;
   return (
     <S.CardSlideGroup id={slideId} paginationId={paginationId}>
-      {data && data?.length > 0 ? (
+      {recentReviewData && recentReviewData?.length > 0 ? (
         <>
           <Swiper
             className="banner"
@@ -139,22 +70,22 @@ function ReviewGroupSlide({
               prevEl: `#${PrevButtonId}`,
               nextEl: `#${NextButtonId}`,
             }}
-            loop={data.length >= slidesPerView}
+            loop={recentReviewData.length >= slidesPerView}
           >
-            {data?.map((reviewItem) => (
+            {recentReviewData?.map((reviewItem) => (
               // eslint-disable-next-line react/no-array-index-key
-              <SwiperSlide key={reviewItem.storeId}>
-                <ReviewCard {...reviewItem} />
+              <SwiperSlide key={reviewItem.content}>
+                <ReviewCard {...reviewItem} showTagList={showTagList} />
               </SwiperSlide>
             ))}
             {children}
-            {paginationId && <SlidePagination paginationLength={data.length} paginationId={paginationId} />}
+            {paginationId && <SlidePagination paginationLength={recentReviewData.length} paginationId={paginationId} />}
           </Swiper>
           {hasNavigation && <SlideButtonsArea hover prevId={PrevButtonId} nextId={NextButtonId} />}
         </>
       ) : (
         <>
-          {data?.length === 0 && <NoDataMessage message={['리뷰가 없습니다']} />}
+          {recentReviewData?.length === 0 && <NoDataMessage message={['리뷰가 없습니다']} />}
           {isLoading && <NoDataMessage message={['isLoading']} />}
           <NoDataMessage message={['isError']} />
         </>

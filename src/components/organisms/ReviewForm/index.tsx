@@ -5,22 +5,56 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import TextAreaInput from '@atoms/TextAreaInput';
 import AddImage from '@molecules/AddImage';
 import CheckBoxGroup from '@molecules/CheckBoxGroup';
-import { STORE_FILTERS } from '@constants/store';
+import { REVIEW_FILTERS } from '@constants/store';
 import Star from '@atoms/Star';
 import Span from '@atoms/Span';
+import Buttons from '@atoms/Buttons';
+import { postReview } from '@service/reviewApi';
+import { useNavigate } from 'react-router-dom';
 import * as S from './styles';
 
-function ReviewForm() {
-  const validationSchema = Yup.object().shape({ checkbox: Yup.bool().oneOf([true], 'Accept Terms is required') });
+function ReviewForm({ storeName: storeId }: { storeName: string }) {
+  const navigate = useNavigate();
+  const validationSchema = Yup.object().shape({
+    point: Yup.number().required('별점을 선택해주세요.'),
+    content: Yup.string()
+      .required('리뷰는 최소 30자 이상 작성해주세요.')
+      .min(30, '리뷰는 최소 30자 이상 작성해주세요.'),
+  });
   const { handleSubmit, control, setValue, getValues } = useForm<FieldValues>({
     mode: 'onChange',
     reValidateMode: 'onBlur',
     resolver: yupResolver(validationSchema),
   });
+  const [curValues, setCurValues] = React.useState<FieldValues | undefined>();
 
   const onSubmit = (data: FieldValues) => {
-    console.log('data', data);
+    const resultForm = new FormData();
+    data.imageFile?.forEach((file: File) => {
+      resultForm.append('imageFile', file);
+    });
+    [...data.facility, ...data.quality].forEach((item) => {
+      if (item !== undefined) {
+        resultForm.append('tagList', item);
+      }
+    });
+    resultForm.append('point', data.point);
+    resultForm.append('content', data.content);
+    resultForm.append('storeId', storeId);
+    postReview(resultForm)
+      .then((res) => {
+        console.log(res);
+        navigate(`/store/${storeId}`);
+      })
+      .catch((err) => {
+        console.log('err', err);
+      });
   };
+  const handleFormChange = React.useCallback(() => {
+    const cur = getValues();
+    setCurValues(cur);
+  }, [getValues]);
+
   const boxStyled = {
     grid: '20%',
     margin: '0 0 15px',
@@ -29,62 +63,75 @@ function ReviewForm() {
     paddingBetween: '0 10px',
     textAlign: 'center',
     fontSize: '1.4rem',
-    basicBg: '#F2F2F2',
-    basicColor: '#3B3B3B',
-    checkedBg: '#ED6F2A',
-    checkedColor: '#fff',
+    checkedBg: '#F2F2F2',
+    checkedColor: '#3B3B3B',
+    basicBg: '#ED6F2A',
+    basicColor: '#fff',
   };
   return (
-    <S.FormContainer>
-      <S.Inner>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <S.QuestionSection>
-            <h5>
-              <Span fontSize="2rem" fontWeight="bold">
-                방문하신 장소가 마음에 드셨나요?
-              </Span>
-            </h5>
-            <Star defaultValue={5} max={5} size="large" />
-          </S.QuestionSection>
-          <S.QuestionSection>
-            <h5>
-              <Span fontSize="2rem" fontWeight="bold">
-                이 장소는 어떤 편의 시설이 있었나요? (복수 선택 가능)
-              </Span>
-            </h5>
-            <CheckBoxGroup
-              control={control}
-              data={STORE_FILTERS.CATEGORY}
-              name="review_facility"
-              boxStyleProps={boxStyled}
-            />
-          </S.QuestionSection>
-          <S.QuestionSection>
-            <h5>
-              <Span fontSize="2rem" fontWeight="bold">
-                이 장소의 분위기는 어떤가요? (복수 선택 가능)
-              </Span>
-            </h5>
-            <CheckBoxGroup
-              control={control}
-              data={STORE_FILTERS.CATEGORY}
-              name="review_mood"
-              boxStyleProps={boxStyled}
-            />
-          </S.QuestionSection>
-          <S.QuestionSection>
-            <h5>
-              <Span fontSize="2rem" fontWeight="bold">
-                이 장소에 대한 솔직한 리뷰를 남겨주세요
-              </Span>
-            </h5>
-            <TextAreaInput name="textarea" control={control} />
-          </S.QuestionSection>
-          <AddImage name="files" getValues={getValues} setValue={setValue} control={control} />
-          <button type="submit">제출</button>
-        </form>
-      </S.Inner>
-    </S.FormContainer>
+    <S.FormArea>
+      <form onSubmit={handleSubmit(onSubmit)} onChange={handleFormChange}>
+        <S.QuestionSection>
+          <h5>
+            <Span fontSize="2rem" fontWeight="bold">
+              방문하신 장소가 마음에 드셨나요? *
+            </Span>
+          </h5>
+          <Star
+            name="point"
+            setvalue={setValue}
+            control={control}
+            defaultValue={5}
+            max={5}
+            color="#ED6F2A"
+            sx={{ fontSize: '3.2rem' }}
+            readOnly={false}
+          />
+        </S.QuestionSection>
+        <S.QuestionSection>
+          <h5>
+            <Span fontSize="2rem" fontWeight="bold">
+              이 장소는 어떤 편의 시설이 있었나요? (복수 선택 가능)
+            </Span>
+          </h5>
+          <CheckBoxGroup
+            control={control}
+            curValue={curValues?.facility}
+            data={REVIEW_FILTERS.FACILITY}
+            name="facility"
+            boxStyleProps={boxStyled}
+          />
+        </S.QuestionSection>
+        <S.QuestionSection>
+          <h5>
+            <Span fontSize="2rem" fontWeight="bold">
+              이 장소의 분위기는 어떤가요? (복수 선택 가능)
+            </Span>
+          </h5>
+          <CheckBoxGroup
+            control={control}
+            curValue={curValues?.quality}
+            data={REVIEW_FILTERS.QUALITY}
+            name="quality"
+            boxStyleProps={boxStyled}
+          />
+        </S.QuestionSection>
+        <S.QuestionSection>
+          <h5>
+            <Span fontSize="2rem" fontWeight="bold">
+              이 장소에 대한 솔직한 리뷰를 남겨주세요 *
+            </Span>
+          </h5>
+          <TextAreaInput name="content" control={control} />
+          <AddImage name="imageFile" getValues={getValues} setValue={setValue} control={control} />
+        </S.QuestionSection>
+        <S.ButtonArea>
+          <Buttons type="submit" bgColor="#ED6F2A" color="#fff" round="5em" size="large" fontSize="2.2rem">
+            후기 올리기
+          </Buttons>
+        </S.ButtonArea>
+      </form>
+    </S.FormArea>
   );
 }
 

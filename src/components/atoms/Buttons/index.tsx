@@ -6,7 +6,7 @@ type GreetFunction = () => void;
 export interface StyledButtonProps {
   flex?: number | 'auto' | 'none';
   color?: string;
-  size?: 'xsmall' | 'small' | 'medium' | 'xlarge';
+  size?: 'xsmall' | 'small' | 'medium' | 'xlarge' | 'large';
   type?: 'button' | 'submit';
   border?: string;
   bgColor?: string;
@@ -16,6 +16,7 @@ export interface StyledButtonProps {
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   align?: string;
   display?: string;
+  hover?: boolean;
 
   [prop: string]: any;
 }
@@ -37,7 +38,21 @@ const Button = styled.button<StyledButtonProps>`
   color: ${(props) => props.color};
   cursor: pointer;
   outline: none;
+  opacity: 1;
+  transition: all 0.1s;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
   ${(props) => {
+    if (props.hover === false) {
+      return css`
+        &:hover {
+          opacity: 1;
+        }
+      `;
+    }
     if (props.size === 'xsmall') {
       return css`
         padding: 5px 7px;
@@ -51,6 +66,11 @@ const Button = styled.button<StyledButtonProps>`
     if (props.size === 'medium') {
       return css`
         padding: 15px 20px;
+      `;
+    }
+    if (props.size === 'large') {
+      return css`
+        padding: 15px 40px;
       `;
     }
     if (props.size === 'xlarge') {
@@ -75,6 +95,7 @@ function Buttons({
   onClick,
   display,
   fontSize,
+  hover = true,
   id,
   ...props
 }: ButtonsProps) {
@@ -85,7 +106,7 @@ function Buttons({
     border,
     bgColor,
     transparent,
-
+    hover,
     display,
     fontSize,
     type,

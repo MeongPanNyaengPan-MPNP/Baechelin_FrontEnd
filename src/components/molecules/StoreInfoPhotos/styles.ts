@@ -1,13 +1,5 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  height: 23.4rem;
-`;
-
 export const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -16,7 +8,18 @@ export const Wrapper = styled.div`
   width: 49%;
   user-select: none;
 `;
+export const Container = styled.div<{ width?: string }>`
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: row;
+  justify-content: space-between;
+  width: ${(props) => `${props.width}` || `49%`};
+  height: ${(props) => `${props.width}` || `23.4rem`};
 
+  ${Wrapper} {
+    width: ${(props) => `${props.width ? `100%` : `49%`}`};
+  }
+`;
 export const Photo = styled.img`
   object-fit: cover;
   height: 100%;

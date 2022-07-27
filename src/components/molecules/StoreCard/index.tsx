@@ -22,7 +22,7 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
     address,
     category,
     phoneNumber,
-    storeImgList = noImage,
+    storeImgList = [{ storeImageUrl: noImage }],
     pointAvg,
     elevator,
     toilet,
@@ -36,7 +36,7 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
         {storeImgList.length < 1 ? (
           <ThumbNail alt={name} src={noImage} height="100%" />
         ) : (
-          <ThumbNail alt={name} src={storeImgList[0]} height="100%" />
+          <ThumbNail alt={name} src={storeImgList[0]?.storeImageUrl} height="100%" />
         )}
       </S.CardFigureArea>
       <S.CardContentArea>
@@ -48,11 +48,13 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
             </>
           </Span>
           <S.StoreNameArea>
-            <Span fontSize="16px" fontWeight="bold">
-              {name}
-            </Span>
+            <S.StoreTitle>
+              <Span fontSize="16px" fontWeight="bold">
+                {name}
+              </Span>
+            </S.StoreTitle>
             <S.StarArea>
-              <Star max={1} value={pointAvg} readOnly />
+              <Star max={1} average={pointAvg} readOnly />
             </S.StarArea>
           </S.StoreNameArea>
         </S.CardContentAreaTop>

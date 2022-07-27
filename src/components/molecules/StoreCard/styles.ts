@@ -18,6 +18,12 @@ export const StoreNameArea = styled.div`
     text-overflow: ellipsis;
   }
 `;
+export const StoreTitle = styled.p`
+  max-width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
 export const CardContentAddressArea = styled.div`
   margin-top: 15px;
 `;

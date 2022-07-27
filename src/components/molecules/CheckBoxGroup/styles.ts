@@ -10,5 +10,4 @@ export const CheckBoxGroup = styled(FormGroup)`
   span {
     width: 100%;
   }
-}
-`;
+`

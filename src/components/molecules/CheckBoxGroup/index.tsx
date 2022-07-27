@@ -8,7 +8,7 @@ import * as S from './styles';
 export type CheckBoxGroupProps<T> = {
   boxHidden?: boolean;
   data?: CheckBoxType[];
-  curValue?: string[];
+  curValue?: (string | undefined)[];
   errors?: DeepMap<any, FieldError>;
   changeEvent?: any;
   control: Control<T>;

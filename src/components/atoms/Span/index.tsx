@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export interface SpanProps {
   children?: React.ReactChild;
@@ -14,6 +14,7 @@ export interface SpanProps {
   del?: boolean;
   onClick?: (e: React.MouseEvent<HTMLSpanElement>) => void;
   display?: string;
+  ellipsis?: null | number;
 
   [prop: string]: any;
 }
@@ -56,6 +57,30 @@ const StyledSpan = styled.span<SpanProps>`
     font-size: 2.5rem;
     font-weight: bold;
   }
+
+  /* 말줄임 처리 */
+  ${(props) => {
+    if (props.ellipsis && props.ellipsis > 1) {
+      return css`
+        display: -webkit-box;
+        word-wrap: break-word;
+        -webkit-line-clamp: ${props.ellipsis};
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.4;
+        height: ${props.ellipsis + props.ellipsis * 0.4}em;
+      `;
+    }
+    if (props.ellipsis && props.ellipsis === 1) {
+      return css`
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      `;
+    }
+  }}
 `;
 
 const Span = ({
@@ -70,6 +95,7 @@ const Span = ({
   blockWidth = false,
   onClick,
   display,
+  ellipsis = null,
 }: SpanProps) => {
   const needProps = {
     color,
@@ -80,6 +106,7 @@ const Span = ({
     blockWidth,
     fontWeight,
     display,
+    ellipsis,
   };
 
   return (

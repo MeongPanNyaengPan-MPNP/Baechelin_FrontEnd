@@ -8,7 +8,7 @@ const LOGIN = {
   WRONG_TYPE_SIGNATURE: 'E-WTS401', // 잘못된 JWT 서명입니다.
   ACCESS_DENIED: 'E-ACD401', // 접근이 거부되었습니다.
   TOKEN_NOT_EXIST: 'E-TNE401', // 토큰이 존재하지 않습니다.
-  ALREADY_LOGIN_ACCOUNT: 'E-ALA400', // 다른 계정으로 회원가입 되어있습니다.
+  ALREADY_LOGIN_ACCOUNT: 'E-ALA405', // 다른 계정으로 회원가입 되어있습니다.
 };
 
 // eslint-disable-next-line import/prefer-default-export
