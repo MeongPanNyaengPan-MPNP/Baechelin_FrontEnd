@@ -6,6 +6,9 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useNavigate } from 'react-router-dom';
+import { Color } from '@constants/styles';
+import Icon from '@atoms/Icon';
+import { InputAdornment } from '@mui/material';
 
 export interface SearchInputProps<OptionType> {
   disableCloseOnSelect?: boolean;
@@ -25,6 +28,22 @@ interface IFormInput {
 const StyledSearchInput = styled(Autocomplete)`
   width: ${(props: SearchInputProps<any>) => props.width || '200px'};
   margin: ${(props: SearchInputProps<any>) => props.margin || null};
+
+  .MuiOutlinedInput-root {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    height: 4.2rem;
+    font-size: 15px;
+    fieldset {
+      border-color: ${Color.orange};
+      border-radius: 0;
+      border-width: 2px;
+    }
+    &:hover fieldset {
+      border-color: ${Color.orange};
+    }
+  }
 `;
 
 function SearchInput({ width, margin, ...props }: SearchInputProps<any>) {
@@ -34,6 +53,7 @@ function SearchInput({ width, margin, ...props }: SearchInputProps<any>) {
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     navigate(`search/${data.inputValue}`);
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <StyledSearchInput
@@ -53,6 +73,11 @@ function SearchInput({ width, margin, ...props }: SearchInputProps<any>) {
                 InputProps={{
                   ...params.InputProps,
                   type: 'search',
+                  endAdornment: (
+                    <InputAdornment position="start">
+                      <Icon iconName="search" size="2.2rem" color={Color.orange} />
+                    </InputAdornment>
+                  ),
                 }}
                 {...field}
               />

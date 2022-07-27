@@ -1,4 +1,3 @@
-import { Color } from '@constants/styles';
 import styled from 'styled-components';
 
 export const Container = styled.div<{ height: string; justify?: string }>`
@@ -9,11 +8,6 @@ export const Container = styled.div<{ height: string; justify?: string }>`
   width: 100%;
   height: ${({ height }) => height || '1.5rem'};
   cursor: pointer;
-
-  :hover {
-    background-color: ${Color.lightGrey};
-    transition: all 0.3s ease-in-out;
-  }
 `;
 
 export const folderNameWrapper = styled.div<{ height: string }>`
