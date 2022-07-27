@@ -20,13 +20,13 @@ function StoreInfo({
   return (
     /* 가게 상세페이지 형태 */
     <S.Container type={type}>
+
       {type === 'vertical' && size === 'big' && (
         <>
-          <StoreInfoTitle storeName={storeName} />
-          <StoreInfoContent storeName={storeName} showIcons={showIcons} />
-          <StoreInfoPhotos />
-        </>
-      )}
+      <StoreInfoTitle storeName={storeName} />
+      <StoreInfoContent storeName={storeName} />
+      <StoreInfoPhotos storeName={storeName} />
+        </> )}
       {/* 리뷰쓰기, 가게 리스트 형태  // TODO : 북마크 예외처리하기 */}
       {type === 'horizontal' && (
         <>
