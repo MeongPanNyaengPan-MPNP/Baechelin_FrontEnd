@@ -6,6 +6,11 @@ export const Container = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 23.4rem;
+
+  a {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -17,6 +22,20 @@ export const Wrapper = styled.div`
   user-select: none;
 `;
 
+export const PhotosWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-content: space-between;
+  flex-wrap: wrap;
+  width: 49%;
+  user-select: none;
+
+  a {
+    width: 49%;
+    height: 49%;
+  }
+`;
+
 export const Photo = styled.img`
   object-fit: cover;
   height: 100%;
@@ -25,8 +44,8 @@ export const Photo = styled.img`
 `;
 
 export const Photos = styled.img`
-  width: 49%;
-  height: 49%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   cursor: pointer;
 `;

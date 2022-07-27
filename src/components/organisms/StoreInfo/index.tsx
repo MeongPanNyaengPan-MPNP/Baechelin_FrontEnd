@@ -13,7 +13,7 @@ function StoreInfo({ storeName }: StoreInfoProps) {
     <S.Container>
       <StoreInfoTitle storeName={storeName} />
       <StoreInfoContent storeName={storeName} />
-      <StoreInfoPhotos />
+      <StoreInfoPhotos storeName={storeName} />
     </S.Container>
   );
 }

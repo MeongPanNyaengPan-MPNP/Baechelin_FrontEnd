@@ -12,7 +12,7 @@ export interface LogoProps {
   cursor?: string;
   src?: string;
   alt?: string;
-  onClick?: (e: React.MouseEvent) => void;
+  onClick?: (e: any) => void;
 }
 
 const StyledLogo = styled.img<LogoProps>`

@@ -17,6 +17,8 @@ import ReviewWrite from '@pages/ReviewWrite';
 import StoreList from '@pages/StoreList';
 import SnackBarsContainer from '@molecules/SnackBarsContainer';
 import SilentLogin from '@utils/Jwt/SilentLogin';
+import Bookmark from '@pages/Bookmark';
+import StoreDetailPhotosModal from '@pages/StoreDetailPhotosModal';
 
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
@@ -39,11 +41,13 @@ function App() {
             <Route path="/user">
               <Route path="oauth/redirect/:prevPath" element={<Oauth />} />
               <Route path="oauth/redirect" element={<Oauth />} />
+              <Route path="bookmark" element={<Bookmark />} />
             </Route>
             <Route path="/store">
               <Route path=":storeName" element={<StoreDetail />} />
               <Route path="list/:topic" element={<StoreList />} />
             </Route>
+            <Route path="photosModal" element={<StoreDetailPhotosModal />} />
             <Route path="/search/:keyword" element={<Search />} />
             {/*            <Route path="/review">
               <Route
@@ -67,6 +71,7 @@ function App() {
           {state?.locationState && (
             <Routes>
               <Route path="login" element={<Login />} />
+              <Route path="photosModal" element={<StoreDetailPhotosModal />} />
             </Routes>
           )}
         </SnackBarsContainer>
