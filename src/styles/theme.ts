@@ -12,6 +12,13 @@ const customFontFamiliy = [
 ].join(',');
 const theme = createTheme({
   typography: { fontFamily: customFontFamiliy },
+  palette: {
+    primary: { main: '#ED6F2A' },
+    secondary: {
+      main: '#E6E6E6',
+      contrastText: '#3B3B3B',
+    },
+  },
   breakpoints: {
     values: {
       xs: 0,

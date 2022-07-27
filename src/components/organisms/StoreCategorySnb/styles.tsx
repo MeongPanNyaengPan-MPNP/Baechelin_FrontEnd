@@ -22,7 +22,7 @@ export const Inner = styled.div`
 `;
 export const ResetButtonArea = styled.div`
   position: absolute;
-  right: 0;
+  right: 40px;
   top: -5px;
 
   cursor: pointer;

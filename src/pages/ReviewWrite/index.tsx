@@ -1,10 +1,10 @@
 import React from 'react';
-import ReviewForm from '../../components/organisms/ReviewForm';
+import FormTemplates from '@templates/FormTemplates';
+import { useParams } from 'react-router-dom';
 
 function ReviewWrite() {
-  return (
-    <ReviewForm />
-  );
+  const { storeId = '' } = useParams();
+  return <FormTemplates storeId={storeId} />;
 }
 
 export default ReviewWrite;

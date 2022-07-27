@@ -134,12 +134,12 @@ export const REVIEW_FILTERS = {
       CHECKED: false,
     },
     {
-      LABEL: '휠체어가 들어갈 수 있는',
+      LABEL: '넓은 출입구',
       KEY: 'bWheelchair',
       CHECKED: false,
     },
     {
-      LABEL: '직원에 도움 요청',
+      LABEL: '직원이 주문 받는',
       KEY: 'bHelp',
       CHECKED: false,
     },

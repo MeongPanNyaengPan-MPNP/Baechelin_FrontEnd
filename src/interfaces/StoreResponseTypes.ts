@@ -4,7 +4,7 @@ export interface StoreResponseTypes {
   category?: string;
   address?: string;
   phoneNumber?: string;
-  storeImgList?: string[];
+  storeImgList?: { storeImageUrl: string }[];
   storeModifiedAt?: string;
   pointAvg?: number;
   bookmark?: boolean;

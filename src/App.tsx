@@ -17,7 +17,10 @@ import ReviewWrite from '@pages/ReviewWrite';
 import StoreList from '@pages/StoreList';
 import SnackBarsContainer from '@molecules/SnackBarsContainer';
 import SilentLogin from '@utils/Jwt/SilentLogin';
+import Bookmark from '@pages/Bookmark';
+import StoreDetailPhotosModal from '@pages/StoreDetailPhotosModal';
 
+import AlertContainer from '@molecules/AlertContainer';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
 import PrivateRoute from './routes/PrivateRoutes';
@@ -39,25 +42,17 @@ function App() {
             <Route path="/user">
               <Route path="oauth/redirect/:prevPath" element={<Oauth />} />
               <Route path="oauth/redirect" element={<Oauth />} />
+              <Route path="bookmark" element={<Bookmark />} />
             </Route>
             <Route path="/store">
               <Route path=":storeName" element={<StoreDetail />} />
               <Route path="list/:topic" element={<StoreList />} />
             </Route>
+            <Route path="photosModal" element={<StoreDetailPhotosModal />} />
             <Route path="/search/:keyword" element={<Search />} />
-            {/*            <Route path="/review">
-              <Route
-                path="/review/write"
-                element={
-                  <PrivateRoute>
-                    <ReviewWrite />
-                  </PrivateRoute>
-                }
-              />
-              <Route path="" element={<NotFound />} />
-            </Route> */}
-            <Route path="/review/write/*" element={<PrivateRoute prevPath="/review/write" />}>
-              <Route path="*" element={<ReviewWrite />} />
+
+            <Route path="/review/write/*" element={<PrivateRoute />}>
+              <Route path=":storeId" element={<ReviewWrite />} />
             </Route>
             <Route path="/store/list" />
             <Route path="/map" />
@@ -67,9 +62,11 @@ function App() {
           {state?.locationState && (
             <Routes>
               <Route path="login" element={<Login />} />
+              <Route path="photosModal" element={<StoreDetailPhotosModal />} />
             </Routes>
           )}
         </SnackBarsContainer>
+        <AlertContainer />
       </ThemeProvider>
     </RecoilRoot>
   );

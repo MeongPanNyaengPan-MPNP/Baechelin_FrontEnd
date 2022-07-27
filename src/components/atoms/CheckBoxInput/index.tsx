@@ -37,6 +37,9 @@ const CheckBoxArea = styled.div<StyledCheckBoxProps>`
         box-sizing: border-box;
         text-align: ${props.textAlign};
 
+        min-height: 40px;
+        line-height: 40px;
+
         .MuiButtonBase-root {
           visibility: hidden;
           width: 0;
@@ -51,19 +54,54 @@ const CheckBoxArea = styled.div<StyledCheckBoxProps>`
           width: ${props.width || `auto`};
 
           .MuiFormControlLabel-label {
+            position: relative;
             padding: ${props.padding || `8px 21px`};
             border-radius: ${props.round || `5px`};
-            background: ${props.basicBg || `#ed6f2a`};
-            color: ${props.basicColor || `#fff`};
+            background: ${props.checkedBg || `#fff`};
+            color: ${props.checkedColor || `#ed6f2a`};
             font-size: ${props.fontSize || `1.3rem`};
             font-weight: 500;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
           }
 
           .Mui-checked + .MuiFormControlLabel-label {
-            background: ${props.checkedBg || `#fff`};
+            background: ${props.basicBg || `#ed6f2a`};
+            color: ${props.basicColor || `#fff`};
+            transition: all 0.1s;
+          }
+        }
+
+        &:hover {
+          .MuiFormControlLabel-label::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: ${props.round || `5px`};
+            border: 1px solid #ed6f2a;
             color: ${props.checkedColor || `#ed6f2a`};
           }
+
+          .Mui-checked + .MuiFormControlLabel-label {
+            opacity: 0.8;
+          }
+        }
+      `;
+    }
+    if (props.reverseBackground === true) {
+      return css`
+        .MuiFormControlLabel-label {
+          background: ${props.basicBg || `#ed6f2a`};
+          color: ${props.basicColor || `#fff`};
+        }
+
+        .Mui-checked + .MuiFormControlLabel-label {
+          background: ${props.checkedBg || `#fff`};
+          color: ${props.checkedColor || `#ed6f2a`};
         }
       `;
     }
