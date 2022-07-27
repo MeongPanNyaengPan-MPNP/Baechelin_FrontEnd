@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export interface ThumbNailProps extends ImageProps {
   borderSize?: number;
@@ -18,6 +18,7 @@ export interface ImageProps {
 
 const StyledFigure = styled.figure<ThumbNailProps>`
   display: block;
+  position: relative;
   width: ${(props) => (props.width ? `${props.width}` : '100%')};
   height: ${(props) => (props.height ? `${props.height}` : 'auto')};
   background: #efefef;
@@ -31,6 +32,26 @@ const StyledFigure = styled.figure<ThumbNailProps>`
     height: 100%;
     object-fit: ${(props) => (props.fit ? 'cover' : `contain`)};
   }
+
+  ${(props) => {
+    if (props.borderSize) {
+      return css`
+        &::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: none;
+          border: ${props.borderSize}px solid #efefef;
+          width: 100%;
+          height: 100%;
+          opacity: 0.2;
+        }
+      `;
+    }
+  }}
 `;
 
 function ThumbNail({ round = 0, borderSize = 0, alt = '', src, width, height, fit = true }: ThumbNailProps) {

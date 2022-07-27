@@ -11,6 +11,7 @@ import { UseReviewList } from '@hooks/UseQueryHooks';
 import { REVIEW } from '@constants/index';
 import NoDataMessage from '@molecules/NodataMessage';
 import { RecentReviewResponseType } from '@interfaces/ReviewTypes';
+import { Link } from 'react-router-dom';
 import * as S from './styles';
 
 export type CardGroupSlideProps = {
@@ -72,10 +73,11 @@ function ReviewGroupSlide({
             }}
             loop={recentReviewData.length >= slidesPerView}
           >
-            {recentReviewData?.map((reviewItem) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <SwiperSlide key={reviewItem.content}>
-                <ReviewCard {...reviewItem} showTagList={showTagList} />
+            {recentReviewData?.map((reviewItem, index) => (
+              <SwiperSlide key={`${reviewItem?.createdAt?.toString() || index}`}>
+                <Link to={`/store/${reviewItem.storeId}`}>
+                  <ReviewCard {...reviewItem} showTagList={showTagList} />
+                </Link>
               </SwiperSlide>
             ))}
             {children}

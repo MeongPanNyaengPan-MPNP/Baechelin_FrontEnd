@@ -5,20 +5,25 @@ export const CardItem = styled.div<{ showTagList?: boolean }>`
   position: relative;
   margin: 0 20px;
   height: ${(props) => (props.showTagList ? `310px` : `370px`)};
-  cursor: pointer;
 `;
 export const CardItemInner = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  align-items: stretch;
+  align-items: end;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   padding: 25px 30px;
   background: #fff;
 
-  > * {
+  > article,
+  > div {
     flex: 1;
+  }
+
+  > article + div {
+    flex: 1;
+    padding-left: 54px;
   }
 `;
 

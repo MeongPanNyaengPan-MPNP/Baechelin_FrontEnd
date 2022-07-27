@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 import Span from '@atoms/Span';
-import { useNavigate } from 'react-router-dom';
 import ThumbNail from '@atoms/Thumbnail';
 import Star from '@atoms/Star';
 import TagList from '@molecules/TagListProps';
@@ -11,8 +10,9 @@ export type ReviewCardProps = {
   tagListChildren: ReactNode;
 };
 
-function ReviewCard<T extends Partial<RecentReviewResponseType> & Partial<{ showTagList?: boolean }>>(props: T) {
-  const navigate = useNavigate();
+function ReviewCard<T extends Partial<RecentReviewResponseType>>(
+  props: T & { showTagList?: boolean; showStoreInfo?: boolean },
+) {
   const {
     storeName,
     point,
@@ -20,23 +20,25 @@ function ReviewCard<T extends Partial<RecentReviewResponseType> & Partial<{ show
     tagList,
     reviewImageUrlList = null,
     address,
-    storeId,
     userName,
+    showStoreInfo = true,
     showTagList = true,
   } = props;
   return (
-    <S.CardItem onClick={() => navigate(`/store/${storeId}`)} showTagList={showTagList}>
+    <S.CardItem showTagList={showTagList}>
       <S.CardItemInner>
         <S.CardContentArea>
           <S.CardContentTop>
-            <S.CardStoreInfoArea>
-              <Span fontSize="1.6rem" fontWeight="bold">
-                {storeName}
-              </Span>
-              <Span fontSize="1.2rem" color="#3B3b3b" fontWeight="normal">
-                {address}
-              </Span>
-            </S.CardStoreInfoArea>
+            {showStoreInfo && (
+              <S.CardStoreInfoArea>
+                <Span fontSize="1.6rem" fontWeight="bold">
+                  {storeName}
+                </Span>
+                <Span fontSize="1.2rem" color="#3B3b3b" fontWeight="normal">
+                  {address}
+                </Span>
+              </S.CardStoreInfoArea>
+            )}
             <S.CardUserInfoArea>
               <ThumbNail round={100} width="50px" height="50px" alt={storeName} src="./" />
               <S.UserInfoArea>
@@ -63,13 +65,13 @@ function ReviewCard<T extends Partial<RecentReviewResponseType> & Partial<{ show
               {reviewImageUrlList?.map(
                 (item, index) =>
                   index < 5 && (
-                    <li>
+                    <li key={item.url}>
                       <ThumbNail
                         width="100px"
                         height="100px"
-                        key={item.url}
                         alt={`${storeName}에 작성된 리뷰 사진`}
                         src={item.url}
+                        borderSize={1}
                       />
                     </li>
                   ),

@@ -36,6 +36,8 @@ export interface RecentReviewResponseType {
   content: string;
   address: string;
   point: number;
+  createdAt: Date;
+  modifiedAt: Date;
   reviewImageUrlList: ReviewImageUrlListType[];
   tagList: TagListType[];
 }

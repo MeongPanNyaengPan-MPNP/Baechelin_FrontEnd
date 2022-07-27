@@ -26,12 +26,14 @@ export const StoreTitle = styled.p`
 `;
 export const CardContentAddressArea = styled.div`
   margin-top: 15px;
+
+  min-height: calc(2.4rem + 15px);
 `;
 export const CardContentAddress = styled.div`
   font-size: 1.2rem;
   display: flex;
   align-items: center;
-
+  justify-content: left;
   margin-top: 5px;
 
   span {

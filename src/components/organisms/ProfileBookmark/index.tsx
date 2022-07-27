@@ -38,7 +38,16 @@ function ProfileBookmark({ anchorEl, setAnchorEl }: ProfileBookmarkProps) {
       onClose={handleClose}
       anchorOrigin={{
         vertical: 'bottom',
-        horizontal: 'left',
+        horizontal: 'right',
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      transitionDuration={{
+        appear: 300,
+        enter: 100,
+        exit: 100,
       }}
     >
       <S.Container>

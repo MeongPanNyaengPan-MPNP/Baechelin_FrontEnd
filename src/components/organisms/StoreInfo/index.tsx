@@ -11,26 +11,21 @@ interface StoreInfoProps {
   size?: 'big' | 'regular' | 'small';
 }
 
-function StoreInfo({
-                     storeName,
-                     showIcons,
-                     type,
-                     size = 'big'
-                   }: StoreInfoProps) {
+function StoreInfo({ storeName, showIcons, type, size = 'big' }: StoreInfoProps) {
   return (
     /* 가게 상세페이지 형태 */
     <S.Container type={type}>
-
       {type === 'vertical' && size === 'big' && (
         <>
-      <StoreInfoTitle storeName={storeName} />
-      <StoreInfoContent storeName={storeName} />
-      <StoreInfoPhotos storeName={storeName} />
-        </> )}
+          <StoreInfoTitle storeName={storeName} />
+          <StoreInfoContent storeName={storeName} />
+          <StoreInfoPhotos storeName={storeName} />
+        </>
+      )}
       {/* 리뷰쓰기, 가게 리스트 형태  // TODO : 북마크 예외처리하기 */}
       {type === 'horizontal' && (
         <>
-          <StoreInfoPhotos width="180px" photosLength={1} />
+          <StoreInfoPhotos storeName={storeName} width="180px" tile={false} />
           <S.TextArea size={size}>
             <StoreInfoTitle storeName={storeName} />
             <StoreInfoContent storeName={storeName} showIcons={showIcons} />

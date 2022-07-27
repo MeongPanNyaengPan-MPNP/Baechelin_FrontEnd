@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export interface SpanProps {
   children?: React.ReactChild;
@@ -10,6 +10,7 @@ export interface SpanProps {
   fontWeight?: string | number | 'bold' | 'normal';
   size?: string;
   blockWidth?: boolean;
+  maxWidth?: string;
   className?: string;
   del?: boolean;
   onClick?: (e: React.MouseEvent<HTMLSpanElement>) => void;
@@ -17,12 +18,14 @@ export interface SpanProps {
   cursor?: string;
   style?: any;
   ellipsis?: null | number;
+  margin?: string;
 
   [prop: string]: any;
 }
 
 const StyledSpan = styled.span<SpanProps>`
   display: ${(props) => props.display || 'inline'};
+  margin: ${(props) => props.margin || 'initial'};
   color: ${(props: SpanProps) => props.color || 'black'};
   text-align: ${(props: SpanProps) => props.textAlign};
   width: ${(props) => (props.blockWidth ? '100%' : props.width)};
@@ -94,6 +97,7 @@ const Span = ({
   width = 'auto',
   maxWidth = '100%',
   fontSize = '1rem',
+  margin,
   fontWeight = '500',
   size = 'normal',
   className,
@@ -109,6 +113,7 @@ const Span = ({
     textAlign,
     width,
     maxWidth,
+    margin,
     fontSize,
     size,
     blockWidth,

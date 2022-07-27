@@ -26,9 +26,9 @@ function StoreReviewsList() {
         {isSuccess &&
           reviewList &&
           reviewList.length > 0 &&
-          reviewList?.map((reviewItem) => (
-            <li>
-              <ReviewCard<DetailReviewResponseType> {...reviewItem} />
+          reviewList?.map((reviewItem, index) => (
+            <li key={`${reviewItem?.createdAt?.toString() || index}`}>
+              <ReviewCard<DetailReviewResponseType> {...reviewItem} showStoreInfo={false} />
             </li>
           ))}
       </S.ReviewListGroup>

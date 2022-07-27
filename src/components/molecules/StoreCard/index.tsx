@@ -61,18 +61,22 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
         {size === 'M' && ( // 카드 스타일 구분, m일땐 하단에 주소, 뱃지 노출됨
           <>
             <S.CardContentAddressArea>
-              <S.CardContentAddress>
-                <Icon iconName="location_on" />
-                <Span fontSize="1.2rem" display="block">
-                  {address}
-                </Span>
-              </S.CardContentAddress>
-              <S.CardContentAddress>
-                <Icon iconName="call" />
-                <Span fontSize="1.2rem" display="block">
-                  {phoneNumber}
-                </Span>
-              </S.CardContentAddress>
+              {address && (
+                <S.CardContentAddress>
+                  <Icon iconName="location_on" />
+                  <Span fontSize="1.2rem" display="block">
+                    {address}
+                  </Span>
+                </S.CardContentAddress>
+              )}
+              {phoneNumber && (
+                <S.CardContentAddress>
+                  <Icon iconName="call" />
+                  <Span fontSize="1.2rem" display="block">
+                    {phoneNumber}
+                  </Span>
+                </S.CardContentAddress>
+              )}
             </S.CardContentAddressArea>
             <S.CardContentFacilityArea>
               <Badge name="approach" state={approach} />

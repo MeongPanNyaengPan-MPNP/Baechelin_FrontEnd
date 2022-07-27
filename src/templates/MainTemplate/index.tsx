@@ -8,6 +8,7 @@ import Link from '@atoms/Link';
 import ReviewGroupSlide from '@organisms/ReviewGroupSlide';
 import MainSlideSection from '@organisms/MainSlideSection';
 import { STORE_LIST, STORE_LIST_TITLE, STORE_TOPIC } from '@constants/index';
+import Span from '@atoms/Span';
 import * as S from './styles';
 
 export interface MainTemplateProps {
@@ -33,7 +34,9 @@ function MainTemplates({ slideItems, filters }: MainTemplateProps) {
         hiddenNoLocationState
         size="M"
       >
-        <Link to={`/store/list/${STORE_TOPIC.ARROUND}`}>배슐랭{STORE_LIST_TITLE.ARROUND}</Link>
+        <h5>
+          <Link to={`/store/list/${STORE_TOPIC.ARROUND}`}>배슐랭{STORE_LIST_TITLE.ARROUND}</Link>
+        </h5>
       </MainSlideSection>
       <MainSlideSection
         slideId="bestScore"
@@ -45,7 +48,9 @@ function MainTemplates({ slideItems, filters }: MainTemplateProps) {
         autoplayDelay={8000}
         size="L"
       >
-        <Link to={`/store/list/${STORE_TOPIC.POINT}`}>{STORE_LIST_TITLE.POINT}</Link>
+        <h5>
+          <Link to={`/store/list/${STORE_TOPIC.POINT}`}>{STORE_LIST_TITLE.POINT}</Link>
+        </h5>
       </MainSlideSection>
       <MainSlideSection // 가까운순
         slideId="bookMark"
@@ -60,7 +65,11 @@ function MainTemplates({ slideItems, filters }: MainTemplateProps) {
         <Link to={`/store/list/${STORE_TOPIC.BOOKMARK}`}>{STORE_LIST_TITLE.BOOKMARK}</Link>
       </MainSlideSection>
       <S.MainReviewListSection>
-        <Link to="/">{STORE_LIST_TITLE.RECENT_REVIEW}</Link>
+        <h5>
+          <Span fontSize="2.4rem" fontWeight="bold" display="block" textAlign="center" margin="0 0 30px">
+            {STORE_LIST_TITLE.RECENT_REVIEW}
+          </Span>
+        </h5>
         <ReviewGroupSlide // 가까운순
           slideId="reviewList"
           slidesPerView={2}
