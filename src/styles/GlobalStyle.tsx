@@ -19,7 +19,7 @@ const GlobalStyle: GlobalStyleComponent<any, any> = createGlobalStyle`
     background: #F4F4F4;
     color: #3B3B3B;
   }
-
+  
 `;
 
 export default GlobalStyle;

@@ -6,13 +6,18 @@ export type TagProps = {
   bgColor?: string;
   fontSize?: string;
 };
-const Tag = styled.div<{ bgColor: string; fontSize: string }>`
-  min-width: 100px;
-  margin-right: 10px;
+const Tag = styled.li<{ bgColor: string; fontSize: string }>`
+  display: inline-block;
+  width: 100px;
+  border-radius: 5em;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-right: 8px;
   background: #f2f2f2;
   text-align: center;
   padding: 5px;
   font-size: ${(props) => props.fontSize || '1.2rem'};
+  margin-bottom: 6px;
 `;
 
 function TagItem({ tagName, bgColor = ' #f2f2f2', fontSize = '1.2rem' }: TagProps) {

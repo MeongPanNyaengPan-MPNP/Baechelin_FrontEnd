@@ -25,7 +25,7 @@ function StoreDetailTemplate({ storeName }: StoreDetailProps) {
   return (
     <S.Container>
       <S.InfoWrapper>
-        <StoreInfo storeName={storeName} />
+        <StoreInfo storeName={storeName} type="vertical" />
         <S.StoreDetailMapWrapper>
           <StoreDetailMap latitude={storeDetailData?.latitude} longitude={storeDetailData?.longitude} />
         </S.StoreDetailMapWrapper>

@@ -6,14 +6,32 @@ import * as S from './styles';
 
 interface StoreInfoProps {
   storeName: string | undefined;
+  showIcons?: boolean;
+  type: 'horizontal' | 'vertical';
+  size?: 'big' | 'regular' | 'small';
 }
 
-function StoreInfo({ storeName }: StoreInfoProps) {
+function StoreInfo({ storeName, showIcons, type, size = 'big' }: StoreInfoProps) {
   return (
-    <S.Container>
-      <StoreInfoTitle storeName={storeName} />
-      <StoreInfoContent storeName={storeName} />
-      <StoreInfoPhotos storeName={storeName} />
+    /* 가게 상세페이지 형태 */
+    <S.Container type={type}>
+      {type === 'vertical' && size === 'big' && (
+        <>
+          <StoreInfoTitle storeName={storeName} />
+          <StoreInfoContent storeName={storeName} />
+          <StoreInfoPhotos storeName={storeName} />
+        </>
+      )}
+      {/* 리뷰쓰기, 가게 리스트 형태  // TODO : 북마크 예외처리하기 */}
+      {type === 'horizontal' && (
+        <>
+          <StoreInfoPhotos storeName={storeName} width="180px" tile={false} />
+          <S.TextArea size={size}>
+            <StoreInfoTitle storeName={storeName} />
+            <StoreInfoContent storeName={storeName} showIcons={showIcons} />
+          </S.TextArea>
+        </>
+      )}
     </S.Container>
   );
 }

@@ -9,7 +9,6 @@ export const Container = styled.div`
 export const TitleWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  min-height: 65px;
   justify-content: space-between;
   align-items: flex-start;
 
@@ -22,5 +21,6 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: 5px;
+  margin-bottom: 10px;
 `;

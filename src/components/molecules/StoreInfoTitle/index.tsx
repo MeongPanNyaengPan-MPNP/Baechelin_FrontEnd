@@ -33,8 +33,11 @@ function StoreInfoTitle({ storeName }: StoreInfoTitleProps) {
   return (
     <S.Container>
       <S.TitleWrapper>
-        <Span fontSize="4rem">{storeDetailData?.name}</Span>
-        <Bookmark size="4rem" marked={bookmarkColor} />
+        <h2>
+          <Span fontSize="3.2rem">{storeDetailData?.name}</Span>
+        </h2>
+
+        <Bookmark size="3.2rem" marked={bookmarkColor} />
       </S.TitleWrapper>
       <S.Wrapper>
         <Icon iconName="star" color="#ED6F2A" size="2rem" onClick={onClickIcon} margin="0 0.5rem 0 0" />

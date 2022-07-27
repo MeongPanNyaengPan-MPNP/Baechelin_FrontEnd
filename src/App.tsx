@@ -20,6 +20,7 @@ import SilentLogin from '@utils/Jwt/SilentLogin';
 import Bookmark from '@pages/Bookmark';
 import StoreDetailPhotosModal from '@pages/StoreDetailPhotosModal';
 
+import AlertContainer from '@molecules/AlertContainer';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
 import PrivateRoute from './routes/PrivateRoutes';
@@ -49,19 +50,9 @@ function App() {
             </Route>
             <Route path="photosModal" element={<StoreDetailPhotosModal />} />
             <Route path="/search/:keyword" element={<Search />} />
-            {/*            <Route path="/review">
-              <Route
-                path="/review/write"
-                element={
-                  <PrivateRoute>
-                    <ReviewWrite />
-                  </PrivateRoute>
-                }
-              />
-              <Route path="" element={<NotFound />} />
-            </Route> */}
-            <Route path="/review/write/*" element={<PrivateRoute prevPath="/review/write" />}>
-              <Route path="*" element={<ReviewWrite />} />
+
+            <Route path="/review/write/*" element={<PrivateRoute />}>
+              <Route path=":storeId" element={<ReviewWrite />} />
             </Route>
             <Route path="/store/list" />
             <Route path="/map" />
@@ -75,6 +66,7 @@ function App() {
             </Routes>
           )}
         </SnackBarsContainer>
+        <AlertContainer />
       </ThemeProvider>
     </RecoilRoot>
   );

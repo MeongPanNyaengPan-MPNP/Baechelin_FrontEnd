@@ -5,7 +5,8 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   top: -2px;
-  width: 1280px;
+  max-width: 1240px;
+  padding: 0 20px;
 `;
 
 export const InfoWrapper = styled.div`

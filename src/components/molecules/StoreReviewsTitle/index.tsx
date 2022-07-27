@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import Buttons from '@atoms/Buttons';
 import Span from '@atoms/Span';
@@ -9,8 +9,10 @@ import * as S from './styles';
 function StoreReviewsTitle() {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const { storeName } = useParams();
   const onClickReviewButton = () => {
-    navigate('/review/write/', { state: { LocationBeforeRoute: location } });
+    navigate(`/review/write/${storeName}`, { state: { LocationBeforeRoute: location } });
   };
   return (
     <S.Container>

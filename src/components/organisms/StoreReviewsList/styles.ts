@@ -6,3 +6,10 @@ export const Container = styled.div`
   flex-direction: column;
   /* background-color: blue; */
 `;
+export const ReviewListGroup = styled.ul`
+  margin: 0 -20px;
+
+  > li + li {
+    margin-top: 28px;
+  }
+`;

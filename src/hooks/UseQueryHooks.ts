@@ -1,7 +1,7 @@
 import { getBookmarkStoreList, getNearStore } from '@service/storeListApi';
 import { useQuery } from 'react-query';
 import { UserLoctaionType } from '@interfaces/LocationTypes';
-import { getRecentReviewList } from '@service/reviewApi';
+import { getRecentReviewList, getReviewList } from '@service/reviewApi';
 import { TokenResponseType, UserInfoType } from '@interfaces/TokenType';
 import { getUserInfo, tokenRefresh } from '@service/getUserApi';
 import { useSetRecoilState } from 'recoil';
@@ -40,8 +40,26 @@ export const UseStoreListHooks = <T>(currentLocation: UserLoctaionType) => {
 export const UseReviewList = () => {
   // 메인에 위치한 실시간 리뷰
   const UseRecentReviewForMain = <T>(key: string, limit?: number) =>
-    useQuery<T>([key], () => getRecentReviewList(limit), queryOption);
-  return { UseRecentReviewForMain };
+    useQuery<T>([key], () => getRecentReviewList(limit), {
+      staleTime: 0,
+      cacheTime: Infinity,
+      refetchOnMount: true,
+      refetchOnWindowFocus: false,
+      retry: 0,
+    });
+  const UseDetailReview = <T>(key: string, storeId: number) =>
+    useQuery<T>([key], () => getReviewList(storeId), {
+      staleTime: 0,
+      cacheTime: Infinity,
+      refetchOnMount: true,
+      refetchOnWindowFocus: false,
+      retry: 0,
+    });
+
+  return {
+    UseRecentReviewForMain,
+    UseDetailReview,
+  };
 };
 
 export const UseFetchToken = () => {

@@ -14,13 +14,7 @@ const getToken = (tokenName: string) => {
       return token;
     }
   }
-}; /*
-const forceLogout = () => {
-  console.log('보안상의 문제로 인해 로그아웃 되었습니다');
-  localStorage.removeItem('recoil-persist');
-  userLogout();
-  window.location.reload();
-}; */
+};
 const Api = axios.create({
   timeout: 10000,
   baseURL: `${baseURL}`,
@@ -50,7 +44,6 @@ export const request = async <T>(config: AxiosRequestConfig): Promise<T> => {
       window.location.reload();
       console.log('401_error', err);
     }
-
     if (err.response.status === 402) {
       console.log('토큰 재요청 ', err, prevRequest);
     }

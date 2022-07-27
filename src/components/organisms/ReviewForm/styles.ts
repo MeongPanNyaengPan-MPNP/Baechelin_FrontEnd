@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 import { Container } from '@styles/layout';
 
+export const FormArea = styled.div`
+  padding: 4rem 0 15rem;
+`;
+
 export const FormContainer = styled(Container)`
   background: #fff;
-  padding: 40px 0;
+  padding-top: 40px;
 `;
 export const Inner = styled.div`
   max-width: 945px;
@@ -14,10 +18,11 @@ export const QuestionSection = styled.section`
   margin-bottom: 70px;
 
   h5 {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
-
-  .MuiRating-root {
-    transform: scale(1.7) translateX(20%);
-  }
+`;
+export const ButtonArea = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;

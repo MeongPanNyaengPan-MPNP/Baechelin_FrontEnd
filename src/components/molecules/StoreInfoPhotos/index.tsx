@@ -2,27 +2,18 @@ import React from 'react';
 import { useQuery } from 'react-query';
 
 import { getStoreDetail } from '@service/storeDetailApi';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import * as S from './styles';
 
 interface StoreInfoPhotosProps {
   storeName: string | undefined;
+  width?: string;
+  tile?: boolean;
 }
 
-// const style = {
-//   position: 'absolute' as const,
-//   top: '50%',
-//   left: '50%',
-//   transform: 'translate(-50%, -50%)',
-//   width: 400,
-//   bgcolor: 'background.paper',
-//   border: '2px solid #000',
-//   boxShadow: 24,
-//   p: 4,
-// };
-
-function StoreInfoPhotos({ storeName }: StoreInfoPhotosProps) {
+function StoreInfoPhotos({ storeName, width, tile = true }: StoreInfoPhotosProps) {
+  const location = useLocation();
   const { data: storeDetailData }: any = useQuery(
     ['getShopDetail', storeName],
     () => getStoreDetail(Number(storeName)),
@@ -54,19 +45,34 @@ function StoreInfoPhotos({ storeName }: StoreInfoPhotosProps) {
   ];
 
   return (
-    <S.Container>
+    <S.Container width={width}>
       <S.Wrapper>
-        <Link to="/photosModal" state={{ data: storeDetailData?.storeImgList }}>
+        <Link
+          to="/photosModal"
+          state={{
+            data: storeDetailData?.storeImgList,
+            locationState: location,
+          }}
+        >
           <S.Photo src={storeDetailData?.storeImgList[0]?.storeImageUrl} key="main" />
         </Link>
       </S.Wrapper>
-      <S.PhotosWrapper>
-        {photos.map((v) => (
-          <Link to="/photosModal" state={{ data: storeDetailData?.storeImgList }}>
-            <S.Photos src={v.img} key={v.key} />
-          </Link>
-        ))}
-      </S.PhotosWrapper>
+
+      {tile && (
+        <S.PhotosWrapper>
+          {photos.map((v) => (
+            <Link
+              to="/photosModal"
+              state={{
+                data: storeDetailData?.storeImgList,
+                locationState: location,
+              }}
+            >
+              <S.Photos src={v.img} key={v.key} />
+            </Link>
+          ))}
+        </S.PhotosWrapper>
+      )}
     </S.Container>
   );
 }

@@ -1,28 +1,31 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export interface SpanProps {
   children?: React.ReactChild;
   color?: string;
   textAlign?: 'left' | 'right' | 'center';
   width?: string;
-  maxWidth?: string;
   fontSize?: number | string;
   fontWeight?: string | number | 'bold' | 'normal';
   size?: string;
   blockWidth?: boolean;
+  maxWidth?: string;
   className?: string;
   del?: boolean;
   onClick?: (e: React.MouseEvent<HTMLSpanElement>) => void;
   display?: string;
   cursor?: string;
   style?: any;
+  ellipsis?: null | number;
+  margin?: string;
 
   [prop: string]: any;
 }
 
 const StyledSpan = styled.span<SpanProps>`
   display: ${(props) => props.display || 'inline'};
+  margin: ${(props) => props.margin || 'initial'};
   color: ${(props: SpanProps) => props.color || 'black'};
   text-align: ${(props: SpanProps) => props.textAlign};
   width: ${(props) => (props.blockWidth ? '100%' : props.width)};
@@ -61,6 +64,30 @@ const StyledSpan = styled.span<SpanProps>`
     font-size: 2.5rem;
     font-weight: bold;
   }
+
+  /* 말줄임 처리 */
+  ${(props) => {
+    if (props.ellipsis && props.ellipsis > 1) {
+      return css`
+        display: -webkit-box;
+        word-wrap: break-word;
+        -webkit-line-clamp: ${props.ellipsis};
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.4;
+        height: ${props.ellipsis + props.ellipsis * 0.4}em;
+      `;
+    }
+    if (props.ellipsis && props.ellipsis === 1) {
+      return css`
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      `;
+    }
+  }}
 `;
 
 const Span = ({
@@ -70,6 +97,7 @@ const Span = ({
   width = 'auto',
   maxWidth = '100%',
   fontSize = '1rem',
+  margin,
   fontWeight = '500',
   size = 'normal',
   className,
@@ -78,17 +106,20 @@ const Span = ({
   onClick,
   display,
   style,
+  ellipsis = null,
 }: SpanProps) => {
   const needProps = {
     color,
     textAlign,
     width,
     maxWidth,
+    margin,
     fontSize,
     size,
     blockWidth,
     fontWeight,
     display,
+    ellipsis,
     cursor,
     style,
   };
