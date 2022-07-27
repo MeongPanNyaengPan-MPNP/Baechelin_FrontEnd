@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useQuery } from 'react-query';
 
 import Buttons from '@atoms/Buttons';
 import Span from '@atoms/Span';
 import BookmarkSelect from '@molecules/BookmarkSelect';
 import BookmarkFolderCard from '@organisms/BookmarkFolderCard';
 import BookmarkRegisterFolderName from '@molecules/BookmarkRegisterName';
+// import UseLoginHooks from '@hooks/UseLogin';
+import { getUserBookmarkFolders } from '@service/bookmarkApi';
 
 import * as S from './styles';
 
@@ -14,6 +17,17 @@ import * as S from './styles';
 
 function BookmarkTemplate() {
   const [create, setCreate] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<string>('all');
+  // const { tokenExist } = UseLoginHooks();
+
+  console.log('selectedOption', selectedOption);
+
+  const { data: BookmarkData }: any = useQuery(['getShopDetail'], () => getUserBookmarkFolders(), {
+    // eslint-disable-next-line object-curly-newline
+    staleTime: 5000,
+    cacheTime: Infinity,
+  });
+  console.log('BookmarkData', BookmarkData);
 
   const onClickCreateButton = () => {
     setCreate((prev) => !prev);
@@ -25,28 +39,27 @@ function BookmarkTemplate() {
         <Span fontSize="2.4rem" fontWeight="700">
           내가 저장한 가게
         </Span>
-        <BookmarkSelect />
+        <BookmarkSelect setSelectedOption={setSelectedOption} />
       </S.TitleWrapper>
       <S.BookmarkListWrapper>
-        <BookmarkFolderCard />
-        <BookmarkFolderCard />
-        <BookmarkFolderCard />
-        <BookmarkFolderCard />
-        <BookmarkFolderCard />
+        {selectedOption === 'all' &&
+          BookmarkData?.map((v: any) => <BookmarkFolderCard name={v.folderName} list={v.bookmarkList} key={v.id} />)}
         {create && <BookmarkFolderCard type="create" />}
       </S.BookmarkListWrapper>
-      <S.CreateBookmarkButtonWrapper onClick={onClickCreateButton}>
-        <Buttons round="3rem" display="flex" style={{ width: '18.5rem' }}>
-          <BookmarkRegisterFolderName
-            iconName="create_new_folder"
-            name="새 폴더"
-            height="null"
-            iconSize="3rem"
-            fontSize="24px"
-            justify="center"
-          />
-        </Buttons>
-      </S.CreateBookmarkButtonWrapper>
+      {selectedOption === 'all' && (
+        <S.CreateBookmarkButtonWrapper onClick={onClickCreateButton}>
+          <Buttons round="3rem" display="flex" style={{ width: '18.5rem' }}>
+            <BookmarkRegisterFolderName
+              iconName="create_new_folder"
+              name="새 폴더"
+              height="null"
+              iconSize="3rem"
+              fontSize="24px"
+              justify="center"
+            />
+          </Buttons>
+        </S.CreateBookmarkButtonWrapper>
+      )}
     </S.Container>
   );
 }
