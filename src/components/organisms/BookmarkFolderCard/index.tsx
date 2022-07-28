@@ -6,7 +6,11 @@ import Icon from '@atoms/Icon';
 import BookmarkRegisterFolderName from '@molecules/BookmarkRegisterName';
 import BookmarkUpdateOverlay from '@organisms/BookmarkUpdateOverlay';
 import BookmarkRegisterInput from '@molecules/BookmarkRegisterInput';
-import { CreateBookmarkFolderResponse } from '@interfaces/BookmarkTypes';
+import {
+  CreateBookmarkFolderResponse,
+  UpdateBookmarkFolderNameParam,
+  UpdateBookmarkFolderNameQuery,
+} from '@interfaces/BookmarkTypes';
 
 import * as S from './styles';
 
@@ -17,6 +21,12 @@ interface BookmarkFolderCardProps {
   list?: object;
   fetchCreateBookmarkFolder?: UseMutateFunction<CreateBookmarkFolderResponse, unknown, string, unknown>;
   fetchDeleteBookmarkFolder?: UseMutateFunction<unknown, unknown, number, unknown>;
+  fetchUpdateBookmarkFolder?: UseMutateFunction<
+    unknown,
+    unknown,
+    UpdateBookmarkFolderNameParam & UpdateBookmarkFolderNameQuery,
+    unknown
+  >;
 }
 
 function BookmarkFolderCard({
@@ -26,10 +36,11 @@ function BookmarkFolderCard({
   list,
   fetchCreateBookmarkFolder,
   fetchDeleteBookmarkFolder,
+  fetchUpdateBookmarkFolder,
 }: BookmarkFolderCardProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [status, setStatus] = useState<string | null>(type);
-  const [folderName, setFolderName] = useState<string>('북마크 폴더');
+  const [folderName, setFolderName] = useState<string>('');
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -42,6 +53,7 @@ function BookmarkFolderCard({
   }, [name]);
 
   console.log('bookmarklist', list);
+  console.log('card foldername', name);
 
   // const handleClose = () => {
   //   setAnchorEl(null);
@@ -57,13 +69,21 @@ function BookmarkFolderCard({
       <S.TitleWrapper>
         {status === 'update' && (
           <>
-            <BookmarkRegisterInput setFolderName={setFolderName} setStatus={setStatus} />
+            <BookmarkRegisterInput
+              type="update"
+              folderName={name}
+              folderId={folderId}
+              setFolderName={setFolderName}
+              setStatus={setStatus}
+              fetchUpdateBookmarkFolder={fetchUpdateBookmarkFolder}
+            />
             {/* <Span>확인</Span> */}
           </>
         )}
 
         {status === 'create' && (
           <BookmarkRegisterInput
+            type="create"
             setFolderName={setFolderName}
             setStatus={setStatus}
             fetchCreateBookmarkFolder={fetchCreateBookmarkFolder}

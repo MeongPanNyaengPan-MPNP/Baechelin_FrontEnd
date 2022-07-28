@@ -7,7 +7,14 @@ import BookmarkSelect from '@molecules/BookmarkSelect';
 import BookmarkFolderCard from '@organisms/BookmarkFolderCard';
 import BookmarkRegisterFolderName from '@molecules/BookmarkRegisterName';
 // import UseLoginHooks from '@hooks/UseLogin';
-import { createBookmarkFolder, deleteBookmarkFolder, getUserBookmarkFolders } from '@service/bookmarkApi';
+import {
+  createBookmarkFolder,
+  deleteBookmarkFolder,
+  getUserBookmarkFolders,
+  updateBookmarkFolderName,
+} from '@service/bookmarkApi';
+
+import { UpdateBookmarkFolderNameParam, UpdateBookmarkFolderNameQuery } from '@interfaces/BookmarkTypes';
 
 import * as S from './styles';
 
@@ -30,7 +37,8 @@ function BookmarkTemplate() {
     (folderNameInput: string) => createBookmarkFolder({ folderName: folderNameInput }),
     {
       onSuccess: () => {
-        setCreate((prev) => !prev);
+        setCreate(false);
+        refetch();
         console.log('folder created');
       },
       onError: (err) => {
@@ -51,6 +59,20 @@ function BookmarkTemplate() {
       },
     },
   );
+
+  const { mutate: fetchUpdateBookmarkFolder } = useMutation<
+    unknown,
+    unknown,
+    UpdateBookmarkFolderNameParam & UpdateBookmarkFolderNameQuery
+  >(({ folderId, newFolderName }) => updateBookmarkFolderName({ folderId }, { newFolderName }), {
+    onSuccess: () => {
+      refetch();
+      console.log('folder updated');
+    },
+    onError: (err) => {
+      console.error(err);
+    },
+  });
 
   console.log('selectedOption', selectedOption);
   console.log('BookmarkData', BookmarkData);
@@ -76,6 +98,7 @@ function BookmarkTemplate() {
               list={v.bookmarkList}
               key={v.id}
               fetchDeleteBookmarkFolder={fetchDeleteBookmarkFolder}
+              fetchUpdateBookmarkFolder={fetchUpdateBookmarkFolder}
             />
           ))}
         {create && <BookmarkFolderCard type="create" fetchCreateBookmarkFolder={fetchCreateBookmarkFolder} />}

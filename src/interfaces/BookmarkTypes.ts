@@ -22,3 +22,11 @@ export interface CreateBookmarkStoreBody {
   folderId: number;
   storeId: string;
 }
+
+export interface UpdateBookmarkFolderNameParam {
+  folderId: number;
+}
+
+export interface UpdateBookmarkFolderNameQuery {
+  newFolderName: string;
+}
