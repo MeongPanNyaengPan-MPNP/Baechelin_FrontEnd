@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 
 import Buttons from '@atoms/Buttons';
 import Span from '@atoms/Span';
@@ -7,7 +7,7 @@ import BookmarkSelect from '@molecules/BookmarkSelect';
 import BookmarkFolderCard from '@organisms/BookmarkFolderCard';
 import BookmarkRegisterFolderName from '@molecules/BookmarkRegisterName';
 // import UseLoginHooks from '@hooks/UseLogin';
-import { getUserBookmarkFolders } from '@service/bookmarkApi';
+import { createBookmarkFolder, getUserBookmarkFolders } from '@service/bookmarkApi';
 
 import * as S from './styles';
 
@@ -20,17 +20,31 @@ function BookmarkTemplate() {
   const [selectedOption, setSelectedOption] = useState<string>('all');
   // const { tokenExist } = UseLoginHooks();
 
-  console.log('selectedOption', selectedOption);
-
   const { data: BookmarkData }: any = useQuery(['getShopDetail'], () => getUserBookmarkFolders(), {
     // eslint-disable-next-line object-curly-newline
     staleTime: 5000,
     cacheTime: Infinity,
   });
+
+  const { mutate: fetchCreateBookmarkFolder } = useMutation(
+    (folderName: string) => createBookmarkFolder({ folderName }),
+    {
+      onSuccess: (msg) => {
+        console.log(msg);
+      },
+      onError: (err) => {
+        console.error(err);
+      },
+    },
+  );
+
+  console.log('selectedOption', selectedOption);
   console.log('BookmarkData', BookmarkData);
 
   const onClickCreateButton = () => {
     setCreate((prev) => !prev);
+
+    // fetchCreateBookmarkFolder() 폴더명 인풋 state 구현필요
   };
 
   return (
