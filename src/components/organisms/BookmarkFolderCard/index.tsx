@@ -1,20 +1,32 @@
 import React, { useEffect, useState } from 'react';
+import { UseMutateFunction } from 'react-query';
 
 import Icon from '@atoms/Icon';
 // import Span from '@atoms/Span';
 import BookmarkRegisterFolderName from '@molecules/BookmarkRegisterName';
 import BookmarkUpdateOverlay from '@organisms/BookmarkUpdateOverlay';
 import BookmarkRegisterInput from '@molecules/BookmarkRegisterInput';
+import { CreateBookmarkFolderResponse } from '@interfaces/BookmarkTypes';
 
 import * as S from './styles';
 
 interface BookmarkFolderCardProps {
   type?: string | null;
   name?: string | undefined;
+  folderId?: number;
   list?: object;
+  fetchCreateBookmarkFolder?: UseMutateFunction<CreateBookmarkFolderResponse, unknown, string, unknown>;
+  fetchDeleteBookmarkFolder?: UseMutateFunction<unknown, unknown, number, unknown>;
 }
 
-function BookmarkFolderCard({ type = null, name, list }: BookmarkFolderCardProps) {
+function BookmarkFolderCard({
+  type = null,
+  name,
+  folderId,
+  list,
+  fetchCreateBookmarkFolder,
+  fetchDeleteBookmarkFolder,
+}: BookmarkFolderCardProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [status, setStatus] = useState<string | null>(type);
   const [folderName, setFolderName] = useState<string>('북마크 폴더');
@@ -50,7 +62,13 @@ function BookmarkFolderCard({ type = null, name, list }: BookmarkFolderCardProps
           </>
         )}
 
-        {status === 'create' && <BookmarkRegisterInput setFolderName={setFolderName} setStatus={setStatus} />}
+        {status === 'create' && (
+          <BookmarkRegisterInput
+            setFolderName={setFolderName}
+            setStatus={setStatus}
+            fetchCreateBookmarkFolder={fetchCreateBookmarkFolder}
+          />
+        )}
 
         {!status && (
           <>
@@ -59,7 +77,14 @@ function BookmarkFolderCard({ type = null, name, list }: BookmarkFolderCardProps
           </>
         )}
 
-        <BookmarkUpdateOverlay anchorEl={anchorEl} setAnchorEl={setAnchorEl} status={status} setStatus={setStatus} />
+        <BookmarkUpdateOverlay
+          anchorEl={anchorEl}
+          setAnchorEl={setAnchorEl}
+          status={status}
+          setStatus={setStatus}
+          folderId={folderId}
+          fetchDeleteBookmarkFolder={fetchDeleteBookmarkFolder}
+        />
       </S.TitleWrapper>
     </S.Container>
   );
