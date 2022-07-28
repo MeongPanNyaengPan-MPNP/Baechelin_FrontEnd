@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Icon from '@atoms/Icon';
 // import Span from '@atoms/Span';
@@ -10,9 +10,11 @@ import * as S from './styles';
 
 interface BookmarkFolderCardProps {
   type?: string | null;
+  name?: string | undefined;
+  list?: object;
 }
 
-function BookmarkFolderCard({ type = null }: BookmarkFolderCardProps) {
+function BookmarkFolderCard({ type = null, name, list }: BookmarkFolderCardProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [status, setStatus] = useState<string | null>(type);
   const [folderName, setFolderName] = useState<string>('북마크 폴더');
@@ -20,6 +22,14 @@ function BookmarkFolderCard({ type = null }: BookmarkFolderCardProps) {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
+  useEffect(() => {
+    if (name) {
+      setFolderName(name);
+    }
+  }, [name]);
+
+  console.log('bookmarklist', list);
 
   // const handleClose = () => {
   //   setAnchorEl(null);
