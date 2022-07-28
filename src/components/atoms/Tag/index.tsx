@@ -8,14 +8,14 @@ export type TagProps = {
 };
 const Tag = styled.li<{ bgColor: string; fontSize: string }>`
   display: inline-block;
-  width: 100px;
+  min-width: 100px;
   border-radius: 5em;
   font-size: 1.2rem;
   font-weight: 500;
   margin-right: 8px;
   background: #f2f2f2;
   text-align: center;
-  padding: 5px;
+  padding: 5px 10px;
   font-size: ${(props) => props.fontSize || '1.2rem'};
   margin-bottom: 6px;
 `;

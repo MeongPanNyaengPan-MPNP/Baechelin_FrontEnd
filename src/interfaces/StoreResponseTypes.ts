@@ -4,7 +4,7 @@ export interface StoreResponseTypes {
   category?: string;
   address?: string;
   phoneNumber?: string;
-  storeImgList?: { storeImageUrl: string }[];
+  storeImgList?: string[];
   storeModifiedAt?: string;
   pointAvg?: number;
   bookmark?: boolean;
@@ -18,4 +18,5 @@ export interface StoreResponseTypes {
 
 export type StoreListQueryTypes = {
   cards?: StoreResponseTypes[];
+  (key: string): any;
 };

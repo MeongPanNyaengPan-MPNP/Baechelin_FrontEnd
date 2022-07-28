@@ -85,7 +85,7 @@ export const STORE_FILTERS = {
     },
   ],
 };
-export const STORE_REVIEW_TAG = {
+export const STORE_REVIEW_TAG: { [index: string]: string } = {
   bKiosk: '배리어프리 키오스크',
   bTable: '입식 테이블',
   bMenu: '점자 메뉴판',

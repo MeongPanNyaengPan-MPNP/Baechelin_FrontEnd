@@ -21,6 +21,7 @@ import Bookmark from '@pages/Bookmark';
 import StoreDetailPhotosModal from '@pages/StoreDetailPhotosModal';
 
 import AlertContainer from '@molecules/AlertContainer';
+import SearchMap from '@pages/SearchMap';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
 import PrivateRoute from './routes/PrivateRoutes';
@@ -39,6 +40,8 @@ function App() {
           <SilentLogin />
           <Routes location={state?.locationState}>
             <Route path="/" element={<Main />} />
+
+            <Route path="/map" element={<SearchMap />} />
             <Route path="/user">
               <Route path="oauth/redirect/:prevPath" element={<Oauth />} />
               <Route path="oauth/redirect" element={<Oauth />} />
@@ -55,7 +58,6 @@ function App() {
               <Route path=":storeId" element={<ReviewWrite />} />
             </Route>
             <Route path="/store/list" />
-            <Route path="/map" />
             <Route path="*" element={<NotFound />} />
             <Route path="login" element={<Login />} />
           </Routes>
