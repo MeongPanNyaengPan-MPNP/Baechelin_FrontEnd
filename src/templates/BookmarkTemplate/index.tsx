@@ -7,7 +7,7 @@ import BookmarkSelect from '@molecules/BookmarkSelect';
 import BookmarkFolderCard from '@organisms/BookmarkFolderCard';
 import BookmarkRegisterFolderName from '@molecules/BookmarkRegisterName';
 // import UseLoginHooks from '@hooks/UseLogin';
-import { createBookmarkFolder, getUserBookmarkFolders } from '@service/bookmarkApi';
+import { createBookmarkFolder, deleteBookmarkFolder, getUserBookmarkFolders } from '@service/bookmarkApi';
 
 import * as S from './styles';
 
@@ -20,17 +20,31 @@ function BookmarkTemplate() {
   const [selectedOption, setSelectedOption] = useState<string>('all');
   // const { tokenExist } = UseLoginHooks();
 
-  const { data: BookmarkData }: any = useQuery(['getShopDetail'], () => getUserBookmarkFolders(), {
-    // eslint-disable-next-line object-curly-newline
+  const { data: BookmarkData, refetch } = useQuery(['getShopDetail'], () => getUserBookmarkFolders(), {
     staleTime: 5000,
     cacheTime: Infinity,
+    enabled: !create,
   });
 
   const { mutate: fetchCreateBookmarkFolder } = useMutation(
-    (folderName: string) => createBookmarkFolder({ folderName }),
+    (folderNameInput: string) => createBookmarkFolder({ folderName: folderNameInput }),
     {
-      onSuccess: (msg) => {
-        console.log(msg);
+      onSuccess: () => {
+        setCreate((prev) => !prev);
+        console.log('folder created');
+      },
+      onError: (err) => {
+        console.error(err);
+      },
+    },
+  );
+
+  const { mutate: fetchDeleteBookmarkFolder } = useMutation(
+    (folderIdProps: number) => deleteBookmarkFolder(folderIdProps),
+    {
+      onSuccess: () => {
+        refetch();
+        console.log('folder deleted');
       },
       onError: (err) => {
         console.error(err);
@@ -43,8 +57,6 @@ function BookmarkTemplate() {
 
   const onClickCreateButton = () => {
     setCreate((prev) => !prev);
-
-    // fetchCreateBookmarkFolder() 폴더명 인풋 state 구현필요
   };
 
   return (
@@ -53,24 +65,36 @@ function BookmarkTemplate() {
         <Span fontSize="2.4rem" fontWeight="700">
           내가 저장한 가게
         </Span>
-        <BookmarkSelect setSelectedOption={setSelectedOption} />
+        <BookmarkSelect setSelectedOption={setSelectedOption} BookmarkData={BookmarkData} />
       </S.TitleWrapper>
       <S.BookmarkListWrapper>
         {selectedOption === 'all' &&
-          BookmarkData?.map((v: any) => <BookmarkFolderCard name={v.folderName} list={v.bookmarkList} key={v.id} />)}
-        {create && <BookmarkFolderCard type="create" />}
+          BookmarkData?.map((v: any) => (
+            <BookmarkFolderCard
+              name={v.folderName}
+              folderId={v.id}
+              list={v.bookmarkList}
+              key={v.id}
+              fetchDeleteBookmarkFolder={fetchDeleteBookmarkFolder}
+            />
+          ))}
+        {create && <BookmarkFolderCard type="create" fetchCreateBookmarkFolder={fetchCreateBookmarkFolder} />}
       </S.BookmarkListWrapper>
       {selectedOption === 'all' && (
         <S.CreateBookmarkButtonWrapper onClick={onClickCreateButton}>
           <Buttons round="3rem" display="flex" style={{ width: '18.5rem' }}>
-            <BookmarkRegisterFolderName
-              iconName="create_new_folder"
-              name="새 폴더"
-              height="null"
-              iconSize="3rem"
-              fontSize="24px"
-              justify="center"
-            />
+            {create ? (
+              <Span fontSize="2.4rem">만들기 취소</Span>
+            ) : (
+              <BookmarkRegisterFolderName
+                iconName="create_new_folder"
+                name="새 폴더"
+                height="null"
+                iconSize="3rem"
+                fontSize="2.4rem"
+                justify="center"
+              />
+            )}
           </Buttons>
         </S.CreateBookmarkButtonWrapper>
       )}

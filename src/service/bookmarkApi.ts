@@ -1,34 +1,33 @@
-import { request } from './httpClient';
-
 import {
   CreateBookmarkFolderResponse,
   CreateBookmarkStoreBody,
   GetUserBookmarkFoldersResponse,
 } from '@interfaces/BookmarkTypes';
 
-export const getUserBookmarkFolders = () => {
-  return request<GetUserBookmarkFoldersResponse>({
-    method: 'GET',
+import { request } from './httpClient';
+
+export const getUserBookmarkFolders = () =>
+  request<GetUserBookmarkFoldersResponse[]>({
+    method: 'POST',
     url: '/folderList',
   });
-};
 
-export const createBookmarkFolder = (body: { folderName: string }) => {
-  return request<CreateBookmarkFolderResponse>({ method: 'POST', url: '/folder', data: body });
-};
+export const createBookmarkFolder = (body: { folderName: string }) =>
+  request<CreateBookmarkFolderResponse>({ method: 'POST', url: '/folder', data: body });
 
-export const updateBookmarkFolderName = (params: { folderId: number }, body: { folderName: string }) => {
-  return request({ method: 'PATCH', url: '/bookmark', params, data: body });
-};
+export const updateBookmarkFolderName = (params: { folderId: number }, body: { folderName: string }) =>
+  request({ method: 'PATCH', url: '/bookmark', params, data: body });
 
-export const deleteBookmarkFolder = (params: { folderId: number }) => {
-  return request({ method: 'DELETE', url: '/folder', params });
-};
+export const deleteBookmarkFolder = (params: number) => request({ method: 'DELETE', url: `/folder/${params}` });
 
-export const createBookmarkStore = (body: CreateBookmarkStoreBody) => {
-  return request<CreateBookmarkFolderResponse>({ method: 'POST', url: '/bookmark', data: body });
-};
+export const createBookmarkStore = (body: CreateBookmarkStoreBody) =>
+  request<CreateBookmarkFolderResponse>({ method: 'POST', url: '/bookmark', data: body });
 
-export const deleteBookmarkStore = (params: { bookmarkId: number }) => {
-  return request({ method: 'DELETE', url: '/bookmark', params });
-};
+export const deleteBookmarkStore = (params: { bookmarkId: number }) =>
+  request({ method: 'DELETE', url: `/bookmark/${params}` });
+
+export const getBookmarkTop = () =>
+  request<any>({
+    method: 'GET',
+    url: '/bookmarkTop',
+  });

@@ -1,7 +1,9 @@
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { UseMutateFunction } from 'react-query';
 
 import Icon from '@atoms/Icon';
+import { CreateBookmarkFolderResponse } from '@interfaces/BookmarkTypes';
 
 import * as S from './styles';
 
@@ -13,6 +15,7 @@ interface BookmarkRegisterInputProps {
   justify?: string;
   setFolderName: React.Dispatch<React.SetStateAction<string>>;
   setStatus: React.Dispatch<React.SetStateAction<string | null>>;
+  fetchCreateBookmarkFolder?: UseMutateFunction<CreateBookmarkFolderResponse, unknown, string, unknown>;
   onClick?: () => void;
 }
 
@@ -28,12 +31,14 @@ function BookmarkRegisterInput({
   justify,
   setFolderName,
   setStatus,
+  fetchCreateBookmarkFolder,
   onClick,
 }: BookmarkRegisterInputProps) {
   const { register, handleSubmit } = useForm<FormValue>();
 
   const onSubmit: SubmitHandler<FormValue> = (data) => {
-    if (data?.folderName) {
+    if (data?.folderName && fetchCreateBookmarkFolder) {
+      fetchCreateBookmarkFolder(data.folderName);
       setFolderName(data.folderName);
     }
     setStatus(null);

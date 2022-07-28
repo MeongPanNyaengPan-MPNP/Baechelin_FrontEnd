@@ -27,12 +27,13 @@ function StoreDetailPhotosModal() {
     { storeImageUrl: 'https://swiperjs.com/demos/images/nature-7.jpg', key: 7 },
   ];
 
-  const imgs = [...data];
+  const imgs = [{ storeImageUrl: data[0] }];
   if (data.length < 5) {
     imgs.push(...imgsExp);
   }
 
   console.log('i,g', data);
+  console.log('img arr', imgs);
 
   return (
     <ModalTemplates>
