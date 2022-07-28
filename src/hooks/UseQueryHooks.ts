@@ -1,4 +1,4 @@
-import { getBookmarkStoreList, getNearStore } from '@service/storeListApi';
+import { getBookmarkStoreList, getNearStore, getNearStoreAtMap } from '@service/storeListApi';
 import { useQuery } from 'react-query';
 import { UserLoctaionType } from '@interfaces/LocationTypes';
 import { getRecentReviewList, getReviewList } from '@service/reviewApi';
@@ -6,7 +6,7 @@ import { TokenResponseType, UserInfoType } from '@interfaces/TokenType';
 import { getUserInfo, tokenRefresh } from '@service/getUserApi';
 import { useSetRecoilState } from 'recoil';
 import { userToken } from '@recoil/userAtom';
-import { USER } from '@constants/useQueryKey';
+import { MAP, USER } from '@constants/useQueryKey';
 
 const queryOption = {
   staleTime: Infinity,
@@ -36,9 +36,24 @@ export const UseStoreListHooks = <T>(currentLocation: UserLoctaionType) => {
     UseGetBookmarkStoreList,
   };
 };
+export const UseMapQuery = <T>() => {
+  const UseMapData = (latingQuery: string, queryString: string) =>
+    useQuery<T | false>([MAP.MAP_STORE, latingQuery, queryString], () => getNearStoreAtMap(latingQuery, queryString), {
+      staleTime: 6000,
+      cacheTime: Infinity,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      retry: 0,
+      onError: (err) => {
+        console.log('err', err);
+      },
+    });
+  return { UseMapData };
+};
 
 export const UseReviewList = () => {
   // 메인에 위치한 실시간 리뷰
+  console.log('list');
   const UseRecentReviewForMain = <T>(key: string, limit?: number) =>
     useQuery<T>([key], () => getRecentReviewList(limit), {
       staleTime: 0,

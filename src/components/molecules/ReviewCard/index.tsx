@@ -3,7 +3,8 @@ import Span from '@atoms/Span';
 import ThumbNail from '@atoms/Thumbnail';
 import Star from '@atoms/Star';
 import TagList from '@molecules/TagListProps';
-import { RecentReviewResponseType } from '@interfaces/ReviewTypes';
+import { RecentReviewResponseType, TagListType } from '@interfaces/ReviewTypes';
+import { STORE_REVIEW_TAG } from '@constants/store';
 import * as S from './styles';
 
 export type ReviewCardProps = {
@@ -24,6 +25,26 @@ function ReviewCard<T extends Partial<RecentReviewResponseType>>(
     showStoreInfo = true,
     showTagList = true,
   } = props;
+  const [facilityTag, setFacilityTag] = React.useState<TagListType[] | null>(null);
+  const [qualityTag, setQualityTag] = React.useState<TagListType[] | null>(null);
+  React.useEffect(() => {
+    if (showTagList) {
+      const fa = tagList
+        ?.filter((tag) => tag.tag.indexOf('b') === 0)
+        .map((filterTag) => ({
+          id: filterTag.id,
+          tag: STORE_REVIEW_TAG[filterTag.tag],
+        }));
+      const qu = tagList
+        ?.filter((tag) => tag.tag.indexOf('f') === 0)
+        .map((filterTag) => ({
+          id: filterTag.id,
+          tag: STORE_REVIEW_TAG[filterTag.tag],
+        }));
+      setFacilityTag(fa || null);
+      setQualityTag(qu || null);
+    }
+  }, [showTagList, tagList]);
   return (
     <S.CardItem showTagList={showTagList}>
       <S.CardItemInner>
@@ -81,8 +102,8 @@ function ReviewCard<T extends Partial<RecentReviewResponseType>>(
         </S.CardContentArea>
         {showTagList && tagList && (
           <S.StoreTagListGroup>
-            <TagList tagListTitle="편의시설" tags={tagList} />
-            <TagList tagListTitle="분위기" tags={tagList} />
+            <TagList tagListTitle="편의시설" tags={facilityTag} />
+            <TagList tagListTitle="분위기" tags={qualityTag} />
           </S.StoreTagListGroup>
         )}
       </S.CardItemInner>

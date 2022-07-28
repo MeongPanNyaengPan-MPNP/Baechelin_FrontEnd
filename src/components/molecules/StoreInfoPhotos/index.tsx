@@ -54,7 +54,7 @@ function StoreInfoPhotos({ storeName, width, tile = true }: StoreInfoPhotosProps
             locationState: location,
           }}
         >
-          <S.Photo src={storeDetailData?.storeImgList[0]?.storeImageUrl} key="main" />
+          <S.Photo src={storeDetailData?.storeImgList[0]} key="main" />
         </Link>
       </S.Wrapper>
 
