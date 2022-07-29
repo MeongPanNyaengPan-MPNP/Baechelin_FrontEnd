@@ -37,7 +37,7 @@ function StoreInfoTitle({ storeName }: StoreInfoTitleProps) {
           <Span fontSize="3.2rem">{storeDetailData?.name}</Span>
         </h2>
 
-        <Bookmark size="3.2rem" marked={bookmarkColor} />
+        <Bookmark size="3.2rem" marked={bookmarkColor} storeIdProps={storeDetailData.storeId} />
       </S.TitleWrapper>
       <S.Wrapper>
         <Icon iconName="star" color="#ED6F2A" size="2rem" onClick={onClickIcon} margin="0 0.5rem 0 0" />
