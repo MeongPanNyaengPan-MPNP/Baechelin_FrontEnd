@@ -1,0 +1,77 @@
+.overlay_box {
+    position: relative;
+    width: 175px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05)
+}
+
+.overlay_box .store_length {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -30%);
+    padding: 0 10px 0 7px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 1.4rem;
+    font-weight: 500;
+    background: #ed6f2a;
+    color: #fff;
+    text-align: center;
+    border-radius: 5em;
+
+}
+
+.overlay_box > figure {
+    width: 100%;
+    height: 90px;
+    background: #F2F2F2
+}
+
+.overlay_box > figure > img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.overlay_box .text_area {
+    display: flex;
+    align-items: flex-end;
+    padding: 8px 12px 10px;
+}
+
+.overlay_box .text_area h5 {
+    width: 125px;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.overlay_box .text_area small {
+    font-size: 1.2rem;
+    color: #3B3B3B;
+}
+
+.overlay_box .text_area p {
+    font-size: 1.5rem;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    margin-top: 5px;
+    color: #3B3B3B;
+}
+
+.overlay_box .text_area .rate {
+    display: flex;
+    font-size: 1.2rem;
+    align-items: center;
+}
+
+.overlay_box .text_area .rate img {
+    display: block;
+    width: 12px;
+    height: 12px;
+    margin-right: 3px;
+}

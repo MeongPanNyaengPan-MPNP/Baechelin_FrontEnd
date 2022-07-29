@@ -20,7 +20,10 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "types": [
+      "kakao.maps.d.ts"
+    ]
   },
   "include": [
     "./src/**/*",

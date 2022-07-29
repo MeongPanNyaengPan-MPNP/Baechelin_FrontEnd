@@ -33,7 +33,7 @@ type LatingType = {
   Ma: number;
 };
 
-function Map() {
+function MapContainer() {
   /* 사용자 위치 가져오기 */
   const { currentLocation } = UseGeolocation();
   const [location, setLocation] = useRecoilState(locationAtom);
@@ -101,9 +101,9 @@ function Map() {
   // 1. 바뀐 쿼리를 delay때마다 전달해줌
   // 2. 이전 setTimeout은 취소되고 가장 마지막 query문을 반환함
   // 3. delay이후 마지막 쿼리문으로 fetch
-  const { UseMapData } = UseMapQuery<StoreListQueryTypes>();
+  const { UseMapData } = UseMapQuery();
   const snbQueryString = useRecoilValue(SnbQueryString);
-  const { data } = UseMapData(latingDebounce, snbQueryString);
+  const { data } = UseMapData<StoreListQueryTypes>(latingDebounce, snbQueryString);
   console.log(data);
   // 동적으로 바뀌는 마커 셋팅
   useEffect(() => {
@@ -121,4 +121,4 @@ function Map() {
   );
 }
 
-export default Map;
+export default MapContainer;

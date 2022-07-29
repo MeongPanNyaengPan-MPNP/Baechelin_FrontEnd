@@ -9,7 +9,7 @@ export const getNearStore = <T>(locationData: UserLoctaionType, query = '', topi
   });
 };
 
-export const getNearStoreAtMap = <T>(locationData: string, query = '', size = 12, page = 0) =>
+export const getNearStoreAtMap = <T>(locationData: string, query = '', size = 20, page = 0) =>
   // const paging = page ? `&page=${page}&size=${size}` : null;
 
   request<T>({

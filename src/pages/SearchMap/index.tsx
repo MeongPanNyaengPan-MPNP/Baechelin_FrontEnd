@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import MapContainer from '@organisms/MapContainer';
+import MapWrapper from '@organisms/MapWrapper';
+import { STORE_FILTERS } from '@constants/store';
 
 function SearchMap() {
-  return <MapContainer />;
+  return <MapWrapper filters={STORE_FILTERS} />;
 }
 
 export default SearchMap;
