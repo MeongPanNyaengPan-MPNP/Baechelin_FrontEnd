@@ -18,13 +18,34 @@ function StoreDetailPhotosModal() {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
 
   const imgsExp = [
-    { storeImageUrl: 'https://swiperjs.com/demos/images/nature-1.jpg', key: 1 },
-    { storeImageUrl: 'https://swiperjs.com/demos/images/nature-2.jpg', key: 2 },
-    { storeImageUrl: 'https://swiperjs.com/demos/images/nature-3.jpg', key: 3 },
-    { storeImageUrl: 'https://swiperjs.com/demos/images/nature-4.jpg', key: 4 },
-    { storeImageUrl: 'https://swiperjs.com/demos/images/nature-5.jpg', key: 5 },
-    { storeImageUrl: 'https://swiperjs.com/demos/images/nature-6.jpg', key: 6 },
-    { storeImageUrl: 'https://swiperjs.com/demos/images/nature-7.jpg', key: 7 },
+    {
+      storeImageUrl: 'https://swiperjs.com/demos/images/nature-1.jpg',
+      key: 1,
+    },
+    {
+      storeImageUrl: 'https://swiperjs.com/demos/images/nature-2.jpg',
+      key: 2,
+    },
+    {
+      storeImageUrl: 'https://swiperjs.com/demos/images/nature-3.jpg',
+      key: 3,
+    },
+    {
+      storeImageUrl: 'https://swiperjs.com/demos/images/nature-4.jpg',
+      key: 4,
+    },
+    {
+      storeImageUrl: 'https://swiperjs.com/demos/images/nature-5.jpg',
+      key: 5,
+    },
+    {
+      storeImageUrl: 'https://swiperjs.com/demos/images/nature-6.jpg',
+      key: 6,
+    },
+    {
+      storeImageUrl: 'https://swiperjs.com/demos/images/nature-7.jpg',
+      key: 7,
+    },
   ];
 
   const imgs = [...data];
@@ -47,7 +68,7 @@ function StoreDetailPhotosModal() {
           >
             {imgs.map((v: any) => (
               <SwiperSlide>
-                <img src={v.storeImageUrl} />
+                <img src={v} />
               </SwiperSlide>
             ))}
           </Swiper>

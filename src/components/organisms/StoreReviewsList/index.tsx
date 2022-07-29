@@ -15,7 +15,6 @@ function StoreReviewsList() {
     REVIEW.DETAIL_REVIEW_LIST,
     Number(storeName),
   );
-  console.log(reviewList);
   return (
     <S.Container>
       <StoreReviewsTitle />

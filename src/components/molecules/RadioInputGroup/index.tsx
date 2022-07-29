@@ -2,7 +2,6 @@
 import React from 'react';
 import { Control, useController, UseControllerProps } from 'react-hook-form';
 import { CheckBoxType } from '@interfaces/formTypes';
-import { FormControlLabel } from '@mui/material';
 import RadioInput from '@atoms/RadioInput';
 import * as S from './styles';
 
@@ -24,7 +23,7 @@ function Index<T>({ boxHidden, data, name, control, curValue = '' }: RadioGroupP
     <S.RadioInputGroup defaultValue={curValue || ''} value={curValue}>
       <div>
         {data?.map((item) => (
-          <FormControlLabel
+          <S.Label
             {...restField}
             key={item.LABEL}
             label={item.LABEL}
