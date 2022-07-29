@@ -44,6 +44,7 @@ export interface StoreMapListQueryTypes {
   cards?: StoreMapResponseTypes[];
   totalCount: number;
   hasNextPage: number;
+  leftElement: number;
 
   (key: string): any;
 }

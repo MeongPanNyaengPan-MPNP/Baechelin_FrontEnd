@@ -1,8 +1,10 @@
+
 .overlay_box {
     position: relative;
     width: 175px;
     background: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05)
+    border-bottom: 1px solid #A9A9A9;
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.07);
 }
 
 .overlay_box .store_length {
@@ -11,7 +13,7 @@
     top: 0;
     right: 0;
     transform: translate(50%, -30%);
-    padding: 0 10px 0 7px;
+    padding: 5px 10px 0 5px;
     height: 30px;
     line-height: 30px;
     font-size: 1.4rem;
@@ -36,15 +38,11 @@
 }
 
 .overlay_box .text_area {
-    display: flex;
-    align-items: flex-end;
-    padding: 8px 12px 10px;
+    padding: 8px 0px 10px 12px;
 }
 
 .overlay_box .text_area h5 {
-    width: 125px;
-    flex-shrink: 0;
-    line-height: 1;
+    width: 100%;
 }
 
 .overlay_box .text_area small {
@@ -53,13 +51,12 @@
 }
 
 .overlay_box .text_area p {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     display: block;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     font-weight: bold;
-    margin-top: 5px;
     color: #3B3B3B;
 }
 
@@ -74,4 +71,25 @@
     width: 12px;
     height: 12px;
     margin-right: 3px;
+}
+
+.overlay_box .info_area {
+    display: flex;
+    align-items: center;
+    margin-top: 3px;
+}
+
+.overlay_box .info_area small {
+    display: inline-block;
+}
+
+.overlay_box .info_area small::after {
+    content: '';
+    display: inline-block;
+    margin: 0 4px 0 5px;
+    vertical-align: -1px;
+    width: 1px;
+    background: #3B3B3B;
+    height: 0.8em;
+    opacity: .5;
 }

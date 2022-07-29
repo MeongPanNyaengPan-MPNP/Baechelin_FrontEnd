@@ -54,7 +54,7 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
               </Span>
             </S.StoreTitle>
             <S.StarArea>
-              <Star max={1} average={pointAvg} readOnly />
+              <Star value={1} max={1} average={pointAvg} readOnly />
             </S.StarArea>
           </S.StoreNameArea>
         </S.CardContentAreaTop>

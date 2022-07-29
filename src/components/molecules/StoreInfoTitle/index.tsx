@@ -2,39 +2,32 @@ import React from 'react';
 
 import Span from '@atoms/Span';
 import Icon from '@atoms/Icon';
-
-import { useQuery } from 'react-query';
-import { getStoreDetail } from '@service/storeDetailApi';
 import Bookmark from '@molecules/Bookmark';
 
 import { Color } from '@constants/styles';
+import { StoreMapResponseTypes } from '@interfaces/StoreResponseTypes';
 import * as S from './styles';
 
 interface StoreInfoTitleProps {
-  storeName: string | undefined;
+  storeDetailData?: StoreMapResponseTypes;
 }
 
-function StoreInfoTitle({ storeName }: StoreInfoTitleProps) {
-  const { data: storeDetailData }: any = useQuery(
-    ['getShopDetail', storeName],
-    () => getStoreDetail(Number(storeName)),
-    {
-      // eslint-disable-next-line object-curly-newline
-      staleTime: 5000,
-      cacheTime: Infinity,
-      enabled: !!storeName,
-    },
-  );
-
+function StoreInfoTitle({ storeDetailData }: StoreInfoTitleProps) {
   const bookmarkColor: string = storeDetailData?.bookmark === 'Y' ? Color.orange : Color.darkGrey;
-  console.log(storeDetailData);
   const onClickIcon = () => {};
 
   return (
     <S.Container>
       <S.TitleWrapper>
         <h2>
-          <Span fontSize="3.2rem">{storeDetailData?.name}</Span>
+          <p>
+            <Span fontSize="1.9rem">{storeDetailData?.category}</Span>
+          </p>
+          <p>
+            <Span ellipsis={1} fontSize="3.2rem">
+              {storeDetailData?.name}
+            </Span>
+          </p>
         </h2>
 
         <Bookmark size="3.2rem" marked={bookmarkColor} />

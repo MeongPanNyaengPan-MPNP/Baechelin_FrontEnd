@@ -14,6 +14,7 @@ export type StyledCheckBoxProps = {
   round?: string;
   checkedBg?: string;
   checkedColor?: string;
+  icon?: string;
 
   [prop: string]: any;
 };
@@ -63,12 +64,33 @@ const CheckBoxArea = styled.div<StyledCheckBoxProps>`
             font-weight: 500;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
             box-sizing: border-box;
+            //for icon
+            padding-left: ${props.icon ? '50px' : ''};
+
+            &::before {
+              content: '';
+              position: absolute;
+              left: 10px;
+              top: 50%;
+              transform: translateY(-50%);
+              display: block;
+              width: 25px;
+              height: 25px;
+              background-image: ${props.icon ? ` url(/img/ui/picto_${props.icon}_basic.svg)` : ''};
+              background-size: contain;
+              background-position: center center;
+              background-repeat: no-repeat;
+            }
           }
 
           .Mui-checked + .MuiFormControlLabel-label {
             background: ${props.basicBg || `#ed6f2a`};
             color: ${props.basicColor || `#fff`};
             transition: all 0.1s;
+
+            &::before {
+              background-image: ${props.icon ? ` url(/img/ui/picto_${props.icon}_basic_w.svg)` : ''};
+            }
           }
         }
 
@@ -87,7 +109,7 @@ const CheckBoxArea = styled.div<StyledCheckBoxProps>`
           }
 
           .Mui-checked + .MuiFormControlLabel-label {
-            opacity: 0.8;
+            background: #f17e3fff;
           }
         }
       `;
@@ -105,7 +127,7 @@ const CheckBoxArea = styled.div<StyledCheckBoxProps>`
         }
       `;
     }
-  }}
+  }}// icon
 `;
 const CheckBoxItem = styled(Checkbox)`
   .MuiButtonBase-root {
@@ -130,7 +152,7 @@ function CheckBoxInput<T>({
     name,
   });
   return (
-    <CheckBoxArea boxHidden={boxHidden} {...restProps}>
+    <CheckBoxArea boxHidden={boxHidden} icon={item.KEY} {...restProps}>
       <FormControlLabel
         {...restField}
         label={item.LABEL}

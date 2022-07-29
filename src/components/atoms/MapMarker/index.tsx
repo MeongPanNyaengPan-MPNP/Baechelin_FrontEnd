@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useImperativeHandle, useLayoutEffect, useMemo, useState } from 'react';
+import React, { useImperativeHandle, useLayoutEffect, useMemo } from 'react';
 import UseMap from '@hooks/UseMap';
 import './index.css';
 import { StoreMapResponseTypes } from '@interfaces/StoreResponseTypes';
@@ -13,17 +13,13 @@ interface MarkerProps {
   storeItems: StoreMapResponseTypes[];
   /*
     onClick?: (marker: kakao.maps.Marker) => void;
-
     onMouseOver?: (marker: kakao.maps.Marker) => void;
-
     onMouseOut?: (marker: kakao.maps.Marker) => void;
-
     onDragStart?: (marker: kakao.maps.Marker) => void;
-
     onDragEnd?: (marker: kakao.maps.Marker) => void; */
 }
 
-const OverlayDiv = (item: StoreMapResponseTypes, len: number) => `
+/* `
   <div class='overlay_box'>
     <span class='store_length'>+ ${len}</span>
     <figure><img src='${item.storeImgList[0] || `/img/ui/no_picture.svg`}' alt='${item.name}'/></figure>
@@ -38,7 +34,31 @@ const OverlayDiv = (item: StoreMapResponseTypes, len: number) => `
       </div>
     </div>
   </div>
-  `;
+  `; */
+
+const OverlayDiv = (items: StoreMapResponseTypes[]) => {
+  // eslint-disable-next-line react/destructuring-assignment
+  const itemsEl = items.map(
+    (item) => `
+  <div class='overlay_box'>
+    <div class='text_area'>
+      <h5>
+        <p>${item.name}</p>
+      </h5>
+      <div class='info_area'>
+      <small>${item.category}</small>
+        <div class='rate'>
+          <figure class='star'><img src='/img/ui/ic_star.png' alt='별 아이콘'/></figure>
+          <span>${item.pointAvg}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  `,
+  );
+  const itemElString = itemsEl.join('');
+  return `<div class='overlay_group'>${itemElString}</div>`;
+};
 
 /*
 const InfoWindowEl = ({ title, src, rate, category }: InfoWindowTypes) =>; */
@@ -50,12 +70,11 @@ const Marker = React.forwardRef((props: MarkerProps, ref) => {
   //
   const map = UseMap('marker');
   const markerPosition = useMemo(() => new kakao.maps.LatLng(position.lat, position.lng), [position.lat, position.lng]);
-  const [randomNum, setRandomNum] = useState(Math.floor(Math.random() * storeItems.length));
   const marker = useMemo(() => {
     const markerImg = {
       src: '/img/ui/ic_marker.png',
-      size: new window.kakao.maps.Size(32, 43.5),
-      option: new window.kakao.maps.Point(27, 69),
+      size: new window.kakao.maps.Size(30, 66),
+      option: new window.kakao.maps.Point(15, 20),
     };
     const kakaoMarker = new kakao.maps.Marker({
       image: new kakao.maps.MarkerImage(markerImg.src, markerImg.size, markerImg.option),
@@ -71,11 +90,10 @@ const Marker = React.forwardRef((props: MarkerProps, ref) => {
     // 인포윈도우를 생성합니다
     const overlay = new kakao.maps.CustomOverlay({
       map,
-      clickable: true,
-      content: OverlayDiv(storeItems[randomNum], storeItems.length),
+      content: OverlayDiv(storeItems),
       position: markerPosition,
-      xAnchor: 0.55,
-      yAnchor: 1.5,
+      xAnchor: 0.5,
+      yAnchor: 1,
       zIndex: 3,
     });
     return overlay;
@@ -83,7 +101,14 @@ const Marker = React.forwardRef((props: MarkerProps, ref) => {
   }, []);
   /* 마우스오버시 오버레이 노출 */
   kakao.maps.event.addListener(marker, 'click', () => {
-    console.log(firstStoreName);
+    const storeItemEl = document.querySelectorAll('.store_item');
+    storeItemEl.forEach((el) => {
+      el.classList.remove('active');
+    });
+    const target = document.querySelector(`#id_${storeItems[0].storeId}`);
+    if (!target) return;
+    target.scrollIntoView({ behavior: 'smooth' });
+    target.classList.add('active');
   });
   kakao.maps.event.addListener(marker, 'mouseover', () => {
     overlayEl.setMap(map);
@@ -91,9 +116,7 @@ const Marker = React.forwardRef((props: MarkerProps, ref) => {
   kakao.maps.event.addListener(marker, 'mouseout', () => {
     overlayEl.setMap(null);
   });
-
   useLayoutEffect(() => {
-    setRandomNum(Math.floor(Math.random() * storeItems.length));
     if (map) {
       marker.setMap(map);
       overlayEl.setMap(null);
@@ -104,9 +127,6 @@ const Marker = React.forwardRef((props: MarkerProps, ref) => {
     };
   }, []);
   useImperativeHandle(ref, () => marker, [marker]);
-
-  React.useEffect(() => {}, []);
-
   return null;
 });
 
