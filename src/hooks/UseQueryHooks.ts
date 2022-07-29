@@ -36,9 +36,9 @@ export const UseStoreListHooks = <T>(currentLocation: UserLoctaionType) => {
     UseGetBookmarkStoreList,
   };
 };
-export const UseMapQuery = <T>() => {
-  const UseMapData = (latingQuery: string, queryString: string) =>
-    useQuery<T | false>([MAP.MAP_STORE, latingQuery, queryString], () => getNearStoreAtMap(latingQuery, queryString), {
+export const UseMapQuery = () => {
+  const UseMapData = <T>(latingQuery: string, queryString: string) =>
+    useQuery<T>([MAP.MAP_STORE, latingQuery, queryString], () => getNearStoreAtMap(latingQuery, queryString), {
       staleTime: 6000,
       cacheTime: Infinity,
       refetchOnMount: false,
