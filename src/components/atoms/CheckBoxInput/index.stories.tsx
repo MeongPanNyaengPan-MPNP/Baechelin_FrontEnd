@@ -1,3 +1,5 @@
+export {};
+/*
 import React from 'react';
 import { Story } from '@storybook/react';
 import CheckBoxInput, { CheckBoxInputProps } from '@atoms/CheckBoxInput/index';
@@ -18,6 +20,6 @@ const Template: Story<CheckBoxInputProps<any>> = (args) => {
 export const Basic = Template.bind({});
 Basic.args = {
   name: 'checkbox',
-  
   item: STORE_FILTERS.FACILITY[0],
 };
+*/

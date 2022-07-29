@@ -18,10 +18,11 @@ const BadgeArea = styled.div<BadgeProps>`
 export type BadgeProps = {
   name: 'approach' | 'elevator' | 'height' | 'parking' | 'toilet' | undefined;
   state: 'Y' | 'N' | undefined;
+  active?: boolean;
   [prop: string]: any;
 };
 
-function Badge({ name, state = 'N', ...props }: BadgeProps) {
+function Badge({ name, state = 'N', active, ...props }: BadgeProps) {
   const [alt, setAlt] = React.useState<string>();
   const extension = 'svg';
   useEffect(() => {
@@ -41,10 +42,17 @@ function Badge({ name, state = 'N', ...props }: BadgeProps) {
   }, [name]);
   return (
     <BadgeArea {...props}>
-      <img
-        alt={`${alt} ${state === 'Y' ? '있음' : '없음'}`}
-        src={`/img/ui/picto_${name}_${state === 'Y' ? 'on' : 'off'}.${extension}`}
-      />
+      {active ? (
+        <img
+          alt={`${alt} ${state === 'Y' ? '있음' : '없음'}`}
+          src={`/img/ui/picto_${name}_${state === 'Y' ? 'on' : 'off_active'}.${extension}`}
+        />
+      ) : (
+        <img
+          alt={`${alt} ${state === 'Y' ? '있음' : '없음'}`}
+          src={`/img/ui/picto_${name}_${state === 'Y' ? 'on' : 'off'}.${extension}`}
+        />
+      )}
     </BadgeArea>
   );
 }

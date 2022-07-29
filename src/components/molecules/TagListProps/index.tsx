@@ -4,7 +4,7 @@ import { TagListType } from '@interfaces/ReviewTypes';
 import Span from '@atoms/Span';
 import * as S from './styles';
 
-function TagList({ tagListTitle, tags }: { tagListTitle: string; tags: TagListType[] }) {
+function TagList({ tagListTitle, tags }: { tagListTitle: string; tags: TagListType[] | null }) {
   return (
     <S.TagContainer>
       {tagListTitle && (
@@ -15,7 +15,7 @@ function TagList({ tagListTitle, tags }: { tagListTitle: string; tags: TagListTy
         </S.TagTitle>
       )}
       <S.TagList>
-        {tags.map((item) => (
+        {tags?.map((item) => (
           <TagItem key={item.id} tagName={item.tag} />
         ))}
       </S.TagList>

@@ -14,6 +14,7 @@ export type FiltersType = typeof STORE_FILTERS;
 
 export interface TopFixedSnbProps {
   filters: FiltersType;
+  snbBorder?: boolean;
 }
 
 export type FormValues = {
@@ -22,15 +23,11 @@ export type FormValues = {
 };
 
 function StoreCategorySnb(props: TopFixedSnbProps) {
-  const { filters } = props;
+  const { filters, snbBorder } = props;
 
   const [prevSnbValues, setPrevSnbValues] = useRecoilState(StoreFilterValues);
   const setRecoilSnbQuery = useSetRecoilState<string>(SnbQueryString);
-  const {
-    control,
-    getValues,
-    reset
-  } = useForm<FormValues>({
+  const { control, getValues, reset } = useForm<FormValues>({
     mode: 'onChange',
     defaultValues: prevSnbValues,
   });
@@ -66,7 +63,7 @@ function StoreCategorySnb(props: TopFixedSnbProps) {
   return (
     <S.SnbWrap>
       <form onChange={handleFormChange}>
-        <S.CategoryArea>
+        <S.CategoryArea border={snbBorder}>
           <S.Container>
             <RadioInputGroup<FormValues>
               name="CATEGORY"

@@ -1,42 +1,40 @@
 import Badge from '@atoms/Badge';
 import Icon from '@atoms/Icon';
 import Span from '@atoms/Span';
-import { getStoreDetail } from '@service/storeDetailApi';
 import React from 'react';
-import { useQuery } from 'react-query';
+import { StoreMapResponseTypes } from '@interfaces/StoreResponseTypes';
 import * as S from './styles';
 
 interface StoreInfoContentProps {
-  storeName: string | undefined;
   showIcons?: boolean;
+  storeDetailData: StoreMapResponseTypes;
 }
 
-function StoreInfoContent({ storeName, showIcons = true }: StoreInfoContentProps) {
-  const { data: storeDetailData }: any = useQuery(
-    ['getShopDetail', storeName],
-    () => getStoreDetail(Number(storeName)),
-    {
-      // eslint-disable-next-line object-curly-newline
-      staleTime: 5000,
-      cacheTime: Infinity,
-      enabled: !!storeName,
-    },
-  );
-
+function StoreInfoContent({
+                            storeDetailData,
+                            showIcons = true
+                          }: StoreInfoContentProps) {
   // const icons = ['local_parking', 'wheelchair_pickup', 'accessible_forward'];
 
   return (
     <S.Container>
-      <S.Wrapper>
-        <Icon iconName="location_on" size="2.4rem" margin="0 1.2rem 0 0" />
-        <Span fontSize="2rem">{storeDetailData?.address}</Span>
-      </S.Wrapper>
-      <S.Wrapper>
-        <Icon iconName="local_phone" size="2.4rem" margin="0 1.2rem 0 0" />
-        <Span fontSize="2rem">{storeDetailData?.phoneNumber}</Span>
-      </S.Wrapper>
+      {
+        storeDetailData?.address &&
+        <S.Wrapper className="address_area">
+          <Icon iconName="location_on" size="2.4rem" margin="0 1.2rem 0 0" />
+          <Span fontSize="2rem">{storeDetailData?.address}</Span>
+        </S.Wrapper>
+      }
+      {
+        storeDetailData?.phoneNumber &&
+        <S.Wrapper className="phone_area">
+          <Icon iconName="local_phone" size="2.4rem" margin="0 1.2rem 0 0" />
+          <Span fontSize="2rem">{storeDetailData?.phoneNumber}</Span>
+        </S.Wrapper>
+      }
+
       {showIcons && (
-        <S.IconsWrapper>
+        <S.IconsWrapper className="icons_area">
           {/* {icons.map((v) => (
           <Icon iconName={v} size="3.6rem" margin="0 1.4rem 0 0" key={v} />
         ))} */}

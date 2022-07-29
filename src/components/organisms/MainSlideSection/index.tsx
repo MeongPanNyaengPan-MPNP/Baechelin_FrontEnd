@@ -6,7 +6,6 @@ import CardGroupSlide, { CardGroupSlideProps } from '@organisms/CardGroupSlide';
 import { useRecoilValue } from 'recoil';
 import { SnbQueryString } from '@recoil/mainSnbAtom';
 import locationAtom from '@recoil/locationAtom';
-import GetPositionButton from '@molecules/GetPositionButton';
 import { STORE_TOPIC } from '@constants/store';
 import * as S from './styles';
 
@@ -39,8 +38,7 @@ function MainSlideSection({
     <S.MainStoreListSection>
       {hiddenNoLocationState && location == null ? (
         <NoDataMessage
-          message={['사용자의 위치정보가 없습니다.', '위치정보를 설정하시면 내 주변의 맛집을 찾을 수 있습니다.']}
-          buttonChildren={<GetPositionButton />}
+          message={['사용자의 위치정보가 없습니다.', '위치정보를 동의하시면 내 주변의 맛집을 찾을 수 있습니다.']}
         />
       ) : (
         <>

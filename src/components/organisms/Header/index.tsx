@@ -24,7 +24,9 @@ function Header() {
     navigate('/');
   }, [navigate]);
   const onClickAbout = () => {};
-  const onClickMap = () => {};
+  const onClickMap = () => {
+    navigate('/map');
+  };
   const { tokenExist } = UseLoginHooks();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {

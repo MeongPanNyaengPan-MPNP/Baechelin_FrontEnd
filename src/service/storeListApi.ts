@@ -8,6 +8,16 @@ export const getNearStore = <T>(locationData: UserLoctaionType, query = '', topi
     url: `/store/${topic}?page=${page}&size=${size}${query}${locationQuery()}`,
   });
 };
+
+export const getNearStoreAtMap = <T>(locationData: string, query = '', size = 20, page = 0) =>
+  // const paging = page ? `&page=${page}&size=${size}` : null;
+
+  request<T>({
+    method: 'GET',
+    // url: `/store/near?${locationData}${query}${paging || ''}`,
+    url: `/store/near-map?${locationData}${query}&page=${page}&size=${size}`,
+  });
+
 export const getBookmarkStoreList = <T>(locationData: UserLoctaionType, query = '', limit = 12) => {
   const locationQuery = () => (locationData !== null ? `&lat=${locationData.lat}&lng=${locationData.lng}` : '');
   return request<T>({
