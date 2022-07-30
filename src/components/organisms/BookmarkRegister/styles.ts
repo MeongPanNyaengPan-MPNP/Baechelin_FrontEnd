@@ -5,10 +5,17 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 13rem;
+  /* max-height: 13rem; */
   min-height: 4rem;
   background-color: ${Color.white};
   border-bottom: 1px solid ${Color.grey};
   padding: 0.6rem 1rem;
+
+  span {
+    :hover {
+      background-color: ${Color.lightGrey};
+    }
+  }
 `;
 
 export const ContentTitle = styled.div`
@@ -16,7 +23,7 @@ export const ContentTitle = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 `;
 
 export const Wrapper = styled.div`

@@ -1,10 +1,12 @@
 export interface BookmarkListTypes {
   name: string;
-  pointAvg: string;
+  pointAvg: number;
   address: string;
   category: string;
-  PhoneNumber: string;
+  phoneNumber: string;
   storeImageList?: string[];
+  bookmarkId?: number;
+  sotreId?: number;
 }
 
 export interface GetUserBookmarkFoldersResponse {
@@ -20,7 +22,7 @@ export interface CreateBookmarkFolderResponse {
 
 export interface CreateBookmarkStoreBody {
   folderId: number;
-  storeId: string;
+  storeId: number;
 }
 
 export interface UpdateBookmarkFolderNameParam {

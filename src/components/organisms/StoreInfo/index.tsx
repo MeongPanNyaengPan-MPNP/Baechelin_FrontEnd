@@ -3,9 +3,12 @@ import StoreInfoPhotos from '@molecules/StoreInfoPhotos';
 import StoreInfoTitle from '@molecules/StoreInfoTitle';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { getStoreDetail } from '@service/storeDetailApi';
 import { StoreMapResponseTypes } from '@interfaces/StoreResponseTypes';
+import { CreateBookmarkFolderResponse, CreateBookmarkStoreBody } from '@interfaces/BookmarkTypes';
+import { createBookmarkStore } from '@service/bookmarkApi';
+
 import * as S from './styles';
 
 interface StoreInfoProps {
@@ -20,7 +23,7 @@ interface StoreInfoProps {
 function StoreInfo({ storeName, showIcons, align, storeItems, type, size = 'big' }: StoreInfoProps) {
   const location = useLocation();
 
-  const { data: storeDetailData }: any = useQuery(
+  const { data: storeDetailData, refetch }: any = useQuery(
     ['getShopDetail', storeName],
     () => getStoreDetail(Number(storeName)),
     {
@@ -31,12 +34,38 @@ function StoreInfo({ storeName, showIcons, align, storeItems, type, size = 'big'
     },
   );
 
+  const { mutate: fetchCreateBookmarkStore } = useMutation<
+    CreateBookmarkFolderResponse,
+    unknown,
+    CreateBookmarkStoreBody,
+    unknown
+  >(
+    ({ storeId, folderId }) =>
+      createBookmarkStore({
+        folderId,
+        storeId,
+      }),
+    {
+      onSuccess: () => {
+        // setCreate(false);
+        refetch();
+        console.log('bookmark created');
+      },
+      onError: (err) => {
+        console.error(err);
+      },
+    },
+  );
+
   return (
     /* 가게 상세페이지 형태 */
     <S.Container type={type} size={size} align={align}>
       {type === 'vertical' && size === 'big' && (
         <>
-          <StoreInfoTitle storeDetailData={storeDetailData || storeItems} />
+          <StoreInfoTitle
+            storeDetailData={storeDetailData || storeItems}
+            fetchCreateBookmarkStore={fetchCreateBookmarkStore}
+          />
           <StoreInfoContent storeDetailData={storeDetailData || storeItems} />
           <StoreInfoPhotos location={location} storeDetailData={storeDetailData || storeItems} />
         </>
@@ -51,7 +80,10 @@ function StoreInfo({ storeName, showIcons, align, storeItems, type, size = 'big'
             tile={false}
           />
           <S.TextArea size={size}>
-            <StoreInfoTitle storeDetailData={storeDetailData || storeItems} />
+            <StoreInfoTitle
+              storeDetailData={storeDetailData || storeItems}
+              fetchCreateBookmarkStore={fetchCreateBookmarkStore}
+            />
             <StoreInfoContent storeDetailData={storeDetailData || storeItems} showIcons={showIcons} />
           </S.TextArea>
         </>

@@ -27,7 +27,7 @@ function BookmarkTemplate() {
   const [selectedOption, setSelectedOption] = useState<string>('all');
   // const { tokenExist } = UseLoginHooks();
 
-  const { data: BookmarkData, refetch } = useQuery(['getShopDetail'], () => getUserBookmarkFolders(), {
+  const { data: BookmarkData, refetch } = useQuery(['getBookmarkFolders'], () => getUserBookmarkFolders(), {
     staleTime: 5000,
     cacheTime: Infinity,
     enabled: !create,
