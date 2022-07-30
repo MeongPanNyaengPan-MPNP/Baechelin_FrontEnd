@@ -36,6 +36,7 @@ export interface RecentReviewResponseType {
   content: string;
   address: string;
   point: number;
+  profile_image_url?: string;
   createdAt: Date;
   modifiedAt: Date;
   reviewImageUrlList: ReviewImageUrlListType[];
@@ -46,10 +47,40 @@ export interface DetailReviewResponseType {
   reviewId: number;
   storeId: number;
   userId: number;
+  email: string;
+  name: string;
+  profile_image_url: string;
+  myReview: string;
   point: number;
   content: string;
-  reviewImageUrlList: any[];
+  reviewImageUrlList: ReviewImageUrlListType[];
   createdAt: Date;
   modifiedAt: Date;
   tagList: TagListType[];
+}
+
+export interface ReviewResponseDtoList {
+  reviewId: number;
+  storeId: number;
+  userId: number;
+  email: string;
+  name: string;
+  profile_image_url: string;
+  myReview: string;
+  point: number;
+  content: string;
+  reviewImageUrlList: ReviewImageUrlListType[];
+  createdAt: Date;
+  modifiedAt: Date;
+  tagList: TagListType[];
+}
+
+export interface ReviewResponseRootType {
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  size: number;
+  totalPages: number;
+  totalElements: number;
+  number: number;
+  reviewResponseDtoList: ReviewResponseDtoList[];
 }
