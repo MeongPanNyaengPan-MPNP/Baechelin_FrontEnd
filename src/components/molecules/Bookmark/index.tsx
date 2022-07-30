@@ -9,8 +9,10 @@ import { CreateBookmarkFolderResponse, CreateBookmarkStoreBody } from '@interfac
 interface BookmarkProps {
   size?: string;
   marked?: string;
-  storeIdProps: number;
-  fetchCreateBookmarkStore: UseMutateFunction<CreateBookmarkFolderResponse, unknown, CreateBookmarkStoreBody, unknown>;
+  storeIdProps?: number | undefined;
+  fetchCreateBookmarkStore?:
+    | UseMutateFunction<CreateBookmarkFolderResponse, unknown, CreateBookmarkStoreBody, unknown>
+    | undefined;
 }
 
 function Bookmark({ size, marked = Color.darkGrey, storeIdProps, fetchCreateBookmarkStore }: BookmarkProps) {

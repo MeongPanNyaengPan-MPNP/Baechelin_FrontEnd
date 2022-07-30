@@ -13,8 +13,10 @@ import * as S from './styles';
 interface BookmarkRegisterProps {
   anchorEl: HTMLButtonElement | null;
   setAnchorEl: React.Dispatch<React.SetStateAction<HTMLButtonElement | null>>;
-  storeIdProps: number;
-  fetchCreateBookmarkStore: UseMutateFunction<CreateBookmarkFolderResponse, unknown, CreateBookmarkStoreBody, unknown>;
+  storeIdProps?: number | undefined;
+  fetchCreateBookmarkStore?:
+    | UseMutateFunction<CreateBookmarkFolderResponse, unknown, CreateBookmarkStoreBody, unknown>
+    | undefined;
 }
 
 function BookmarkRegister({ anchorEl, setAnchorEl, storeIdProps, fetchCreateBookmarkStore }: BookmarkRegisterProps) {
@@ -32,7 +34,9 @@ function BookmarkRegister({ anchorEl, setAnchorEl, storeIdProps, fetchCreateBook
   };
 
   const onClickFolderName = (folderId: number, storeId: number) => {
-    fetchCreateBookmarkStore({ storeId, folderId });
+    if (fetchCreateBookmarkStore) {
+      fetchCreateBookmarkStore({ storeId, folderId });
+    }
   };
 
   return (
@@ -57,7 +61,7 @@ function BookmarkRegister({ anchorEl, setAnchorEl, storeIdProps, fetchCreateBook
           <BookmarkRegisterName
             margin="0.6rem 0"
             name={v.folderName}
-            onClick={() => onClickFolderName(v.id, storeIdProps)}
+            onClick={() => onClickFolderName(v.id, storeIdProps || 0)}
           />
         ))}
       </S.Container>

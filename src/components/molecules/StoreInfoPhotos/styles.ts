@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Color } from '@constants/styles';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -63,6 +64,7 @@ export const Photo = styled.img`
   height: 100%;
   width: 100%;
   cursor: pointer;
+  background: ${Color.lightGrey};
 `;
 
 export const Photos = styled.img`

@@ -7,8 +7,10 @@ export const SnbWrap = styled.div`
   margin-bottom: 45px;
 `;
 
-export const CategoryArea = styled.div`
+export const CategoryArea = styled.div<{ border?: boolean }>`
   background: #fff;
+
+  border-bottom: ${(props) => (props.border ? ` 1px solid #a9a9a9` : `none`)};
 `;
 export const FacilityArea = styled.div`
   position: relative;

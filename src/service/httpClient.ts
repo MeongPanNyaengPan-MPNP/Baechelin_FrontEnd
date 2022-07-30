@@ -43,6 +43,7 @@ export const request = async <T>(config: AxiosRequestConfig): Promise<T> => {
       Api.post('/user/logout');
       window.location.reload();
       console.log('401_error', err);
+      alert('보안 상 문제로 강제 로그아웃 되었습니다');
     }
     if (err.response.status === 402) {
       console.log('토큰 재요청 ', err, prevRequest);
