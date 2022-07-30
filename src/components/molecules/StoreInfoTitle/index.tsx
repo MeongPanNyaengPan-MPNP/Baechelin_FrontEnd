@@ -3,9 +3,11 @@ import React from 'react';
 import Span from '@atoms/Span';
 import Icon from '@atoms/Icon';
 
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { getStoreDetail } from '@service/storeDetailApi';
 import Bookmark from '@molecules/Bookmark';
+import { CreateBookmarkFolderResponse, CreateBookmarkStoreBody } from '@interfaces/BookmarkTypes';
+import { createBookmarkStore } from '@service/bookmarkApi';
 
 import { Color } from '@constants/styles';
 import * as S from './styles';
@@ -15,7 +17,7 @@ interface StoreInfoTitleProps {
 }
 
 function StoreInfoTitle({ storeName }: StoreInfoTitleProps) {
-  const { data: storeDetailData }: any = useQuery(
+  const { data: storeDetailData, refetch }: any = useQuery(
     ['getShopDetail', storeName],
     () => getStoreDetail(Number(storeName)),
     {
@@ -23,6 +25,29 @@ function StoreInfoTitle({ storeName }: StoreInfoTitleProps) {
       staleTime: 5000,
       cacheTime: Infinity,
       enabled: !!storeName,
+    },
+  );
+
+  const { mutate: fetchCreateBookmarkStore } = useMutation<
+    CreateBookmarkFolderResponse,
+    unknown,
+    CreateBookmarkStoreBody,
+    unknown
+  >(
+    ({ storeId, folderId }) =>
+      createBookmarkStore({
+        folderId,
+        storeId,
+      }),
+    {
+      onSuccess: () => {
+        // setCreate(false);
+        refetch();
+        console.log('bookmark created');
+      },
+      onError: (err) => {
+        console.error(err);
+      },
     },
   );
 
@@ -37,7 +62,12 @@ function StoreInfoTitle({ storeName }: StoreInfoTitleProps) {
           <Span fontSize="3.2rem">{storeDetailData?.name}</Span>
         </h2>
 
-        <Bookmark size="3.2rem" marked={bookmarkColor} storeIdProps={storeDetailData.storeId} />
+        <Bookmark
+          size="3.2rem"
+          marked={bookmarkColor}
+          storeIdProps={storeDetailData?.storeId}
+          fetchCreateBookmarkStore={fetchCreateBookmarkStore}
+        />
       </S.TitleWrapper>
       <S.Wrapper>
         <Icon iconName="star" color="#ED6F2A" size="2rem" onClick={onClickIcon} margin="0 0.5rem 0 0" />

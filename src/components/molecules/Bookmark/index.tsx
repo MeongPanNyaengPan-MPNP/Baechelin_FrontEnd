@@ -1,41 +1,20 @@
 import React from 'react';
 import Icon from '@atoms/Icon';
 import BookmarkRegister from '@organisms/BookmarkRegister';
+import { UseMutateFunction } from 'react-query';
+
 import { Color } from '@constants/styles';
-import { useMutation } from 'react-query';
 import { CreateBookmarkFolderResponse, CreateBookmarkStoreBody } from '@interfaces/BookmarkTypes';
-import { createBookmarkStore } from '@service/bookmarkApi';
 
 interface BookmarkProps {
   size?: string;
   marked?: string;
   storeIdProps: number;
+  fetchCreateBookmarkStore: UseMutateFunction<CreateBookmarkFolderResponse, unknown, CreateBookmarkStoreBody, unknown>;
 }
 
-function Bookmark({ size, marked = Color.darkGrey, storeIdProps }: BookmarkProps) {
+function Bookmark({ size, marked = Color.darkGrey, storeIdProps, fetchCreateBookmarkStore }: BookmarkProps) {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-
-  const { mutate: fetchCreateBookmarkStore } = useMutation<
-    CreateBookmarkFolderResponse,
-    unknown,
-    CreateBookmarkStoreBody,
-    unknown
-  >(
-    ({ storeId, folderId }) =>
-      createBookmarkStore({
-        folderId,
-        storeId,
-      }),
-    {
-      onSuccess: () => {
-        // setCreate(false);
-        console.log('bookmark created');
-      },
-      onError: (err) => {
-        console.error(err);
-      },
-    },
-  );
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);

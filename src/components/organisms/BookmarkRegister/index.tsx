@@ -54,7 +54,11 @@ function BookmarkRegister({ anchorEl, setAnchorEl, storeIdProps, fetchCreateBook
           <Icon iconName="create_new_folder" size="1.5rem" />
         </S.ContentTitle>
         {BookmarkData?.map((v) => (
-          <BookmarkRegisterName name={v.folderName} onClick={() => onClickFolderName(storeIdProps, v.id)} />
+          <BookmarkRegisterName
+            margin="0.6rem 0"
+            name={v.folderName}
+            onClick={() => onClickFolderName(v.id, storeIdProps)}
+          />
         ))}
       </S.Container>
     </Popover>
