@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import MapStoreList from '@molecules/MapStoreList';
 import MapContainer from '@molecules/MapContainer';
@@ -12,7 +12,6 @@ import { StoreMapListQueryTypes, StoreMapResponseTypes } from '@interfaces/Store
 import { LatingQueryString } from '@recoil/mapAtom';
 import { SnbQueryString } from '@recoil/mainSnbAtom';
 import styled from 'styled-components';
-import { IMAGE_URL } from '@constants/url';
 
 const Content = styled.div`
   position: relative;
@@ -40,8 +39,22 @@ const CategoryContainer = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
+  right: 348px;
   z-index: 100;
+
+  .facility_area {
+    margin: 20px 0 0 auto;
+
+    > div {
+      margin: 0 0 0 auto;
+      padding-right: 0;
+    }
+  }
+}
+
+.category_area > div {
+  margin: 0 0 0 auto;
+}
 `;
 
 function MapWrapper({ filters }: { filters: FiltersType }) {
@@ -52,7 +65,7 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
   const snbQueryString = useRecoilValue(SnbQueryString);
   const latingDebounce = UseDebounce<string>(latingQueryString, 1000);
   const { UseMapData } = UseMapQuery();
-  const { data: storeItems } = UseMapData<StoreMapListQueryTypes>(latingDebounce, snbQueryString);
+  const { data: storeItems, isLoading, isFetched } = UseMapData<StoreMapListQueryTypes>(latingDebounce, snbQueryString);
 
   const [itemResult, setitemResult] = useState<StoreMapResponseTypes[][]>([]);
   React.useEffect(() => {
@@ -74,26 +87,20 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
     const result = Object.keys(lngRes).map((key) => lngRes[Number(key)]);
     setitemResult(result);
   }, [storeItems]);
-  const activeRemoveEvent = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (e.target instanceof Element && e.target.hasAttribute('src')) {
-      const { src }: any = e.target;
-      if (src.includes(IMAGE_URL.MARKER)) {
-        console.log('d');
-      }
-    }
-  }, []);
   return (
     <Wrapper>
       <CategoryContainer>
         <StoreCategorySnb filters={filters} snbBorder />
       </CategoryContainer>
-      <Content
-        onClick={(e) => {
-          activeRemoveEvent(e);
-        }}
-      >
+      <Content>
         <MapContainer location={location} storeItems={itemResult} />
-        <MapStoreList leftElement={storeItems?.leftElement} storeItems={itemResult} />
+        <MapStoreList
+          leftElement={storeItems?.leftElement}
+          totalCount={storeItems?.totalCount}
+          storeItems={itemResult}
+          isLoading={isLoading}
+          isFetched={isFetched}
+        />
       </Content>
     </Wrapper>
   );

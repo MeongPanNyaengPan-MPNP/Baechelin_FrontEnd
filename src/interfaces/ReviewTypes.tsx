@@ -32,11 +32,11 @@ export interface RecentReviewResponseType {
   storeId: number;
   userId: number;
   storeName: string;
-  userName: string;
+  name: string;
   content: string;
   address: string;
   point: number;
-  profile_image_url?: string;
+  userImage?: string;
   createdAt: Date;
   modifiedAt: Date;
   reviewImageUrlList: ReviewImageUrlListType[];
@@ -49,7 +49,7 @@ export interface DetailReviewResponseType {
   userId: number;
   email: string;
   name: string;
-  profile_image_url: string;
+  userImage: string;
   myReview: string;
   point: number;
   content: string;
@@ -69,10 +69,10 @@ export interface ReviewResponseDtoList {
   myReview: string;
   point: number;
   content: string;
-  reviewImageUrlList: ReviewImageUrlListType[];
-  createdAt: Date;
-  modifiedAt: Date;
-  tagList: TagListType[];
+  reviewImageUrlList?: ReviewImageUrlListType[];
+  createdAt?: Date;
+  modifiedAt?: Date;
+  tagList?: TagListType[];
 }
 
 export interface ReviewResponseRootType {

@@ -21,8 +21,8 @@ function ReviewCard<T extends Partial<RecentReviewResponseType>>(
     tagList,
     reviewImageUrlList = null,
     address,
-    userName,
-    profile_image_url: profileImageUrl = './',
+    name,
+    userImage = './',
     showStoreInfo = true,
     showTagList = true,
   } = props;
@@ -62,10 +62,10 @@ function ReviewCard<T extends Partial<RecentReviewResponseType>>(
               </S.CardStoreInfoArea>
             )}
             <S.CardUserInfoArea>
-              <ThumbNail round={100} width="50px" height="50px" alt={storeName} src={profileImageUrl} />
+              <ThumbNail round={100} width="50px" height="50px" alt={storeName} src={userImage} />
               <S.UserInfoArea>
                 <S.UserName fontSize="2rem" fontWeight="bold">
-                  {userName}
+                  {name}
                 </S.UserName>
                 <Star sx={{ fontSize: '1.8rem' }} value={point} name="rate01" readOnly />
               </S.UserInfoArea>

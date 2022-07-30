@@ -1,4 +1,4 @@
-import { getBookmarkStoreList, getNearStore, getNearStoreAtMap } from '@service/storeListApi';
+import { getBookmarkStoreList, getNearStore, getNearStoreAtMap, getSearchStore } from '@service/storeListApi';
 import { useQuery } from 'react-query';
 import { UserLoctaionType } from '@interfaces/LocationTypes';
 import { getRecentReviewList, getReviewList } from '@service/reviewApi';
@@ -8,32 +8,60 @@ import { useSetRecoilState } from 'recoil';
 import { userToken } from '@recoil/userAtom';
 import { MAP, USER } from '@constants/useQueryKey';
 
-const queryOption = {
+const basicOption = {
   staleTime: Infinity,
   cacheTime: Infinity,
   refetchOnMount: false,
   refetchOnWindowFocus: false,
   retry: 0,
 };
-
+const enabledOption = (enabled: boolean) => ({
+  staleTime: Infinity,
+  cacheTime: Infinity,
+  refetchOnMount: false,
+  refetchOnWindowFocus: false,
+  retry: 0,
+  enabled,
+});
 export const UseStoreListHooks = <T>(currentLocation: UserLoctaionType) => {
   // 주변업장 리스트
-  const UseGetStoreList = (key: string, queryString: string, listTopic: string) =>
+  const UseGetStoreList = (
+    key: string,
+    queryString: string,
+    listTopic: string | undefined,
+    page?: number | undefined,
+    size?: number | undefined,
+  ) =>
     useQuery<T>(
-      [key, queryString, currentLocation],
-      () => getNearStore(currentLocation, queryString, listTopic),
-      queryOption,
+      [key, queryString, currentLocation, page],
+      () => getNearStore(currentLocation, queryString, listTopic, page, size),
+      enabledOption(!!listTopic),
     );
-
+  // 북마크 리스트
   const UseGetBookmarkStoreList = (key: string, queryString: string) =>
     useQuery<T>(
       [key, queryString, currentLocation],
       () => getBookmarkStoreList(currentLocation, queryString),
-      queryOption,
+      basicOption,
     );
+  // 검색 리스트
+  const UseGetSearchStoreList = (
+    key: string,
+    queryString: string,
+    keyword: string | undefined,
+    page?: number | undefined,
+    size?: number | undefined,
+  ) =>
+    useQuery<T>(
+      [key, queryString, page],
+      () => getSearchStore(keyword, queryString, page, size),
+      enabledOption(!!keyword),
+    );
+
   return {
     UseGetStoreList,
     UseGetBookmarkStoreList,
+    UseGetSearchStoreList,
   };
 };
 export const UseMapQuery = () => {
@@ -101,6 +129,6 @@ export const UseFetchToken = () => {
   return { UseQueryToken };
 };
 export const UseUserQuery = () => {
-  const UseGetUserInfo = () => useQuery<UserInfoType>(USER.INFO, () => getUserInfo(), queryOption);
+  const UseGetUserInfo = () => useQuery<UserInfoType>(USER.INFO, () => getUserInfo(), basicOption);
   return { UseGetUserInfo };
 };

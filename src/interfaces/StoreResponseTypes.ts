@@ -18,6 +18,9 @@ export interface StoreResponseTypes {
 
 export type StoreListQueryTypes = {
   cards?: StoreResponseTypes[];
+  totalCount?: number;
+  hasNextPage?: number;
+  leftElement?: number;
   (key: string): any;
 };
 

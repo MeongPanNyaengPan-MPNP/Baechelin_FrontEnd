@@ -63,12 +63,12 @@ export const Container = styled.div`
   width: 100%;
   box-sizing: border-box;
   height: 100%;
-  padding: 45px 0 0 0;
+  padding: 0 0 0 0;
   border-left: 1px solid ${Color.darkGrey};
 
   .thumbnail {
     width: 100px;
-    margin-right: 16px;
+    margin-right: 14px;
   }
 
   .address_area,

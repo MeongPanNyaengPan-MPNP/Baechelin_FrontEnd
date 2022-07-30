@@ -6,5 +6,4 @@ export const Container = styled.div`
   justify-content: center;
   width: 100%;
   min-height: 100vh;
-  background-color: #d9d9d9;
 `;

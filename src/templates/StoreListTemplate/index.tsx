@@ -8,9 +8,10 @@ export interface StoreListTemplateProps {
   filters: FiltersType;
   topic?: string | undefined;
   title?: string;
+  keyword?: string;
 }
 
-function StoreListTemplate({ filters, topic, title }: StoreListTemplateProps) {
+function StoreListTemplate({ filters, topic, title, keyword }: StoreListTemplateProps) {
   return (
     <S.Wrapper>
       <section>
@@ -18,7 +19,8 @@ function StoreListTemplate({ filters, topic, title }: StoreListTemplateProps) {
       </section>
       <S.Container>
         <S.CardGroup>
-          {topic ? <StoreCardList topic={topic} title={title} /> : <NoDataMessage message={['잘못된 접근입니다']} />}
+          <StoreCardList topic={topic} keyword={keyword} title={title} />
+          {!topic && !keyword && <NoDataMessage message={['잘못된 접근입니다']} />}
         </S.CardGroup>
       </S.Container>
     </S.Wrapper>

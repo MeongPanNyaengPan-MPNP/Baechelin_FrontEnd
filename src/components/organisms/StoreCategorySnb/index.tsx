@@ -63,7 +63,7 @@ function StoreCategorySnb(props: TopFixedSnbProps) {
   return (
     <S.SnbWrap>
       <form onChange={handleFormChange}>
-        <S.CategoryArea border={snbBorder}>
+        <S.CategoryArea border={snbBorder} className="category_area">
           <S.Container>
             <RadioInputGroup<FormValues>
               name="CATEGORY"
@@ -73,7 +73,7 @@ function StoreCategorySnb(props: TopFixedSnbProps) {
             />
           </S.Container>
         </S.CategoryArea>
-        <S.FacilityArea>
+        <S.FacilityArea className="facility_area">
           <S.Container>
             <CheckBoxGroup<FormValues>
               name="FACILITY"
