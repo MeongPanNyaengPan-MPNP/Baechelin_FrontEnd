@@ -3,7 +3,6 @@ import { UseMutateFunction } from 'react-query';
 
 import Span from '@atoms/Span';
 import Icon from '@atoms/Icon';
-
 import Bookmark from '@molecules/Bookmark';
 
 import { Color } from '@constants/styles';
