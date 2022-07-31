@@ -19,7 +19,7 @@ import SnackBarsContainer from '@molecules/SnackBarsContainer';
 import SilentLogin from '@utils/Jwt/SilentLogin';
 import Bookmark from '@pages/Bookmark';
 import StoreDetailPhotosModal from '@pages/StoreDetailPhotosModal';
-
+import ServiceInfo from '@pages/ServiceInfo';
 import AlertContainer from '@molecules/AlertContainer';
 import SearchMap from '@pages/SearchMap';
 import GlobalStyle from './styles/GlobalStyle';
@@ -48,7 +48,7 @@ function App() {
               <Route path="bookmark" element={<Bookmark />} />
             </Route>
             <Route path="/store">
-              <Route path=":storeName" element={<StoreDetail />} />
+              <Route path=":storeId" element={<StoreDetail />} />
               <Route path="list/:topic" element={<StoreList />} />
             </Route>
             <Route path="photosModal" element={<StoreDetailPhotosModal />} />
@@ -57,9 +57,9 @@ function App() {
             <Route path="/review/write/*" element={<PrivateRoute />}>
               <Route path=":storeId" element={<ReviewWrite />} />
             </Route>
-            <Route path="/store/list" />
             <Route path="*" element={<NotFound />} />
             <Route path="login" element={<Login />} />
+            <Route path="/about" element={<ServiceInfo />} />
           </Routes>
           {state?.locationState && (
             <Routes>

@@ -29,7 +29,7 @@ function MapStoreList(props: MapStoreListProps) {
         {storeItems &&
           storeItems?.length > 0 &&
           storeItems?.map((stores) => (
-            <div key={`wrap_${stores[0].storeId}`}>
+            <div className="store_wrap" id={`wrap_${stores[0].storeId}`} key={`wrap_${stores[0].storeId}`}>
               {stores.map((item) => (
                 <S.StoreItem
                   key={item.storeId}

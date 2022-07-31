@@ -46,7 +46,15 @@ function ReviewGroupSlide<T>({
         slidesPerGroup={slidesPerGroup}
         modules={[Pagination, Navigation, Autoplay]}
         mousewheel={{ invert: true }}
-        autoplay={autoplayDelay ? { delay: autoplayDelay } : false}
+        autoplay={
+          autoplayDelay
+            ? {
+                delay: autoplayDelay,
+                disableOnInteraction: true,
+                pauseOnMouseEnter: true,
+              }
+            : false
+        }
         speed={speed}
         pagination={{
           clickable: true,

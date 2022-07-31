@@ -21,4 +21,7 @@ export const MainReviewListSection = styled.section`
     justify-content: center;
   }
 `;
-export const StoreCategorySnbArea = styled.section``;
+
+export const StoreCategorySnbArea = styled.section`
+  position: relative;
+`;

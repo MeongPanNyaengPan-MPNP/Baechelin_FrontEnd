@@ -23,7 +23,9 @@ function Header() {
   const onClickLogo = useCallback(() => {
     navigate('/');
   }, [navigate]);
-  const onClickAbout = () => {};
+  const onClickAbout = () => {
+    navigate('/about');
+  };
   const onClickMap = () => {
     navigate('/map');
   };

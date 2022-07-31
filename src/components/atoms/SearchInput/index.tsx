@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import React from 'react';
 import styled from 'styled-components';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -35,15 +35,21 @@ const StyledSearchInput = styled(Autocomplete)`
     padding: 0;
     height: 4.2rem;
     font-size: 15px;
+    padding-left: 5px;
+
     fieldset {
       border-color: ${Color.orange};
       border-radius: 0;
       border-width: 2px;
     }
+
     &:hover fieldset {
       border-color: ${Color.orange};
     }
   }
+`;
+const SearchIcon = styled(Icon)`
+  cursor: pointer;
 `;
 
 function SearchInput({ width, margin, ...props }: SearchInputProps<any>) {
@@ -75,7 +81,7 @@ function SearchInput({ width, margin, ...props }: SearchInputProps<any>) {
                   type: 'search',
                   endAdornment: (
                     <InputAdornment position="start">
-                      <Icon iconName="search" size="2.2rem" color={Color.orange} />
+                      <SearchIcon iconName="search" size="2.2rem" color={Color.orange} />
                     </InputAdornment>
                   ),
                 }}

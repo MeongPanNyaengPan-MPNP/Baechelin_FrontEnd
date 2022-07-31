@@ -2,9 +2,13 @@ import React, { ReactNode } from 'react';
 import Span from '@atoms/Span';
 import ThumbNail from '@atoms/Thumbnail';
 import Star from '@atoms/Star';
+import { Link, useLocation } from 'react-router-dom';
 import TagList from '@molecules/TagListProps';
 import { RecentReviewResponseType, TagListType } from '@interfaces/ReviewTypes';
 import { STORE_REVIEW_TAG } from '@constants/store';
+import { IMAGE_URL } from '@constants/url';
+import UseTimeForToday from '@hooks/UseTimeForToday';
+import Icon from '@atoms/Icon';
 import * as S from './styles';
 
 export type ReviewCardProps = {
@@ -12,7 +16,7 @@ export type ReviewCardProps = {
 };
 
 function ReviewCard<T extends Partial<RecentReviewResponseType>>(
-  props: T & { showTagList?: boolean; showStoreInfo?: boolean },
+  props: T & { showTagList?: boolean; showStoreInfo?: boolean; useModal?: boolean },
 ) {
   const {
     storeName,
@@ -22,12 +26,16 @@ function ReviewCard<T extends Partial<RecentReviewResponseType>>(
     reviewImageUrlList = null,
     address,
     name,
-    userImage = './',
+    createdAt,
+    useModal,
+    userImage = IMAGE_URL.NO_IMAGE,
     showStoreInfo = true,
     showTagList = true,
   } = props;
   const [facilityTag, setFacilityTag] = React.useState<TagListType[] | null>(null);
   const [qualityTag, setQualityTag] = React.useState<TagListType[] | null>(null);
+  const location = useLocation();
+
   React.useEffect(() => {
     if (showTagList) {
       const fa = tagList
@@ -63,9 +71,13 @@ function ReviewCard<T extends Partial<RecentReviewResponseType>>(
             )}
             <S.CardUserInfoArea>
               <ThumbNail round={100} width="50px" height="50px" alt={storeName} src={userImage} />
+
               <S.UserInfoArea>
                 <S.UserName fontSize="2rem" fontWeight="bold">
                   {name}
+                  <Span className="time" fontSize="1.2rem">
+                    {UseTimeForToday(createdAt)}
+                  </Span>
                 </S.UserName>
                 <Star sx={{ fontSize: '1.8rem' }} value={point} name="rate01" readOnly />
               </S.UserInfoArea>
@@ -81,6 +93,9 @@ function ReviewCard<T extends Partial<RecentReviewResponseType>>(
                 </Span>
               </p>
             </S.CardTextArea>
+            <S.ControlButtonArea>
+              <Icon iconName="delete_icon" />
+            </S.ControlButtonArea>
           </S.CardContentTop>
           <S.cCardContentBottom>
             <S.CardImageList>
@@ -88,6 +103,27 @@ function ReviewCard<T extends Partial<RecentReviewResponseType>>(
                 (item, index) =>
                   index < 5 && (
                     <li key={item.url}>
+                      {useModal && (
+                        <Link
+                          to="/photosModal"
+                          state={{
+                            data: {
+                              imgList: reviewImageUrlList?.map((i) => i.url),
+                              alt: storeName,
+                            },
+                            locationState: location,
+                          }}
+                        >
+                          <ThumbNail
+                            width="100px"
+                            height="100px"
+                            alt={`${storeName}에 작성된 리뷰 사진`}
+                            src={item.url}
+                            borderSize={1}
+                          />
+                        </Link>
+                      )}
+
                       <ThumbNail
                         width="100px"
                         height="100px"

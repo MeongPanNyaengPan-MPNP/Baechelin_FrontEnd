@@ -26,6 +26,10 @@ export const Wrapper = styled.div`
   align-items: center;
   width: 1280px;
   justify-content: space-between;
+
+  button:hover {
+    font-weight: bold !important;
+  }
 `;
 export const UserLogo = styled(Logo)`
   cursor: pointer;

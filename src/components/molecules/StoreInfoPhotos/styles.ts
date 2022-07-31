@@ -65,6 +65,20 @@ export const Photo = styled.img`
   width: 100%;
   cursor: pointer;
   background: ${Color.lightGrey};
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: none;
+    border: 1px solid #efefef;
+    width: 100%;
+    height: 100%;
+    opacity: 0.2;
+  }
 `;
 
 export const Photos = styled.img`
@@ -77,4 +91,18 @@ export const Photos = styled.img`
   height: 100%;
   width: 100%;
   cursor: pointer;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: none;
+    border: 1px solid #efefef;
+    width: 100%;
+    height: 100%;
+    opacity: 0.2;
+  }
 `;

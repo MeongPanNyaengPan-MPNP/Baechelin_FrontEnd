@@ -84,6 +84,68 @@ export const STORE_FILTERS = {
       CHECKED: false,
     },
   ],
+  LOCATION_1: [
+    {
+      LABEL: '지역 전체',
+      KEY: '전체',
+    },
+    {
+      LABEL: '서울특별시',
+      KEY: '서울',
+    },
+    {
+      LABEL: '부산광역시',
+      KEY: '부산',
+    },
+    {
+      LABEL: '대구광역시',
+      KEY: '대구',
+    },
+    {
+      LABEL: '인천광역시',
+      KEY: '인천',
+    },
+    {
+      LABEL: '광주광역시',
+      KEY: '광주',
+    },
+    {
+      LABEL: '대전광역시',
+      KEY: '대전',
+    },
+    {
+      LABEL: '울산광역시',
+      KEY: '울산',
+    },
+    {
+      LABEL: '경기도',
+      KEY: '경기',
+    },
+    {
+      LABEL: '충청북도',
+      KEY: '충청북도',
+    },
+    {
+      LABEL: '충청남도',
+      KEY: '충청남도',
+    },
+    {
+      LABEL: '전라북도',
+      KEY: '전라북도',
+    },
+    {
+      LABEL: '전라남도',
+      KEY: '전라남도',
+    },
+    {
+      LABEL: '경상북도',
+      KEY: '경상북도',
+    },
+    {
+      LABEL: '경상남도',
+      KEY: '경상남도',
+    },
+  ],
 };
 export const STORE_REVIEW_TAG: { [index: string]: string } = {
   bKiosk: '배리어프리 키오스크',
@@ -103,6 +165,10 @@ export const STORE_DEFAULT_VALUES = {
   CATEGORY: 'ALL',
   FACILITY: [''],
 };
+export const STORE_LOCATION_VALUES = {
+  LOCATION_1: '전체',
+  LOCATION_2: '',
+};
 export const STORE_TOPIC = {
   ARROUND: 'near',
   POINT: 'point',
@@ -110,7 +176,7 @@ export const STORE_TOPIC = {
   RECENT_REVIEW: 'recent-review',
 };
 export const STORE_LIST_TITLE = {
-  ARROUND: '님 주변 밥집',
+  ARROUND: '님 주변 가게',
   POINT: '별점이 높은 가게',
   BOOKMARK: '저장 많이한 가게',
   RECENT_REVIEW: '실시간 맛집 후기',

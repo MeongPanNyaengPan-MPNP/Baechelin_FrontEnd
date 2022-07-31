@@ -33,6 +33,7 @@ export const CardContentArea = styled.article`
   height: 100%;
 `;
 export const CardContentTop = styled.div`
+  position: relative;
   width: 100%;
   height: calc(100% - 100px);
 `;
@@ -61,6 +62,12 @@ export const UserInfoArea = styled.div``;
 export const UserName = styled(Span)`
   display: block;
   margin: 5px 0;
+
+  > span.time {
+    padding-left: 10px;
+    opacity: 0.8;
+    vertical-align: 2px;
+  }
 `;
 export const CardTextArea = styled.div`
   width: 100%;
@@ -86,4 +93,10 @@ export const StoreTagListGroup = styled.div`
   & + & {
     margin-top: 50px;
   }
+`;
+
+export const ControlButtonArea = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
 `;

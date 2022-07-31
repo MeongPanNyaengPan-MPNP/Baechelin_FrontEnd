@@ -2,11 +2,12 @@ import { getBookmarkStoreList, getNearStore, getNearStoreAtMap, getSearchStore }
 import { useQuery } from 'react-query';
 import { UserLoctaionType } from '@interfaces/LocationTypes';
 import { getRecentReviewList, getReviewList } from '@service/reviewApi';
-import { TokenResponseType, UserInfoType } from '@interfaces/TokenType';
+import { TokenResponseType } from '@interfaces/TokenType';
 import { getUserInfo, tokenRefresh } from '@service/getUserApi';
 import { useSetRecoilState } from 'recoil';
-import { userToken } from '@recoil/userAtom';
+import { userInfo, userToken } from '@recoil/userAtom';
 import { MAP, USER } from '@constants/useQueryKey';
+import { UserInfoType } from '@interfaces/UserInfoType';
 
 const basicOption = {
   staleTime: Infinity,
@@ -47,14 +48,15 @@ export const UseStoreListHooks = <T>(currentLocation: UserLoctaionType) => {
   // 검색 리스트
   const UseGetSearchStoreList = (
     key: string,
-    queryString: string,
+    queryString: string | undefined,
+    locationQueryString: string | undefined,
     keyword: string | undefined,
     page?: number | undefined,
     size?: number | undefined,
   ) =>
     useQuery<T>(
-      [key, queryString, page],
-      () => getSearchStore(keyword, queryString, page, size),
+      [key, queryString, locationQueryString, keyword, page],
+      () => getSearchStore(queryString, locationQueryString, keyword, page, size),
       enabledOption(!!keyword),
     );
 
@@ -65,23 +67,27 @@ export const UseStoreListHooks = <T>(currentLocation: UserLoctaionType) => {
   };
 };
 export const UseMapQuery = () => {
-  const UseMapData = <T>(latingQuery: string, queryString: string) =>
-    useQuery<T>([MAP.MAP_STORE, latingQuery, queryString], () => getNearStoreAtMap(latingQuery, queryString), {
-      staleTime: 6000,
-      cacheTime: Infinity,
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-      retry: 0,
-      onError: (err) => {
-        console.log('err', err);
+  const UseMapData = <T>(latingQuery: string, queryString: string, page: number) =>
+    useQuery<T>(
+      [MAP.MAP_STORE, latingQuery, queryString, page],
+      () => getNearStoreAtMap(latingQuery, queryString, page),
+      {
+        staleTime: 6000,
+        cacheTime: Infinity,
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
+        retry: 0,
+        onError: (err) => {
+          console.log('err', err);
+        },
       },
-    });
+    );
   return { UseMapData };
 };
 
 export const UseReviewList = () => {
   // 메인에 위치한 실시간 리뷰
-  console.log('list');
+
   const UseRecentReviewForMain = <T>(key: string, limit?: number) =>
     useQuery<T>([key], () => getRecentReviewList(limit), {
       staleTime: 0,
@@ -129,6 +135,17 @@ export const UseFetchToken = () => {
   return { UseQueryToken };
 };
 export const UseUserQuery = () => {
-  const UseGetUserInfo = () => useQuery<UserInfoType>(USER.INFO, () => getUserInfo(), basicOption);
+  const setUserInfoState = useSetRecoilState(userInfo);
+  const UseGetUserInfo = <T extends Partial<UserInfoType>>(token?: string | null) =>
+    useQuery<T & UserInfoType>([USER.INFO, token], () => getUserInfo(token), {
+      staleTime: Infinity,
+      cacheTime: Infinity,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      retry: 0,
+      onSuccess: (data) => {
+        setUserInfoState(data);
+      },
+    });
   return { UseGetUserInfo };
 };
