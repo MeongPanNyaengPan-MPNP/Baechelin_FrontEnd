@@ -27,7 +27,6 @@ export const BadgeList = styled.div`
   display: flex;
   align-items: center;
   margin-left: -10px;
-  margin-top: -5px;
 
   > div {
     margin-left: 10px;
@@ -37,6 +36,10 @@ export const BookmarkArea = styled.div`
   position: absolute;
   right: 15px;
   top: 15px;
+
+  .material-icons {
+    color: #a9a9a9;
+  }
 `;
 export const InfoContainer = styled.div`
   display: flex;
@@ -49,6 +52,7 @@ export const InfoContainer = styled.div`
 `;
 export const TitleArea = styled.div`
   h2 {
+    line-height: 1.1;
     padding-right: 30px;
   }
 `;
@@ -63,12 +67,12 @@ export const Container = styled.div`
   width: 100%;
   box-sizing: border-box;
   height: 100%;
-  padding: 45px 0 0 0;
-  border-left: 1px solid ${Color.darkGrey};
+  padding: 0 0 0 0;
+  box-shadow: 0 7px 7px rgb(0 0 0 / 10%);
 
   .thumbnail {
     width: 100px;
-    margin-right: 16px;
+    margin-right: 14px;
   }
 
   .address_area,
@@ -96,6 +100,21 @@ export const Inner = styled.div`
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
+
+  .store_wrap {
+    position: relative;
+  }
+
+  .store_wrap.active::after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    left: 0px;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: ${Color.orange};
+  }
 `;
 export const StoreItem = styled.div`
   position: relative;

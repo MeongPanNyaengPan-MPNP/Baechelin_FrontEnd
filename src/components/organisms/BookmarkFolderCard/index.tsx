@@ -27,6 +27,8 @@ interface BookmarkFolderCardProps {
     UpdateBookmarkFolderNameParam & UpdateBookmarkFolderNameQuery,
     unknown
   >;
+  onClick?: (index: number) => void;
+  index?: number;
 }
 
 function BookmarkFolderCard({
@@ -37,6 +39,8 @@ function BookmarkFolderCard({
   fetchCreateBookmarkFolder,
   fetchDeleteBookmarkFolder,
   fetchUpdateBookmarkFolder,
+  onClick = () => {},
+  index = 0,
 }: BookmarkFolderCardProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [status, setStatus] = useState<string | null>(type);
@@ -60,7 +64,7 @@ function BookmarkFolderCard({
   // };
 
   return (
-    <S.Container>
+    <S.Container onClick={() => onClick(index)}>
       <S.ImageWrapper>
         {status !== 'create' && (
           <S.Photos src="https://content.api.news/v3/images/bin/104903dc87c2963a2d3e722aa85fe923?width=650" />

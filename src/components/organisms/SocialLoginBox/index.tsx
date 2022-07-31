@@ -15,8 +15,8 @@ https://bae-chelin.com/user/oauth/redirect/${prevPath || ''}`,
   );
   const redirectTest = `http://localhost:12345/user/oauth/redirect/${
     prevPath || ''
-  }?token=123eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMzE4MTQ3MTIwIiwicm9sZSI6I
-lJPTEVfQURNSU4iLCJleHAiOjE2NTk3NjA0NTR9.juziYqYYeUHoxdCn-0egZ62zRyz6Kzh0hO2zVY3uX6M`;
+    // eslint-disable-next-line max-len
+  }?token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMzE4MTQ3MTIwIiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2NTk3NjA0NTR9.juziYqYYeUHoxdCn-0egZ62zRyz6Kzh0hO2zVY3uX6M`;
   return (
     <>
       <S.Title>

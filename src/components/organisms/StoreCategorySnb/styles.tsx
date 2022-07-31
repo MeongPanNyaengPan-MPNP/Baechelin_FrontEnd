@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Color } from '@constants/styles';
 
 export { Container } from '@styles/layout';
 export const SnbWrap = styled.div`
@@ -22,14 +23,18 @@ export const Inner = styled.div`
   width: 100%;
   max-width: 1280px;
 `;
-export const ResetButtonArea = styled.div`
+export const RoundButtonArea = styled.div`
   position: absolute;
   right: 40px;
   top: -5px;
-
   cursor: pointer;
 
+  &.map_button_area {
+    right: 100px;
+  }
+
   button {
+    position: relative;
     padding: 8px;
     font-size: 0;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
@@ -44,9 +49,20 @@ export const ResetButtonArea = styled.div`
   }
 
   &:hover {
-    button {
-      transform: rotate(-90deg);
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    button ::after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 100%;
+      border: 1px solid ${Color.orange};
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    > span {
+      font-weight: bold;
     }
   }
 `;

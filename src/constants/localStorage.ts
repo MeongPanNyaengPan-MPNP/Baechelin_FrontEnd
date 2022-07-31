@@ -2,4 +2,5 @@
 export const LOCAL_STORAGE_KEY = {
   ACCESS_TOKEN: 'access_token',
   USER_LOCATION: 'user_location',
+  USER_INFO: 'user_info',
 };

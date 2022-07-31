@@ -9,3 +9,7 @@ export const SnbQueryString = atom<string>({
   key: 'SnbQueryString',
   default: '',
 });
+export const SearchLocationQueryString = atom<string>({
+  key: 'SearchLocationQuery',
+  default: '',
+});

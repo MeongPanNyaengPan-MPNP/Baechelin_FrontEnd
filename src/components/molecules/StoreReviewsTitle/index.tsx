@@ -1,18 +1,17 @@
 import React from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import Buttons from '@atoms/Buttons';
 import Span from '@atoms/Span';
 
 import * as S from './styles';
 
-function StoreReviewsTitle() {
+function StoreReviewsTitle({ storeId }: { storeId: string | undefined }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { storeName } = useParams();
   const onClickReviewButton = () => {
-    navigate(`/review/write/${storeName}`, { state: { LocationBeforeRoute: location } });
+    navigate(`/review/write/${storeId}`, { state: { LocationBeforeRoute: location } });
   };
   return (
     <S.Container>

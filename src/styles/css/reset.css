@@ -94,8 +94,6 @@ section {
 html {
     /*  letter-spacing: -.05em;*/
     width: 100%;
-    overflow-x: hidden;
-    overflow-y: overlay;
     -webkit-overflow-scrolling: touch;
     color: #000;
 

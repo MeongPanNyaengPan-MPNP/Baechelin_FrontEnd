@@ -13,6 +13,7 @@ import {
   getUserBookmarkFolders,
   updateBookmarkFolderName,
 } from '@service/bookmarkApi';
+import StoreCard from '@molecules/StoreCard';
 
 import { UpdateBookmarkFolderNameParam, UpdateBookmarkFolderNameQuery } from '@interfaces/BookmarkTypes';
 
@@ -24,10 +25,10 @@ import * as S from './styles';
 
 function BookmarkTemplate() {
   const [create, setCreate] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<string>('all');
+  const [selectedOption, setSelectedOption] = useState<string | number>('all');
   // const { tokenExist } = UseLoginHooks();
 
-  const { data: BookmarkData, refetch } = useQuery(['getShopDetail'], () => getUserBookmarkFolders(), {
+  const { data: BookmarkData, refetch } = useQuery(['getBookmarkFolders'], () => getUserBookmarkFolders(), {
     staleTime: 5000,
     cacheTime: Infinity,
     enabled: !create,
@@ -81,26 +82,48 @@ function BookmarkTemplate() {
     setCreate((prev) => !prev);
   };
 
+  const onClickCreatedCard = (index: number) => {
+    setSelectedOption(index);
+  };
+
   return (
     <S.Container>
       <S.TitleWrapper>
         <Span fontSize="2.4rem" fontWeight="700">
           내가 저장한 가게
         </Span>
-        <BookmarkSelect setSelectedOption={setSelectedOption} BookmarkData={BookmarkData} />
+        <BookmarkSelect
+          selectedOption={selectedOption}
+          setSelectedOption={setSelectedOption}
+          BookmarkData={BookmarkData}
+        />
       </S.TitleWrapper>
       <S.BookmarkListWrapper>
-        {selectedOption === 'all' &&
-          BookmarkData?.map((v: any) => (
-            <BookmarkFolderCard
-              name={v.folderName}
-              folderId={v.id}
-              list={v.bookmarkList}
-              key={v.id}
-              fetchDeleteBookmarkFolder={fetchDeleteBookmarkFolder}
-              fetchUpdateBookmarkFolder={fetchUpdateBookmarkFolder}
-            />
-          ))}
+        {selectedOption === 'all'
+          ? BookmarkData?.map((v: any, i) => (
+              <BookmarkFolderCard
+                name={v.folderName}
+                folderId={v.id}
+                list={v.bookmarkList}
+                key={v.id}
+                fetchDeleteBookmarkFolder={fetchDeleteBookmarkFolder}
+                fetchUpdateBookmarkFolder={fetchUpdateBookmarkFolder}
+                index={i}
+                onClick={onClickCreatedCard}
+              />
+            ))
+          : BookmarkData &&
+            BookmarkData[Number(selectedOption)]?.bookmarkList.map((v) => {
+              const imageList: string[] = [];
+              if (v.storeImageList) {
+                imageList.push(v.storeImageList);
+              }
+              return (
+                <S.StoreCardsWrapper>
+                  <StoreCard {...v} storeImgList={imageList} size="M" />
+                </S.StoreCardsWrapper>
+              );
+            })}
         {create && <BookmarkFolderCard type="create" fetchCreateBookmarkFolder={fetchCreateBookmarkFolder} />}
       </S.BookmarkListWrapper>
       {selectedOption === 'all' && (

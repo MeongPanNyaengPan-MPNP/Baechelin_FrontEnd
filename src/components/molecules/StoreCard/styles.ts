@@ -7,7 +7,14 @@ export const CardFigureArea = styled.div`
 export const CardContentArea = styled.div`
   padding: 12px 20px 18px;
 `;
-export const CardContentAreaTop = styled.div``;
+export const CardContentAreaTop = styled.div`
+  position: relative;
+`;
+export const BookmarkArea = styled.div`
+  position: absolute;
+  right: -14px;
+  top: 0px;
+`;
 export const StoreNameArea = styled.div`
   display: flex;
   align-items: center;

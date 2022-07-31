@@ -10,28 +10,27 @@ interface StoreInfoContentProps {
   storeDetailData: StoreMapResponseTypes;
 }
 
-function StoreInfoContent({
-                            storeDetailData,
-                            showIcons = true
-                          }: StoreInfoContentProps) {
+function StoreInfoContent({ storeDetailData, showIcons = true }: StoreInfoContentProps) {
   // const icons = ['local_parking', 'wheelchair_pickup', 'accessible_forward'];
 
   return (
     <S.Container>
-      {
-        storeDetailData?.address &&
+      {storeDetailData?.address && (
         <S.Wrapper className="address_area">
           <Icon iconName="location_on" size="2.4rem" margin="0 1.2rem 0 0" />
-          <Span fontSize="2rem">{storeDetailData?.address}</Span>
+          <Span fontWeight="400" fontSize="1.6rem">
+            {storeDetailData?.address}
+          </Span>
         </S.Wrapper>
-      }
-      {
-        storeDetailData?.phoneNumber &&
+      )}
+      {storeDetailData?.phoneNumber && (
         <S.Wrapper className="phone_area">
-          <Icon iconName="local_phone" size="2.4rem" margin="0 1.2rem 0 0" />
-          <Span fontSize="2rem">{storeDetailData?.phoneNumber}</Span>
+          <Icon iconName="local_phone" size="2.2rem" margin="0 1.2rem 0 0" />
+          <Span fontWeight="400" fontSize="1.6rem">
+            {storeDetailData?.phoneNumber}
+          </Span>
         </S.Wrapper>
-      }
+      )}
 
       {showIcons && (
         <S.IconsWrapper className="icons_area">

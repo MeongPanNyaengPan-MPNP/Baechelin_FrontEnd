@@ -1,15 +1,15 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import SearchTemplate from '@templates/SearchTemplate';
-
+import StoreListTemplate from '@templates/StoreListTemplate';
+import { STORE_FILTERS } from '@constants/store';
 import * as S from './styles';
 
 function Search() {
   const { keyword } = useParams();
   return (
     <S.Container>
-      <SearchTemplate keyword={keyword} />
+      <StoreListTemplate keyword={keyword} filters={STORE_FILTERS} />;
     </S.Container>
   );
 }

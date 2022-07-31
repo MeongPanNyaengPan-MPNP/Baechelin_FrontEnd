@@ -7,7 +7,7 @@ export interface StoreResponseTypes {
   storeImgList?: string[];
   storeModifiedAt?: string;
   pointAvg?: number;
-  bookmark?: boolean;
+  bookmark?: 'Y' | 'N';
   bookmarkCount?: number;
   elevator?: 'Y' | 'N';
   toilet?: 'Y' | 'N';
@@ -18,6 +18,10 @@ export interface StoreResponseTypes {
 
 export type StoreListQueryTypes = {
   cards?: StoreResponseTypes[];
+  totalCount?: number;
+  totalPage?: number;
+  hasNextPage?: number;
+  leftElement?: number;
   (key: string): any;
 };
 
@@ -30,6 +34,8 @@ export interface StoreMapResponseTypes {
   storeImgList: string[];
   address: string;
   phoneNumber: string;
+  createdAt?: Date;
+  modifiedAt?: Date;
   bookmarkCount: number;
   bookmark: 'Y' | 'N';
   pointAvg: number;
@@ -45,6 +51,11 @@ export interface StoreMapListQueryTypes {
   totalCount: number;
   hasNextPage: number;
   leftElement: number;
+  totalPage?: number;
 
   (key: string): any;
+}
+
+export interface SidoResponseTypes {
+  sigungu: string[];
 }

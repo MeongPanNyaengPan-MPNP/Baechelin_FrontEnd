@@ -20,8 +20,8 @@ interface BookmarkRegisterInputProps {
   iconSize?: string;
   height?: string;
   justify?: string;
-  setFolderName: React.Dispatch<React.SetStateAction<string>>;
-  setStatus: React.Dispatch<React.SetStateAction<string | null>>;
+  setFolderName?: React.Dispatch<React.SetStateAction<string>> | null;
+  setStatus?: React.Dispatch<React.SetStateAction<string | null>>;
   fetchCreateBookmarkFolder?: UseMutateFunction<CreateBookmarkFolderResponse, unknown, string, unknown>;
   fetchUpdateBookmarkFolder?: UseMutateFunction<
     unknown,
@@ -57,12 +57,14 @@ function BookmarkRegisterInput({
   const onSubmit: SubmitHandler<FormValue> = (data) => {
     if (data?.folderName && fetchCreateBookmarkFolder && type === 'create') {
       fetchCreateBookmarkFolder(data.folderName);
+    }
+    if (setFolderName && setStatus) {
       setFolderName(data.folderName);
+      setStatus(null);
     }
     if (folderId && fetchUpdateBookmarkFolder && type === 'update') {
       fetchUpdateBookmarkFolder({ folderId, newFolderName: data.folderName });
     }
-    setStatus(null);
   };
 
   console.log('folderName', folderName);

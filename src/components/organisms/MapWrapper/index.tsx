@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import MapStoreList from '@molecules/MapStoreList';
 import MapContainer from '@molecules/MapContainer';
@@ -11,55 +11,33 @@ import { UseMapQuery } from '@hooks/UseQueryHooks';
 import { StoreMapListQueryTypes, StoreMapResponseTypes } from '@interfaces/StoreResponseTypes';
 import { LatingQueryString } from '@recoil/mapAtom';
 import { SnbQueryString } from '@recoil/mainSnbAtom';
-import styled from 'styled-components';
-import { IMAGE_URL } from '@constants/url';
-
-const Content = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: stretch;
-
-  > div:first-child {
-    flex-shrink: 1;
-  }
-
-  > div:last-child {
-    width: 348px;
-    flex-shrink: 0;
-  }
-`;
-
-const Wrapper = styled.section`
-  position: relative;
-  width: 100%;
-  height: calc(100vh - 80px);
-`;
-const CategoryContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-`;
+import { Pagination } from '@mui/material';
+import * as S from './styles';
 
 function MapWrapper({ filters }: { filters: FiltersType }) {
   const { currentLocation } = UseGeolocation();
   const [location, setLocation] = useRecoilState(locationAtom);
-
+  const { UseMapData } = UseMapQuery();
+  const [pageNum, setPageNum] = useState<number>(0);
   const latingQueryString = useRecoilValue(LatingQueryString);
   const snbQueryString = useRecoilValue(SnbQueryString);
   const latingDebounce = UseDebounce<string>(latingQueryString, 1000);
-  const { UseMapData } = UseMapQuery();
-  const { data: storeItems } = UseMapData<StoreMapListQueryTypes>(latingDebounce, snbQueryString);
-
   const [itemResult, setitemResult] = useState<StoreMapResponseTypes[][]>([]);
+
+  const {
+    data: storeItems,
+    isLoading,
+    isFetched,
+  } = UseMapData<StoreMapListQueryTypes>(latingDebounce, snbQueryString, pageNum);
+
   React.useEffect(() => {
     if (currentLocation !== null && location === null) {
       setLocation(currentLocation);
     }
   }, [currentLocation, location, setLocation]);
+  const pageChangeHandler = (pageNumber = 1) => {
+    setPageNum(pageNumber);
+  };
   useEffect(() => {
     // const result: { [key: number]: StoreMapResponseTypes[] }[] = [];
     const lngRes: { [key: number]: StoreMapResponseTypes[] } = {};
@@ -74,28 +52,35 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
     const result = Object.keys(lngRes).map((key) => lngRes[Number(key)]);
     setitemResult(result);
   }, [storeItems]);
-  const activeRemoveEvent = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (e.target instanceof Element && e.target.hasAttribute('src')) {
-      const { src }: any = e.target;
-      if (src.includes(IMAGE_URL.MARKER)) {
-        console.log('d');
-      }
-    }
-  }, []);
   return (
-    <Wrapper>
-      <CategoryContainer>
-        <StoreCategorySnb filters={filters} snbBorder />
-      </CategoryContainer>
-      <Content
-        onClick={(e) => {
-          activeRemoveEvent(e);
-        }}
-      >
+    <S.Wrapper>
+      <S.CategoryContainer>
+        <StoreCategorySnb filters={filters} snbBorder showMapButton={false} />
+      </S.CategoryContainer>
+      <S.Content>
         <MapContainer location={location} storeItems={itemResult} />
-        <MapStoreList leftElement={storeItems?.leftElement} storeItems={itemResult} />
-      </Content>
-    </Wrapper>
+      </S.Content>
+      <S.StoreListArea>
+        <MapStoreList
+          leftElement={storeItems?.leftElement}
+          totalCount={storeItems?.totalCount}
+          storeItems={itemResult}
+          isLoading={isLoading}
+          isFetched={isFetched}
+        />
+        <S.PaginationBar>
+          <Pagination
+            count={storeItems?.totalPage}
+            showFirstButton
+            showLastButton
+            size="medium"
+            siblingCount={0}
+            boundaryCount={1}
+            onChange={(e, page) => pageChangeHandler(page)}
+          />
+        </S.PaginationBar>
+      </S.StoreListArea>
+    </S.Wrapper>
   );
 }
 

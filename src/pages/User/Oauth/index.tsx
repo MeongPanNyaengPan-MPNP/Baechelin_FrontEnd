@@ -24,7 +24,7 @@ function Oauth() {
     [setSnackBar],
   );
   const tokenExist = useCallback(
-    (token: string) => {
+    async (token: string) => {
       setUserTokenState(token);
     },
     [setUserTokenState],

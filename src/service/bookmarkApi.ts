@@ -1,6 +1,7 @@
 import {
   CreateBookmarkFolderResponse,
   CreateBookmarkStoreBody,
+  GetBookmarkTopResponse,
   GetUserBookmarkFoldersResponse,
 } from '@interfaces/BookmarkTypes';
 
@@ -27,7 +28,7 @@ export const deleteBookmarkStore = (params: { bookmarkId: number }) =>
   request({ method: 'DELETE', url: `/bookmark/${params}` });
 
 export const getBookmarkTop = () =>
-  request<any>({
+  request<GetBookmarkTopResponse[]>({
     method: 'GET',
     url: '/bookmarkTop',
   });

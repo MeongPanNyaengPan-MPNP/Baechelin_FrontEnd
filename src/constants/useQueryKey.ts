@@ -3,6 +3,8 @@ export const STORE_LIST = {
   ARROUND_STORE: 'ARROUND_STORE',
   BEST_POINT_STORE: 'BEST_POINT_STORE',
   BEST_BOOKMARK_STORE: 'BEST_BOOKMARK_STORE',
+  SEARCH_STORE: 'SEARCH_STORE',
+  LOCATION_DEP_1: 'LOCATION_DEP_1',
 };
 
 export const REVIEW = {
@@ -13,4 +15,4 @@ export const USER = {
   TOKEN: 'USER_TOKEN',
   INFO: 'USER_INFO',
 };
-export const MAP = {MAP_STORE: 'MAP_STORE',};
+export const MAP = { MAP_STORE: 'MAP_STORE' };
