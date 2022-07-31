@@ -15,4 +15,7 @@ export const USER = {
   TOKEN: 'USER_TOKEN',
   INFO: 'USER_INFO',
 };
-export const MAP = { MAP_STORE: 'MAP_STORE' };
+export const MAP = {
+  MAP_STORE: 'MAP_STORE',
+  MY_LOCATION: 'MY_LOCATION',
+};

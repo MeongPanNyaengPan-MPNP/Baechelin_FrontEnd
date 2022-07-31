@@ -1,7 +1,9 @@
 // TODO : auth class 만들기
+import React from 'react';
 import { UseFetchToken } from '@hooks/UseQueryHooks';
 import UseLoginHooks from '@hooks/UseLogin';
 import { useLocation } from 'react-router-dom';
+import Api from '@service/httpClient';
 
 /*
 
@@ -20,8 +22,23 @@ export function SilentLogin() {
   const { pathname } = useLocation();
   const { UseQueryToken } = UseFetchToken();
   const { tokenExist } = UseLoginHooks();
-  UseQueryToken(tokenExist, pathname);
-  console.log('token refresh', !!tokenExist);
+  const { refetch } = UseQueryToken(tokenExist, pathname);
+
+  React.useEffect(() => {
+    refetch();
+  }, [pathname, refetch]);
+
+  window.addEventListener('unload', () => {
+    const localToken = localStorage.getItem('recoil-persist');
+    if (localToken) {
+      const tokenParseJson = JSON.parse(localToken);
+      delete tokenParseJson.access_token;
+      const restStorage = JSON.stringify(tokenParseJson);
+      localStorage.setItem('recoil-persist', restStorage);
+      Api.post('/user/logout');
+    }
+  });
+
   return null;
 }
 

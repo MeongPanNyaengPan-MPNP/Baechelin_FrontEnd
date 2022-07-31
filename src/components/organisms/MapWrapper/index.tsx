@@ -14,6 +14,7 @@ import { SnbQueryString } from '@recoil/mainSnbAtom';
 import { Pagination } from '@mui/material';
 import NoDataMessage from '@molecules/NodataMessage';
 
+import MyLocation from '@molecules/MyLocation';
 import * as S from './styles';
 
 function MapWrapper({ filters }: { filters: FiltersType }) {
@@ -63,6 +64,9 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
     <S.Wrapper>
       <S.CategoryContainer>
         <StoreCategorySnb filters={filters} snbBorder showMapButton={false} />
+        <S.MyLocationArea>
+          <MyLocation />
+        </S.MyLocationArea>
       </S.CategoryContainer>
       <S.Content>
         <MapContainer location={location} storeItems={itemResult} />
