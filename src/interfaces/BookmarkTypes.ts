@@ -4,7 +4,7 @@ export interface BookmarkListTypes {
   address: string;
   category: string;
   phoneNumber: string;
-  storeImageList?: string[];
+  storeImageList?: string;
   bookmarkId?: number;
   sotreId?: number;
 }
@@ -31,4 +31,15 @@ export interface UpdateBookmarkFolderNameParam {
 
 export interface UpdateBookmarkFolderNameQuery {
   newFolderName: string;
+}
+
+export interface GetBookmarkTopResponse {
+  address: string;
+  bookmarkId?: number;
+  category: string;
+  name: string;
+  phoneNumber: string;
+  pointAvg: number;
+  storeId?: number;
+  storeImageList?: string;
 }

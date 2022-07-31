@@ -1,5 +1,6 @@
 import React from 'react';
 import { Popover } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 import ProfileBookmarkTitle from '@molecules/ProfileBookmarkTitle';
 import ProfileBookmarkContent from '@molecules/ProfileBookmarkContent';
@@ -7,16 +8,18 @@ import Icon from '@atoms/Icon';
 import Span from '@atoms/Span';
 
 import { Color } from '@constants/styles';
-import { useNavigate } from 'react-router-dom';
+import { GetBookmarkTopResponse } from '@interfaces/BookmarkTypes';
 
 import * as S from './styles';
 
 interface ProfileBookmarkProps {
   anchorEl: HTMLButtonElement | null;
   setAnchorEl: React.Dispatch<React.SetStateAction<HTMLButtonElement | null>>;
+  BookmarkTopData: GetBookmarkTopResponse[] | undefined;
+  getUserInfoData: any;
 }
 
-function ProfileBookmark({ anchorEl, setAnchorEl }: ProfileBookmarkProps) {
+function ProfileBookmark({ anchorEl, setAnchorEl, BookmarkTopData, getUserInfoData }: ProfileBookmarkProps) {
   const navigate = useNavigate();
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
@@ -51,7 +54,7 @@ function ProfileBookmark({ anchorEl, setAnchorEl }: ProfileBookmarkProps) {
       }}
     >
       <S.Container>
-        <ProfileBookmarkTitle name="먹보" email="meokbo@coupang.com" />
+        <ProfileBookmarkTitle name={getUserInfoData?.name} email={getUserInfoData?.email} />
         <S.ContentTitle>
           <Span fontSize="1.6rem" fontWeight="700">
             최근 저장한 가게
@@ -63,9 +66,16 @@ function ProfileBookmark({ anchorEl, setAnchorEl }: ProfileBookmarkProps) {
             </Span>
           </div>
         </S.ContentTitle>
-        <ProfileBookmarkContent />
-        <ProfileBookmarkContent />
-        <ProfileBookmarkContent />
+        {BookmarkTopData?.map((v) => (
+          <ProfileBookmarkContent
+            name={v.name}
+            address={v.address}
+            phone={v.phoneNumber}
+            rate={v.pointAvg}
+            photo={v.storeImageList || undefined}
+            storeId={v.storeId}
+          />
+        ))}
       </S.Container>
     </Popover>
   );

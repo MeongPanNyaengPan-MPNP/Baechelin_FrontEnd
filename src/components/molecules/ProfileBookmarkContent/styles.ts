@@ -1,3 +1,4 @@
+import { Color } from '@constants/styles';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -6,12 +7,17 @@ export const Container = styled.div`
   justify-content: space-between;
   width: 100%;
   margin-bottom: 1.1rem;
+  cursor: pointer;
+  box-sizing: border-box;
+  :hover {
+    background-color: ${Color.lightGrey};
+  }
 `;
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1.4rem;
+  padding: 1.4rem 1.4rem 0.5rem 1.4rem;
   width: 100%;
   box-sizing: border-box;
 `;
@@ -25,7 +31,7 @@ export const CountWrapper = styled.div`
 export const InfoTitleWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.4rem;
 `;
 
 export const InfoWrapper = styled.div`
