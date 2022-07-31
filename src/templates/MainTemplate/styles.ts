@@ -25,3 +25,8 @@ export const MainReviewListSection = styled.section`
 export const StoreCategorySnbArea = styled.section`
   position: relative;
 `;
+
+export const LocationTitleArea = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;

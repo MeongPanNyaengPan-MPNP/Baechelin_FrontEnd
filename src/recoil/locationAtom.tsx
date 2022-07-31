@@ -8,3 +8,7 @@ export default atom<UserLoctaionType | null>({
   default: null,
   effects_UNSTABLE: [persistAtom],
 });
+export const myAddressAtom = atom<string | undefined>({
+  key: 'my_address',
+  default: undefined,
+});

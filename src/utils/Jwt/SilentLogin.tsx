@@ -1,4 +1,5 @@
 // TODO : auth class 만들기
+import React from 'react';
 import { UseFetchToken } from '@hooks/UseQueryHooks';
 import UseLoginHooks from '@hooks/UseLogin';
 import { useLocation } from 'react-router-dom';
@@ -20,8 +21,12 @@ export function SilentLogin() {
   const { pathname } = useLocation();
   const { UseQueryToken } = UseFetchToken();
   const { tokenExist } = UseLoginHooks();
-  UseQueryToken(tokenExist, pathname);
-  console.log('token refresh', !!tokenExist);
+  const { refetch } = UseQueryToken(tokenExist, pathname);
+
+  React.useEffect(() => {
+    refetch();
+  }, [pathname, refetch]);
+
   return null;
 }
 

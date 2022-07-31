@@ -16,6 +16,7 @@ import { UseReviewList } from '@hooks/UseQueryHooks';
 import { REVIEW } from '@constants/useQueryKey';
 import { useSetRecoilState } from 'recoil';
 import modalAtom, { muiAnchorEl } from '@recoil/modalAtom';
+import { useQueryClient } from 'react-query';
 import * as S from './styles';
 
 export type ReviewCardProps = {
@@ -44,7 +45,7 @@ function ReviewCard<T extends Partial<ReviewResponseDtoItem>>(
   } = props;
   const [facilityTag, setFacilityTag] = React.useState<TagListType[] | null>(null);
   const [qualityTag, setQualityTag] = React.useState<TagListType[] | null>(null);
-
+  const queryClient = useQueryClient();
   const setAnchorEl = useSetRecoilState(muiAnchorEl);
   const setModalContent = useSetRecoilState(modalAtom);
   const { UseDeleteDetailReview } = UseReviewList();
@@ -75,7 +76,12 @@ function ReviewCard<T extends Partial<ReviewResponseDtoItem>>(
     setAnchorEl(null); // 헤더 팝업 닫기
     setModalContent({
       messages: ['리뷰를 삭제 하시겠습니까?'],
-      submitButton: { onClick: mutate },
+      submitButton: {
+        onClick: () => {
+          mutate();
+          queryClient.invalidateQueries(REVIEW.DETAIL_REVIEW_LIST);
+        },
+      },
     });
   };
   return (

@@ -10,6 +10,7 @@ import MainSlideSection from '@organisms/MainSlideSection';
 import { STORE_LIST, STORE_LIST_TITLE, STORE_TOPIC } from '@constants/index';
 import Span from '@atoms/Span';
 import { UserInfoType } from '@interfaces/TokenType';
+import MyLocation from '@molecules/MyLocation';
 import * as S from './styles';
 
 export interface MainTemplateProps {
@@ -36,21 +37,24 @@ function MainTemplates({ slideItems, filters, userInfo }: MainTemplateProps) {
         hiddenNoLocationState
         size="M"
       >
-        <h5>
-          <Link to={`/store/list/${STORE_TOPIC.ARROUND}`}>
-            {userInfo?.name ? (
-              <Span fontSize="2.4rem" fontWeight="bold">
-                <>
-                  {userInfo?.name}님의 {STORE_LIST_TITLE.ARROUND}
-                </>
-              </Span>
-            ) : (
-              <Span fontSize="2.4rem" fontWeight="bold">
-                <>나의 {STORE_LIST_TITLE.ARROUND}</>
-              </Span>
-            )}
-          </Link>
-        </h5>
+        <S.LocationTitleArea>
+          <h5>
+            <Link to={`/store/list/${STORE_TOPIC.ARROUND}`}>
+              {userInfo?.name ? (
+                <Span fontSize="2.4rem" fontWeight="bold">
+                  <>
+                    {userInfo?.name}님의 {STORE_LIST_TITLE.ARROUND}
+                  </>
+                </Span>
+              ) : (
+                <Span fontSize="2.4rem" fontWeight="bold">
+                  <>나의 {STORE_LIST_TITLE.ARROUND}</>
+                </Span>
+              )}
+            </Link>
+          </h5>
+          <MyLocation />
+        </S.LocationTitleArea>
       </MainSlideSection>
       <MainSlideSection
         slideId="bestScore"
