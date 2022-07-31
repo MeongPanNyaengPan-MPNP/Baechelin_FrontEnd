@@ -5,6 +5,7 @@ export type AlertButtonContent = {
   message?: string;
   point?: boolean;
   onClick: () => void;
+  show?: boolean;
 };
 
 export type AlertProps = {
@@ -46,12 +47,16 @@ function Alert({ messages, submitButton, cancelButton }: AlertProps) {
         ))}
       </div>
       <ButtonArea>
-        <Button type="button" onClick={submitButton?.onClick} point={submitButton?.point}>
-          {submitButton?.message}
-        </Button>
-        <Button type="button" onClick={cancelButton?.onClick} point={cancelButton?.point}>
-          {cancelButton?.message}
-        </Button>
+        {submitButton?.show && (
+          <Button type="button" onClick={submitButton?.onClick} point={submitButton?.point}>
+            {submitButton?.message}
+          </Button>
+        )}
+        {cancelButton?.show && (
+          <Button type="button" onClick={cancelButton?.onClick} point={cancelButton?.point}>
+            {cancelButton?.message}
+          </Button>
+        )}
       </ButtonArea>
     </Content>
   );

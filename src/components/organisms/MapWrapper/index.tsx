@@ -12,23 +12,25 @@ import { StoreMapListQueryTypes, StoreMapResponseTypes } from '@interfaces/Store
 import { LatingQueryString } from '@recoil/mapAtom';
 import { SnbQueryString } from '@recoil/mainSnbAtom';
 import { Pagination } from '@mui/material';
+import NoDataMessage from '@molecules/NodataMessage';
+
 import * as S from './styles';
 
 function MapWrapper({ filters }: { filters: FiltersType }) {
   const { currentLocation } = UseGeolocation();
   const [location, setLocation] = useRecoilState(locationAtom);
   const { UseMapData } = UseMapQuery();
-  const [pageNum, setPageNum] = useState<number>(0);
+  const [pageNum, setPageNum] = useState<number>(1);
   const latingQueryString = useRecoilValue(LatingQueryString);
   const snbQueryString = useRecoilValue(SnbQueryString);
-  const latingDebounce = UseDebounce<string>(latingQueryString, 1000);
+  const { debounceVal, bool } = UseDebounce<string>(latingQueryString, 1000);
   const [itemResult, setitemResult] = useState<StoreMapResponseTypes[][]>([]);
-
+  console.log(bool);
   const {
     data: storeItems,
     isLoading,
     isFetched,
-  } = UseMapData<StoreMapListQueryTypes>(latingDebounce, snbQueryString, pageNum);
+  } = UseMapData<StoreMapListQueryTypes>(debounceVal, snbQueryString, pageNum - 1);
 
   React.useEffect(() => {
     if (currentLocation !== null && location === null) {
@@ -38,8 +40,10 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
   const pageChangeHandler = (pageNumber = 1) => {
     setPageNum(pageNumber);
   };
+
   useEffect(() => {
     // const result: { [key: number]: StoreMapResponseTypes[] }[] = [];
+
     const lngRes: { [key: number]: StoreMapResponseTypes[] } = {};
     storeItems?.cards?.forEach((item) => {
       const lng = item.longitude;
@@ -52,6 +56,9 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
     const result = Object.keys(lngRes).map((key) => lngRes[Number(key)]);
     setitemResult(result);
   }, [storeItems]);
+  React.useEffect(() => {
+    setPageNum(1);
+  }, [bool]);
   return (
     <S.Wrapper>
       <S.CategoryContainer>
@@ -70,16 +77,22 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
         />
         <S.PaginationBar>
           <Pagination
-            count={storeItems?.totalPage}
+            count={Number(storeItems?.totalPage) + 1}
             showFirstButton
             showLastButton
             size="medium"
             siblingCount={0}
             boundaryCount={1}
+            page={pageNum}
             onChange={(e, page) => pageChangeHandler(page)}
           />
         </S.PaginationBar>
       </S.StoreListArea>
+      {(bool || isLoading) && (
+        <S.DisabledBox>
+          <NoDataMessage message={['LOADING']} />
+        </S.DisabledBox>
+      )}
     </S.Wrapper>
   );
 }

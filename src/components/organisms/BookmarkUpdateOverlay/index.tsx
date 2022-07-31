@@ -29,7 +29,6 @@ function BookmarkUpdateOverlay({
 }: BookmarkUpdateOverlayProps) {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
-  console.log('id', folderId);
 
   const setAnchorElDelete = useSetRecoilState(muiAnchorEl);
   const setModalContent = useSetRecoilState(modalAtom);

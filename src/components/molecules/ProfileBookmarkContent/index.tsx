@@ -30,7 +30,7 @@ function ProfileBookmarkContent({
   };
 
   return (
-    <S.Container onClick={onClickStore}>
+    <S.Container onClick={onClickStore} className="bookmark_container">
       <S.Photo src={photo} />
       <S.Wrapper>
         <S.InfoTitleWrapper>
@@ -41,17 +41,19 @@ function ProfileBookmarkContent({
           </S.CountWrapper>
         </S.InfoTitleWrapper>
         <S.InfoWrapper>
-          <Icon iconName="location_on" size="1rem" margin="0 0.5rem 0 0" />
-          <Span fontSize="1rem" fontWeight="100">
+          <Icon iconName="location_on" size="1.2rem" margin="0 0.5rem 0 0" />
+          <Span fontSize="1.2rem" fontWeight="100">
             {address}
           </Span>
         </S.InfoWrapper>
-        <S.InfoWrapper>
-          <Icon iconName="local_phone" size="1rem" margin="0 0.5rem 0 0" />
-          <Span fontSize="1rem" fontWeight="100">
-            {phone}
-          </Span>
-        </S.InfoWrapper>
+        {phone && (
+          <S.InfoWrapper>
+            <Icon iconName="local_phone" size="1.2rem" margin="0 0.5rem 0 0" />
+            <Span fontSize="1.2rem" fontWeight="100">
+              {phone}
+            </Span>
+          </S.InfoWrapper>
+        )}
       </S.Wrapper>
     </S.Container>
   );

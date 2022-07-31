@@ -16,7 +16,7 @@ export const Modal = styled.div`
   position: relative;
   width: 100%;
   max-width: 1280px;
-  padding: 80px 20px 100px;
+  padding: 50px 20px 60px;
   background: #fff;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
 `;

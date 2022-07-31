@@ -34,11 +34,13 @@ function AlertContainer() {
     message: '예',
     onClick() {},
     point: false,
+    show: true,
   });
   const [cancelButton, setCancelButton] = React.useState<AlertButtonContent>({
     message: '아니요',
     onClick() {},
     point: true,
+    show: true,
   });
 
   const onSubmit = useCallback(() => {
@@ -55,11 +57,13 @@ function AlertContainer() {
       message: modalContent?.submitButton?.message || '예',
       onClick: onSubmit,
       point: modalContent?.submitButton?.point || false,
+      show: modalContent?.submitButton?.show,
     });
     setCancelButton({
       message: modalContent?.cancelButton?.message || '아니요',
       onClick: onCancel,
       point: modalContent?.cancelButton?.point || true,
+      show: modalContent?.cancelButton?.show,
     });
   }, [modalContent, onCancel, onSubmit]);
 

@@ -18,9 +18,11 @@ export interface LogoProps {
 const StyledLogo = styled.img<LogoProps>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
-  margin: ${(props) => props.height || null};
+  margin: ${(props) => props.margin || null};
   object-fit: fill;
   cursor: ${(props) => props.cursor || null};
+  padding: 0 20px 0 20px;
+  box-sizing: content-box;
 `;
 
 function Logo({

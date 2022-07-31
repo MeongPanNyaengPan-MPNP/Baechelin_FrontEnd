@@ -5,8 +5,7 @@ export const totalCount = styled.div`
   position: fixed;
   z-index: 1;
   bottom: 30px;
-  right: 174px;
-  transform: translateX(50%);
+  right: 420px;
   border-radius: 5em;
   background: ${Color.orange};
   color: #fff;
@@ -95,6 +94,17 @@ export const Container = styled.div`
     }
   }
 `;
+export const StoreItem = styled.div`
+  position: relative;
+  width: 100%;
+  padding: 12px 12px 18px 12px;
+  border-bottom: 1px solid ${Color.darkGrey};
+  cursor: pointer;
+
+  &.active {
+    background: ${Color.lightGrey};
+  }
+`;
 export const Inner = styled.div`
   width: 100%;
   height: 100%;
@@ -103,6 +113,10 @@ export const Inner = styled.div`
 
   .store_wrap {
     position: relative;
+
+    &:last-child .store_item:last-child {
+      border-bottom: 0;
+    }
   }
 
   .store_wrap.active::after {
@@ -114,16 +128,5 @@ export const Inner = styled.div`
     width: 3px;
     height: 100%;
     background: ${Color.orange};
-  }
-`;
-export const StoreItem = styled.div`
-  position: relative;
-  width: 100%;
-  padding: 12px 12px 18px 12px;
-  border-bottom: 1px solid ${Color.darkGrey};
-  cursor: pointer;
-
-  &.active {
-    background: ${Color.lightGrey};
   }
 `;

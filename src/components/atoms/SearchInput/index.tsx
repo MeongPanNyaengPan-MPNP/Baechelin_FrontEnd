@@ -2,13 +2,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useNavigate } from 'react-router-dom';
 import { Color } from '@constants/styles';
 import Icon from '@atoms/Icon';
 import { InputAdornment } from '@mui/material';
+import Buttons from '@atoms/Buttons';
+import { useSetRecoilState } from 'recoil';
+import modalAtom, { muiAnchorEl } from '@recoil/modalAtom';
 
 export interface SearchInputProps<OptionType> {
   disableCloseOnSelect?: boolean;
@@ -50,16 +52,36 @@ const StyledSearchInput = styled(Autocomplete)`
 `;
 const SearchIcon = styled(Icon)`
   cursor: pointer;
+  padding: 10px;
 `;
 
 function SearchInput({ width, margin, ...props }: SearchInputProps<any>) {
   const navigate = useNavigate();
   const { control, handleSubmit } = useForm<IFormInput>();
-
+  const setAnchorEl = useSetRecoilState(muiAnchorEl);
+  const setModalContent = useSetRecoilState(modalAtom);
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    navigate(`search/${data.inputValue}`);
+    if (data.inputValue === undefined || data.inputValue.length < 2) {
+      handleDelete();
+    } else {
+      navigate(`search/${data.inputValue}`);
+    }
   };
-
+  const handleDelete = () => {
+    setAnchorEl(null); // 헤더 팝업 닫기
+    setModalContent({
+      messages: ['검색어를 한 글자 이상 입력해주세요.'],
+      submitButton: {
+        point: true,
+        show: true,
+        onClick() {},
+      },
+      cancelButton: {
+        show: false,
+        onClick() {},
+      },
+    });
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <StyledSearchInput
@@ -81,7 +103,9 @@ function SearchInput({ width, margin, ...props }: SearchInputProps<any>) {
                   type: 'search',
                   endAdornment: (
                     <InputAdornment position="start">
-                      <SearchIcon iconName="search" size="2.2rem" color={Color.orange} />
+                      <Buttons size="xsmall" type="submit">
+                        <SearchIcon iconName="search" size="2.2rem" color={Color.orange} />
+                      </Buttons>
                     </InputAdornment>
                   ),
                 }}

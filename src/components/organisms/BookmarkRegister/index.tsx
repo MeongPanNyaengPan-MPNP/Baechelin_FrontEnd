@@ -86,27 +86,29 @@ function BookmarkRegister({ anchorEl, setAnchorEl, storeIdProps, fetchCreateBook
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <S.Container>
-          <S.ContentTitle>
-            <Span fontSize="1rem" fontWeight="700">
-              내 폴더
-            </Span>
-            <Icon iconName="create_new_folder" size="1.5rem" onClick={onClickCreateFolder} cursor="pointer" />
-          </S.ContentTitle>
-          {createFolder && (
-            <S.InputContainer>
-              <Icon iconName="folder" size="1.7rem" />
+          <S.Inner>
+            <S.ContentTitle>
+              <Span fontSize="1.2rem" fontWeight="700">
+                내 폴더
+              </Span>
+              <Icon iconName="create_new_folder" size="1.5rem" onClick={onClickCreateFolder} cursor="pointer" />
+            </S.ContentTitle>
+            {createFolder && (
+              <S.InputContainer>
+                <Icon iconName="folder" size="1.7rem" />
 
-              <S.Input fontSize="1rem" {...register('folderName')} />
-            </S.InputContainer>
-          )}
-          {BookmarkData?.map((v) => (
-            <BookmarkRegisterName
-              margin="0.6rem 0"
-              key={v.folderName}
-              name={v.folderName}
-              onClick={() => onClickFolderName(v.id, storeIdProps || 0)}
-            />
-          ))}
+                <S.Input fontSize="1.2rem" {...register('folderName')} />
+              </S.InputContainer>
+            )}
+            {BookmarkData?.map((v) => (
+              <BookmarkRegisterName
+                margin="0.6rem 0"
+                key={v.folderName}
+                name={v.folderName}
+                onClick={() => onClickFolderName(v.id, storeIdProps || 0)}
+              />
+            ))}
+          </S.Inner>
         </S.Container>
         {createFolder && <S.FolderConfirmButton type="submit">확인</S.FolderConfirmButton>}
       </form>

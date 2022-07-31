@@ -24,7 +24,7 @@ export const TitleWrapper = styled.div`
   }
 `;
 export const Category = styled.div`
-  margin-bottom: 10px;
+  margin-bottom: 3px;
 `;
 
 export const RateArea = styled.div`

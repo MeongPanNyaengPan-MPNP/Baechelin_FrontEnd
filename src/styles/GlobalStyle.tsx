@@ -25,6 +25,10 @@ const GlobalStyle: GlobalStyleComponent<any, any> = createGlobalStyle`
     display: none;
   }
 
+  .MuiPagination-ul {
+    flex-wrap: nowrap;
+  }
+
 `;
 
 export default GlobalStyle;
