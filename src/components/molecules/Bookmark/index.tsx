@@ -10,21 +10,14 @@ interface BookmarkProps {
   size?: string;
   marked?: string;
   storeIdProps?: number | undefined;
-  isBookmark?: string | number;
   fetchCreateBookmarkStore?:
     | UseMutateFunction<CreateBookmarkFolderResponse, unknown, CreateBookmarkStoreBody, unknown>
     | undefined;
 }
 
-function Bookmark({
-  isBookmark = 'N',
-  size,
-  marked = Color.darkGrey,
-  storeIdProps,
-  fetchCreateBookmarkStore,
-}: BookmarkProps) {
+function Bookmark({ size, marked = Color.darkGrey, storeIdProps, fetchCreateBookmarkStore }: BookmarkProps) {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-  const bookmarkState = isBookmark === 'Y' ? Color.orange : Color.darkGrey;
+  const bookmarkState = marked === 'Y' ? Color.orange : Color.darkGrey;
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };

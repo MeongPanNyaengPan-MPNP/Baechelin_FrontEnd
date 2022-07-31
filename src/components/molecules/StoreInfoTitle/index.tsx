@@ -5,7 +5,6 @@ import Span from '@atoms/Span';
 import Icon from '@atoms/Icon';
 import Bookmark from '@molecules/Bookmark';
 
-import { Color } from '@constants/styles';
 import { StoreMapResponseTypes } from '@interfaces/StoreResponseTypes';
 import { CreateBookmarkFolderResponse, CreateBookmarkStoreBody } from '@interfaces/BookmarkTypes';
 import * as S from './styles';
@@ -23,7 +22,6 @@ function StoreInfoTitle({
   bookmarkShow = true,
   categoryShow = true,
 }: StoreInfoTitleProps) {
-  const bookmarkColor: string = storeDetailData?.bookmark === 'Y' ? Color.orange : Color.darkGrey;
   const onClickIcon = () => {};
 
   return (
@@ -48,7 +46,7 @@ function StoreInfoTitle({
         <S.BookmarkArea>
           <Bookmark
             size="3.2rem"
-            marked={bookmarkColor}
+            marked={storeDetailData?.bookmark}
             storeIdProps={storeDetailData?.storeId}
             fetchCreateBookmarkStore={fetchCreateBookmarkStore}
           />
