@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useCallback } from 'react';
 import Span from '@atoms/Span';
 import ThumbNail from '@atoms/Thumbnail';
 import Star from '@atoms/Star';
@@ -9,6 +9,8 @@ import { STORE_REVIEW_TAG } from '@constants/store';
 import { IMAGE_URL } from '@constants/url';
 import UseTimeForToday from '@hooks/UseTimeForToday';
 import Icon from '@atoms/Icon';
+import Buttons from '@atoms/Buttons';
+
 import * as S from './styles';
 
 export type ReviewCardProps = {
@@ -16,7 +18,7 @@ export type ReviewCardProps = {
 };
 
 function ReviewCard<T extends Partial<RecentReviewResponseType>>(
-  props: T & { showTagList?: boolean; showStoreInfo?: boolean; useModal?: boolean },
+  props: T & { showTagList?: boolean; showStoreInfo?: boolean; useModal?: boolean; showControll?: boolean },
 ) {
   const {
     storeName,
@@ -31,6 +33,7 @@ function ReviewCard<T extends Partial<RecentReviewResponseType>>(
     userImage = IMAGE_URL.NO_IMAGE,
     showStoreInfo = true,
     showTagList = true,
+    showControll = false,
   } = props;
   const [facilityTag, setFacilityTag] = React.useState<TagListType[] | null>(null);
   const [qualityTag, setQualityTag] = React.useState<TagListType[] | null>(null);
@@ -54,9 +57,23 @@ function ReviewCard<T extends Partial<RecentReviewResponseType>>(
       setQualityTag(qu || null);
     }
   }, [showTagList, tagList]);
+  const handleDelete = useCallback(() => {
+    console.log('dd');
+  }, []);
   return (
     <S.CardItem showTagList={showTagList}>
       <S.CardItemInner>
+        {showControll && (
+          <S.ControlButtonArea>
+            <Buttons onClick={() => handleDelete()}>
+              <>
+                <Icon iconName="delete_icon" />
+                <Span>삭제</Span>
+              </>
+            </Buttons>
+          </S.ControlButtonArea>
+        )}
+
         <S.CardContentArea>
           <S.CardContentTop>
             {showStoreInfo && (
@@ -93,9 +110,6 @@ function ReviewCard<T extends Partial<RecentReviewResponseType>>(
                 </Span>
               </p>
             </S.CardTextArea>
-            <S.ControlButtonArea>
-              <Icon iconName="delete_icon" />
-            </S.ControlButtonArea>
           </S.CardContentTop>
           <S.cCardContentBottom>
             <S.CardImageList>

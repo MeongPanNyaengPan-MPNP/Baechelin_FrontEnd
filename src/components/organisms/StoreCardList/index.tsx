@@ -46,7 +46,7 @@ function StoreCardList({ topic, title, keyword }: StoreCardListProps) {
     isSuccess: searchDataIsSuccess,
     refetch: searchRefetch,
   } = UseGetSearchStoreList(STORE_LIST.SEARCH_STORE, SnbRecoilQuery, SearchLocationQuery, keyword, pageNum);
-
+  // 검색일 경우 keyfowr 바뀌면 refetch
   React.useEffect(() => {
     searchRefetch();
     queryClient.invalidateQueries(STORE_LIST.SEARCH_STORE);
