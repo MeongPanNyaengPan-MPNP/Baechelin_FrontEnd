@@ -39,8 +39,6 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
 
   const [bookmarkStatus, setBookmarkStatus] = useState(bookmark);
 
-  console.log('bookmark', bookmark);
-
   const { mutate: fetchCreateBookmarkStore } = useMutation<
     CreateBookmarkFolderResponse,
     unknown,
