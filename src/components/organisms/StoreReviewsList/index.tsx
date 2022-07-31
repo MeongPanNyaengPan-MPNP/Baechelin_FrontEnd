@@ -10,15 +10,15 @@ import * as S from './styles';
 
 function StoreReviewsList() {
   const { UseDetailReview } = UseReviewList();
-  const { storeName } = useParams();
+  const { storeId } = useParams();
   const { data: reviewList, isSuccess } = UseDetailReview<ReviewResponseRootType>(
     REVIEW.DETAIL_REVIEW_LIST,
-    Number(storeName),
+    Number(storeId),
   );
 
   return (
     <S.Container>
-      <StoreReviewsTitle />
+      <StoreReviewsTitle storeId={storeId} />
       {isSuccess && reviewList && reviewList.reviewResponseDtoList.length === 0 && (
         <NoDataMessage message={['리뷰가 없어요.', '첫 리뷰를 작성해주세요!']} />
       )}

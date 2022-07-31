@@ -16,7 +16,7 @@ export const InfoWrapper = styled.div`
   background-color: white;
   border-top: 0;
   box-sizing: border-box;
-  box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.1);
 `;
 
 export const StoreReviewsContainer = styled.div`

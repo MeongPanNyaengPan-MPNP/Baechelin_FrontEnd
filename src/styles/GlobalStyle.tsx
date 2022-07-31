@@ -11,6 +11,7 @@ const GlobalStyle: GlobalStyleComponent<any, any> = createGlobalStyle`
   }
 
   body {
+    overflow-x: hidden;
     margin: 0;
     font-size: 1.4rem;
     font-family: 'Roboto', 'Noto Sans KR', 'Malgun Gothic', '맑은고딕', sans-serif;
@@ -19,7 +20,11 @@ const GlobalStyle: GlobalStyleComponent<any, any> = createGlobalStyle`
     background: #F4F4F4;
     color: #3B3B3B;
   }
-  
+
+  .MuiTouchRipple-root {
+    display: none;
+  }
+
 `;
 
 export default GlobalStyle;

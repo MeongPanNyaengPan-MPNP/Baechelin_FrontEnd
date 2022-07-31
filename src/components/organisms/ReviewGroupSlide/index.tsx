@@ -76,7 +76,7 @@ function ReviewGroupSlide({
             {recentReviewData?.map((reviewItem, index) => (
               <SwiperSlide key={`${reviewItem?.createdAt?.toString() || index}`}>
                 <Link to={`/store/${reviewItem.storeId}`}>
-                  <ReviewCard {...reviewItem} showTagList={showTagList} />
+                  <ReviewCard {...reviewItem} useModal={false} showTagList={showTagList} />
                 </Link>
               </SwiperSlide>
             ))}

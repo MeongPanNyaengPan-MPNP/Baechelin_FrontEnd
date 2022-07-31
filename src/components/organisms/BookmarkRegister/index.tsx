@@ -35,7 +35,10 @@ function BookmarkRegister({ anchorEl, setAnchorEl, storeIdProps, fetchCreateBook
 
   const onClickFolderName = (folderId: number, storeId: number) => {
     if (fetchCreateBookmarkStore) {
-      fetchCreateBookmarkStore({ storeId, folderId });
+      fetchCreateBookmarkStore({
+        storeId,
+        folderId,
+      });
     }
   };
 
@@ -60,6 +63,7 @@ function BookmarkRegister({ anchorEl, setAnchorEl, storeIdProps, fetchCreateBook
         {BookmarkData?.map((v) => (
           <BookmarkRegisterName
             margin="0.6rem 0"
+            key={v.folderName}
             name={v.folderName}
             onClick={() => onClickFolderName(v.id, storeIdProps || 0)}
           />

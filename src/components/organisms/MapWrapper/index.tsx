@@ -11,68 +11,33 @@ import { UseMapQuery } from '@hooks/UseQueryHooks';
 import { StoreMapListQueryTypes, StoreMapResponseTypes } from '@interfaces/StoreResponseTypes';
 import { LatingQueryString } from '@recoil/mapAtom';
 import { SnbQueryString } from '@recoil/mainSnbAtom';
-import styled from 'styled-components';
-
-const Content = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: stretch;
-
-  > div:first-child {
-    flex-shrink: 1;
-  }
-
-  > div:last-child {
-    width: 348px;
-    flex-shrink: 0;
-  }
-`;
-
-const Wrapper = styled.section`
-  position: relative;
-  width: 100%;
-  height: calc(100vh - 80px);
-`;
-const CategoryContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 348px;
-  z-index: 100;
-
-  .facility_area {
-    margin: 20px 0 0 auto;
-
-    > div {
-      margin: 0 0 0 auto;
-      padding-right: 0;
-    }
-  }
-}
-
-.category_area > div {
-  margin: 0 0 0 auto;
-}
-`;
+import { Pagination } from '@mui/material';
+import * as S from './styles';
 
 function MapWrapper({ filters }: { filters: FiltersType }) {
   const { currentLocation } = UseGeolocation();
   const [location, setLocation] = useRecoilState(locationAtom);
-
+  const { UseMapData } = UseMapQuery();
+  const [pageNum, setPageNum] = useState<number>(0);
   const latingQueryString = useRecoilValue(LatingQueryString);
   const snbQueryString = useRecoilValue(SnbQueryString);
   const latingDebounce = UseDebounce<string>(latingQueryString, 1000);
-  const { UseMapData } = UseMapQuery();
-  const { data: storeItems, isLoading, isFetched } = UseMapData<StoreMapListQueryTypes>(latingDebounce, snbQueryString);
-
   const [itemResult, setitemResult] = useState<StoreMapResponseTypes[][]>([]);
+
+  const {
+    data: storeItems,
+    isLoading,
+    isFetched,
+  } = UseMapData<StoreMapListQueryTypes>(latingDebounce, snbQueryString, pageNum);
+
   React.useEffect(() => {
     if (currentLocation !== null && location === null) {
       setLocation(currentLocation);
     }
   }, [currentLocation, location, setLocation]);
+  const pageChangeHandler = (pageNumber = 1) => {
+    setPageNum(pageNumber);
+  };
   useEffect(() => {
     // const result: { [key: number]: StoreMapResponseTypes[] }[] = [];
     const lngRes: { [key: number]: StoreMapResponseTypes[] } = {};
@@ -88,12 +53,14 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
     setitemResult(result);
   }, [storeItems]);
   return (
-    <Wrapper>
-      <CategoryContainer>
-        <StoreCategorySnb filters={filters} snbBorder />
-      </CategoryContainer>
-      <Content>
+    <S.Wrapper>
+      <S.CategoryContainer>
+        <StoreCategorySnb filters={filters} snbBorder showMapButton={false} />
+      </S.CategoryContainer>
+      <S.Content>
         <MapContainer location={location} storeItems={itemResult} />
+      </S.Content>
+      <S.StoreListArea>
         <MapStoreList
           leftElement={storeItems?.leftElement}
           totalCount={storeItems?.totalCount}
@@ -101,8 +68,19 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
           isLoading={isLoading}
           isFetched={isFetched}
         />
-      </Content>
-    </Wrapper>
+        <S.PaginationBar>
+          <Pagination
+            count={storeItems?.totalPage}
+            showFirstButton
+            showLastButton
+            size="medium"
+            siblingCount={0}
+            boundaryCount={1}
+            onChange={(e, page) => pageChangeHandler(page)}
+          />
+        </S.PaginationBar>
+      </S.StoreListArea>
+    </S.Wrapper>
   );
 }
 

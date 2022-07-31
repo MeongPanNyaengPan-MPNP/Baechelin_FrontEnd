@@ -9,14 +9,16 @@ import ReviewGroupSlide from '@organisms/ReviewGroupSlide';
 import MainSlideSection from '@organisms/MainSlideSection';
 import { STORE_LIST, STORE_LIST_TITLE, STORE_TOPIC } from '@constants/index';
 import Span from '@atoms/Span';
+import { UserInfoType } from '@interfaces/TokenType';
 import * as S from './styles';
 
 export interface MainTemplateProps {
   slideItems: ThumbNailProps[];
   filters: FiltersType;
+  userInfo: UserInfoType | undefined;
 }
 
-function MainTemplates({ slideItems, filters }: MainTemplateProps) {
+function MainTemplates({ slideItems, filters, userInfo }: MainTemplateProps) {
   return (
     <S.Wrapper>
       <MainVisualSlide slideItems={slideItems} />
@@ -35,7 +37,10 @@ function MainTemplates({ slideItems, filters }: MainTemplateProps) {
         size="M"
       >
         <h5>
-          <Link to={`/store/list/${STORE_TOPIC.ARROUND}`}>배슐랭{STORE_LIST_TITLE.ARROUND}</Link>
+          <Link to={`/store/list/${STORE_TOPIC.ARROUND}`}>
+            {userInfo?.name}
+            {STORE_LIST_TITLE.ARROUND}
+          </Link>
         </h5>
       </MainSlideSection>
       <MainSlideSection

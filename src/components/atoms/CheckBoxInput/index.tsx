@@ -15,7 +15,7 @@ export type StyledCheckBoxProps = {
   checkedBg?: string;
   checkedColor?: string;
   icon?: string;
-
+  iconShow?: boolean;
   [prop: string]: any;
 };
 export type CheckBoxInputProps<T> = {
@@ -64,8 +64,9 @@ const CheckBoxArea = styled.div<StyledCheckBoxProps>`
             font-weight: 500;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
             box-sizing: border-box;
-            //for icon
-            padding-left: ${props.icon ? '50px' : ''};
+            
+            //iconShow icon------------
+            padding-left: ${props.iconShow ? '50px' : ''};
 
             &::before {
               content: '';
@@ -76,7 +77,7 @@ const CheckBoxArea = styled.div<StyledCheckBoxProps>`
               display: block;
               width: 25px;
               height: 25px;
-              background-image: ${props.icon ? ` url(/img/ui/picto_${props.icon}_basic.svg)` : ''};
+              background-image: ${props.iconShow ? ` url(/img/ui/picto_${props.icon}_basic.svg)` : ''};
               background-size: contain;
               background-position: center center;
               background-repeat: no-repeat;
@@ -89,7 +90,7 @@ const CheckBoxArea = styled.div<StyledCheckBoxProps>`
             transition: all 0.1s;
 
             &::before {
-              background-image: ${props.icon ? ` url(/img/ui/picto_${props.icon}_basic_w.svg)` : ''};
+              background-image: ${props.iconShow ? ` url(/img/ui/picto_${props.icon}_basic_w.svg)` : ''};
             }
           }
         }
@@ -145,6 +146,7 @@ function CheckBoxInput<T>({
   control,
   name,
   curValue,
+  iconShow = true,
   ...restProps
 }: CheckBoxInputProps<T> & StyledCheckBoxProps) {
   const {field: { onChange, ...restField },} = useController({
@@ -152,7 +154,7 @@ function CheckBoxInput<T>({
     name,
   });
   return (
-    <CheckBoxArea boxHidden={boxHidden} icon={item.KEY} {...restProps}>
+    <CheckBoxArea boxHidden={boxHidden} iconShow={iconShow} icon={item.KEY} {...restProps}>
       <FormControlLabel
         {...restField}
         label={item.LABEL}

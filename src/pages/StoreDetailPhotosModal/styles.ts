@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Color } from '@constants/styles';
 
 // eslint-disable-next-line import/prefer-default-export
 export const Container = styled.div`
@@ -68,6 +69,11 @@ export const Container = styled.div`
 
   .mySwiper .swiper-slide-thumb-active {
     opacity: 1;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: ${Color.black};
   }
 `;
 

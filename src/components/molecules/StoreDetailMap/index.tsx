@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-
 import * as S from './styles';
 
 declare global {

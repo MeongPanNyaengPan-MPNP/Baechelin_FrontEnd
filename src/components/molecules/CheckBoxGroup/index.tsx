@@ -15,6 +15,7 @@ export type CheckBoxGroupProps<T> = {
   name: string;
   boxGroupSyleProps?: StyledCheckBoxProps;
   boxStyleProps?: StyledCheckBoxProps;
+  iconShow?: boolean;
 } & UseControllerProps<T>;
 
 function CheckBoxGroup<T>({
@@ -25,6 +26,7 @@ function CheckBoxGroup<T>({
   name,
   curValue = [''],
   boxGroupSyleProps,
+  iconShow,
   boxStyleProps,
 }: CheckBoxGroupProps<T>) {
   return (
@@ -38,6 +40,7 @@ function CheckBoxGroup<T>({
           name={`${name}.${index}`}
           control={control}
           errors={errors}
+          iconShow={iconShow}
           changeEvent={changeEvent}
           {...boxStyleProps}
         />

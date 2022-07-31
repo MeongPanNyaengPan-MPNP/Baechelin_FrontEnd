@@ -7,6 +7,7 @@ export interface ThumbNailProps extends ImageProps {
   width?: string;
   height?: string;
   fit?: boolean;
+  hover?: boolean;
 
   [prop: string]: any;
 }
@@ -31,6 +32,11 @@ const StyledFigure = styled.figure<ThumbNailProps>`
     width: 100%;
     height: 100%;
     object-fit: ${(props) => (props.fit ? 'cover' : `contain`)};
+    transition: all 0.3s;
+  }
+
+  &:hover > img {
+    transform: ${(props) => (props.hover ? `scale(1.03);` : '')};
   }
 
   ${(props) => {
@@ -54,13 +60,14 @@ const StyledFigure = styled.figure<ThumbNailProps>`
   }}
 `;
 
-function ThumbNail({ round = 0, borderSize = 0, alt = '', src, width, height, fit = true }: ThumbNailProps) {
+function ThumbNail({ round = 0, borderSize = 0, alt = '', src, width, height, fit = true, hover }: ThumbNailProps) {
   const props = {
     borderSize,
     round,
     width,
     height,
     fit,
+    hover,
   };
   return (
     <StyledFigure {...props}>

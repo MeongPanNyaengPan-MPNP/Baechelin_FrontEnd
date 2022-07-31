@@ -42,8 +42,7 @@ function ReviewForm({ storeName: storeId }: { storeName: string }) {
     resultForm.append('content', data.content);
     resultForm.append('storeId', storeId);
     postReview(resultForm)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         navigate(`/store/${storeId}`);
       })
       .catch((err) => {
@@ -91,7 +90,7 @@ function ReviewForm({ storeName: storeId }: { storeName: string }) {
         <S.QuestionSection>
           <h5>
             <Span fontSize="2rem" fontWeight="bold">
-              이 장소는 어떤 편의 시설이 있었나요? (복수 선택 가능)
+              이 장소는 어떤 시설이 있었나요? (복수 선택 가능)
             </Span>
           </h5>
           <CheckBoxGroup
@@ -100,6 +99,7 @@ function ReviewForm({ storeName: storeId }: { storeName: string }) {
             data={REVIEW_FILTERS.FACILITY}
             name="facility"
             boxStyleProps={boxStyled}
+            iconShow={false}
           />
         </S.QuestionSection>
         <S.QuestionSection>
@@ -114,6 +114,7 @@ function ReviewForm({ storeName: storeId }: { storeName: string }) {
             data={REVIEW_FILTERS.QUALITY}
             name="quality"
             boxStyleProps={boxStyled}
+            iconShow={false}
           />
         </S.QuestionSection>
         <S.QuestionSection>

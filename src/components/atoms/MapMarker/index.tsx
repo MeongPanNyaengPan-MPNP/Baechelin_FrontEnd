@@ -101,11 +101,11 @@ const Marker = React.forwardRef((props: MarkerProps, ref) => {
   }, []);
   /* 마우스오버시 오버레이 노출 */
   kakao.maps.event.addListener(marker, 'click', () => {
-    const storeItemEl = document.querySelectorAll('.store_item');
+    const storeItemEl = document.querySelectorAll('.store_wrap');
     storeItemEl.forEach((el) => {
       el.classList.remove('active');
     });
-    const target = document.querySelector(`#id_${storeItems[0].storeId}`);
+    const target = document.querySelector(`#wrap_${storeItems[0].storeId}`);
     if (!target) return;
     target.scrollIntoView({ behavior: 'smooth' });
     target.classList.add('active');

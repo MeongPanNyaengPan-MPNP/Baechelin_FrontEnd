@@ -8,6 +8,9 @@ import { STORE_FILTERS } from '@constants/store';
 import Icon from '@atoms/Icon';
 import Buttons from '@atoms/Buttons';
 import Span from '@atoms/Span';
+import { Color } from '@constants/styles';
+import { useNavigate } from 'react-router-dom';
+
 import * as S from './styles';
 
 export type FiltersType = typeof STORE_FILTERS;
@@ -15,6 +18,7 @@ export type FiltersType = typeof STORE_FILTERS;
 export interface TopFixedSnbProps {
   filters: FiltersType;
   snbBorder?: boolean;
+  showMapButton?: boolean;
 }
 
 export type FormValues = {
@@ -23,7 +27,7 @@ export type FormValues = {
 };
 
 function StoreCategorySnb(props: TopFixedSnbProps) {
-  const { filters, snbBorder } = props;
+  const { filters, snbBorder, showMapButton } = props;
 
   const [prevSnbValues, setPrevSnbValues] = useRecoilState(StoreFilterValues);
   const setRecoilSnbQuery = useSetRecoilState<string>(SnbQueryString);
@@ -31,7 +35,7 @@ function StoreCategorySnb(props: TopFixedSnbProps) {
     mode: 'onChange',
     defaultValues: prevSnbValues,
   });
-
+  const navigate = useNavigate();
   // 쿼리스트링 만드는 함수
   const setQueryFilter = React.useCallback((curValues: FormValues) => {
     const cateQueryString = curValues?.CATEGORY ? `&category=${curValues?.CATEGORY}` : '';
@@ -82,14 +86,21 @@ function StoreCategorySnb(props: TopFixedSnbProps) {
               curValue={prevSnbValues.FACILITY}
             />
           </S.Container>
+          {showMapButton && (
+            <S.RoundButtonArea className="map_button_area">
+              <Buttons round="100%" size="small" onClick={() => navigate('/map')}>
+                <Icon color={Color.orange} size="2.2rem" iconName="map_icon" />
+              </Buttons>
+              <Span>지도보기</Span>
+            </S.RoundButtonArea>
+          )}
 
-          <S.ResetButtonArea onClick={handleReset}>
+          <S.RoundButtonArea onClick={handleReset} className="reset_button_area">
             <Buttons round="100%" size="small">
               <Icon iconName="replay_icon" size="2.2rem" />
             </Buttons>
-
             <Span>초기화</Span>
-          </S.ResetButtonArea>
+          </S.RoundButtonArea>
         </S.FacilityArea>
       </form>
     </S.SnbWrap>
