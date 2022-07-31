@@ -4,7 +4,7 @@ import { Color } from '@constants/styles';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 13rem;
+  width: 15rem;
   /* max-height: 13rem; */
   min-height: 4rem;
   background-color: ${Color.white};
@@ -17,7 +17,11 @@ export const Container = styled.div`
     }
   }
 `;
-
+export const Inner = styled.div`
+  max-height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+`;
 export const ContentTitle = styled.div`
   display: flex;
   justify-content: space-between;

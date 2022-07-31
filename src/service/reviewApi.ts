@@ -19,3 +19,8 @@ export const getReviewList = <T>(storeId: number) =>
     method: 'get',
     url: `/review/${storeId}`,
   });
+export const deleteReviewList = <T>(reviewId: number) =>
+  request<T>({
+    method: 'DELETE',
+    url: `/review/${reviewId}`,
+  });

@@ -1,23 +1,28 @@
-import React, { ReactNode, useCallback } from 'react';
+import React, { ReactNode } from 'react';
+
 import Span from '@atoms/Span';
 import ThumbNail from '@atoms/Thumbnail';
 import Star from '@atoms/Star';
 import { Link, useLocation } from 'react-router-dom';
 import TagList from '@molecules/TagListProps';
-import { RecentReviewResponseType, TagListType } from '@interfaces/ReviewTypes';
+import { ReviewResponseDtoItem, TagListType } from '@interfaces/ReviewTypes';
 import { STORE_REVIEW_TAG } from '@constants/store';
 import { IMAGE_URL } from '@constants/url';
 import UseTimeForToday from '@hooks/UseTimeForToday';
 import Icon from '@atoms/Icon';
 import Buttons from '@atoms/Buttons';
-
+import { Color } from '@constants/styles';
+import { UseReviewList } from '@hooks/UseQueryHooks';
+import { REVIEW } from '@constants/useQueryKey';
+import { useSetRecoilState } from 'recoil';
+import modalAtom, { muiAnchorEl } from '@recoil/modalAtom';
 import * as S from './styles';
 
 export type ReviewCardProps = {
   tagListChildren: ReactNode;
 };
 
-function ReviewCard<T extends Partial<RecentReviewResponseType>>(
+function ReviewCard<T extends Partial<ReviewResponseDtoItem>>(
   props: T & { showTagList?: boolean; showStoreInfo?: boolean; useModal?: boolean; showControll?: boolean },
 ) {
   const {
@@ -29,7 +34,9 @@ function ReviewCard<T extends Partial<RecentReviewResponseType>>(
     address,
     name,
     createdAt,
-    useModal,
+    reviewId,
+    myReview,
+    useModal = true,
     userImage = IMAGE_URL.NO_IMAGE,
     showStoreInfo = true,
     showTagList = true,
@@ -37,8 +44,14 @@ function ReviewCard<T extends Partial<RecentReviewResponseType>>(
   } = props;
   const [facilityTag, setFacilityTag] = React.useState<TagListType[] | null>(null);
   const [qualityTag, setQualityTag] = React.useState<TagListType[] | null>(null);
+
+  const setAnchorEl = useSetRecoilState(muiAnchorEl);
+  const setModalContent = useSetRecoilState(modalAtom);
+  const { UseDeleteDetailReview } = UseReviewList();
+  const { mutate } = UseDeleteDetailReview(REVIEW.DETAIL_REVIEW_LIST, Number(reviewId));
   const location = useLocation();
 
+  // b, f 해시태그 키 구분
   React.useEffect(() => {
     if (showTagList) {
       const fa = tagList
@@ -57,18 +70,25 @@ function ReviewCard<T extends Partial<RecentReviewResponseType>>(
       setQualityTag(qu || null);
     }
   }, [showTagList, tagList]);
-  const handleDelete = useCallback(() => {
-    console.log('dd');
-  }, []);
+
+  const handleDelete = () => {
+    setAnchorEl(null); // 헤더 팝업 닫기
+    setModalContent({
+      messages: ['리뷰를 삭제 하시겠습니까?'],
+      submitButton: { onClick: mutate },
+    });
+  };
   return (
     <S.CardItem showTagList={showTagList}>
       <S.CardItemInner>
-        {showControll && (
+        {showControll && myReview === 'Y' && (
           <S.ControlButtonArea>
             <Buttons onClick={() => handleDelete()}>
               <>
-                <Icon iconName="delete_icon" />
-                <Span>삭제</Span>
+                <Icon size="1.8rem" color={Color.darkGrey} iconName="delete_icon" />
+                <Span color={Color.darkGrey} fontSize="1.2rem" display="block">
+                  삭제
+                </Span>
               </>
             </Buttons>
           </S.ControlButtonArea>
@@ -87,7 +107,7 @@ function ReviewCard<T extends Partial<RecentReviewResponseType>>(
               </S.CardStoreInfoArea>
             )}
             <S.CardUserInfoArea>
-              <ThumbNail round={100} width="50px" height="50px" alt={storeName} src={userImage} />
+              <ThumbNail hover round={100} width="50px" height="50px" alt={storeName} src={userImage} />
 
               <S.UserInfoArea>
                 <S.UserName fontSize="2rem" fontWeight="bold">
@@ -117,7 +137,7 @@ function ReviewCard<T extends Partial<RecentReviewResponseType>>(
                 (item, index) =>
                   index < 5 && (
                     <li key={item.url}>
-                      {useModal && (
+                      {useModal ? (
                         <Link
                           to="/photosModal"
                           state={{
@@ -129,6 +149,7 @@ function ReviewCard<T extends Partial<RecentReviewResponseType>>(
                           }}
                         >
                           <ThumbNail
+                            hover
                             width="100px"
                             height="100px"
                             alt={`${storeName}에 작성된 리뷰 사진`}
@@ -136,15 +157,16 @@ function ReviewCard<T extends Partial<RecentReviewResponseType>>(
                             borderSize={1}
                           />
                         </Link>
+                      ) : (
+                        <ThumbNail
+                          hover
+                          width="100px"
+                          height="100px"
+                          alt={`${storeName}에 작성된 리뷰 사진`}
+                          src={item.url}
+                          borderSize={1}
+                        />
                       )}
-
-                      <ThumbNail
-                        width="100px"
-                        height="100px"
-                        alt={`${storeName}에 작성된 리뷰 사진`}
-                        src={item.url}
-                        borderSize={1}
-                      />
                     </li>
                   ),
               )}

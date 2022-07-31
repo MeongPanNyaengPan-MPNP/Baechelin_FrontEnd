@@ -12,10 +12,21 @@ export const StoreListArea = styled.div`
   position: absolute;
   right: 0;
   bottom: 0px;
-  padding-bottom: 40px;
+  padding-bottom: 39px;
   height: calc(100% - 45px);
   width: 380px;
   z-index: 101;
+  background: #fff;
+`;
+export const DisabledBox = styled.div`
+  position: absolute;
+  right: 0;
+  bottom: 0px;
+  padding-bottom: 40px;
+  height: calc(100% - 45px);
+  width: 380px;
+  z-index: 102;
+  background: #fff;
 `;
 export const PaginationBar = styled.div`
   position: absolute;

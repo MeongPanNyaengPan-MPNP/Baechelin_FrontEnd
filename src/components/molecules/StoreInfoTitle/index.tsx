@@ -34,7 +34,9 @@ function StoreInfoTitle({
         )}
         <div className="title">
           <h2>
-            <Span fontSize="3.2rem">{storeDetailData?.name}</Span>
+            <Span fontWeight="bold" fontSize="2.8rem">
+              {storeDetailData?.name}
+            </Span>
             <S.RateArea>
               <Icon iconName="star" color="#ED6F2A" size="2.4rem" onClick={onClickIcon} margin="0 0.5rem 0 0" />
               <Span fontSize="2rem">{storeDetailData?.pointAvg}</Span>

@@ -17,8 +17,8 @@ import { muiAnchorEl } from '@recoil/modalAtom';
 import { getBookmarkTop } from '@service/bookmarkApi';
 import { getUserInfo } from '@service/getUserApi';
 
-import { UserLogo } from './styles';
 import * as S from './styles';
+import { UserLogo } from './styles';
 
 function Header() {
   const [anchorEl, setAnchorEl] = useRecoilState(muiAnchorEl);
@@ -52,14 +52,12 @@ function Header() {
     setAnchorEl(event.currentTarget);
   };
 
-  console.log('BookmarkTopData', BookmarkTopData);
-
   return (
     <S.Wrap>
       <S.Container>
         <S.Wrapper>
-          <Logo src={LogoImg} width="9.6rem" height="5rem" onClick={onClickLogo} />
-          <SearchInput width="56.2rem" margin="0 0 0 9rem" />
+          <Logo src={LogoImg} width="9.6rem" height="auto" margin="0 auto 0 15px;" onClick={onClickLogo} />
+          <SearchInput width="56.2rem" margin="0 7rem" />
           <Navigation>
             <div>
               <Button fontSize="1.6rem" onClick={onClickAbout}>

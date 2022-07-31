@@ -5,13 +5,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Badge from '@atoms/Badge';
 import Span from '@atoms/Span';
 import Star from '@atoms/Star';
-import Bookmark from '@molecules/Bookmark';
 import { StoreMapResponseTypes } from '@interfaces/StoreResponseTypes';
 import Icon from '@atoms/Icon';
 import NoDataMessage from '@molecules/NodataMessage';
 import { useMutation, useQueryClient } from 'react-query';
 import { CreateBookmarkFolderResponse, CreateBookmarkStoreBody } from '@interfaces/BookmarkTypes';
 import { createBookmarkStore } from '@service/bookmarkApi';
+import Bookmark from '@molecules/Bookmark';
 import * as S from './styles';
 
 type MapStoreListProps = {
@@ -58,13 +58,8 @@ function MapStoreList(props: MapStoreListProps) {
           storeItems?.map((stores) => (
             <div className="store_wrap" id={`wrap_${stores[0].storeId}`} key={`wrap_${stores[0].storeId}`}>
               {stores.map((item) => (
-                <S.StoreItem
-                  key={item.storeId}
-                  className="store_item"
-                  id={`id_${item.storeId}`}
-                  onClick={() => navigate(`/store/${item.storeId}`)}
-                >
-                  <S.InfoContainer>
+                <S.StoreItem key={item.storeId} className="store_item" id={`id_${item.storeId}`}>
+                  <S.InfoContainer onClick={() => navigate(`/store/${item.storeId}`)}>
                     <StoreInfoPhotos location={location} storeDetailData={item} width="100" tile={false} />
                     <div>
                       <S.TitleArea>
@@ -78,13 +73,6 @@ function MapStoreList(props: MapStoreListProps) {
                             </Span>
                           </p>
                         </h2>
-                        <S.BookmarkArea>
-                          <Bookmark
-                            size="2.5rem"
-                            fetchCreateBookmarkStore={fetchCreateBookmarkStore}
-                            marked={item.bookmark}
-                          />
-                        </S.BookmarkArea>
                       </S.TitleArea>
                       <S.RateArea>
                         <Star sx={{ fontSize: '1.6rem' }} max={1} value={1} average={item.pointAvg} readOnly />
@@ -99,11 +87,17 @@ function MapStoreList(props: MapStoreListProps) {
                     <Badge name="parking" state={item.parking} />
                     <Badge name="height" state={item.heightDifferent} />
                   </S.BadgeList>
+                  <S.BookmarkArea>
+                    <Bookmark
+                      size="2.5rem"
+                      fetchCreateBookmarkStore={fetchCreateBookmarkStore}
+                      marked={item.bookmark}
+                    />
+                  </S.BookmarkArea>
                 </S.StoreItem>
               ))}
             </div>
           ))}
-        {isLoading && <NoDataMessage message={['LOADING']} />}
         {totalCount === 0 && isFetched && <NoDataMessage message={['주변 가게가 없습니다']} />}
         {Number(leftElement) > 3 && (
           <S.totalCount>

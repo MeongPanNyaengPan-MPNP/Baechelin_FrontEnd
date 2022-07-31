@@ -68,9 +68,9 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
     <S.CardItem size={size}>
       <S.CardFigureArea onClick={() => navigate(`/store/${id}`)}>
         {storeImgList.length < 1 ? (
-          <ThumbNail alt={name} src={noImage} height="100%" />
+          <ThumbNail hover alt={name} src={noImage} height="100%" />
         ) : (
-          <ThumbNail alt={name} src={storeImgList[0]} height="100%" />
+          <ThumbNail hover alt={name} src={storeImgList[0]} height="100%" />
         )}
       </S.CardFigureArea>
       <S.CardContentArea>
@@ -106,7 +106,7 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
               {address && (
                 <S.CardContentAddress>
                   <Icon iconName="location_on" />
-                  <Span fontSize="1.2rem" display="block">
+                  <Span fontSize="1.2rem" ellipsis={1} display="block">
                     {address}
                   </Span>
                 </S.CardContentAddress>
@@ -114,7 +114,7 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
               {phoneNumber && (
                 <S.CardContentAddress>
                   <Icon iconName="call" />
-                  <Span fontSize="1.2rem" display="block">
+                  <Span fontSize="1.2rem" ellipsis={1} display="block">
                     {phoneNumber}
                   </Span>
                 </S.CardContentAddress>

@@ -23,7 +23,7 @@ function MainTemplates({ slideItems, filters, userInfo }: MainTemplateProps) {
     <S.Wrapper>
       <MainVisualSlide slideItems={slideItems} />
       <S.StoreCategorySnbArea>
-        <StoreCategorySnb filters={filters} />
+        <StoreCategorySnb filters={filters} showMapButton />
       </S.StoreCategorySnbArea>
       <MainSlideSection
         slideId="arroundStore"
@@ -38,8 +38,17 @@ function MainTemplates({ slideItems, filters, userInfo }: MainTemplateProps) {
       >
         <h5>
           <Link to={`/store/list/${STORE_TOPIC.ARROUND}`}>
-            {userInfo?.name}
-            {STORE_LIST_TITLE.ARROUND}
+            {userInfo?.name ? (
+              <Span fontSize="2.4rem" fontWeight="bold">
+                <>
+                  {userInfo?.name}님의 {STORE_LIST_TITLE.ARROUND}
+                </>
+              </Span>
+            ) : (
+              <Span fontSize="2.4rem" fontWeight="bold">
+                <>나의 {STORE_LIST_TITLE.ARROUND}</>
+              </Span>
+            )}
           </Link>
         </h5>
       </MainSlideSection>

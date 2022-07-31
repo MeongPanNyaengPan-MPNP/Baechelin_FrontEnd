@@ -8,6 +8,10 @@ export const CardList = styled.ul<{ spaceBetween: number; col: number }>`
   display: flex;
   flex-wrap: wrap;
 
+  .no_data_box {
+    margin: 0 20px;
+  }
+
   ${CardItem} {
     padding: ${(props) => `${props.spaceBetween / 2}px`};
 

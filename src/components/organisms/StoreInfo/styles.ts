@@ -8,10 +8,11 @@ type ContainerProps = {
 // eslint-disable-next-line import/prefer-default-export
 export const Container = styled.div<ContainerProps>`
   display: flex;
+  position: relative;
   flex-direction: column;
-  width: 58rem;
   padding: 3rem;
-
+  width: 58rem;
+  justify-content: space-between;
   ${(props) => {
     if (props.size === 'xsmall') {
       return css`
@@ -20,6 +21,11 @@ export const Container = styled.div<ContainerProps>`
       `;
     }
   }}
+`;
+export const FigureArea = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 `;
 
 export const TextArea = styled.div<{ margin?: string; size?: 'big' | 'regular' | 'small' | 'xsmall' }>`
@@ -40,4 +46,14 @@ export const TextArea = styled.div<{ margin?: string; size?: 'big' | 'regular' |
       `;
     }
   }}
+`;
+
+export const IconsWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 26.8rem;
+  height: 4.4rem;
+  align-items: center;
+  margin-top: 1.5rem;
+  margin-bottom: 20px;
 `;

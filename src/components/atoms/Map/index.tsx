@@ -29,8 +29,8 @@ const Map = React.forwardRef((props: ClickableListProps, ref) => {
     const MapEl = mapRef.current;
     if (!MapEl) return;
     const initalMapCenter = new kakao.maps.LatLng(center.lat, center.lng);
-    const kakaoMap = new kakao.maps.Map(MapEl, {center: initalMapCenter,});
-
+    const kakaoMap = new kakao.maps.Map(MapEl, { center: initalMapCenter });
+    kakaoMap.setMaxLevel(5);
     setMap(kakaoMap);
     if (mapEvent) {
       kakao.maps.event.addListener(kakaoMap, 'tilesloaded', () => {
