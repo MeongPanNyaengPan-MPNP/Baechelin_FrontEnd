@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Span from '@atoms/Span';
 import Icon from '@atoms/Icon';
@@ -10,7 +11,8 @@ interface ProfileBookmarkContentProps {
   rate?: string | number;
   address?: string;
   phone?: string;
-  photo?: string;
+  photo?: string | undefined;
+  storeId?: number;
 }
 
 function ProfileBookmarkContent({
@@ -19,9 +21,16 @@ function ProfileBookmarkContent({
   address = '경기도 성남시 대왕판교로 211',
   phone = '032-1135-1311',
   photo = 'https://content.api.news/v3/images/bin/104903dc87c2963a2d3e722aa85fe923?width=650',
+  storeId,
 }: ProfileBookmarkContentProps) {
+  const navigate = useNavigate();
+
+  const onClickStore = () => {
+    navigate(`/store/${storeId}`);
+  };
+
   return (
-    <S.Container>
+    <S.Container onClick={onClickStore}>
       <S.Photo src={photo} />
       <S.Wrapper>
         <S.InfoTitleWrapper>

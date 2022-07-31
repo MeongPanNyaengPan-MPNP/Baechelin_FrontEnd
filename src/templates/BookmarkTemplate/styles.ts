@@ -24,6 +24,17 @@ export const BookmarkListWrapper = styled.div`
   min-height: 50rem;
 `;
 
+export const StoreCardsWrapper = styled.div`
+  width: 29rem;
+  height: 31.5rem;
+  margin-right: 4rem;
+  margin-bottom: 2.8rem;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  &:nth-child(4n + 0) {
+    margin-right: 0;
+  }
+`;
+
 export const CreateBookmarkButtonWrapper = styled.div`
   display: block;
   position: absolute;
