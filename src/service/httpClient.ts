@@ -27,10 +27,10 @@ Api.interceptors.request.use(
     /* 만료 체크 */
     if (!isExp(token)) {
       localStorage.clear();
-      alert('토큰이 만료되었습니다. 다시 로그인 해주세요.');
       Api.post('/user/logout');
-      window.location.href = '/';
-    } else if (token) {/* 정상토큰이면 셋팅 */
+      console.log(isExp(token), '유효기간 토큰삭제');
+    } else if (token) {
+      /* 정상토큰이면 셋팅 */
       config.headers = { Authorization: `Bearer ${token}` };
     }
     return config;
