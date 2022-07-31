@@ -45,15 +45,13 @@ export const request = async <T>(config: AxiosRequestConfig): Promise<T> => {
     }
     if (err.response.status === 402) {
       alert('토큰이 없거나 만료되었습니다');
+      localStorage.clear();
       Api.post('/auth/refresh');
       console.log('402_error', 402);
       return prevRequest;
     }
     if (err.response.status === 403) {
       alert('로그인이 필요합니다');
-      localStorage.clear();
-      Api.post('/user/logout');
-      window.location.href = '/login';
       console.log('403_error', 403);
     }
     throw new Error(err);
