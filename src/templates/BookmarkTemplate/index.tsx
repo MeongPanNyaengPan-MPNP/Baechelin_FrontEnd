@@ -120,7 +120,7 @@ function BookmarkTemplate() {
               }
               return (
                 <S.StoreCardsWrapper>
-                  <StoreCard {...v} storeImgList={imageList} size="M" />
+                  <StoreCard {...v} storeImgList={imageList} size="M" bookmark="Y" />
                 </S.StoreCardsWrapper>
               );
             })}

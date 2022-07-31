@@ -64,8 +64,8 @@ function BookmarkFolderCard({
   // };
 
   return (
-    <S.Container onClick={() => onClick(index)}>
-      <S.ImageWrapper>
+    <S.Container>
+      <S.ImageWrapper onClick={() => onClick(index)}>
         {status !== 'create' && (
           <S.Photos src="https://content.api.news/v3/images/bin/104903dc87c2963a2d3e722aa85fe923?width=650" />
         )}
@@ -96,7 +96,12 @@ function BookmarkFolderCard({
 
         {!status && (
           <>
-            <BookmarkRegisterFolderName name={folderName} fontSize="1.4rem" height="null" />
+            <BookmarkRegisterFolderName
+              name={folderName}
+              fontSize="1.4rem"
+              height="null"
+              onClick={() => onClick(index)}
+            />
             <Icon iconName="more_vert" cursor="pointer" onClick={handleClick} />
           </>
         )}

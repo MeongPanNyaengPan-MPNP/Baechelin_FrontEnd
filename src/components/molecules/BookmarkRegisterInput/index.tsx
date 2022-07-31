@@ -38,7 +38,7 @@ interface FormValue {
 }
 
 function BookmarkRegisterInput({
-  type,
+  type = '',
   folderName,
   folderId,
   iconName = 'folder',
@@ -73,8 +73,8 @@ function BookmarkRegisterInput({
     <S.Container height={height} justify={justify} onClick={onClick}>
       <Icon iconName={iconName} size={iconSize} />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <S.Input fontSize={fontSize} {...register('folderName')} defaultValue={folderName} />
-        <S.Button type="submit">확인</S.Button>
+        <S.Input fontSize={fontSize} inputType={type} {...register('folderName')} defaultValue={folderName} />
+        {type !== 'register' && <S.Button type="submit">확인</S.Button>}
       </form>
     </S.Container>
   );

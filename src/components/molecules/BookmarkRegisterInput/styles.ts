@@ -21,9 +21,13 @@ export const folderNameWrapper = styled.div<{ height: string }>`
   width: 85px;
 `;
 
-export const Input = styled.input<{ fontSize: string }>`
-  margin-left: 1rem;
+export const Input = styled.input<{ fontSize: string; inputType: string }>`
+  margin-left: ${({ inputType }) => (inputType === 'register' ? '0.5rem' : '1rem')};
+  width: ${({ inputType }) => (inputType === 'register' ? '9rem' : null)};
+  height: ${({ inputType }) => (inputType === 'register' ? '1.8rem' : null)};
   border: 1px solid ${Color.grey};
+  background-color: ${Color.lightGrey};
+  border-color: ${Color.darkGrey};
 `;
 
 export const Button = styled.button`
