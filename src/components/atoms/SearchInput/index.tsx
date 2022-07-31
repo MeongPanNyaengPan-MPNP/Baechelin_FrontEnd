@@ -70,7 +70,7 @@ function SearchInput({ width, margin, ...props }: SearchInputProps<any>) {
   const handleDelete = () => {
     setAnchorEl(null); // 헤더 팝업 닫기
     setModalContent({
-      messages: ['검색어를 한 글자 이상 입력해주세요.'],
+      messages: ['검색어를 두 글자 이상 입력해주세요.'],
       submitButton: {
         point: true,
         show: true,

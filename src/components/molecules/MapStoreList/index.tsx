@@ -12,18 +12,18 @@ import { useMutation, useQueryClient } from 'react-query';
 import { CreateBookmarkFolderResponse, CreateBookmarkStoreBody } from '@interfaces/BookmarkTypes';
 import { createBookmarkStore } from '@service/bookmarkApi';
 import Bookmark from '@molecules/Bookmark';
+
 import * as S from './styles';
 
 type MapStoreListProps = {
   storeItems: StoreMapResponseTypes[][] | undefined;
   leftElement: number | undefined;
   totalCount: number | undefined;
-  isLoading: boolean;
   isFetched: boolean;
 };
 
 function MapStoreList(props: MapStoreListProps) {
-  const { leftElement, storeItems, isLoading, isFetched, totalCount } = props;
+  const { leftElement, storeItems, isFetched, totalCount } = props;
   const location = useLocation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -42,7 +42,6 @@ function MapStoreList(props: MapStoreListProps) {
       onSuccess: () => {
         // setCreate(false);
         queryClient.invalidateQueries('');
-        console.log('bookmark created');
       },
       onError: (err) => {
         console.error(err);

@@ -53,7 +53,6 @@ function BookmarkUpdateOverlay({
   };
 
   const onClickUpdate = () => {
-    console.log(status);
     setStatus('update');
     handleClose();
   };

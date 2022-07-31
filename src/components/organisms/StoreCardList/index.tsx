@@ -10,6 +10,8 @@ import { STORE_LIST, STORE_TOPIC } from '@constants/index';
 import { Pagination } from '@mui/material';
 import { userInfo } from '@recoil/userAtom';
 import NoDataMessage from '@molecules/NodataMessage';
+import { useLocation } from 'react-router-dom';
+
 import * as S from './styles';
 
 type Keys = keyof typeof STORE_LIST;
@@ -22,6 +24,7 @@ export type StoreCardListProps = {
 
 function StoreCardList({ topic, title, keyword }: StoreCardListProps) {
   // const queryClient = useQueryClient();
+  const { pathname } = useLocation();
   const location = useRecoilValue(locationAtom);
   const SnbRecoilQuery = useRecoilValue(SnbQueryString);
   const SearchLocationQuery = useRecoilValue(SearchLocationQueryString);
@@ -59,7 +62,7 @@ function StoreCardList({ topic, title, keyword }: StoreCardListProps) {
     topicRefetch();
     searchRemove();
     topicRemove();
-  }, [searchRefetch, searchRemove, topicRefetch, topicRemove]);
+  }, [pathname, searchRefetch, searchRemove, topicRefetch, topicRemove]);
   const pageChangeHandler = (pageNumber = 1) => {
     setPageNum(pageNumber);
   };

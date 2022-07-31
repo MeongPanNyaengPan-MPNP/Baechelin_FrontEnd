@@ -25,7 +25,7 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
   const snbQueryString = useRecoilValue(SnbQueryString);
   const { debounceVal, bool } = UseDebounce<string>(latingQueryString, 1000);
   const [itemResult, setitemResult] = useState<StoreMapResponseTypes[][]>([]);
-  console.log(bool);
+
   const {
     data: storeItems,
     isLoading,
@@ -72,7 +72,6 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
           leftElement={storeItems?.leftElement}
           totalCount={storeItems?.totalCount}
           storeItems={itemResult}
-          isLoading={isLoading}
           isFetched={isFetched}
         />
         <S.PaginationBar>

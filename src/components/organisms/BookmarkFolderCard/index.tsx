@@ -18,7 +18,6 @@ interface BookmarkFolderCardProps {
   type?: string | null;
   name?: string | undefined;
   folderId?: number;
-  list?: object;
   fetchCreateBookmarkFolder?: UseMutateFunction<CreateBookmarkFolderResponse, unknown, string, unknown>;
   fetchDeleteBookmarkFolder?: UseMutateFunction<unknown, unknown, number, unknown>;
   fetchUpdateBookmarkFolder?: UseMutateFunction<
@@ -35,7 +34,6 @@ function BookmarkFolderCard({
   type = null,
   name,
   folderId,
-  list,
   fetchCreateBookmarkFolder,
   fetchDeleteBookmarkFolder,
   fetchUpdateBookmarkFolder,
@@ -55,9 +53,6 @@ function BookmarkFolderCard({
       setFolderName(name);
     }
   }, [name]);
-
-  console.log('bookmarklist', list);
-  console.log('card foldername', name);
 
   // const handleClose = () => {
   //   setAnchorEl(null);
