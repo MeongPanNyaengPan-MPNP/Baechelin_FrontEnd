@@ -104,7 +104,6 @@ function BookmarkFolderCard({
         <BookmarkUpdateOverlay
           anchorEl={anchorEl}
           setAnchorEl={setAnchorEl}
-          status={status}
           setStatus={setStatus}
           folderId={folderId}
           fetchDeleteBookmarkFolder={fetchDeleteBookmarkFolder}

@@ -11,9 +11,7 @@ import * as S from './styles';
 interface BookmarkUpdateOverlayProps {
   anchorEl: HTMLButtonElement | null;
   setAnchorEl: React.Dispatch<React.SetStateAction<HTMLButtonElement | null>>;
-  // onClickUpdate:()=>void;
-  // onClickDelete:()=>void;
-  status: string | null;
+
   setStatus: React.Dispatch<React.SetStateAction<string | null>>;
   folderId?: number;
   fetchDeleteBookmarkFolder: UseMutateFunction<unknown, unknown, number, unknown> | undefined;
@@ -22,7 +20,6 @@ interface BookmarkUpdateOverlayProps {
 function BookmarkUpdateOverlay({
   anchorEl,
   setAnchorEl,
-  status,
   setStatus,
   folderId,
   fetchDeleteBookmarkFolder,
