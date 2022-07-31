@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  margin: 10px 0 25px;
+  width: 100%;
 `;
-
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;

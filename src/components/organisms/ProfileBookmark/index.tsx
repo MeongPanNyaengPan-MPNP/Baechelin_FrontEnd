@@ -52,6 +52,7 @@ function ProfileBookmark({ anchorEl, setAnchorEl, BookmarkTopData, getUserInfoDa
         enter: 100,
         exit: 100,
       }}
+      className="bookmark_popover"
     >
       <S.Container>
         <ProfileBookmarkTitle name={getUserInfoData?.name} email={getUserInfoData?.email} />

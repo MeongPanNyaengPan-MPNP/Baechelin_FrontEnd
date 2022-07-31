@@ -24,6 +24,7 @@ const StyledFigure = styled.figure<ThumbNailProps>`
   height: ${(props) => (props.height ? `${props.height}` : 'auto')};
   background: #efefef;
   border: ${(props) => (props.borderSize ? `${props.borderSize}px solid #efefef` : 'none')};
+
   border-radius: ${(props) => (props.round ? `${props.round}em` : 'none')};
   overflow: hidden;
 
@@ -32,11 +33,11 @@ const StyledFigure = styled.figure<ThumbNailProps>`
     width: 100%;
     height: 100%;
     object-fit: ${(props) => (props.fit ? 'cover' : `contain`)};
-    transition: all 0.3s;
+    transition: all 0.2s;
   }
 
   &:hover > img {
-    transform: ${(props) => (props.hover ? `scale(1.03);` : '')};
+    transform: ${(props) => (props.hover ? `scale(1.02);` : '')};
   }
 
   ${(props) => {

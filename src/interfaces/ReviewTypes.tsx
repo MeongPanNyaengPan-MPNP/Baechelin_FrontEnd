@@ -28,51 +28,22 @@ export interface TagListType {
   tag: string;
 }
 
-export interface RecentReviewResponseType {
+export interface ReviewResponseDtoItem {
   storeId: number;
   userId: number;
-  storeName: string;
+  reviewId: number;
+  storeName?: string;
   name: string;
   content: string;
-  address: string;
+  address?: string;
   point: number;
   userImage?: string;
   createdAt: Date;
   modifiedAt: Date;
   reviewImageUrlList: ReviewImageUrlListType[];
   tagList: TagListType[];
-}
-
-export interface DetailReviewResponseType {
-  reviewId: number;
-  storeId: number;
-  userId: number;
   email: string;
-  name: string;
-  userImage: string;
-  myReview: string;
-  point: number;
-  content: string;
-  reviewImageUrlList: ReviewImageUrlListType[];
-  createdAt: Date;
-  modifiedAt: Date;
-  tagList: TagListType[];
-}
-
-export interface ReviewResponseDtoList {
-  reviewId: number;
-  storeId: number;
-  userId: number;
-  email: string;
-  name: string;
-  profile_image_url: string;
-  myReview: string;
-  point: number;
-  content: string;
-  reviewImageUrlList?: ReviewImageUrlListType[];
-  createdAt?: Date;
-  modifiedAt?: Date;
-  tagList?: TagListType[];
+  myReview?: string;
 }
 
 export interface ReviewResponseRootType {
@@ -82,5 +53,10 @@ export interface ReviewResponseRootType {
   totalPages: number;
   totalElements: number;
   number: number;
-  reviewResponseDtoList: ReviewResponseDtoList[];
+  reviewResponseDtoList: ReviewResponseDtoItem[];
+}
+
+export interface MutationReviewResponse {
+  statusCode: number;
+  responseMessage: string;
 }

@@ -9,7 +9,7 @@ import { StoreListQueryTypes } from '@interfaces/StoreResponseTypes';
 import { STORE_LIST, STORE_TOPIC } from '@constants/index';
 import { Pagination } from '@mui/material';
 import { userInfo } from '@recoil/userAtom';
-import { useQueryClient } from 'react-query';
+import NoDataMessage from '@molecules/NodataMessage';
 import * as S from './styles';
 
 type Keys = keyof typeof STORE_LIST;
@@ -21,7 +21,7 @@ export type StoreCardListProps = {
 };
 
 function StoreCardList({ topic, title, keyword }: StoreCardListProps) {
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const location = useRecoilValue(locationAtom);
   const SnbRecoilQuery = useRecoilValue(SnbQueryString);
   const SearchLocationQuery = useRecoilValue(SearchLocationQueryString);
@@ -40,56 +40,96 @@ function StoreCardList({ topic, title, keyword }: StoreCardListProps) {
       setQueryKey(STORE_LIST.BEST_BOOKMARK_STORE);
     }
   }, [topic]);
-  const { data: topicData, isSuccess: topicDataIsSuccess } = UseGetStoreList(queryKey, SnbRecoilQuery, topic, pageNum);
+  const {
+    data: topicData,
+    isSuccess: topicDataIsSuccess,
+    remove: topicRemove,
+    refetch: topicRefetch,
+  } = UseGetStoreList(queryKey, SnbRecoilQuery, topic, pageNum);
   const {
     data: searchData,
     isSuccess: searchDataIsSuccess,
     refetch: searchRefetch,
+    remove: searchRemove,
   } = UseGetSearchStoreList(STORE_LIST.SEARCH_STORE, SnbRecoilQuery, SearchLocationQuery, keyword, pageNum);
-  // 검색일 경우 keyfowr 바뀌면 refetch
+  // 검색일 경우 keyword 바뀌면 refetch
+
   React.useEffect(() => {
     searchRefetch();
-    queryClient.invalidateQueries(STORE_LIST.SEARCH_STORE);
-  }, [queryClient, keyword, searchRefetch, SnbRecoilQuery]);
+    topicRefetch();
+    searchRemove();
+    topicRemove();
+  }, [searchRefetch, searchRemove, topicRefetch, topicRemove]);
   const pageChangeHandler = (pageNumber = 1) => {
     setPageNum(pageNumber);
   };
+
+  React.useEffect(() => {
+    console.log('effect');
+  }, []);
+
   return (
     <>
       <h2>
-        <Span fontSize="2.4rem" fontWeight="bold">
-          <>
-            {topic === STORE_TOPIC.ARROUND && userInfoValue?.name}
-            {title}
-          </>
-        </Span>
+        <>
+          {topic === STORE_TOPIC.ARROUND &&
+            (userInfoValue?.name ? (
+              <Span fontSize="2.4rem" fontWeight="bold">
+                <>
+                  {userInfoValue?.name}님의 {title}
+                </>
+              </Span>
+            ) : (
+              <Span fontSize="2.4rem" fontWeight="bold">
+                <>나의 {title}</>
+              </Span>
+            ))}
+          {topic !== STORE_TOPIC.ARROUND && (
+            <Span fontSize="2.4rem" fontWeight="bold">
+              {title}
+            </Span>
+          )}
+        </>
       </h2>
       <S.CardList col={4} spaceBetween={40}>
         {topicDataIsSuccess &&
-          topicData?.cards?.map((cardItem) => (
-            <S.CardItem key={cardItem.storeId}>
-              <StoreCard {...cardItem} />
-            </S.CardItem>
+          (topicData?.totalPage >= 0 ? (
+            topicData?.cards?.map((cardItem) => (
+              <S.CardItem key={cardItem.storeId}>
+                <StoreCard {...cardItem} />
+              </S.CardItem>
+            ))
+          ) : (
+            <NoDataMessage message={['카테고리 안에 가게가 없습니다.']} />
           ))}
         {searchDataIsSuccess &&
-          searchData?.cards?.map((cardItem) => (
-            <S.CardItem key={cardItem.storeId}>
-              <StoreCard {...cardItem} />
-            </S.CardItem>
+          (searchData?.totalPage >= 0 ? (
+            searchData?.cards?.map((cardItem) => (
+              <S.CardItem key={cardItem.storeId}>
+                <StoreCard {...cardItem} />
+              </S.CardItem>
+            ))
+          ) : (
+            <NoDataMessage message={['검색 결과가 없습니다.', '다른 키워드로 검색해보세요!']} />
           ))}
-      </S.CardList>{' '}
-      <S.PaginationArea>
-        <Pagination
-          count={topicData?.totalPage || searchData?.totalPage}
-          showFirstButton
-          showLastButton
-          size="medium"
-          siblingCount={0}
-          sx={{ fontSize: '2rem' }}
-          boundaryCount={1}
-          onChange={(e, page) => pageChangeHandler(page)}
-        />
-      </S.PaginationArea>
+      </S.CardList>
+      {(topicData?.totalPage && topicData?.totalPage > -1) || (searchData?.totalPage && searchData?.totalPage > -1) ? (
+        <S.PaginationArea>
+          <Pagination
+            count={topicData?.totalPage || searchData?.totalPage}
+            showFirstButton
+            showLastButton
+            size="medium"
+            siblingCount={0}
+            sx={{ fontSize: '2rem' }}
+            boundaryCount={1}
+            onChange={(e, page) => pageChangeHandler(page)}
+          />
+          )
+        </S.PaginationArea>
+      ) : (
+        ''
+      )}
     </>
   );
 }

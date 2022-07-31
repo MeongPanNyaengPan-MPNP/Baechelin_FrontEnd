@@ -10,7 +10,7 @@ import ReviewCard from '@molecules/ReviewCard';
 import { UseReviewList } from '@hooks/UseQueryHooks';
 import { REVIEW } from '@constants/index';
 import NoDataMessage from '@molecules/NodataMessage';
-import { RecentReviewResponseType } from '@interfaces/ReviewTypes';
+import { ReviewResponseDtoItem } from '@interfaces/ReviewTypes';
 import { Link } from 'react-router-dom';
 import * as S from './styles';
 
@@ -42,7 +42,7 @@ function ReviewGroupSlide({
   hasNavigation = true,
 }: CardGroupSlideProps) {
   const { UseRecentReviewForMain } = UseReviewList();
-  const { isLoading, data: recentReviewData } = UseRecentReviewForMain<RecentReviewResponseType[]>(
+  const { isLoading, data: recentReviewData } = UseRecentReviewForMain<ReviewResponseDtoItem[]>(
     REVIEW.RECENT_REVIEW_LIST,
   );
 

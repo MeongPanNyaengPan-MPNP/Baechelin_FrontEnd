@@ -1,7 +1,7 @@
 import { getBookmarkStoreList, getNearStore, getNearStoreAtMap, getSearchStore } from '@service/storeListApi';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { UserLoctaionType } from '@interfaces/LocationTypes';
-import { getRecentReviewList, getReviewList } from '@service/reviewApi';
+import { deleteReviewList, getRecentReviewList, getReviewList } from '@service/reviewApi';
 import { TokenResponseType } from '@interfaces/TokenType';
 import { getUserInfo, tokenRefresh } from '@service/getUserApi';
 import { useSetRecoilState } from 'recoil';
@@ -104,10 +104,11 @@ export const UseReviewList = () => {
       refetchOnWindowFocus: false,
       retry: 0,
     });
-
+  const UseDeleteDetailReview = (key: string, reviewId: number) => useMutation(key, () => deleteReviewList(reviewId));
   return {
     UseRecentReviewForMain,
     UseDetailReview,
+    UseDeleteDetailReview,
   };
 };
 

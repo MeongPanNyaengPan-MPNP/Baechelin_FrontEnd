@@ -17,6 +17,7 @@ export interface StyledButtonProps {
   align?: string;
   display?: string;
   hover?: boolean;
+  padding?: string;
 
   [prop: string]: any;
 }
@@ -40,9 +41,11 @@ const Button = styled.button<StyledButtonProps>`
   outline: none;
   opacity: 1;
   transition: all 0.1s;
+  padding: ${(props) => props.padding};
+  line-height: 1.2;
 
   &:hover {
-    opacity: 0.9;
+    opacity: 1;
   }
 
   ${(props) => {
@@ -90,6 +93,7 @@ function Buttons({
   transparent = false,
   size = 'medium',
   type = 'button',
+  padding,
   align,
   round,
   onClick,
@@ -112,6 +116,7 @@ function Buttons({
     type,
     round,
     align,
+    padding,
   };
 
   return (

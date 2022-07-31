@@ -10,8 +10,7 @@ export const Wrapper = styled.div`
 `;
 export const Container = styled.div<{ width?: string }>`
   display: flex;
-  flex-shrink: 0;
-  flex-direction: row;
+  width: 100%;
   justify-content: space-between;
   width: ${(props) => `${props.width}` || `calc(50% - 5px)`};
   height: ${(props) => `${props.width}` || `23.4rem`};

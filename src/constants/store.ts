@@ -176,7 +176,7 @@ export const STORE_TOPIC = {
   RECENT_REVIEW: 'recent-review',
 };
 export const STORE_LIST_TITLE = {
-  ARROUND: '님 주변 가게',
+  ARROUND: '주변 가게',
   POINT: '별점이 높은 가게',
   BOOKMARK: '저장 많이한 가게',
   RECENT_REVIEW: '실시간 맛집 후기',

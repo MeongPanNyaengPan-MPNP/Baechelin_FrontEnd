@@ -2,7 +2,6 @@ import React from 'react';
 
 import Span from '@atoms/Span';
 import UseLoginHooks from '@hooks/UseLogin';
-
 import { useSetRecoilState } from 'recoil';
 import modalAtom, { muiAnchorEl } from '@recoil/modalAtom';
 import * as S from './styles';

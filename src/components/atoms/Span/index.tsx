@@ -76,7 +76,7 @@ const StyledSpan = styled.span<SpanProps>`
         overflow: hidden;
         text-overflow: ellipsis;
         line-height: 1.4;
-        height: ${props.ellipsis + props.ellipsis * 0.4}em;
+        max-height: ${props.ellipsis + props.ellipsis * 0.3}em;
       `;
     }
     if (props.ellipsis && props.ellipsis === 1) {

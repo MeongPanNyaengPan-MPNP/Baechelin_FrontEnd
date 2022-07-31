@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import Span from '@atoms/Span';
 
 export const CardItem = styled.div<{ showTagList?: boolean }>`
@@ -13,7 +14,7 @@ export const CardItemInner = styled.div`
   box-sizing: border-box;
   align-items: end;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  padding: 25px 30px;
+  padding: 25px 30px 30px;
   background: #fff;
 
   > article,
@@ -99,4 +100,14 @@ export const ControlButtonArea = styled.div`
   position: absolute;
   right: 0;
   top: 0;
+
+  span {
+    line-height: 1;
+  }
+
+  &:hover {
+    span {
+      color: #3b3b3b;
+    }
+  }
 `;
