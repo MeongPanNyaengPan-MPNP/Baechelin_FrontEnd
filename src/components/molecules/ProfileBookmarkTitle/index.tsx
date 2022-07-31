@@ -20,7 +20,14 @@ function ProfileBookmarkTitle({ name, email }: ProfileBookmarkTitleProps) {
     setAnchorEl(null); // 헤더 팝업 닫기
     setModalContent({
       messages: ['로그아웃 하시겠습니까?'],
-      submitButton: { onClick: UseLogout },
+      submitButton: {
+        onClick: UseLogout,
+        show: true,
+      },
+      cancelButton: {
+        onClick() {},
+        show: true,
+      },
     });
   };
 

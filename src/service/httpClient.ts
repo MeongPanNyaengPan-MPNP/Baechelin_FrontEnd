@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { LOCAL_STORAGE_KEY } from '@constants/index';
-import { isExp } from '@utils/Jwt/jwtDecoded';
+import { isExist, isExp } from '@utils/Jwt/jwtDecoded';
 
 const API_DEV = process.env.REACT_APP_API_DEV;
 const API_PROD = process.env.REACT_APP_API_PROD;
@@ -25,9 +25,8 @@ Api.interceptors.request.use(
   (config) => {
     const token = getToken(LOCAL_STORAGE_KEY.ACCESS_TOKEN);
     /* 만료 체크 */
-    if (!isExp(token)) {
+    if (isExist(token) && !isExp(token)) {
       localStorage.clear();
-      Api.post('/user/logout');
       console.log(isExp(token), '유효기간 토큰삭제');
     } else if (token) {
       /* 정상토큰이면 셋팅 */
