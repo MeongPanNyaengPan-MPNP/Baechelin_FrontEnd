@@ -6,6 +6,11 @@ import Icon from '@atoms/Icon';
 import Badge from '@atoms/Badge';
 import { useNavigate } from 'react-router-dom';
 import { StoreResponseTypes } from '@interfaces/StoreResponseTypes';
+import Bookmark from '@molecules/Bookmark';
+import { Color } from '@constants/styles';
+import { useMutation, useQueryClient } from 'react-query';
+import { CreateBookmarkFolderResponse, CreateBookmarkStoreBody } from '@interfaces/BookmarkTypes';
+import { createBookmarkStore } from '@service/bookmarkApi';
 import * as S from './styles';
 
 export type CardStylesProps = {
@@ -14,9 +19,8 @@ export type CardStylesProps = {
 
 function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesProps) {
   const noImage = '/img/ui/no_picture.svg';
-  const navigate = useNavigate();
   const {
-    storeId,
+    storeId: id,
     size = 'M',
     name,
     address,
@@ -28,11 +32,37 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
     toilet,
     parking,
     approach,
+    bookmark,
     heightDifferent,
   } = props;
+  const navigate = useNavigate();
+  const bookmarkColor: string = bookmark === 'Y' ? Color.orange : Color.darkGrey;
+  const queryClient = useQueryClient();
+  const { mutate: fetchCreateBookmarkStore } = useMutation<
+    CreateBookmarkFolderResponse,
+    unknown,
+    CreateBookmarkStoreBody,
+    unknown
+  >(
+    ({ storeId, folderId }) =>
+      createBookmarkStore({
+        folderId,
+        storeId,
+      }),
+    {
+      onSuccess: () => {
+        // setCreate(false);
+        queryClient.invalidateQueries('');
+        console.log('bookmark created');
+      },
+      onError: (err) => {
+        console.error(err);
+      },
+    },
+  );
   return (
-    <S.CardItem size={size} onClick={() => navigate(`/store/${storeId}`)}>
-      <S.CardFigureArea>
+    <S.CardItem size={size}>
+      <S.CardFigureArea onClick={() => navigate(`/store/${id}`)}>
         {storeImgList.length < 1 ? (
           <ThumbNail alt={name} src={noImage} height="100%" />
         ) : (
@@ -56,7 +86,15 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
             <S.StarArea>
               <Star value={1} max={1} average={pointAvg} readOnly />
             </S.StarArea>
-          </S.StoreNameArea>
+          </S.StoreNameArea>{' '}
+          <S.BookmarkArea>
+            <Bookmark
+              size="2.6rem"
+              marked={bookmarkColor}
+              storeIdProps={id}
+              fetchCreateBookmarkStore={fetchCreateBookmarkStore}
+            />
+          </S.BookmarkArea>
         </S.CardContentAreaTop>
         {size === 'M' && ( // 카드 스타일 구분, m일땐 하단에 주소, 뱃지 노출됨
           <>

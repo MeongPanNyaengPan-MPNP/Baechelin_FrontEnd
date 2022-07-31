@@ -1,36 +1,69 @@
 import React from 'react';
-import { FormControl, InputLabel, MenuItem, Select, SelectProps } from '@mui/material';
-import { Controller, UseControllerProps } from 'react-hook-form';
+import { FormControl, MenuItem, Select, SelectProps } from '@mui/material';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { SxProps } from '@mui/system';
-import { Theme } from '@mui/material/styles';
+import styled from 'styled-components';
+
+export const SelectConatiner = styled.div`
+  display: inline-block;
+  position: relative;
+  font-size: 2rem;
+  margin-right: 20px;
+
+  .MuiInputBase-formControl {
+    background: #fff;
+  }
+
+  .MuiSelect-select {
+    font-size: 1.4rem;
+    min-height: 0;
+  }
+
+  .MuiButtonBase-root {
+    font-size: 1.4rem;
+  }
+`;
 
 export type SelectBoxProps = {
   label: string;
-  data: any[];
-  sx?: SxProps<Theme>;
-} & SelectProps &
-  UseControllerProps;
+  data: any[] | null;
+  value?: string | null;
+  set: React.Dispatch<React.SetStateAction<any | any>>;
+} & SelectProps;
 
-function SelectBox({ name, label, control, data, sx = { width: 150 } }: SelectBoxProps) {
+function SelectBox({ value, set, label, data }: SelectBoxProps) {
   return (
-    <FormControl sx={sx}>
-      <InputLabel id={label}>{label}</InputLabel>
-      <Controller
-        render={({ field }) => (
-          <Select labelId={label} label={label} id={name} {...field} autoWidth={false}>
-            {data.map((item) => (
-              <MenuItem sx={sx} key={item.label} value={item.value}>
-                {item.label}
-              </MenuItem>
-            ))}
-          </Select>
-        )}
-        name={name}
-        control={control}
-        defaultValue=""
-      />
-    </FormControl>
+    <SelectConatiner>
+      <FormControl
+        sx={{
+          fontSize: '1.4rem',
+          width: 150,
+        }}
+      >
+        <Select
+          disabled={value === ''}
+          labelId={label}
+          autoWidth={false}
+          value={value || ''}
+          onChange={(event) => {
+            set(event.target.value);
+          }}
+        >
+          {data?.map((item) => (
+            <MenuItem
+              sx={{
+                fontSize: '1.4rem',
+                width: 150,
+                padding: '8px 15px',
+              }}
+              key={item.LABEL}
+              value={item.KEY}
+            >
+              {item.LABEL}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </SelectConatiner>
   );
 }
 
