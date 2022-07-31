@@ -37,24 +37,25 @@ export const request = async <T>(config: AxiosRequestConfig): Promise<T> => {
     return data;
   } catch (err: any) {
     const prevRequest = err.config.request;
-    if (err.response.status === 401 && process.env.REACT_APP_MODE === 'production') {
-      // TODO : 토큰 조작->강제 로그아웃
-      localStorage.clear();
-      Api.post('/user/logout');
-      window.location.reload();
-      console.log('401_error', err);
-    }
-    if (err.response.status === 402) {
-      alert('토큰이 없거나 만료되었습니다');
-      Api.post('/auth/refresh');
-      return prevRequest;
-    }
-    if (err.response.status === 403) {
-      alert('로그인이 필요합니다');
-      localStorage.clear();
-      Api.post('/user/logout');
-      window.location.href = '/login';
-    }
+        if (err.response.status === 401 && process.env.REACT_APP_MODE === 'production') {
+          // TODO : 토큰 조작->강제 로그아웃
+          alert('보안 상의 문제로 강제 로그아웃 되었습니다');
+          localStorage.clear();
+          Api.post('/user/logout');
+          window.location.reload();
+          console.log('401_error', err);
+        }
+        if (err.response.status === 402) {
+          alert('토큰이 없거나 만료되었습니다');
+          Api.post('/auth/refresh');
+          return prevRequest;
+        }
+        if (err.response.status === 403) {
+          alert('로그인이 필요합니다');
+          localStorage.clear();
+          Api.post('/user/logout');
+          window.location.href = '/login';
+        }
     throw new Error(err);
   }
 };
