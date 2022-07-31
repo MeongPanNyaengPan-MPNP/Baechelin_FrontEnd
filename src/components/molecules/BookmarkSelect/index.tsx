@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { KeyboardArrowDown } from '@mui/icons-material';
 
@@ -7,17 +7,18 @@ import { GetUserBookmarkFoldersResponse } from '@interfaces/BookmarkTypes';
 import * as S from './styles';
 
 interface BookmarkSelectProps {
-  setSelectedOption: React.Dispatch<React.SetStateAction<string>>;
+  selectedOption: any;
+  setSelectedOption: React.Dispatch<React.SetStateAction<string | number>>;
   BookmarkData: GetUserBookmarkFoldersResponse[] | undefined;
 }
 
-function BookmarkSelect({ setSelectedOption, BookmarkData }: BookmarkSelectProps) {
-  const [value, setValue] = useState('all');
+function BookmarkSelect({ selectedOption = 'all', setSelectedOption, BookmarkData }: BookmarkSelectProps) {
+  // const [value, setValue] = useState('all');
 
   const handleChange = (event: SelectChangeEvent) => {
-    setValue(event.target.value as string);
+    // setValue(event.target.value as string);
     setSelectedOption(event.target.value);
-    console.log(event.target.value);
+    console.log('select value', event.target.value);
   };
 
   return (
@@ -26,7 +27,7 @@ function BookmarkSelect({ setSelectedOption, BookmarkData }: BookmarkSelectProps
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={value}
+          value={selectedOption}
           displayEmpty
           onChange={handleChange}
           variant="standard"

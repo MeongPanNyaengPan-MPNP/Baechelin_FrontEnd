@@ -2,24 +2,41 @@ import React, { useCallback } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import LogoImg from '@assets/Logo.svg';
+import { useQuery } from 'react-query';
 
 import UserIcon from '@assets/UserIcon.svg';
-import Navigation from '@molecules/Navigation';
 import Button from '@atoms/Buttons';
-import SearchInput from '@atoms/SearchInput';
 import Logo from '@atoms/Logo';
+
+import Navigation from '@molecules/Navigation';
+import SearchInput from '@atoms/SearchInput';
 import UseLoginHooks from '@hooks/UseLogin';
 import ProfileBookmark from '@organisms/ProfileBookmark';
-
 import { useRecoilState } from 'recoil';
 import { muiAnchorEl } from '@recoil/modalAtom';
-import * as S from './styles';
+import { getBookmarkTop } from '@service/bookmarkApi';
+import { getUserInfo } from '@service/getUserApi';
+
 import { UserLogo } from './styles';
+import * as S from './styles';
 
 function Header() {
   const [anchorEl, setAnchorEl] = useRecoilState(muiAnchorEl);
   const navigate = useNavigate();
   const location = useLocation();
+
+  const { data: BookmarkTopData } = useQuery(['getBookmarkTop'], () => getBookmarkTop(), {
+    staleTime: 5000,
+    cacheTime: Infinity,
+    // enabled: !create,
+  });
+
+  const { data: getUserInfoData } = useQuery(['getUserInfo'], () => getUserInfo(), {
+    staleTime: 5000,
+    cacheTime: Infinity,
+    // enabled: !create,
+  });
+
   const onClickLogo = useCallback(() => {
     navigate('/');
   }, [navigate]);
@@ -34,6 +51,8 @@ function Header() {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
+  console.log('BookmarkTopData', BookmarkTopData);
 
   return (
     <S.Wrap>
@@ -57,7 +76,12 @@ function Header() {
               {tokenExist ? (
                 <>
                   <UserLogo src={UserIcon} width="3rem" height="3rem" onClick={handleClick} />
-                  <ProfileBookmark anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
+                  <ProfileBookmark
+                    anchorEl={anchorEl}
+                    setAnchorEl={setAnchorEl}
+                    BookmarkTopData={BookmarkTopData}
+                    getUserInfoData={getUserInfoData}
+                  />
                 </>
               ) : (
                 <Button fontSize="1.6rem">
