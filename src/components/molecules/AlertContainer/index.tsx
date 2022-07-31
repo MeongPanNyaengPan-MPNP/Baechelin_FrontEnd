@@ -57,13 +57,13 @@ function AlertContainer() {
       message: modalContent?.submitButton?.message || '예',
       onClick: onSubmit,
       point: modalContent?.submitButton?.point || false,
-      show: modalContent?.submitButton?.show,
+      show: modalContent?.submitButton?.show || true,
     });
     setCancelButton({
       message: modalContent?.cancelButton?.message || '아니요',
       onClick: onCancel,
       point: modalContent?.cancelButton?.point || true,
-      show: modalContent?.cancelButton?.show,
+      show: modalContent?.cancelButton?.show || true,
     });
   }, [modalContent, onCancel, onSubmit]);
 

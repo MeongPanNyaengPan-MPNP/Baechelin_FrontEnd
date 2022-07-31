@@ -72,3 +72,9 @@ export const CategoryContainer = styled.div`
   right: 0;
   z-index: 100;
 `;
+export const MyLocationArea = styled.div`
+  position: absolute;
+  right: 40px;
+  top: 15px;
+  color: #3b3b3b;
+`;
