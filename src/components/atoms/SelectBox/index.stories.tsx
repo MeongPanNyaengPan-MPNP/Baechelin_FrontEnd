@@ -1,14 +1,16 @@
+export {};
+/*
 import React from 'react';
 import { Story } from '@storybook/react';
 import { useForm } from 'react-hook-form';
-import SelectBox, { SelectBoxProps } from '@atoms/SelectBox/index';
+import SelectBox from '@atoms/SelectBox/index';
 
 export default {
   title: 'Atoms/SelectBox',
   component: SelectBox,
 };
 
-const Template: Story<SelectBoxProps> = (args) => {
+const Template: Story<any> = (args) => {
   const { control } = useForm();
 
   return <SelectBox control={control} {...args} />;
@@ -34,3 +36,4 @@ Basic.args = {
   label: 'placeholder',
   data: SelectBoxDummyData,
 };
+*/
