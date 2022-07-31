@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ThumbNail from '@atoms/Thumbnail';
 import Span from '@atoms/Span';
 import Star from '@atoms/Star';
@@ -7,7 +7,6 @@ import Badge from '@atoms/Badge';
 import { useNavigate } from 'react-router-dom';
 import { StoreResponseTypes } from '@interfaces/StoreResponseTypes';
 import Bookmark from '@molecules/Bookmark';
-import { Color } from '@constants/styles';
 import { useMutation, useQueryClient } from 'react-query';
 import { CreateBookmarkFolderResponse, CreateBookmarkStoreBody } from '@interfaces/BookmarkTypes';
 import { createBookmarkStore } from '@service/bookmarkApi';
@@ -36,8 +35,12 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
     heightDifferent,
   } = props;
   const navigate = useNavigate();
-  const bookmarkColor: string = bookmark === 'Y' ? Color.orange : Color.darkGrey;
   const queryClient = useQueryClient();
+
+  const [bookmarkStatus, setBookmarkStatus] = useState(bookmark);
+
+  console.log('bookmark', bookmark);
+
   const { mutate: fetchCreateBookmarkStore } = useMutation<
     CreateBookmarkFolderResponse,
     unknown,
@@ -52,6 +55,7 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
     {
       onSuccess: () => {
         // setCreate(false);
+        setBookmarkStatus('Y');
         queryClient.invalidateQueries('');
         console.log('bookmark created');
       },
@@ -86,11 +90,11 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
             <S.StarArea>
               <Star value={1} max={1} average={pointAvg} readOnly />
             </S.StarArea>
-          </S.StoreNameArea>{' '}
+          </S.StoreNameArea>
           <S.BookmarkArea>
             <Bookmark
               size="2.6rem"
-              marked={bookmarkColor}
+              marked={bookmarkStatus}
               storeIdProps={id}
               fetchCreateBookmarkStore={fetchCreateBookmarkStore}
             />
