@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import modalAtom from '@recoil/modalAtom';
 
 export type AlertButtonContent = {
   message?: string;
@@ -39,6 +41,7 @@ const ButtonArea = styled.div`
 `;
 
 function Alert({ messages, submitButton, cancelButton }: AlertProps) {
+  const modalContent = useRecoilValue(modalAtom);
   return (
     <Content>
       <div>
@@ -47,12 +50,12 @@ function Alert({ messages, submitButton, cancelButton }: AlertProps) {
         ))}
       </div>
       <ButtonArea>
-        {submitButton?.show && (
+        {modalContent?.submitButton?.show && (
           <Button type="button" onClick={submitButton?.onClick} point={submitButton?.point}>
             {submitButton?.message}
           </Button>
         )}
-        {cancelButton?.show && (
+        {modalContent?.cancelButton?.show && (
           <Button type="button" onClick={cancelButton?.onClick} point={cancelButton?.point}>
             {cancelButton?.message}
           </Button>

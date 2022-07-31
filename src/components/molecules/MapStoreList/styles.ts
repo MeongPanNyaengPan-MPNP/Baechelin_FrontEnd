@@ -26,6 +26,7 @@ export const BadgeList = styled.div`
   display: flex;
   align-items: center;
   margin-left: -10px;
+  margin-top: 20px;
 
   > div {
     margin-left: 10px;

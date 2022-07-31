@@ -1,6 +1,6 @@
 export interface TokenType {
-  nickname: string;
   sub: string; // email
+  role: string;
   exp: number;
 }
 

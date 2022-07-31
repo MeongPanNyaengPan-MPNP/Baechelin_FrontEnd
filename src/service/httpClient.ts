@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { LOCAL_STORAGE_KEY } from '@constants/index';
+import { isExp } from '@utils/Jwt/jwtDecoded';
 
 const API_DEV = process.env.REACT_APP_API_DEV;
 const API_PROD = process.env.REACT_APP_API_PROD;
@@ -23,7 +24,13 @@ const Api = axios.create({
 Api.interceptors.request.use(
   (config) => {
     const token = getToken(LOCAL_STORAGE_KEY.ACCESS_TOKEN);
-    if (token) {
+    /* 만료 체크 */
+    if (!isExp(token)) {
+      localStorage.clear();
+      alert('토큰이 만료되었습니다. 다시 로그인 해주세요.');
+      Api.post('/user/logout');
+      window.location.href = '/';
+    } else if (token) {/* 정상토큰이면 셋팅 */
       config.headers = { Authorization: `Bearer ${token}` };
     }
     return config;
@@ -37,21 +44,17 @@ export const request = async <T>(config: AxiosRequestConfig): Promise<T> => {
     return data;
   } catch (err: any) {
     const prevRequest = err.config.request;
+
     if (err.response.status === 401 && process.env.REACT_APP_MODE === 'production') {
       // TODO : 토큰 조작->강제 로그아웃
       localStorage.clear();
       Api.post('/user/logout');
       console.log('401_error', err);
-    }
-    if (err.response.status === 402) {
-      alert('토큰이 없거나 만료되었습니다');
-      localStorage.clear();
+    } else if (err.response.status === 402) {
       Api.post('/auth/refresh');
       console.log('402_error', 402);
       return prevRequest;
-    }
-    if (err.response.status === 403) {
-      alert('로그인이 필요합니다');
+    } else if (err.response.status === 403) {
       console.log('403_error', 403);
     }
     throw new Error(err);
