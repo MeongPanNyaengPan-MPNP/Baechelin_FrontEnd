@@ -77,10 +77,15 @@ function ReviewCard<T extends Partial<ReviewResponseDtoItem>>(
     setModalContent({
       messages: ['리뷰를 삭제 하시겠습니까?'],
       submitButton: {
+        show: true,
         onClick: () => {
           mutate();
           queryClient.invalidateQueries(REVIEW.DETAIL_REVIEW_LIST);
         },
+      },
+      cancelButton: {
+        onClick() {},
+        show: true,
       },
     });
   };

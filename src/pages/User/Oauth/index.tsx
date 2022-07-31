@@ -4,7 +4,6 @@ import { useSetRecoilState } from 'recoil';
 import { LOGIN } from '@constants/errorCode';
 import snackBarAtom from '@recoil/snackBarAtom';
 import { userToken } from '@recoil/userAtom';
-import UseLoginHooks from '@hooks/UseLogin';
 
 function Oauth() {
   const { prevPath } = useParams();
@@ -12,14 +11,6 @@ function Oauth() {
   const navigate = useNavigate();
   const setSnackBar = useSetRecoilState(snackBarAtom);
   const setUserTokenState = useSetRecoilState(userToken);
-
-  const { tokenExist } = UseLoginHooks();
-  React.useEffect(() => {
-    if (tokenExist) {
-      alert('이미 로그인 되어있습니다.');
-      window.location.href = '/';
-    }
-  }, [tokenExist]);
   const tokenNotFound = useCallback(
     (error: string, provider?: string | null) => {
       if (provider !== null && error === LOGIN.ALREADY_LOGIN_ACCOUNT) {

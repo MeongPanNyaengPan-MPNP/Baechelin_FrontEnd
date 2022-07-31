@@ -27,14 +27,31 @@ Api.interceptors.request.use(
     /* 만료 체크 */
     if (isExist(token) && !isExp(token)) {
       localStorage.clear();
-      console.log(isExp(token), '유효기간 토큰삭제');
     } else if (token) {
       /* 정상토큰이면 셋팅 */
       config.headers = { Authorization: `Bearer ${token}` };
     }
     return config;
   },
-  (error) => Promise.reject(error),
+  (err) => {
+    const prevRequest = err.config.request;
+
+    const token = getToken(LOCAL_STORAGE_KEY.ACCESS_TOKEN);
+    if (err.response.status === 401 && process.env.REACT_APP_MODE === 'production') {
+      // TODO : 토큰 조작->강제 로그아웃
+      if (isExist(token)) {
+        Api.post('/user/logout');
+        localStorage.clear();
+        console.log('401_error', err);
+      } else if (err.response.status === 402) {
+        Api.post('/auth/refresh');
+        console.log('402_error', 402);
+        return prevRequest;
+      } else if (err.response.status === 403) {
+        console.log('403_error', 403);
+      }
+    }
+  },
 );
 
 export const request = async <T>(config: AxiosRequestConfig): Promise<T> => {
@@ -42,20 +59,6 @@ export const request = async <T>(config: AxiosRequestConfig): Promise<T> => {
     const { data } = await Api(config);
     return data;
   } catch (err: any) {
-    const prevRequest = err.config.request;
-
-    if (err.response.status === 401 && process.env.REACT_APP_MODE === 'production') {
-      // TODO : 토큰 조작->강제 로그아웃
-      localStorage.clear();
-      Api.post('/user/logout');
-      console.log('401_error', err);
-    } else if (err.response.status === 402) {
-      Api.post('/auth/refresh');
-      console.log('402_error', 402);
-      return prevRequest;
-    } else if (err.response.status === 403) {
-      console.log('403_error', 403);
-    }
     throw new Error(err);
   }
 };

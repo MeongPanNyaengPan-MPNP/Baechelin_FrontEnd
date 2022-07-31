@@ -44,6 +44,12 @@ function BookmarkUpdateOverlay({
             fetchDeleteBookmarkFolder(folderId);
           }
         },
+        show: true,
+      },
+      cancelButton: {
+        onClick() {},
+        point: true,
+        show: true,
       },
     });
     handleClose();

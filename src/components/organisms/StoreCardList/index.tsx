@@ -103,7 +103,7 @@ function StoreCardList({ topic, title, keyword }: StoreCardListProps) {
               </S.CardItem>
             ))
           ) : (
-            <NoDataMessage message={['카테고리 안에 가게가 없습니다.']} />
+            <NoDataMessage message={['해당 카테고리 안에 가게가 없습니다.']} />
           ))}
         {searchDataIsSuccess &&
           (searchData?.totalPage >= 0 ? (
