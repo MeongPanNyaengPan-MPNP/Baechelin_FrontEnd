@@ -9,6 +9,9 @@ import Bookmark from '@molecules/Bookmark';
 import { StoreMapResponseTypes } from '@interfaces/StoreResponseTypes';
 import Icon from '@atoms/Icon';
 import NoDataMessage from '@molecules/NodataMessage';
+import { useMutation, useQueryClient } from 'react-query';
+import { CreateBookmarkFolderResponse, CreateBookmarkStoreBody } from '@interfaces/BookmarkTypes';
+import { createBookmarkStore } from '@service/bookmarkApi';
 import * as S from './styles';
 
 type MapStoreListProps = {
@@ -23,6 +26,30 @@ function MapStoreList(props: MapStoreListProps) {
   const { leftElement, storeItems, isLoading, isFetched, totalCount } = props;
   const location = useLocation();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { mutate: fetchCreateBookmarkStore } = useMutation<
+    CreateBookmarkFolderResponse,
+    unknown,
+    CreateBookmarkStoreBody,
+    unknown
+  >(
+    ({ storeId, folderId }) =>
+      createBookmarkStore({
+        folderId,
+        storeId,
+      }),
+    {
+      onSuccess: () => {
+        // setCreate(false);
+        queryClient.invalidateQueries('');
+        console.log('bookmark created');
+      },
+      onError: (err) => {
+        console.error(err);
+      },
+    },
+  );
+
   return (
     <S.Container>
       <S.Inner id="storeScrollList">
@@ -52,7 +79,11 @@ function MapStoreList(props: MapStoreListProps) {
                           </p>
                         </h2>
                         <S.BookmarkArea>
-                          <Bookmark size="2.5rem" marked={item.bookmark} />
+                          <Bookmark
+                            size="2.5rem"
+                            fetchCreateBookmarkStore={fetchCreateBookmarkStore}
+                            marked={item.bookmark}
+                          />
                         </S.BookmarkArea>
                       </S.TitleArea>
                       <S.RateArea>

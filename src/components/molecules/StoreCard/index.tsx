@@ -32,7 +32,7 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
     toilet,
     parking,
     approach,
-    bookmark,
+    bookmark = 'N',
     heightDifferent,
   } = props;
   const navigate = useNavigate();
