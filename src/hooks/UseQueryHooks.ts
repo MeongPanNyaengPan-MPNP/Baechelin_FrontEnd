@@ -10,14 +10,14 @@ import { MAP, USER } from '@constants/useQueryKey';
 import { UserInfoType } from '@interfaces/UserInfoType';
 
 const basicOption = {
-  staleTime: Infinity,
+  staleTime: 10000,
   cacheTime: Infinity,
   refetchOnMount: false,
   refetchOnWindowFocus: false,
   retry: 0,
 };
 const enabledOption = (enabled: boolean) => ({
-  staleTime: Infinity,
+  staleTime: 10000,
   cacheTime: Infinity,
   refetchOnMount: false,
   refetchOnWindowFocus: false,
@@ -121,15 +121,14 @@ export const UseFetchToken = () => {
       refetchOnMount: false,
       refetchOnReconnect: false,
       retry: 1,
-      refetchInterval: 1 * 60 * 1000, // 1분
+      refetchInterval: 15 * 60 * 1000, // 1분
       refetchIntervalInBackground: true,
       enabled: loginState,
       onSuccess: (data) => {
-        console.log('useQueryToken onSuccess', data);
         setUserTokenState(data.token);
       },
       onError: (err) => {
-        console.log('useQueryToken ERROR', err);
+        console.log('get Token ERROR', err);
         console.log(err);
       },
     });

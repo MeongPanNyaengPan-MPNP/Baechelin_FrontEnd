@@ -104,7 +104,6 @@ function BookmarkTemplate() {
               <BookmarkFolderCard
                 name={v.folderName}
                 folderId={v.id}
-                list={v.bookmarkList}
                 key={v.id}
                 fetchDeleteBookmarkFolder={fetchDeleteBookmarkFolder}
                 fetchUpdateBookmarkFolder={fetchUpdateBookmarkFolder}

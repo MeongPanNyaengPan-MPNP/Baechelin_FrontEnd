@@ -18,7 +18,6 @@ function BookmarkSelect({ selectedOption = 'all', setSelectedOption, BookmarkDat
   const handleChange = (event: SelectChangeEvent) => {
     // setValue(event.target.value as string);
     setSelectedOption(event.target.value);
-    console.log('select value', event.target.value);
   };
 
   return (
