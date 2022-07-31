@@ -36,7 +36,7 @@ export const request = async <T>(config: AxiosRequestConfig): Promise<T> => {
     const { data } = await Api(config);
     return data;
   } catch (err: any) {
-    /*     const prevRequest = err.config.request;
+    const prevRequest = err.config.request;
         if (err.response.status === 401 && process.env.REACT_APP_MODE === 'production') {
           // TODO : 토큰 조작->강제 로그아웃
           alert('보안 상의 문제로 강제 로그아웃 되었습니다');
@@ -56,7 +56,6 @@ export const request = async <T>(config: AxiosRequestConfig): Promise<T> => {
           Api.post('/user/logout');
           window.location.href = '/login';
         }
-        */
     throw new Error(err);
   }
 };
