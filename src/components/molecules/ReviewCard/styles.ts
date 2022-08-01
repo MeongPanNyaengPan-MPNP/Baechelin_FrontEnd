@@ -5,7 +5,8 @@ import Span from '@atoms/Span';
 export const CardItem = styled.div<{ showTagList?: boolean }>`
   position: relative;
   margin: 0 20px;
-  height: ${(props) => (props.showTagList ? `310px` : `370px`)};
+  height: ${(props) => (props.showTagList ? `auto` : `370px`)};
+  max-height: 450px;
 `;
 export const CardItemInner = styled.div`
   display: flex;
@@ -79,6 +80,7 @@ export const CardTextArea = styled.div`
     font-size: 1.4rem;
     line-height: 1.6;
     color: #8a8a8a;
+    margin-bottom: 20px;
   }
 `;
 export const CardImageList = styled.ul`

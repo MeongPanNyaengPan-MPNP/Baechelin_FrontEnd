@@ -52,6 +52,7 @@ function StoreInfo({ storeName, align, size = 'big' }: StoreInfoProps) {
                   width: '4.4rem',
                 }}
               />
+
               <Badge
                 name="height"
                 state={storeDetailData?.heightDifferent}

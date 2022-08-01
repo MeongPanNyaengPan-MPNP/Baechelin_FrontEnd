@@ -41,19 +41,22 @@ function Badge({ name, state = 'N', active, ...props }: BadgeProps) {
     }
   }, [name]);
   return (
-    <BadgeArea {...props}>
-      {active ? (
-        <img
-          alt={`${alt} ${state === 'Y' ? '있음' : '없음'}`}
-          src={`/img/ui/picto_${name}_${state === 'Y' ? 'on' : 'off_active'}.${extension}`}
-        />
-      ) : (
-        <img
-          alt={`${alt} ${state === 'Y' ? '있음' : '없음'}`}
-          src={`/img/ui/picto_${name}_${state === 'Y' ? 'on' : 'off'}.${extension}`}
-        />
-      )}
-    </BadgeArea>
+    <>
+      <BadgeArea {...props}>
+        {active ? (
+          <img
+            alt={`${alt} ${state === 'Y' ? '있음' : '없음'}`}
+            src={`/img/ui/picto_${name}_${state === 'Y' ? 'on' : 'off_active'}.${extension}`}
+          />
+        ) : (
+          <img
+            alt={`${alt} ${state === 'Y' ? '있음' : '없음'}`}
+            src={`/img/ui/picto_${name}_${state === 'Y' ? 'on' : 'off'}.${extension}`}
+          />
+        )}
+      </BadgeArea>
+      <p />
+    </>
   );
 }
 

@@ -133,7 +133,7 @@ function ReviewCard<T extends Partial<ReviewResponseDtoItem>>(
             <S.CardTextArea>
               <p>
                 <Span
-                  ellipsis={reviewImageUrlList && reviewImageUrlList.length > 0 ? 4 : 8}
+                  ellipsis={reviewImageUrlList && reviewImageUrlList.length > 0 ? 8 : 8}
                   fontSize={1.2}
                   fontWeight="normal"
                 >

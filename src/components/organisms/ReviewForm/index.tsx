@@ -19,11 +19,12 @@ function ReviewForm({ storeName: storeId }: { storeName: string }) {
     point: Yup.number().required('별점을 선택해주세요.'),
     content: Yup.string()
       .required('리뷰는 최소 30자 이상 작성해주세요.')
-      .min(30, '리뷰는 최소 30자 이상 작성해주세요.'),
+      .min(20, '리뷰는 최소 20자 이상 작성해주세요.')
+      .max(100, '리뷰는 최대 100자까지 가능합니다.'),
   });
   const { handleSubmit, control, setValue, getValues } = useForm<FieldValues>({
     mode: 'onChange',
-    reValidateMode: 'onBlur',
+    reValidateMode: 'onChange',
     resolver: yupResolver(validationSchema),
   });
   const [curValues, setCurValues] = React.useState<FieldValues | undefined>();
