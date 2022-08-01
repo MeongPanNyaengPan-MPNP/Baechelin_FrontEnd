@@ -78,3 +78,62 @@ export const MyLocationArea = styled.div`
   top: 15px;
   color: #3b3b3b;
 `;
+
+export const totalCount = styled.div`
+  position: fixed;
+  z-index: 1;
+  bottom: 30px;
+  right: 420px;
+
+  button {
+    display: flex;
+    align-items: flex-start;
+    border-radius: 5em;
+    background: ${Color.orange};
+    color: #fff;
+    font-size: 1.6rem;
+    text-align: center;
+    padding: 16px 20px 14px 20px;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.2s;
+    line-height: 1;
+
+    strong {
+      display: inline-block;
+      width: 0;
+      overflow: hidden;
+      visibility: hidden;
+      margin-left: 0px;
+
+      > span {
+        white-space: nowrap;
+        margin-bottom: -2px;
+      }
+    }
+
+    span {
+      display: inline-block;
+      vertical-align: -4px;
+      margin-left: 10px;
+    }
+
+    &:hover {
+      color: ${Color.orange};
+      background: #fff;
+      padding-left: 20px;
+      border: 1px solid ${Color.orange};
+
+      span {
+        margin-left: 10px;
+        color: ${Color.orange};
+      }
+
+      strong {
+        display: inline-block;
+        width: auto;
+        visibility: visible;
+      }
+    }
+  }
+`;

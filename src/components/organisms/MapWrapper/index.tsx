@@ -15,6 +15,8 @@ import { Pagination } from '@mui/material';
 import NoDataMessage from '@molecules/NodataMessage';
 
 import MyLocation from '@molecules/MyLocation';
+import Icon from '@atoms/Icon';
+import Span from '@atoms/Span';
 import * as S from './styles';
 
 function MapWrapper({ filters }: { filters: FiltersType }) {
@@ -72,12 +74,7 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
         <MapContainer location={location} storeItems={itemResult} />
       </S.Content>
       <S.StoreListArea>
-        <MapStoreList
-          leftElement={storeItems?.leftElement}
-          totalCount={storeItems?.totalCount}
-          storeItems={itemResult}
-          isFetched={isFetched}
-        />
+        <MapStoreList totalCount={storeItems?.totalCount} storeItems={itemResult} isFetched={isFetched} />
         <S.PaginationBar>
           <Pagination
             count={Number(storeItems?.totalPage) + 1}
@@ -90,6 +87,20 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
             onChange={(e, page) => pageChangeHandler(page)}
           />
         </S.PaginationBar>
+        {Number(storeItems?.leftElement) > 3 && (
+          <S.totalCount>
+            <p>
+              <button type="button" onClick={() => setPageNum((prevState) => prevState + 1)}>
+                {storeItems?.leftElement}개의 가게
+                <Span fontSize="1.4rem" fontWeight={400}>
+                  Click
+                </Span>
+                <Icon iconName="add_icon" color="#fff" />
+                <strong />
+              </button>
+            </p>
+          </S.totalCount>
+        )}
       </S.StoreListArea>
       {(bool || isLoading) && (
         <S.DisabledBox>

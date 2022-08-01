@@ -29,7 +29,7 @@ export const getBookmarkStoreList = <T>(locationData: UserLoctaionType, query = 
     url: `/store/bookmark?limit=${limit}${query}${locationQuery()}`,
   });
 };
-export const getNearStoreAtMap = <T>(locationData: string, query = '', page = 0, size = 30) =>
+export const getNearStoreAtMap = <T>(locationData: string, query = '', page = 0, size = 20) =>
   // const paging = page ? `&page=${page}&size=${size}` : null;
   request<T>({
     method: 'GET',

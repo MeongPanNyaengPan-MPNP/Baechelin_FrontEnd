@@ -6,7 +6,6 @@ import Badge from '@atoms/Badge';
 import Span from '@atoms/Span';
 import Star from '@atoms/Star';
 import { StoreMapResponseTypes } from '@interfaces/StoreResponseTypes';
-import Icon from '@atoms/Icon';
 import NoDataMessage from '@molecules/NodataMessage';
 import { useMutation, useQueryClient } from 'react-query';
 import { CreateBookmarkFolderResponse, CreateBookmarkStoreBody } from '@interfaces/BookmarkTypes';
@@ -17,13 +16,12 @@ import * as S from './styles';
 
 type MapStoreListProps = {
   storeItems: StoreMapResponseTypes[][] | undefined;
-  leftElement: number | undefined;
   totalCount: number | undefined;
   isFetched: boolean;
 };
 
 function MapStoreList(props: MapStoreListProps) {
-  const { leftElement, storeItems, isFetched, totalCount } = props;
+  const { storeItems, isFetched, totalCount } = props;
   const location = useLocation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -98,14 +96,14 @@ function MapStoreList(props: MapStoreListProps) {
             </div>
           ))}
         {totalCount === 0 && isFetched && <NoDataMessage message={['주변 가게가 없습니다']} />}
-        {Number(leftElement) > 3 && (
+        {/*      {Number(leftElement) > 3 && (
           <S.totalCount>
             <p>
               <Icon iconName="add_icon" color="#fff" />
               {leftElement}개의 가게
             </p>
           </S.totalCount>
-        )}
+        )} */}
       </S.Inner>
     </S.Container>
   );
