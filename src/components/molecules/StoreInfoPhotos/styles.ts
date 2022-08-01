@@ -3,6 +3,7 @@ import { Color } from '@constants/styles';
 
 export const Wrapper = styled.div`
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
   align-content: space-between;
   flex-wrap: wrap;
