@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 const BadgeArea = styled.div<BadgeProps>`
-  border-radius: 100%;
+  border-radius: ${(props) => (props.type ? 'none' : '100%;')};
   overflow: hidden;
   background: #fff;
   width: 36px;
@@ -18,11 +18,12 @@ const BadgeArea = styled.div<BadgeProps>`
 export type BadgeProps = {
   name: 'approach' | 'elevator' | 'height' | 'parking' | 'toilet' | undefined;
   state: 'Y' | 'N' | undefined;
+  type?: string;
   active?: boolean;
   [prop: string]: any;
 };
 
-function Badge({ name, state = 'N', active, ...props }: BadgeProps) {
+function Badge({ name, state = 'N', type = '', active, ...props }: BadgeProps) {
   const [alt, setAlt] = React.useState<string>();
   const extension = 'svg';
   useEffect(() => {
@@ -42,16 +43,16 @@ function Badge({ name, state = 'N', active, ...props }: BadgeProps) {
   }, [name]);
   return (
     <>
-      <BadgeArea {...props}>
+      <BadgeArea {...props} type={type} className="badge">
         {active ? (
           <img
             alt={`${alt} ${state === 'Y' ? '있음' : '없음'}`}
-            src={`/img/ui/picto_${name}_${state === 'Y' ? 'on' : 'off_active'}.${extension}`}
+            src={`/img/ui/picto_${name}_${state === 'Y' ? 'on' : 'off_active'}${type ? `_${type}` : ''}.${extension}`}
           />
         ) : (
           <img
             alt={`${alt} ${state === 'Y' ? '있음' : '없음'}`}
-            src={`/img/ui/picto_${name}_${state === 'Y' ? 'on' : 'off'}.${extension}`}
+            src={`/img/ui/picto_${name}_${state === 'Y' ? 'on' : 'off'}${type ? `_${type}` : ''}.${extension}`}
           />
         )}
       </BadgeArea>

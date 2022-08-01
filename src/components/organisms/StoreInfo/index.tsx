@@ -4,10 +4,11 @@ import StoreInfoTitle from '@molecules/StoreInfoTitle';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
+
 import { getStoreDetail } from '@service/storeDetailApi';
 
 import Badge from '@atoms/Badge';
-import Span from '@atoms/Span';
+
 import * as S from './styles';
 
 interface StoreInfoProps {
@@ -38,55 +39,62 @@ function StoreInfo({ storeName, align, size = 'big' }: StoreInfoProps) {
           <StoreInfoContent showIcons={false} storeDetailData={storeDetailData} />
         </S.TextArea>
         <S.FigureArea>
-          <div>
-            <Span fontSize="1.6rem">편의 시설</Span>
+          <S.Inner>
             <S.IconsWrapper className="icons_area">
               {/* {icons.map((v) => (
           <Icon iconName={v} size="3.6rem" margin="0 1.4rem 0 0" key={v} />
         ))} */}
-              <Badge
-                name="elevator"
-                state={storeDetailData?.elevator}
-                style={{
-                  height: '4.4rem',
-                  width: '4.4rem',
-                }}
-              />
-
-              <Badge
-                name="height"
-                state={storeDetailData?.heightDifferent}
-                style={{
-                  height: '4.4rem',
-                  width: '4.4rem',
-                }}
-              />
-              <Badge
-                name="approach"
-                state={storeDetailData?.approach}
-                style={{
-                  height: '4.4rem',
-                  width: '4.4rem',
-                }}
-              />
-              <Badge
-                name="parking"
-                state={storeDetailData?.parking}
-                style={{
-                  height: '4.4rem',
-                  width: '4.4rem',
-                }}
-              />
-              <Badge
-                name="toilet"
-                state={storeDetailData?.toilet}
-                style={{
-                  height: '4.4rem',
-                  width: '4.4rem',
-                }}
-              />
+              <S.BadgeArea>
+                <Badge
+                  name="elevator"
+                  state={storeDetailData?.elevator}
+                  type="square"
+                  style={{
+                    width: '14.8rem',
+                    height: '3.6rem',
+                  }}
+                />
+                <Badge
+                  name="height"
+                  state={storeDetailData?.heightDifferent}
+                  type="square"
+                  style={{
+                    width: '14.8rem',
+                    height: '3.6rem',
+                  }}
+                />
+              </S.BadgeArea>
+              <S.BadgeArea>
+                <Badge
+                  name="approach"
+                  state={storeDetailData?.approach}
+                  type="square"
+                  style={{
+                    width: '14.8rem',
+                    height: '3.6rem',
+                  }}
+                />
+                <Badge
+                  name="parking"
+                  state={storeDetailData?.parking}
+                  type="square"
+                  style={{
+                    width: '14.8rem',
+                    height: '3.6rem',
+                  }}
+                />
+                <Badge
+                  name="toilet"
+                  state={storeDetailData?.toilet}
+                  type="square"
+                  style={{
+                    width: '14.8rem',
+                    height: '3.6rem',
+                  }}
+                />
+              </S.BadgeArea>
             </S.IconsWrapper>
-          </div>
+          </S.Inner>
           <StoreInfoPhotos location={location} storeDetailData={storeDetailData} />
         </S.FigureArea>
       </>

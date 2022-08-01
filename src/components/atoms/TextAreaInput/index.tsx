@@ -3,14 +3,29 @@ import { TextareaAutosize, TextareaAutosizeProps } from '@mui/material';
 import { Controller, UseControllerProps } from 'react-hook-form';
 import styled from 'styled-components';
 import { FormErrMessage } from '@styles/ui';
+import FormLength from '@atoms/FormLength';
 
-export type TextAreaInputProps = TextareaAutosizeProps & UseControllerProps;
+export type TextAreaInputProps = TextareaAutosizeProps & UseControllerProps & { length: number; max: number };
 
 const TextAreaBox = styled.div`
+  position: relative;
   width: 100%;
+  padding-bottom: 40px;
+
+  .form_length {
+    margin-top: 10px;
+
+    & + p {
+      margin-top: -2.5rem;
+    }
+  }
+
+  textarea {
+    height: 250px !important;
+  }
 `;
 
-function TextAreaInput({ control, name }: TextAreaInputProps) {
+function TextAreaInput({ control, name, length, max }: TextAreaInputProps) {
   return (
     <TextAreaBox>
       <Controller
@@ -28,10 +43,12 @@ function TextAreaInput({ control, name }: TextAreaInputProps) {
                 padding: '20px',
                 background: '#F2F2F2',
                 minHeight: '250px',
-                fontSize: '1.8rem',
+                fontSize: '1.6rem',
               }}
               {...field}
             />
+
+            <FormLength length={length} max={max} />
             {fieldState.error && <FormErrMessage>{fieldState.error?.message}</FormErrMessage>}
           </>
         )}

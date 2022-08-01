@@ -20,7 +20,7 @@ export const FileUploaderWrap = styled.div`
   align-items: center;
   width: 100%;
   height: 100px;
-  margin-top: 20px;
+  margin-top: -20px;
 
   > figure {
     margin-right: 14px;

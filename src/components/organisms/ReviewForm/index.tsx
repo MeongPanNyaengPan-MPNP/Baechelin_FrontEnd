@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -20,8 +20,9 @@ function ReviewForm({ storeName: storeId }: { storeName: string }) {
     content: Yup.string()
       .required('리뷰는 최소 30자 이상 작성해주세요.')
       .min(20, '리뷰는 최소 20자 이상 작성해주세요.')
-      .max(100, '리뷰는 최대 100자까지 가능합니다.'),
+      .max(200, '리뷰는 최대 200자까지 가능합니다.'),
   });
+  const [textAreaLength, setTextAreaLength] = useState(0);
   const { handleSubmit, control, setValue, getValues } = useForm<FieldValues>({
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -53,6 +54,7 @@ function ReviewForm({ storeName: storeId }: { storeName: string }) {
   const handleFormChange = React.useCallback(() => {
     const cur = getValues();
     setCurValues(cur);
+    setTextAreaLength(cur.content.length);
   }, [getValues]);
 
   const boxStyled = {
@@ -124,7 +126,7 @@ function ReviewForm({ storeName: storeId }: { storeName: string }) {
               이 장소에 대한 솔직한 리뷰를 남겨주세요 *
             </Span>
           </h5>
-          <TextAreaInput name="content" control={control} />
+          <TextAreaInput max={200} length={textAreaLength} name="content" control={control} />
           <AddImage name="imageFile" getValues={getValues} setValue={setValue} control={control} />
         </S.QuestionSection>
         <S.ButtonArea>

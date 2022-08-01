@@ -86,6 +86,8 @@ export const CardTextArea = styled.div`
 export const CardImageList = styled.ul`
   display: flex;
 
+  min-height: 30px;
+
   & > li {
     flex: 1;
     margin-right: 10px;

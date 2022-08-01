@@ -6,6 +6,7 @@ export const SlideButtonArea = styled.div<{ color?: string; hover?: boolean; wid
   top: 50%;
   left: 0;
   right: 0;
+  z-index: -1;
   transform: translateY(-50%);
   width: 100%;
   display: flex;

@@ -22,6 +22,9 @@ export const Container = styled.div<ContainerProps>`
     }
   }}
 `;
+export const Inner = styled.div`
+  width: 100%;
+`;
 export const FigureArea = styled.div`
   display: flex;
   flex-direction: row;
@@ -47,13 +50,19 @@ export const TextArea = styled.div<{ margin?: string; size?: 'big' | 'regular' |
     }
   }}
 `;
-
 export const IconsWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 26.8rem;
-  height: 4.4rem;
-  align-items: center;
-  margin-top: 1.5rem;
+  width: 100%;
   margin-bottom: 20px;
+`;
+export const BadgeArea = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -20px;
+  align-items: center;
+  justify-content: flex-start;
+
+  .badge {
+    margin-right: 14px;
+    margin-top: 10px;
+  }
 `;

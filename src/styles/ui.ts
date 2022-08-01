@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Color } from '@constants/styles';
 
 // eslint-disable-next-line import/prefer-default-export
 export const FormErrMessage = styled.p<{ color?: string; opacity?: number }>`
@@ -21,6 +22,7 @@ export const PaginationArea = styled.div`
     .Mui-selected {
       background: none;
       font-weight: bold;
+      color: ${Color.orange};
     }
 
     .MuiButtonBase-root {

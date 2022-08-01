@@ -15,7 +15,7 @@ export function SilentLogin() {
 
   React.useEffect(() => {
     refetch();
-  }, [pathname, refetch, token]);
+  }, [refetch, token]);
 
   return null;
 }
