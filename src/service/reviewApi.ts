@@ -14,10 +14,10 @@ export const postReview = <T>(data: any) =>
     data,
     headers: { 'Content-Type': 'multipart/form-data' },
   });
-export const getReviewList = <T>(storeId: number) =>
+export const getReviewList = <T>(storeId: number, page = 0, size = 6) =>
   request<T>({
     method: 'get',
-    url: `/review/${storeId}`,
+    url: `/review/${storeId}?page=${page}&size=${size}`,
   });
 export const deleteReviewList = <T>(reviewId: number) =>
   request<T>({

@@ -24,34 +24,4 @@ export const ButtonArea = styled.div`
   font-size: 2rem;
 `;
 
-export const PaginationArea = styled.div`
-  margin-top: 10px;
-
-  > nav {
-    display: flex;
-    justify-content: center;
-
-    .Mui-selected {
-      background: none;
-      font-weight: bold;
-    }
-
-    .MuiButtonBase-root {
-      font-size: 1.6rem;
-      margin-top: 3px;
-
-      svg {
-        font-size: 2rem;
-      }
-    }
-
-    .MuiButtonBase-root:hover {
-      background: none;
-      font-weight: bold;
-    }
-
-    .MuiTouchRipple-root {
-      display: none;
-    }
-  }
-`;
+export { PaginationArea } from '@styles/ui';

@@ -24,7 +24,8 @@ export const Container = styled.div`
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  width: 1280px;
+  width: 1240px;
+  padding: 0 20px;
   justify-content: space-between;
 
   button:hover {

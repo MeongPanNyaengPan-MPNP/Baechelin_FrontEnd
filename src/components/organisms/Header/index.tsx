@@ -56,7 +56,7 @@ function Header() {
     <S.Wrap>
       <S.Container>
         <S.Wrapper>
-          <Logo src={LogoImg} width="9.6rem" height="auto" margin="0 auto 0 15px;" onClick={onClickLogo} />
+          <Logo src={LogoImg} width="9.6rem" height="auto" margin="0 auto 0 0;" onClick={onClickLogo} />
           <SearchInput width="56.2rem" margin="0 7rem" />
           <Navigation>
             <div>

@@ -7,9 +7,11 @@ export const Container = styled.div`
   /* background-color: blue; */
 `;
 export const ReviewListGroup = styled.ul`
-  margin: 0 -20px;
+  margin: 0 -20px 50px;
 
   > li + li {
     margin-top: 28px;
   }
 `;
+
+export { PaginationArea } from '@styles/ui';

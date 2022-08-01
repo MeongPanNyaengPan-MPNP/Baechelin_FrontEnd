@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useCallback } from 'react';
 
 import Span from '@atoms/Span';
 import ThumbNail from '@atoms/Thumbnail';
@@ -15,8 +15,7 @@ import { Color } from '@constants/styles';
 import { UseReviewList } from '@hooks/UseQueryHooks';
 import { REVIEW } from '@constants/useQueryKey';
 import { useSetRecoilState } from 'recoil';
-import modalAtom, { muiAnchorEl } from '@recoil/modalAtom';
-import { useQueryClient } from 'react-query';
+import modalAtom from '@recoil/modalAtom';
 import * as S from './styles';
 
 export type ReviewCardProps = {
@@ -24,7 +23,13 @@ export type ReviewCardProps = {
 };
 
 function ReviewCard<T extends Partial<ReviewResponseDtoItem>>(
-  props: T & { showTagList?: boolean; showStoreInfo?: boolean; useModal?: boolean; showControll?: boolean },
+  props: T & {
+    refetchEvent?: any;
+    showTagList?: boolean;
+    showStoreInfo?: boolean;
+    useModal?: boolean;
+    showControll?: boolean;
+  },
 ) {
   const {
     storeName,
@@ -42,17 +47,14 @@ function ReviewCard<T extends Partial<ReviewResponseDtoItem>>(
     showStoreInfo = true,
     showTagList = true,
     showControll = false,
+    refetchEvent,
   } = props;
   const [facilityTag, setFacilityTag] = React.useState<TagListType[] | null>(null);
   const [qualityTag, setQualityTag] = React.useState<TagListType[] | null>(null);
-  const queryClient = useQueryClient();
-  const setAnchorEl = useSetRecoilState(muiAnchorEl);
   const setModalContent = useSetRecoilState(modalAtom);
   const { UseDeleteDetailReview } = UseReviewList();
-  const { mutate } = UseDeleteDetailReview(REVIEW.DETAIL_REVIEW_LIST, Number(reviewId));
+  const { mutate } = UseDeleteDetailReview(REVIEW.DETAIL_REVIEW_LIST, Number(reviewId), refetchEvent);
   const location = useLocation();
-
-  // b, f 해시태그 키 구분
   React.useEffect(() => {
     if (showTagList) {
       const fa = tagList
@@ -72,15 +74,13 @@ function ReviewCard<T extends Partial<ReviewResponseDtoItem>>(
     }
   }, [showTagList, tagList]);
 
-  const handleDelete = () => {
-    setAnchorEl(null); // 헤더 팝업 닫기
+  const deleteCallback = useCallback(() => {
     setModalContent({
       messages: ['리뷰를 삭제 하시겠습니까?'],
       submitButton: {
         show: true,
         onClick: () => {
           mutate();
-          queryClient.invalidateQueries(REVIEW.DETAIL_REVIEW_LIST);
         },
       },
       cancelButton: {
@@ -88,13 +88,13 @@ function ReviewCard<T extends Partial<ReviewResponseDtoItem>>(
         show: true,
       },
     });
-  };
+  }, [mutate, setModalContent]);
   return (
     <S.CardItem showTagList={showTagList}>
       <S.CardItemInner>
         {showControll && myReview === 'Y' && (
           <S.ControlButtonArea>
-            <Buttons onClick={() => handleDelete()}>
+            <Buttons onClick={deleteCallback}>
               <>
                 <Icon size="1.8rem" color={Color.darkGrey} iconName="delete_icon" />
                 <Span color={Color.darkGrey} fontSize="1.2rem" display="block">

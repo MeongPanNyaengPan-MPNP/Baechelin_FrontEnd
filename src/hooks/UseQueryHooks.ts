@@ -90,21 +90,26 @@ export const UseReviewList = () => {
 
   const UseRecentReviewForMain = <T>(key: string, limit?: number) =>
     useQuery<T>([key], () => getRecentReviewList(limit), {
-      staleTime: 0,
+      staleTime: 6000,
       cacheTime: Infinity,
       refetchOnMount: true,
       refetchOnWindowFocus: false,
       retry: 0,
     });
-  const UseDetailReview = <T>(key: string, storeId: number) =>
-    useQuery<T>([key], () => getReviewList(storeId), {
-      staleTime: 0,
+  const UseDetailReview = <T>(key: string, storeId: number, page?: number) =>
+    useQuery<T>([key, storeId, page], () => getReviewList(storeId, page), {
+      staleTime: 6000,
       cacheTime: Infinity,
       refetchOnMount: true,
       refetchOnWindowFocus: false,
       retry: 0,
     });
-  const UseDeleteDetailReview = (key: string, reviewId: number) => useMutation(key, () => deleteReviewList(reviewId));
+  const UseDeleteDetailReview = (key: string, reviewId: number, refetch: any) =>
+    useMutation(key, () => deleteReviewList(reviewId), {
+      onSuccess: () => {
+        refetch();
+      },
+    });
   return {
     UseRecentReviewForMain,
     UseDetailReview,
