@@ -3,8 +3,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import LogoImg from '@assets/Logo.svg';
 import { useQuery } from 'react-query';
-
-import UserIcon from '@assets/UserIcon.svg';
 import Button from '@atoms/Buttons';
 import Logo from '@atoms/Logo';
 
@@ -12,11 +10,13 @@ import Navigation from '@molecules/Navigation';
 import SearchInput from '@atoms/SearchInput';
 import UseLoginHooks from '@hooks/UseLogin';
 import ProfileBookmark from '@organisms/ProfileBookmark';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+
 import { muiAnchorEl } from '@recoil/modalAtom';
 import { getBookmarkTop } from '@service/bookmarkApi';
-import { getUserInfo } from '@service/getUserApi';
 
+import { userToken } from '@recoil/userAtom';
+import { UseUserQuery } from '@hooks/UseQueryHooks';
 import * as S from './styles';
 import { UserLogo } from './styles';
 
@@ -25,13 +25,13 @@ function Header() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data: BookmarkTopData } = useQuery(['getBookmarkTop'], () => getBookmarkTop(), {
-    staleTime: 5000,
-    cacheTime: Infinity,
-    // enabled: !create,
-  });
+  const token = useRecoilValue(userToken);
 
-  const { data: getUserInfoData } = useQuery(['getUserInfo'], () => getUserInfo(), {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const { UseGetUserInfo } = UseUserQuery(token);
+  const { data: userInfoData } = UseGetUserInfo();
+  const { data: BookmarkTopData } = useQuery(['getBookmarkTop'], () => getBookmarkTop(), {
     staleTime: 5000,
     cacheTime: Infinity,
     // enabled: !create,
@@ -71,14 +71,16 @@ function Header() {
             </div>
             {/* userIcon */}
             <div>
-              {tokenExist ? (
+              {tokenExist && userInfoData ? (
                 <>
-                  <UserLogo src={UserIcon} width="3rem" height="3rem" onClick={handleClick} />
+                  <S.LogoArea>
+                    <UserLogo src={userInfoData?.userImage} width="3rem" height="3rem" onClick={handleClick} />
+                  </S.LogoArea>
                   <ProfileBookmark
                     anchorEl={anchorEl}
                     setAnchorEl={setAnchorEl}
                     BookmarkTopData={BookmarkTopData}
-                    getUserInfoData={getUserInfoData}
+                    getUserInfoData={userInfoData}
                   />
                 </>
               ) : (

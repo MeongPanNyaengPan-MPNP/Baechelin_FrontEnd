@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
-import { userToken } from '@recoil/userAtom';
+import { userInfo, userToken } from '@recoil/userAtom';
 import { userLogout } from '@service/getUserApi';
 
 export const UseLoginHooks = () => {
   const accessToken = useRecoilValue(userToken);
   const resetAccessToken = useResetRecoilState(userToken);
+  const resetUserInfo = useResetRecoilState(userInfo);
   const [tokenExist, setTokenExist] = useState<boolean>(false);
 
   useEffect(() => {
@@ -15,8 +16,9 @@ export const UseLoginHooks = () => {
   const UseLogout = useCallback(() => {
     userLogout(); // 로그아웃 api 호출
     resetAccessToken(); // accesstoken 리셋
+    resetUserInfo(); // accesstoken 리셋
     window.location.reload();
-  }, [resetAccessToken]);
+  }, [resetAccessToken, resetUserInfo]);
 
   return {
     tokenExist,

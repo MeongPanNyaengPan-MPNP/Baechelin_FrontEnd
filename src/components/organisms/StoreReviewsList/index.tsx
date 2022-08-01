@@ -18,7 +18,7 @@ function StoreReviewsList() {
     isSuccess,
     refetch,
   } = UseDetailReview<ReviewResponseRootType>(REVIEW.DETAIL_REVIEW_LIST, Number(storeId), pageNum);
-
+  console.log(reviewList);
   const pageChangeHandler = (pageNumber = 1) => {
     refetch();
     setPageNum(pageNumber - 1);
@@ -27,7 +27,7 @@ function StoreReviewsList() {
     <S.Container>
       <StoreReviewsTitle storeId={storeId} />
       {isSuccess && reviewList && reviewList.reviewResponseDtoList.length === 0 && (
-        <NoDataMessage message={['리뷰가 없어요.', '첫 리뷰를 작성해주세요!']} />
+        <NoDataMessage message={['작성된 방문 후기가 없습니다.', '첫 방문 후기를 작성해 주세요!']} />
       )}
       <S.ReviewListGroup>
         {isSuccess &&

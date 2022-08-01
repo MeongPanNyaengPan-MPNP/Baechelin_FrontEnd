@@ -8,7 +8,7 @@ import * as S from './styles';
 
 function MainVisualSlide({ slideItems }: { slideItems: ThumbNailProps[] }) {
   return (
-    <S.MainVisualSlideWrap>
+    <S.MainVisualSlideWrap id="mainVisualSlide">
       <SlideGroup slideItems={slideItems} paginationId="MainVisualPagination">
         <SlideButtonsArea color="#FFF" nextIcon={<ArrowForwardIosIcon />} prevIcon={<ArrowBackIosNewIcon />} />
       </SlideGroup>

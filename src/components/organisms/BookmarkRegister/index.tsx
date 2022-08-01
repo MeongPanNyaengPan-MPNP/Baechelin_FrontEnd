@@ -66,6 +66,7 @@ function BookmarkRegister({ anchorEl, setAnchorEl, storeIdProps, fetchCreateBook
         storeId,
         folderId,
       });
+      setAnchorEl(null);
     }
   };
 

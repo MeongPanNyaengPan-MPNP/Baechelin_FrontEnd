@@ -27,7 +27,6 @@ Api.interceptors.request.use((config) => {
   if (isExist(token) && !isExp(token)) {
     localStorage.clear();
   } else if (token) {
-    /* 정상토큰이면 셋팅 */
     config.headers = { Authorization: `Bearer ${token}` };
   }
   return config;
@@ -42,6 +41,7 @@ Api.interceptors.response.use(
       if (isExist(token)) {
         Api.post('/user/logout');
         localStorage.clear();
+        window.location.reload();
         console.log('401_error', err);
       }
     } else if (err.response.status === 402) {

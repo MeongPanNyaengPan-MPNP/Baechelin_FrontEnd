@@ -7,7 +7,6 @@ import { getUserInfo, tokenRefresh } from '@service/getUserApi';
 import { useSetRecoilState } from 'recoil';
 import { userInfo, userToken } from '@recoil/userAtom';
 import { MAP, USER } from '@constants/useQueryKey';
-import { UserInfoType } from '@interfaces/UserInfoType';
 
 const basicOption = {
   staleTime: 10000,
@@ -139,17 +138,20 @@ export const UseFetchToken = () => {
     });
   return { UseQueryToken };
 };
-export const UseUserQuery = () => {
+export const UseUserQuery = (token: string) => {
   const setUserInfoState = useSetRecoilState(userInfo);
-  const UseGetUserInfo = <T extends Partial<UserInfoType>>(token?: string | null) =>
-    useQuery<T & UserInfoType>([USER.INFO, token], () => getUserInfo(token), {
+  const UseGetUserInfo = () =>
+    useQuery<any>([USER.INFO, token], () => getUserInfo(token), {
       staleTime: Infinity,
       cacheTime: Infinity,
       refetchOnMount: false,
       refetchOnWindowFocus: false,
       retry: 0,
+      enabled: !!token,
       onSuccess: (data) => {
-        setUserInfoState(data);
+        if (data) {
+          setUserInfoState(data);
+        }
       },
     });
   return { UseGetUserInfo };

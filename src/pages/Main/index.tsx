@@ -1,12 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
+import React from 'react';
 import MainTemplates from '@templates/MainTemplate';
 import { STORE_FILTERS } from '@constants/store';
 import UseGeolocation from '@hooks/UseGeolocation';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import locationAtom from '@recoil/locationAtom';
-import { UseUserQuery } from '@hooks/UseQueryHooks';
-import { UserInfoType } from '@interfaces/UserInfoType';
 import { userInfo } from '@recoil/userAtom';
 // TODO : 초기화, 전체 카테고리 넣기
 
@@ -34,19 +32,15 @@ const mainVisualSlideItems = [
 function Main() {
   const { currentLocation } = UseGeolocation();
   const [location, setLocation] = useRecoilState(locationAtom);
-  const setUserState = useSetRecoilState(userInfo);
-  const { UseGetUserInfo } = UseUserQuery();
-  const { data: userInfoData } = UseGetUserInfo<UserInfoType>();
-  useEffect(() => {
-    setUserState(userInfoData);
-  }, [userInfoData]);
+  const userInfoValue = useRecoilValue(userInfo);
+
   React.useEffect(() => {
     if (currentLocation !== null && location === null) {
       // localstorage 초기 셋팅
       setLocation(currentLocation);
     }
   }, [currentLocation]);
-  return <MainTemplates userInfo={userInfoData} filters={STORE_FILTERS} slideItems={mainVisualSlideItems} />;
+  return <MainTemplates userInfo={userInfoValue} filters={STORE_FILTERS} slideItems={mainVisualSlideItems} />;
 }
 
 export default Main;

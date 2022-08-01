@@ -7,12 +7,14 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 13rem;
-  height: 5.2rem;
-  padding: 0.6rem 1rem;
+  height: 5.5rem;
+  padding: 1rem 1rem 1.5rem;
   cursor: pointer;
+
   div {
     display: flex;
     align-items: center;
+
     &:first-child {
       margin-bottom: 0.5rem;
     }

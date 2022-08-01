@@ -9,6 +9,7 @@ import { StoreResponseTypes } from '@interfaces/StoreResponseTypes';
 import Bookmark from '@molecules/Bookmark';
 import { useMutation, useQueryClient } from 'react-query';
 import { CreateBookmarkFolderResponse, CreateBookmarkStoreBody } from '@interfaces/BookmarkTypes';
+
 import { createBookmarkStore } from '@service/bookmarkApi';
 import * as S from './styles';
 
@@ -36,9 +37,7 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
   } = props;
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-
   const [bookmarkStatus, setBookmarkStatus] = useState(bookmark);
-
   const { mutate: fetchCreateBookmarkStore } = useMutation<
     CreateBookmarkFolderResponse,
     unknown,

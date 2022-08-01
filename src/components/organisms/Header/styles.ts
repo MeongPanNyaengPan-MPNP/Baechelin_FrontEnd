@@ -32,6 +32,19 @@ export const Wrapper = styled.div`
     font-weight: bold !important;
   }
 `;
-export const UserLogo = styled(Logo)`
-  cursor: pointer;
+export const UserLogo = styled(Logo)``;
+export const LogoArea = styled.div`
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  overflow: hidden;
+  margin-left: 12px;
+
+  img {
+    cursor: pointer;
+    border-radius: 100%;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
 `;

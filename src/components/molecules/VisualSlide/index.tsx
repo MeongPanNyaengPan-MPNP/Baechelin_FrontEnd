@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import Thumbnail, { ThumbNailProps } from '@atoms/Thumbnail';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Pagination } from 'swiper';
+import { Autoplay, Navigation, Pagination } from 'swiper';
 import * as S from './styles';
 
 export interface SlideGroupProps {
@@ -20,15 +20,15 @@ function VisualSlide({ viewLength = 1, spaceBetween = 0, slideItems, children, p
       className="banner"
       height={420}
       spaceBetween={spaceBetween}
+      loop={slideItems.length >= viewLength}
       slidesPerView={viewLength}
-      modules={[Pagination]}
+      modules={[Pagination, Autoplay, Navigation]}
       pagination={{
         clickable: true,
         el: `#${paginationId}`,
         type: 'bullets',
       }}
-      autoplay={{ delay: 5000 }}
-      loop
+      autoplay={{ delay: 10000 }}
     >
       {slideItems.map(({ alt, src, txt }) => (
         <SwiperSlide key={alt}>

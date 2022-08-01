@@ -5,6 +5,7 @@ import { UseMutateFunction } from 'react-query';
 
 import { Color } from '@constants/styles';
 import { CreateBookmarkFolderResponse, CreateBookmarkStoreBody } from '@interfaces/BookmarkTypes';
+import UseLoginHooks from '@hooks/UseLogin';
 
 interface BookmarkProps {
   size?: string;
@@ -16,21 +17,32 @@ interface BookmarkProps {
 }
 
 function Bookmark({ size, marked = Color.darkGrey, storeIdProps, fetchCreateBookmarkStore }: BookmarkProps) {
+  const { tokenExist } = UseLoginHooks();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-  const bookmarkState = marked === 'Y' ? Color.orange : Color.darkGrey;
+  const bookmarkState = () => (marked === 'Y' ? Color.orange : Color.darkGrey);
+  const tokenStateBookmark = tokenExist ? bookmarkState() : Color.darkGrey;
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (!tokenExist) return;
     setAnchorEl(event.currentTarget);
   };
 
   return (
     <>
-      <Icon iconName="bookmark" color={bookmarkState || marked} size={size} cursor="pointer" onClick={handleClick} />
-      <BookmarkRegister
-        anchorEl={anchorEl}
-        setAnchorEl={setAnchorEl}
-        storeIdProps={storeIdProps}
-        fetchCreateBookmarkStore={fetchCreateBookmarkStore}
+      <Icon
+        iconName="bookmark"
+        color={tokenStateBookmark || marked}
+        size={size}
+        cursor="pointer"
+        onClick={handleClick}
       />
+      {tokenExist && (
+        <BookmarkRegister
+          anchorEl={anchorEl}
+          setAnchorEl={setAnchorEl}
+          storeIdProps={storeIdProps}
+          fetchCreateBookmarkStore={fetchCreateBookmarkStore}
+        />
+      )}
     </>
   );
 }

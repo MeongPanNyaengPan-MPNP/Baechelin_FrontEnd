@@ -11,6 +11,9 @@ function Oauth() {
   const navigate = useNavigate();
   const setSnackBar = useSetRecoilState(snackBarAtom);
   const setUserTokenState = useSetRecoilState(userToken);
+
+  const token = searchParams.get('token');
+  
   const tokenNotFound = useCallback(
     (error: string, provider?: string | null) => {
       if (provider !== null && error === LOGIN.ALREADY_LOGIN_ACCOUNT) {
@@ -22,13 +25,12 @@ function Oauth() {
     [setSnackBar],
   );
   const tokenExistCallBack = useCallback(
-    async (token: string) => {
-      setUserTokenState(token);
+    async (gettoken: string) => {
+      setUserTokenState(gettoken);
     },
     [setUserTokenState],
   );
   useEffect(() => {
-    const token = searchParams.get('token');
     if (!token) {
       const error = searchParams.get('error');
       const provider = searchParams.get('provider_type');
@@ -43,7 +45,7 @@ function Oauth() {
     }
     const pathArray = prevPath?.split('-').join('/');
     navigate(`${pathArray || '/'}`);
-  }, [navigate, prevPath, searchParams, setSnackBar, tokenExistCallBack, tokenNotFound]);
+  }, [navigate, prevPath, searchParams, setSnackBar, token, tokenExistCallBack, tokenNotFound]);
 
   return <div />;
 }

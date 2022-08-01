@@ -6,7 +6,7 @@ export const Container = styled.div<{ height: string; justify?: string; margin?:
   flex-direction: row;
   align-items: center;
   width: 100%;
-  height: ${({ height }) => height || '1.5rem'};
+  height: ${({ height }) => height || '1.6rem'};
   margin: ${({ margin }) => margin || '0'};
   cursor: pointer;
 `;

@@ -15,4 +15,11 @@ export const MainVisualSlideWrap = styled.div`
   .swiper-pagination-bullet {
     background: #f4f4f4;
   }
+
+  &#mainVisualSlide {
+    .swiper-wrapper {
+      transition-timing-function: ease-in-out !important;
+      transition-duration: 700ms !important;
+    }
+  }
 `;

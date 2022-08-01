@@ -19,7 +19,7 @@ interface BookmarkRegisterFolderNameProps {
 function BookmarkRegisterFolderName({
   name = '북마크폴더명',
   iconName = 'folder',
-  fontSize = '1rem',
+  fontSize = '1.2rem',
   iconSize = '1.7rem',
   height = '1.5rem',
   justify,

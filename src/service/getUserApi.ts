@@ -16,9 +16,11 @@ export const userLogout = <T>() =>
     method: 'POST',
     url: `/user/logout`,
   });
-export const getUserInfo = <T>(token?: string | null) =>
-  request<T>({
+export const getUserInfo = <T>(token: any) => {
+  if (!token) return false;
+  return request<T>({
     method: 'GET',
     url: `/user`,
     headers: { Authorization: `Bearer ${token}` },
   });
+};
