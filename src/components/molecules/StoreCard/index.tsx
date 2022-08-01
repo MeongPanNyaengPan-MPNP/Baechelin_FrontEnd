@@ -32,7 +32,7 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
     toilet,
     parking,
     approach,
-    bookmark = 'N',
+    bookmark,
     heightDifferent,
   } = props;
   const navigate = useNavigate();
@@ -53,8 +53,7 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
       onSuccess: () => {
         // setCreate(false);
         setBookmarkStatus('Y');
-        queryClient.invalidateQueries('');
-        console.log('bookmark created');
+        queryClient.invalidateQueries('getBookmarkTop');
       },
       onError: (err) => {
         console.error(err);

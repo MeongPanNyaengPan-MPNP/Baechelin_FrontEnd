@@ -3,10 +3,8 @@ import StoreInfoPhotos from '@molecules/StoreInfoPhotos';
 import StoreInfoTitle from '@molecules/StoreInfoTitle';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { useMutation, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import { getStoreDetail } from '@service/storeDetailApi';
-import { CreateBookmarkFolderResponse, CreateBookmarkStoreBody } from '@interfaces/BookmarkTypes';
-import { createBookmarkStore } from '@service/bookmarkApi';
 
 import Badge from '@atoms/Badge';
 import Span from '@atoms/Span';
@@ -21,7 +19,7 @@ interface StoreInfoProps {
 function StoreInfo({ storeName, align, size = 'big' }: StoreInfoProps) {
   const location = useLocation();
 
-  const { data: storeDetailData, refetch }: any = useQuery(
+  const { data: storeDetailData }: any = useQuery(
     ['getShopDetail', storeName],
     () => getStoreDetail(Number(storeName)),
     {
@@ -31,35 +29,12 @@ function StoreInfo({ storeName, align, size = 'big' }: StoreInfoProps) {
     },
   );
 
-  const { mutate: fetchCreateBookmarkStore } = useMutation<
-    CreateBookmarkFolderResponse,
-    unknown,
-    CreateBookmarkStoreBody,
-    unknown
-  >(
-    ({ storeId, folderId }) =>
-      createBookmarkStore({
-        folderId,
-        storeId,
-      }),
-    {
-      onSuccess: () => {
-        // setCreate(false);
-        refetch();
-        console.log('bookmark created');
-      },
-      onError: (err) => {
-        console.error(err);
-      },
-    },
-  );
-
   return (
     /* 가게 상세페이지 형태 */
     <S.Container size={size} align={align}>
       <>
         <S.TextArea>
-          <StoreInfoTitle storeDetailData={storeDetailData} fetchCreateBookmarkStore={fetchCreateBookmarkStore} />
+          <StoreInfoTitle storeDetailData={storeDetailData} />
           <StoreInfoContent showIcons={false} storeDetailData={storeDetailData} />
         </S.TextArea>
         <S.FigureArea>

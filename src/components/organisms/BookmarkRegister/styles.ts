@@ -72,11 +72,12 @@ export const folderNameWrapper = styled.div`
 
 export const Input = styled.input<{ fontSize: string }>`
   margin-left: 0.5rem;
-  width: 9rem;
+  width: 10.5rem;
   height: 1.8rem;
   border: 1px solid ${Color.grey};
   background-color: ${Color.lightGrey};
   border-color: ${Color.darkGrey};
+  font-size: 1.2rem;
 `;
 
 export const Button = styled.button`

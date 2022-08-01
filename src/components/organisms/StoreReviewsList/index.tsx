@@ -44,20 +44,19 @@ function StoreReviewsList() {
             </li>
           ))}
       </S.ReviewListGroup>
-      {reviewList?.totalPages && reviewList?.totalPages > -1 && (
-        <S.PaginationArea>
-          <Pagination
-            count={reviewList?.totalPages}
-            showFirstButton
-            showLastButton
-            size="medium"
-            siblingCount={0}
-            sx={{ fontSize: '2rem' }}
-            boundaryCount={1}
-            onChange={(e, page) => pageChangeHandler(page)}
-          />
-        </S.PaginationArea>
-      )}
+
+      <S.PaginationArea>
+        <Pagination
+          count={reviewList?.totalPages}
+          showFirstButton
+          showLastButton
+          size="medium"
+          siblingCount={0}
+          sx={{ fontSize: '2rem' }}
+          boundaryCount={1}
+          onChange={(e, page) => pageChangeHandler(page)}
+        />
+      </S.PaginationArea>
     </S.Container>
   );
 }

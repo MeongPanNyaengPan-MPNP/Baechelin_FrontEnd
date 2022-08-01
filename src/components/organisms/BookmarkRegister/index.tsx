@@ -97,7 +97,6 @@ function BookmarkRegister({ anchorEl, setAnchorEl, storeIdProps, fetchCreateBook
             {createFolder && (
               <S.InputContainer>
                 <Icon iconName="folder" size="1.7rem" />
-
                 <S.Input fontSize="1.2rem" {...register('folderName')} />
               </S.InputContainer>
             )}

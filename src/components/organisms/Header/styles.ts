@@ -34,8 +34,8 @@ export const Wrapper = styled.div`
 `;
 export const UserLogo = styled(Logo)``;
 export const LogoArea = styled.div`
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   border-radius: 100%;
   overflow: hidden;
   margin-left: 12px;
