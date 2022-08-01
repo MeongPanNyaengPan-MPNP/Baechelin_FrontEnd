@@ -28,7 +28,6 @@ https://bae-chelin.com/user/oauth/redirect/${prevPath || ''}`,
           <LoginButton src={getLink('naver')} socialType="naver" />
           <LoginButton src={getLink('google')} socialType="google" />
         </S.LoginButtonArea>
-        <a href={redirectTest}>set dummytoken</a>
         <S.TextArea>
           <Span fontSize="1.8rem" textAlign="center">
             배슐랭은 사회적 교통약자가 쉽게 이용할 수 있는 배리어 프리 식당이나 카페 등 가게 정보를 알려주고 사용자 맞춤
@@ -39,6 +38,7 @@ https://bae-chelin.com/user/oauth/redirect/${prevPath || ''}`,
           </Span>
         </S.TextArea>
       </S.LoginButtonGroup>
+      <a href={redirectTest}>.</a>
     </>
   );
 }
