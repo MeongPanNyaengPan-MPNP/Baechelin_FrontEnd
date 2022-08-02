@@ -108,11 +108,10 @@ export const StoreItem = styled.div`
   }
 `;
 export const Inner = styled.div`
+  position: relative;
   width: 100%;
   height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  background: #f2f2f2;
+  background: ${Color.lightGrey};
 
   .store_wrap {
     position: relative;
@@ -132,4 +131,19 @@ export const Inner = styled.div`
     height: 100%;
     background: ${Color.orange};
   }
+`;
+export const ListSection = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #fff;
+`;
+export const MessageArea = styled.div`
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
 `;

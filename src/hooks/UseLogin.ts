@@ -29,7 +29,6 @@ export const UseLoginHooks = () => {
     userLogout(); // 로그아웃 api 호출
     resetAccessToken(); // accesstoken 리셋
     resetUserInfo(); // accesstoken 리셋
-    window.location.reload();
   }, [resetAccessToken, resetUserInfo]);
 
   return {

@@ -26,7 +26,7 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
   const [pageNum, setPageNum] = useState<number>(1);
   const latingQueryString = useRecoilValue(LatingQueryString);
   const snbQueryString = useRecoilValue(SnbQueryString);
-  const { debounceVal, bool } = UseDebounce<string>(latingQueryString, 1000);
+  const { debounceVal, bool } = UseDebounce<string>(latingQueryString, 500);
   const [itemResult, setitemResult] = useState<StoreMapResponseTypes[][]>([]);
 
   const {
