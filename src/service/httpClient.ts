@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { LOCAL_STORAGE_KEY } from '@constants/index';
 import { isExist, isExp } from '@utils/Jwt/jwtDecoded';
-import { tokenRefresh, userLogout } from '@service/getUserApi';
 
 const API_DEV = process.env.REACT_APP_API_DEV;
 const API_PROD = process.env.REACT_APP_API_PROD;
@@ -45,11 +44,10 @@ Api.interceptors.response.use(
         console.log('401_error', err, err.response);
       }
     } else if (err.response.status === 402) {
-      console.log('402_error', 402,err.response);
+      console.log('402_error', 402, err.response);
       return prevRequest;
     } else if (err.response.status === 403) {
       console.log('403_error', 403, err.response);
-      userLogout();
     }
   },
 );
