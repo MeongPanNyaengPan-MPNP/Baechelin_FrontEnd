@@ -87,7 +87,13 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
             onChange={(e, page) => pageChangeHandler(page)}
           />
         </S.PaginationBar>
-        {Number(storeItems?.leftElement) > 3 && (
+      </S.StoreListArea>
+      {(bool || isLoading) && (
+          <S.DisabledBox>
+            <NoDataMessage message={['LOADING']} />
+          </S.DisabledBox>
+        ) &&
+        Number(storeItems?.leftElement) > 3 && (
           <S.totalCount>
             <p>
               <button type="button" onClick={() => setPageNum((prevState) => prevState + 1)}>
@@ -101,12 +107,6 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
             </p>
           </S.totalCount>
         )}
-      </S.StoreListArea>
-      {(bool || isLoading) && (
-        <S.DisabledBox>
-          <NoDataMessage message={['LOADING']} />
-        </S.DisabledBox>
-      )}
     </S.Wrapper>
   );
 }

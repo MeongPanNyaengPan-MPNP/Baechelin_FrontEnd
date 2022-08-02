@@ -101,6 +101,7 @@ export const StoreItem = styled.div`
   padding: 12px 12px 18px 12px;
   border-bottom: 1px solid ${Color.darkGrey};
   cursor: pointer;
+  background: #fff;
 
   &.active {
     background: ${Color.lightGrey};
@@ -111,6 +112,7 @@ export const Inner = styled.div`
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
+  background: #f2f2f2;
 
   .store_wrap {
     position: relative;
