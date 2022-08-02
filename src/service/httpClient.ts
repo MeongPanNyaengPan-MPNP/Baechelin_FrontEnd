@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { LOCAL_STORAGE_KEY } from '@constants/index';
 import { isExist, isExp } from '@utils/Jwt/jwtDecoded';
-import { tokenRefresh } from '@service/getUserApi';
+import { tokenRefresh, userLogout } from '@service/getUserApi';
 
 const API_DEV = process.env.REACT_APP_API_DEV;
 const API_PROD = process.env.REACT_APP_API_PROD;
@@ -26,7 +26,7 @@ Api.interceptors.request.use((config) => {
   const token = getToken(LOCAL_STORAGE_KEY.ACCESS_TOKEN);
   /* 만료 체크 */
   if (isExist(token) && !isExp(token)) {
-    localStorage.clear();
+    console.log('만료된 토큰');
   } else if (token) {
     config.headers = { Authorization: `Bearer ${token}` };
   }
@@ -40,19 +40,17 @@ Api.interceptors.response.use(
     if (err.response.status === 401) {
       // TODO : 토큰 조작->강제 로그아웃
       if (isExist(token)) {
-        tokenRefresh();
         localStorage.clear();
         window.location.reload();
-        console.log('401_error', err);
+        console.log('401_error', err, err.response);
       }
     } else if (err.response.status === 402) {
-      Api.get('/auth/refresh');
-      console.log(err.response);
-      console.log('402_error', 402);
+      tokenRefresh();
+      console.log('402_error', 402,err.response);
       return prevRequest;
     } else if (err.response.status === 403) {
-      console.log('403_error', 403);
-      console.log(err.response);
+      console.log('403_error', 403, err.response);
+      userLogout();
     }
   },
 );
