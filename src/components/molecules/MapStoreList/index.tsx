@@ -102,14 +102,6 @@ function MapStoreList(props: MapStoreListProps) {
             <NoDataMessage message={['주변 가게가 없습니다']} />
           </S.MessageArea>
         )}
-        {/*      {Number(leftElement) > 3 && (
-          <S.totalCount>
-            <p>
-              <Icon iconName="add_icon" color="#fff" />
-              {leftElement}개의 가게
-            </p>
-          </S.totalCount>
-        )} */}
       </S.Inner>
     </S.Container>
   );

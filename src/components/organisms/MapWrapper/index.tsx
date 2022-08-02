@@ -89,24 +89,24 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
         </S.PaginationBar>
       </S.StoreListArea>
       {(bool || isLoading) && (
-          <S.DisabledBox>
-            <NoDataMessage message={['LOADING']} />
-          </S.DisabledBox>
-        ) &&
-        Number(storeItems?.leftElement) > 3 && (
-          <S.totalCount>
-            <p>
-              <button type="button" onClick={() => setPageNum((prevState) => prevState + 1)}>
-                {storeItems?.leftElement}개의 가게
-                <Span fontSize="1.4rem" fontWeight={400}>
-                  Click
-                </Span>
-                <Icon iconName="add_icon" color="#fff" />
-                <strong />
-              </button>
-            </p>
-          </S.totalCount>
-        )}
+        <S.DisabledBox>
+          <NoDataMessage message={['LOADING']} />
+        </S.DisabledBox>
+      )}
+      {!bool && !isLoading && Number(storeItems?.leftElement) > 3 && (
+        <S.totalCount>
+          <p>
+            <button type="button" onClick={() => setPageNum((prevState) => prevState + 1)}>
+              {storeItems?.leftElement}개의 가게
+              <Span fontSize="1.4rem" fontWeight={400}>
+                Click
+              </Span>
+              <Icon iconName="add_icon" color="#fff" />
+              <strong />
+            </button>
+          </p>
+        </S.totalCount>
+      )}
     </S.Wrapper>
   );
 }
