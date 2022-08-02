@@ -45,7 +45,6 @@ Api.interceptors.response.use(
         console.log('401_error', err, err.response);
       }
     } else if (err.response.status === 402) {
-      tokenRefresh();
       console.log('402_error', 402,err.response);
       return prevRequest;
     } else if (err.response.status === 403) {
