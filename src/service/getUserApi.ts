@@ -6,21 +6,22 @@ export const getRecentReviewList = <T>(limit = 12) =>
     url: `/recent-review?limit=${limit}`,
   });
 
-export const tokenRefresh = <T>() =>
+export const tokenRefresh = <T>(loginState: boolean) => {
+  if (!loginState) return;
   request<T>({
     method: 'GET',
     url: `/auth/refresh`,
   });
+};
 export const userLogout = <T>() =>
   request<T>({
     method: 'POST',
     url: `/user/logout`,
   });
-export const getUserInfo = <T>(token: any) => {
-  if (!token) return false;
+export const getUserInfo = <T>(loginState: boolean) => {
+  if (!loginState) return;
   return request<T>({
     method: 'GET',
     url: `/user`,
-    headers: { Authorization: `Bearer ${token}` },
   });
 };

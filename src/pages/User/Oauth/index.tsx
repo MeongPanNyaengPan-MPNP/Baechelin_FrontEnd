@@ -13,7 +13,7 @@ function Oauth() {
   const setUserTokenState = useSetRecoilState(userToken);
 
   const token = searchParams.get('token');
-  
+
   const tokenNotFound = useCallback(
     (error: string, provider?: string | null) => {
       if (provider !== null && error === LOGIN.ALREADY_LOGIN_ACCOUNT) {
@@ -30,6 +30,7 @@ function Oauth() {
     },
     [setUserTokenState],
   );
+
   useEffect(() => {
     if (!token) {
       const error = searchParams.get('error');

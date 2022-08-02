@@ -119,16 +119,17 @@ export const UseReviewList = () => {
 export const UseFetchToken = () => {
   const setUserTokenState = useSetRecoilState(userToken);
 
-  const UseQueryToken = (loginState: boolean, pathname?: string) =>
-    useQuery<TokenResponseType>([USER.TOKEN, loginState, pathname], () => tokenRefresh(), {
+  const UseQueryToken = (enabledState: boolean, pathname?: string) =>
+    useQuery<TokenResponseType | void>([USER.TOKEN, enabledState, pathname], () => tokenRefresh(enabledState), {
       refetchOnWindowFocus: false,
       refetchOnMount: false,
       refetchOnReconnect: false,
       retry: 1,
       refetchInterval: 1 * 60 * 1000, // 15분
       refetchIntervalInBackground: true,
-      enabled: loginState,
+      enabled: enabledState,
       onSuccess: (data) => {
+        if (!data) return;
         setUserTokenState(data.token);
         console.log('silentLogin Success');
       },
@@ -140,16 +141,16 @@ export const UseFetchToken = () => {
     });
   return { UseQueryToken };
 };
-export const UseUserQuery = (token: string) => {
+export const UseUserQuery = (enabledState: boolean) => {
   const setUserInfoState = useSetRecoilState(userInfo);
   const UseGetUserInfo = () =>
-    useQuery<any>([USER.INFO, token], () => getUserInfo(token), {
+    useQuery<any>([USER.INFO, enabledState], () => getUserInfo(enabledState), {
       staleTime: Infinity,
       cacheTime: Infinity,
       refetchOnMount: false,
       refetchOnWindowFocus: false,
       retry: 0,
-      enabled: !!token,
+      enabled: enabledState,
       onSuccess: (data) => {
         if (data) {
           setUserInfoState(data);

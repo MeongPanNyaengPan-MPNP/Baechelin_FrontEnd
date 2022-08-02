@@ -10,12 +10,10 @@ import Navigation from '@molecules/Navigation';
 import SearchInput from '@atoms/SearchInput';
 import UseLoginHooks from '@hooks/UseLogin';
 import ProfileBookmark from '@organisms/ProfileBookmark';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import { muiAnchorEl } from '@recoil/modalAtom';
 import { getBookmarkTop } from '@service/bookmarkApi';
-
-import { userToken } from '@recoil/userAtom';
 import { UseUserQuery } from '@hooks/UseQueryHooks';
 import * as S from './styles';
 import { UserLogo } from './styles';
@@ -25,13 +23,13 @@ function Header() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const token = useRecoilValue(userToken);
+  const { tokenExist } = UseLoginHooks();
 
+  const { UseGetUserInfo } = UseUserQuery(tokenExist);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const { UseGetUserInfo } = UseUserQuery(token);
   const { data: userInfoData } = UseGetUserInfo();
-  const { data: BookmarkTopData } = useQuery(['getBookmarkTop'], () => getBookmarkTop(), {
+  const { data: BookmarkTopData } = useQuery(['getBookmarkTop'], () => getBookmarkTop(tokenExist), {
     staleTime: 5000,
     cacheTime: Infinity,
     // enabled: !create,
@@ -46,7 +44,6 @@ function Header() {
   const onClickMap = () => {
     navigate('/map');
   };
-  const { tokenExist } = UseLoginHooks();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
