@@ -68,7 +68,7 @@ function Header() {
             </div>
             {/* userIcon */}
             <div>
-              {tokenExist && userInfoData ? (
+              {userInfoData ? (
                 <>
                   <S.LogoArea>
                     <UserLogo src={userInfoData?.userImage} width="3rem" height="3rem" onClick={handleClick} />

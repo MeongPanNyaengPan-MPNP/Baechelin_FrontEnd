@@ -5,9 +5,7 @@ import { useLocation } from 'react-router-dom';
 export function SilentLogin() {
   const { pathname } = useLocation();
   const { UseQueryToken } = UseFetchToken();
-
   UseQueryToken(pathname);
-  console.log('silent');
 
   return null;
 }
