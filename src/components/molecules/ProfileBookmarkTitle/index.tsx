@@ -1,9 +1,10 @@
 import React from 'react';
 
 import Span from '@atoms/Span';
-import UseLoginHooks from '@hooks/UseLogin';
 import { useSetRecoilState } from 'recoil';
 import modalAtom, { muiAnchorEl } from '@recoil/modalAtom';
+import { userLogout } from '@service/getUserApi';
+import UseLoginHooks from '@hooks/UseLogin';
 import * as S from './styles';
 
 interface ProfileBookmarkTitleProps {
@@ -12,16 +13,19 @@ interface ProfileBookmarkTitleProps {
 }
 
 function ProfileBookmarkTitle({ name, email }: ProfileBookmarkTitleProps) {
-  const { UseLogout } = UseLoginHooks();
-
   const setAnchorEl = useSetRecoilState(muiAnchorEl);
   const setModalContent = useSetRecoilState(modalAtom);
+  const { ResetUserInfo } = UseLoginHooks();
+  const logoutEvent = () => {
+    userLogout();
+    ResetUserInfo();
+  };
   const onClickLogout = () => {
     setAnchorEl(null); // 헤더 팝업 닫기
     setModalContent({
       messages: ['로그아웃 하시겠습니까?'],
       submitButton: {
-        onClick: UseLogout,
+        onClick: logoutEvent,
         show: true,
       },
       cancelButton: {

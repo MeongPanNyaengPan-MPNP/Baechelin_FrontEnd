@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { userInfo, userToken } from '@recoil/userAtom';
-import { userLogout } from '@service/getUserApi';
 import { LOCAL_STORAGE_KEY } from '@constants/localStorage';
 
 export const getToken = (tokenName: string = LOCAL_STORAGE_KEY.ACCESS_TOKEN) => {
@@ -14,6 +13,7 @@ export const getToken = (tokenName: string = LOCAL_STORAGE_KEY.ACCESS_TOKEN) => 
     }
   }
 };
+
 export const UseLoginHooks = () => {
   const accessToken = useRecoilValue(userToken);
   const resetAccessToken = useResetRecoilState(userToken);
@@ -24,16 +24,15 @@ export const UseLoginHooks = () => {
     setTokenExist(!!accessToken);
   }, [accessToken]); // 로그인 상태 boolean 반환
 
-  const UseLogout = useCallback(() => {
+  const ResetUserInfo = useCallback(() => {
     // 사용자가 누를때만
-    userLogout(); // 로그아웃 api 호출
     resetAccessToken(); // accesstoken 리셋
     resetUserInfo(); // accesstoken 리셋
   }, [resetAccessToken, resetUserInfo]);
 
   return {
     tokenExist,
-    UseLogout,
+    ResetUserInfo,
   };
 };
 
