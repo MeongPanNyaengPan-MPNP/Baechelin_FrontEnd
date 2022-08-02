@@ -40,7 +40,6 @@ function App() {
           <SilentLogin />
           <Routes location={state?.locationState}>
             <Route path="/" element={<Main />} />
-
             <Route path="/map" element={<SearchMap />} />
             <Route path="/user">
               <Route path="oauth/redirect/:prevPath" element={<Oauth />} />
@@ -53,7 +52,6 @@ function App() {
             </Route>
             <Route path="photosModal" element={<StoreDetailPhotosModal />} />
             <Route path="/search/:keyword" element={<Search />} />
-
             <Route path="/review/write/*" element={<PrivateRoute />}>
               <Route path=":storeId" element={<ReviewWrite />} />
             </Route>

@@ -48,7 +48,7 @@ function StoreInfo({ storeName, align, size = 'big' }: StoreInfoProps) {
                 <Badge
                   name="elevator"
                   state={storeDetailData?.elevator}
-                  type="square"
+                  type="sq"
                   style={{
                     width: '14.8rem',
                     height: '3.6rem',
@@ -57,7 +57,7 @@ function StoreInfo({ storeName, align, size = 'big' }: StoreInfoProps) {
                 <Badge
                   name="height"
                   state={storeDetailData?.heightDifferent}
-                  type="square"
+                  type="sq"
                   style={{
                     width: '14.8rem',
                     height: '3.6rem',
@@ -68,7 +68,7 @@ function StoreInfo({ storeName, align, size = 'big' }: StoreInfoProps) {
                 <Badge
                   name="approach"
                   state={storeDetailData?.approach}
-                  type="square"
+                  type="sq"
                   style={{
                     width: '14.8rem',
                     height: '3.6rem',
@@ -77,7 +77,7 @@ function StoreInfo({ storeName, align, size = 'big' }: StoreInfoProps) {
                 <Badge
                   name="parking"
                   state={storeDetailData?.parking}
-                  type="square"
+                  type="sq"
                   style={{
                     width: '14.8rem',
                     height: '3.6rem',
@@ -86,7 +86,7 @@ function StoreInfo({ storeName, align, size = 'big' }: StoreInfoProps) {
                 <Badge
                   name="toilet"
                   state={storeDetailData?.toilet}
-                  type="square"
+                  type="sq"
                   style={{
                     width: '14.8rem',
                     height: '3.6rem',
