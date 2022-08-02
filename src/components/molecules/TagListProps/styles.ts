@@ -7,5 +7,5 @@ export const TagList = styled.ul`
   margin-left: -5px;
 `;
 export const TagContainer = styled.div`
-  margin-top: 30px;
+  margin-top: 10px;
 `;

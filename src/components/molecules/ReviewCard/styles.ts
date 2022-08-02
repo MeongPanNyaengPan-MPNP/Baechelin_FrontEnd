@@ -13,7 +13,7 @@ export const CardItemInner = styled.div`
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  align-items: end;
+  align-items: flex-start;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   padding: 25px 30px 30px;
   background: #fff;
@@ -95,9 +95,7 @@ export const CardImageList = styled.ul`
   }
 `;
 export const StoreTagListGroup = styled.div`
-  & + & {
-    margin-top: 50px;
-  }
+  margin-bottom: 40px;
 `;
 
 export const ControlButtonArea = styled.div`

@@ -20,7 +20,7 @@ export const TitleWrapper = styled.div`
     display: inline;
     align-items: center;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
 `;
 export const Category = styled.div`

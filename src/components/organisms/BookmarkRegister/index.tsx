@@ -33,7 +33,7 @@ function BookmarkRegister({ anchorEl, setAnchorEl, storeIdProps, fetchCreateBook
   const { data: BookmarkData, refetch } = useQuery(['getBookmarkFolders'], () => getUserBookmarkFolders(), {
     staleTime: 5000,
     cacheTime: Infinity,
-    // enabled: !create,
+    // enabled: !create,e
   });
 
   const { mutate: fetchCreateBookmarkFolder } = useMutation(

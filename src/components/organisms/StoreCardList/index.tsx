@@ -30,7 +30,7 @@ function StoreCardList({ topic, title, keyword }: StoreCardListProps) {
   const SearchLocationQuery = useRecoilValue(SearchLocationQueryString);
   const { UseGetStoreList, UseGetSearchStoreList } = UseStoreListHooks<StoreListQueryTypes>(location);
   const [queryKey, setQueryKey] = React.useState<typeof STORE_LIST[Keys]>('');
-  const [pageNum, setPageNum] = useState<number>(1);
+  const [pageNum, setPageNum] = useState<number>(0);
   const userInfoValue = useRecoilValue(userInfo);
   React.useEffect(() => {
     if (topic === STORE_TOPIC.ARROUND) {
@@ -63,7 +63,7 @@ function StoreCardList({ topic, title, keyword }: StoreCardListProps) {
     searchRemove();
     topicRemove();
   }, [pathname, searchRefetch, searchRemove, topicRefetch, topicRemove]);
-  const pageChangeHandler = (pageNumber = 1) => {
+  const pageChangeHandler = (pageNumber: number) => {
     setPageNum(pageNumber);
   };
 
@@ -124,10 +124,10 @@ function StoreCardList({ topic, title, keyword }: StoreCardListProps) {
             showLastButton
             size="medium"
             siblingCount={0}
-            page={pageNum}
+            page={pageNum + 1}
             sx={{ fontSize: '2rem' }}
             boundaryCount={1}
-            onChange={(e, page) => pageChangeHandler(page)}
+            onChange={(e, page) => pageChangeHandler(page - 1)}
           />
         </S.PaginationArea>
       ) : null}

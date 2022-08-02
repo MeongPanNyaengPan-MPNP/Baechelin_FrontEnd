@@ -28,7 +28,6 @@ function VisualSlide({ viewLength = 1, spaceBetween = 0, slideItems, children, p
         el: `#${paginationId}`,
         type: 'bullets',
       }}
-      autoplay={{ delay: 10000 }}
     >
       {slideItems.map(({ alt, src, txt }) => (
         <SwiperSlide key={alt}>

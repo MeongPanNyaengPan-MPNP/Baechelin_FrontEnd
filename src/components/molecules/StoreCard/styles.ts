@@ -6,6 +6,7 @@ export const CardFigureArea = styled.div`
 `;
 export const CardContentArea = styled.div`
   padding: 12px 20px 18px;
+  cursor: auto;
 `;
 export const CardContentAreaTop = styled.div`
   position: relative;
