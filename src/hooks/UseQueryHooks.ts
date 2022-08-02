@@ -125,15 +125,17 @@ export const UseFetchToken = () => {
       refetchOnMount: false,
       refetchOnReconnect: false,
       retry: 1,
-      refetchInterval: 15 * 60 * 1000, // 1분
+      refetchInterval: 1 * 60 * 1000, // 15분
       refetchIntervalInBackground: true,
       enabled: loginState,
       onSuccess: (data) => {
         setUserTokenState(data.token);
+        console.log('silentLogin Success');
       },
       onError: (err) => {
         console.log('get Token ERROR', err);
         console.log(err);
+        console.log('silentLogin False');
       },
     });
   return { UseQueryToken };

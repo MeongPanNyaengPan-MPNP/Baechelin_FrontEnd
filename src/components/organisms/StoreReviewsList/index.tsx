@@ -18,7 +18,7 @@ function StoreReviewsList() {
     isSuccess,
     refetch,
   } = UseDetailReview<ReviewResponseRootType>(REVIEW.DETAIL_REVIEW_LIST, Number(storeId), pageNum);
-  console.log(reviewList);
+
   const pageChangeHandler = (pageNumber = 1) => {
     refetch();
     setPageNum(pageNumber - 1);
