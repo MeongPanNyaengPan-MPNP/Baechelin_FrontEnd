@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { LOCAL_STORAGE_KEY } from '@constants/index';
 import { isExist, isExp } from '@utils/Jwt/jwtDecoded';
+import { tokenRefresh, userLogout } from '@service/getUserApi';
 
 const API_DEV = process.env.REACT_APP_API_DEV;
 const API_PROD = process.env.REACT_APP_API_PROD;
@@ -40,11 +41,14 @@ Api.interceptors.response.use(
       // TODO : 토큰 조작->강제 로그아웃
       if (isExist(token)) {
         localStorage.clear();
-        window.location.reload();
-        console.log('401_error', err, err.response);
+
       }
+      console.log('401_error', err, err.response);
+      userLogout();
     } else if (err.response.status === 402) {
       console.log('402_error', 402, err.response);
+
+      tokenRefresh();
       return prevRequest;
     } else if (err.response.status === 403) {
       console.log('403_error', 403, err.response);
