@@ -7,6 +7,7 @@ import { getUserInfo, tokenRefresh } from '@service/getUserApi';
 import { useSetRecoilState } from 'recoil';
 import { userInfo, userToken } from '@recoil/userAtom';
 import { MAP, USER } from '@constants/useQueryKey';
+import { getToken } from '@hooks/UseLogin';
 
 const basicOption = {
   staleTime: 10000,
@@ -118,16 +119,16 @@ export const UseReviewList = () => {
 
 export const UseFetchToken = () => {
   const setUserTokenState = useSetRecoilState(userToken);
-
-  const UseQueryToken = (enabledState: boolean, pathname?: string) =>
-    useQuery<TokenResponseType | void>([USER.TOKEN, enabledState, pathname], () => tokenRefresh(enabledState), {
+  const localToken = getToken();
+  const UseQueryToken = (pathname?: string) =>
+    useQuery<TokenResponseType | void>([USER.TOKEN, pathname], () => tokenRefresh(), {
       refetchOnWindowFocus: false,
       refetchOnMount: false,
       refetchOnReconnect: false,
       retry: 1,
       refetchInterval: 1 * 60 * 1000, // 15분
       refetchIntervalInBackground: true,
-      enabled: enabledState,
+      enabled: !!localToken,
       onSuccess: (data) => {
         if (!data) return;
         setUserTokenState(data.token);

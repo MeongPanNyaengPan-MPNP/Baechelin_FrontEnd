@@ -6,8 +6,7 @@ export const getRecentReviewList = <T>(limit = 12) =>
     url: `/recent-review?limit=${limit}`,
   });
 
-export const tokenRefresh = <T>(loginState: boolean) => {
-  if (!loginState) return;
+export const tokenRefresh = <T>() => {
   request<T>({
     method: 'GET',
     url: `/auth/refresh`,
