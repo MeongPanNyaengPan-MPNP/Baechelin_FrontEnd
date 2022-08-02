@@ -7,10 +7,10 @@ import * as S from './styles';
 function SocialLoginBox() {
   const state: any = useLocation();
   const prevPathProps = state?.state?.destinationPath;
-  const prevPath = prevPathProps ? prevPathProps.split('/').join('-') : null;
+  const prevPath = prevPathProps ? prevPathProps.split('/').join('-') : '';
   const getLink = React.useCallback(
     (social: string) => `https://api.bae-chelin.com/oauth2/authorization/${social}?redirect_uri=
-https://bae-chelin.com/user/oauth/redirect${`/${prevPath}` || ''}`,
+https://bae-chelin.com/user/oauth/redirect${prevPath ? `/${prevPath}` : ''}`,
     [prevPath],
   );
   const redirectTest = `http://localhost:12345/user/oauth/redirect/${
