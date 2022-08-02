@@ -8,13 +8,14 @@ import Logo from '@atoms/Logo';
 
 import Navigation from '@molecules/Navigation';
 import SearchInput from '@atoms/SearchInput';
+
 import UseLoginHooks from '@hooks/UseLogin';
 import ProfileBookmark from '@organisms/ProfileBookmark';
 import { useRecoilState } from 'recoil';
-
 import { muiAnchorEl } from '@recoil/modalAtom';
 import { getBookmarkTop } from '@service/bookmarkApi';
 import { UseUserQuery } from '@hooks/UseQueryHooks';
+import { IMAGE_URL } from '@constants/url';
 import * as S from './styles';
 import { UserLogo } from './styles';
 
@@ -24,14 +25,15 @@ function Header() {
   const location = useLocation();
 
   const { tokenExist } = UseLoginHooks();
-
+  const locationState: any = useLocation();
   const { UseGetUserInfo } = UseUserQuery(tokenExist);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const { data: userInfoData } = UseGetUserInfo();
-  const { data: BookmarkTopData } = useQuery(['getBookmarkTop'], () => getBookmarkTop(tokenExist), {
+  const { data: BookmarkTopData } = useQuery(['getBookmarkTop', tokenExist], () => getBookmarkTop(), {
     staleTime: 5000,
     cacheTime: Infinity,
+    enabled: tokenExist,
     // enabled: !create,
   });
 
@@ -68,10 +70,15 @@ function Header() {
             </div>
             {/* userIcon */}
             <div>
-              {userInfoData ? (
+              {tokenExist ? (
                 <>
                   <S.LogoArea>
-                    <UserLogo src={userInfoData?.userImage} width="3rem" height="3rem" onClick={handleClick} />
+                    <UserLogo
+                      src={userInfoData?.userImage || IMAGE_URL.NO_IMAGE}
+                      width="3rem"
+                      height="3rem"
+                      onClick={handleClick}
+                    />
                   </S.LogoArea>
                   <ProfileBookmark
                     anchorEl={anchorEl}
@@ -82,7 +89,13 @@ function Header() {
                 </>
               ) : (
                 <Button fontSize="1.6rem">
-                  <Link to="/login" state={{ locationState: location }}>
+                  <Link
+                    to="/login"
+                    state={{
+                      locationState: location,
+                      destinationPath: locationState.pathname,
+                    }}
+                  >
                     로그인
                   </Link>
                 </Button>

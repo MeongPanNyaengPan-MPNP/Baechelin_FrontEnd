@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-
 // export interface IconProps extends HTMLAttributes<HTMLImageElement> {
 //   src?: File | string;
 // }

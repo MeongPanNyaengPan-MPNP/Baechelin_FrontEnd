@@ -7,6 +7,7 @@ import * as S from './styles';
 function SocialLoginBox() {
   const state: any = useLocation();
   const prevPathProps = state?.state?.destinationPath;
+  console.log(prevPathProps);
   const prevPath = prevPathProps ? prevPathProps.split('/').join('-') : '';
   const getLink = React.useCallback(
     (social: string) => `https://api.bae-chelin.com/oauth2/authorization/${social}?redirect_uri=

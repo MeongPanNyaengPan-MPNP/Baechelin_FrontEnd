@@ -44,8 +44,8 @@ function App() {
             <Route path="/map" element={<SearchMap />} />
             <Route path="/user">
               <Route path="oauth/redirect/:prevPath" element={<Oauth />} />
-              <Route path="oauth/redirect" element={<Oauth />} />
               <Route path="bookmark" element={<Bookmark />} />
+              <Route path="oauth/redirect/" element={<NotFound />} />
             </Route>
             <Route path="/store">
               <Route path=":storeId" element={<StoreDetail />} />
@@ -57,9 +57,9 @@ function App() {
             <Route path="/review/write/*" element={<PrivateRoute />}>
               <Route path=":storeId" element={<ReviewWrite />} />
             </Route>
-            <Route path="*" element={<NotFound />} />
-            <Route path="login" element={<Login />} />
             <Route path="/about" element={<ServiceInfo />} />
+            <Route path="login" element={<Login />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
           {state?.locationState && (
             <Routes>

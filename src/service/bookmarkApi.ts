@@ -46,10 +46,7 @@ export const deleteBookmarkStore = (params: { bookmarkId: number }) =>
     url: `/bookmark/${params}`,
   });
 
-export const getBookmarkTop = (tokenExist: boolean) => {
-  if (!tokenExist) return;
-  return request<GetBookmarkTopResponse[]>({
+export const getBookmarkTop = () => request<GetBookmarkTopResponse[]>({
     method: 'GET',
     url: '/bookmarkTop',
   });
-};

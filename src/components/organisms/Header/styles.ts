@@ -39,6 +39,8 @@ export const LogoArea = styled.div`
   border-radius: 100%;
   overflow: hidden;
   margin-left: 12px;
+  background-color: #e6e6e6;
+  object-fit: cover;
 
   img {
     cursor: pointer;
