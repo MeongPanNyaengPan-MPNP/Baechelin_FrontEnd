@@ -149,17 +149,25 @@ export const STORE_FILTERS = {
 };
 export const STORE_REVIEW_TAG: { [index: string]: string } = {
   bKiosk: '배리어프리 키오스크',
+  bBasicKiosk: '일반 키오스크',
   bTable: '입식 테이블',
   bMenu: '점자 메뉴판',
-  bWheelchair: '휠체어가 들어갈 수 있는',
   bHelp: '직원에 도움 요청',
   bAutoDoor: '자동문',
-  fDelicious: '음식이 맛있는',
-  fClean: '매장이 깔끔한',
+  bWideDoor: '넓은 출입구',
+  bParking: '무료주차',
+  bNoParking: '주차불가',
+  bWithPet: '반려동물 동반',
+  fDelicious: '맛있는',
+  fClean: '깔끔한',
   fVibe: '분위기 좋은',
   fQuantity: '양이 많은',
   fGoodToEat: '먹기 편한',
   fPrice: '가격이 착한',
+  fQuiet: '조용한',
+  fLoud: '시끌벅적한',
+  fWide: '공간이 넓은',
+  fSmall: '공간이 좁은',
 };
 export const STORE_DEFAULT_VALUES = {
   CATEGORY: 'ALL',
@@ -185,60 +193,107 @@ export const STORE_LIST_TITLE = {
 export const REVIEW_FILTERS = {
   FACILITY: [
     {
-      LABEL: '배리어프리 키오스크',
       KEY: 'bKiosk',
+      LABEL: '배리어프리 키오스크',
+      CHECKED: false,
+    },
+
+    {
+      KEY: 'bBasicKiosk',
+      LABEL: '일반 키오스크',
       CHECKED: false,
     },
     {
-      LABEL: '입식 테이블',
       KEY: 'bTable',
+      LABEL: '입식 테이블',
       CHECKED: false,
     },
     {
-      LABEL: '점자 메뉴판',
       KEY: 'bMenu',
+      LABEL: '점자 메뉴판',
       CHECKED: false,
     },
     {
-      LABEL: '넓은 출입구',
-      KEY: 'bWheelchair',
-      CHECKED: false,
-    },
-    {
-      LABEL: '직원이 주문 받는',
       KEY: 'bHelp',
+      LABEL: '직원에 도움 요청',
+      CHECKED: false,
+    },
+    {
+      KEY: 'bAutoDoor',
+      LABEL: '자동문',
+      CHECKED: false,
+    },
+    {
+      KEY: 'bWideDoor',
+      LABEL: '넓은 출입구',
+      CHECKED: false,
+    },
+    {
+      KEY: 'bParking',
+      LABEL: '무료주차',
+      CHECKED: false,
+    },
+    {
+      KEY: 'bNoParking',
+      LABEL: '주차불가',
+      CHECKED: false,
+    },
+    {
+      KEY: 'bWithPet',
+      LABEL: '반려동물 동반',
       CHECKED: false,
     },
   ],
   QUALITY: [
     {
-      LABEL: '음식이 맛있는',
       KEY: 'fDelicious',
+      LABEL: '맛있는',
       CHECKED: false,
     },
     {
-      LABEL: '매장이 깔끔한',
       KEY: 'fClean',
+      LABEL: '깔끔한',
       CHECKED: false,
     },
     {
-      LABEL: '분위기 좋은',
       KEY: 'fVibe',
+      LABEL: '분위기 좋은',
       CHECKED: false,
     },
     {
-      LABEL: '양이 많은',
       KEY: 'fQuantity',
+      LABEL: '양이 많은',
       CHECKED: false,
     },
     {
-      LABEL: '먹기 편한',
       KEY: 'fGoodToEat',
+      LABEL: '먹기 편한',
       CHECKED: false,
     },
     {
-      LABEL: '가격이 착한',
       KEY: 'fPrice',
+      LABEL: '가격이 착한',
+      CHECKED: false,
+    },
+    {
+      KEY: 'fQuiet',
+      LABEL: '조용한',
+      CHECKED: false,
+    },
+    {
+      KEY: 'fLoud',
+      LABEL: '시끌벅적한',
+      CHECKED: false,
+    },
+    {
+      KEY: 'fWide',
+      LABEL: '공간이 넓은',
+      CHECKED: false,
+    },
+
+    {
+      KEY: 'fSmall',
+      LABEL: '공간이 좁은',
       CHECKED: false,
     },
   ],
