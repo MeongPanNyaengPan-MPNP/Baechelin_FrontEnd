@@ -11,6 +11,7 @@ import { Pagination } from '@mui/material';
 import { userInfo } from '@recoil/userAtom';
 import NoDataMessage from '@molecules/NodataMessage';
 import { useLocation } from 'react-router-dom';
+import { useQueryClient } from 'react-query';
 
 import * as S from './styles';
 
@@ -25,6 +26,8 @@ export type StoreCardListProps = {
 function StoreCardList({ topic, title, keyword }: StoreCardListProps) {
   // const queryClient = useQueryClient();
   const { pathname } = useLocation();
+
+  const queryClient = useQueryClient();
   const location = useRecoilValue(locationAtom);
   const SnbRecoilQuery = useRecoilValue(SnbQueryString);
   const SearchLocationQuery = useRecoilValue(SearchLocationQueryString);
@@ -56,17 +59,17 @@ function StoreCardList({ topic, title, keyword }: StoreCardListProps) {
     remove: searchRemove,
   } = UseGetSearchStoreList(STORE_LIST.SEARCH_STORE, SnbRecoilQuery, SearchLocationQuery, keyword, pageNum);
   // 검색일 경우 keyword 바뀌면 refetch
-
+  console.log(searchRefetch, topicRefetch, pathname);
   React.useEffect(() => {
-    searchRefetch();
-    topicRefetch();
     searchRemove();
     topicRemove();
-  }, [pathname, searchRefetch, searchRemove, topicRefetch, topicRemove]);
+    queryClient.invalidateQueries(STORE_LIST.SEARCH_STORE);
+    queryClient.invalidateQueries(queryKey);
+  }, [queryClient, queryKey, searchRemove, topicRemove]);
   const pageChangeHandler = (pageNumber: number) => {
     setPageNum(pageNumber);
   };
-
+  console.log('topicDataIsSuccess', !topicDataIsSuccess);
   React.useEffect(() => {
     console.log('effect');
   }, []);

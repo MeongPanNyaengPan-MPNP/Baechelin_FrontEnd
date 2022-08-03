@@ -26,14 +26,10 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
   const [pageNum, setPageNum] = useState<number>(1);
   const latingQueryString = useRecoilValue(LatingQueryString);
   const snbQueryString = useRecoilValue(SnbQueryString);
-  const { debounceVal, bool } = UseDebounce<string>(latingQueryString, 500);
+  const { debounceVal, bool } = UseDebounce<string>(latingQueryString, 700);
   const [itemResult, setitemResult] = useState<StoreMapResponseTypes[][]>([]);
 
-  const {
-    data: storeItems,
-    isLoading,
-    isFetched,
-  } = UseMapData<StoreMapListQueryTypes>(debounceVal, snbQueryString, pageNum - 1);
+  const { data: storeItems, isLoading } = UseMapData<StoreMapListQueryTypes>(debounceVal, snbQueryString, pageNum - 1);
 
   React.useEffect(() => {
     if (currentLocation !== null && location === null) {
@@ -74,7 +70,7 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
         <MapContainer location={location} storeItems={itemResult} />
       </S.Content>
       <S.StoreListArea>
-        <MapStoreList totalCount={storeItems?.totalCount} storeItems={itemResult} isFetched={isFetched} />
+        <MapStoreList storeItems={!bool ? itemResult : undefined} />
         <S.PaginationBar>
           <Pagination
             count={Number(storeItems?.totalPage) + 1}
@@ -88,11 +84,13 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
           />
         </S.PaginationBar>
       </S.StoreListArea>
-      {(bool || isLoading) && (
+      {bool && (
         <S.DisabledBox>
-          <NoDataMessage message={['LOADING']} />
+          {isLoading && <NoDataMessage message={['LOADING']} />}
+          {isLoading && <NoDataMessage message={['주변 가게가 없습니다']} />}
         </S.DisabledBox>
       )}
+
       {!bool && !isLoading && Number(storeItems?.leftElement) > 3 && (
         <S.totalCount>
           <p>

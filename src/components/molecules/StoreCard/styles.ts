@@ -3,6 +3,7 @@ import { CardStylesProps } from '@molecules/StoreCard/index';
 
 export const CardFigureArea = styled.div`
   background: #efefef;
+  height: 145px;
 `;
 export const CardContentArea = styled.div`
   padding: 12px 20px 18px;

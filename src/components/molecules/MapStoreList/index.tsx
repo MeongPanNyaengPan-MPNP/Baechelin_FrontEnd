@@ -6,7 +6,6 @@ import Badge from '@atoms/Badge';
 import Span from '@atoms/Span';
 import Star from '@atoms/Star';
 import { StoreMapResponseTypes } from '@interfaces/StoreResponseTypes';
-import NoDataMessage from '@molecules/NodataMessage';
 import { useMutation, useQueryClient } from 'react-query';
 import { CreateBookmarkFolderResponse, CreateBookmarkStoreBody } from '@interfaces/BookmarkTypes';
 import { createBookmarkStore } from '@service/bookmarkApi';
@@ -16,12 +15,10 @@ import * as S from './styles';
 
 type MapStoreListProps = {
   storeItems: StoreMapResponseTypes[][] | undefined;
-  totalCount: number | undefined;
-  isFetched: boolean;
 };
 
 function MapStoreList(props: MapStoreListProps) {
-  const { storeItems, isFetched, totalCount } = props;
+  const { storeItems } = props;
   const location = useLocation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -97,11 +94,6 @@ function MapStoreList(props: MapStoreListProps) {
               </div>
             ))}
         </S.ListSection>
-        {totalCount === 0 && isFetched && (
-          <S.MessageArea>
-            <NoDataMessage message={['주변 가게가 없습니다']} />
-          </S.MessageArea>
-        )}
       </S.Inner>
     </S.Container>
   );

@@ -11,10 +11,12 @@ import { useMutation, useQueryClient } from 'react-query';
 import { CreateBookmarkFolderResponse, CreateBookmarkStoreBody } from '@interfaces/BookmarkTypes';
 
 import { createBookmarkStore } from '@service/bookmarkApi';
+import SkeletonCard from '@atoms/SkeletonCard';
 import * as S from './styles';
 
 export type CardStylesProps = {
   size?: 'M' | 'L';
+  isLoading?: boolean;
 };
 
 function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesProps) {
@@ -33,6 +35,7 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
     parking,
     approach,
     bookmark,
+    isLoading,
     heightDifferent,
   } = props;
   const navigate = useNavigate();
@@ -64,14 +67,30 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
     <S.CardItem size={size}>
       <S.CardFigureArea onClick={() => navigate(`/store/${id}`)}>
         {storeImgList.length < 1 ? (
-          <ThumbNail hover alt={name} src={noImage} height="100%" />
+          <ThumbNail
+            isLoading={isLoading}
+            hover
+            alt={name}
+            src={noImage}
+            height="100%"
+            imgWidth="270px"
+            imgHeight="145px"
+          />
         ) : (
-          <ThumbNail hover alt={name} src={storeImgList[0]} height="100%" />
+          <ThumbNail
+            isLoading={isLoading}
+            hover
+            alt={name}
+            src={storeImgList[0]}
+            height="100%"
+            imgWidth="270px"
+            imgHeight="145px"
+          />
         )}
       </S.CardFigureArea>
       <S.CardContentArea>
         <S.CardContentAreaTop>
-          <Span fontSize="1.2rem">
+          <Span isLoading={isLoading} fontSize="1.2rem">
             <>
               {size === 'L' && <>{address} - </>}
               {category}
@@ -79,7 +98,7 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
           </Span>
           <S.StoreNameArea>
             <S.StoreTitle>
-              <Span fontSize="16px" fontWeight="bold">
+              <Span isLoading={isLoading} fontSize="16px" fontWeight="bold">
                 {name}
               </Span>
             </S.StoreTitle>
@@ -102,7 +121,7 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
               {address && (
                 <S.CardContentAddress>
                   <Icon iconName="location_on" />
-                  <Span fontSize="1.2rem" ellipsis={1} display="block">
+                  <Span isLoading={isLoading} fontSize="1.2rem" ellipsis={1} display="block">
                     {address}
                   </Span>
                 </S.CardContentAddress>
@@ -110,18 +129,20 @@ function StoreCard<T extends Partial<StoreResponseTypes>>(props: T & CardStylesP
               {phoneNumber && (
                 <S.CardContentAddress>
                   <Icon iconName="call" />
-                  <Span fontSize="1.2rem" ellipsis={1} display="block">
+                  <Span isLoading={isLoading} fontSize="1.2rem" ellipsis={1} display="block">
                     {phoneNumber}
                   </Span>
                 </S.CardContentAddress>
               )}
+              {isLoading && <SkeletonCard />}
             </S.CardContentAddressArea>
             <S.CardContentFacilityArea>
-              <Badge name="approach" state={approach} />
-              <Badge name="elevator" state={elevator} />
-              <Badge name="toilet" state={toilet} />
-              <Badge name="parking" state={parking} />
-              <Badge name="height" state={heightDifferent} />
+              <Badge isLoading={isLoading} name="approach" state={approach} />
+              <Badge isLoading={isLoading} name="elevator" state={elevator} />
+              <Badge isLoading={isLoading} name="toilet" state={toilet} />
+              <Badge isLoading={isLoading} name="parking" state={parking} />
+              <Badge isLoading={isLoading} name="height" state={heightDifferent} />
+              {isLoading && <SkeletonCard />}
             </S.CardContentFacilityArea>
           </>
         )}

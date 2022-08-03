@@ -19,6 +19,7 @@ export type CardGroupSlideProps<T> = {
   autoplayDelay?: number;
   slidesPerGroup?: number;
   speed?: number;
+  isLoading?: boolean;
 } & CardStylesProps;
 
 function ReviewGroupSlide<T>({

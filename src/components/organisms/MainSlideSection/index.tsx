@@ -7,6 +7,7 @@ import { useRecoilValue } from 'recoil';
 import { SnbQueryString } from '@recoil/mainSnbAtom';
 import locationAtom from '@recoil/locationAtom';
 import { STORE_TOPIC } from '@constants/store';
+import SkeletonGroup from '@molecules/SkeletonGroup';
 import * as S from './styles';
 
 type MainSlideListProps = {
@@ -28,7 +29,7 @@ function MainSlideSection({
   const SnbRecoilQuery = useRecoilValue(SnbQueryString);
   const { UseGetStoreList, UseGetBookmarkStoreList } = UseStoreListHooks<StoreListQueryTypes>(location);
 
-  const { data, isSuccess, isLoading, isError } =
+  const { data, isSuccess, isError, isLoading } =
     listTopic === STORE_TOPIC.BOOKMARK
       ? UseGetBookmarkStoreList(queryKey, SnbRecoilQuery)
       : UseGetStoreList(queryKey, SnbRecoilQuery, listTopic);
@@ -45,12 +46,12 @@ function MainSlideSection({
           {children}
           {/* 데이터 정상노출 */}
           {isSuccess && data.cards && data.cards.length > 0 && (
-            <CardGroupSlide cardItems={data?.cards} {...slideProps} />
+            <CardGroupSlide cardItems={data?.cards} isLoading={!isSuccess} {...slideProps} />
           )}
           {/* No length */}
           {isSuccess && data.cards && data.cards.length === 0 && <NoDataMessage message={['주변 가게가 없습니다']} />}
           {/* Loading */}
-          {isLoading && <NoDataMessage message={['Loading']} />}
+          {isLoading && <SkeletonGroup col={4} width={`${100 / 4} - 40px`} />}
           {/* isError */}
           {isError && <NoDataMessage message={['isError']} />}
         </>

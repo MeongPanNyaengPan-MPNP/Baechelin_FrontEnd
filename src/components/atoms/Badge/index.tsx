@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import Skeleton from '@mui/material/Skeleton';
 
 const BadgeArea = styled.div<BadgeProps>`
   border-radius: ${(props) => (props.type ? 'none' : '100%;')};
@@ -20,10 +21,11 @@ export type BadgeProps = {
   state: 'Y' | 'N' | undefined;
   type?: string;
   active?: boolean;
+  isLoading?: boolean;
   [prop: string]: any;
 };
 
-function Badge({ name, state = 'N', type = '', active, ...props }: BadgeProps) {
+function Badge({ name, state = 'N', type = '', active, isLoading, ...props }: BadgeProps) {
   const [alt, setAlt] = React.useState<string>();
   const extension = 'svg';
   useEffect(() => {
@@ -42,22 +44,27 @@ function Badge({ name, state = 'N', type = '', active, ...props }: BadgeProps) {
     }
   }, [name]);
   return (
-    <>
-      <BadgeArea {...props} type={type} className="badge">
-        {active ? (
+    <BadgeArea {...props} type={type} className="badge">
+      {isLoading && (
+        <Skeleton variant="circular" width="36px" height="36px">
           <img
             alt={`${alt} ${state === 'Y' ? '있음' : '없음'}`}
             src={`/img/ui/picto_${name}_${state === 'Y' ? 'on' : 'off_active'}${type ? `_${type}` : ''}.${extension}`}
           />
-        ) : (
-          <img
-            alt={`${alt} ${state === 'Y' ? '있음' : '없음'}`}
-            src={`/img/ui/picto_${name}_${state === 'Y' ? 'on' : 'off'}${type ? `_${type}` : ''}.${extension}`}
-          />
-        )}
-      </BadgeArea>
-      <p />
-    </>
+        </Skeleton>
+      )}
+      {!isLoading && active ? (
+        <img
+          alt={`${alt} ${state === 'Y' ? '있음' : '없음'}`}
+          src={`/img/ui/picto_${name}_${state === 'Y' ? 'on' : 'off_active'}${type ? `_${type}` : ''}.${extension}`}
+        />
+      ) : (
+        <img
+          alt={`${alt} ${state === 'Y' ? '있음' : '없음'}`}
+          src={`/img/ui/picto_${name}_${state === 'Y' ? 'on' : 'off'}${type ? `_${type}` : ''}.${extension}`}
+        />
+      )}
+    </BadgeArea>
   );
 }
 

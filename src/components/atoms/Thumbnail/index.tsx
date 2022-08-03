@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import Skeleton from '@mui/material/Skeleton';
 
 export interface ThumbNailProps extends ImageProps {
   borderSize?: number;
@@ -8,6 +9,9 @@ export interface ThumbNailProps extends ImageProps {
   height?: string;
   fit?: boolean;
   hover?: boolean;
+  imgWidth?: string;
+  imgHeight?: string;
+  isLoading?: boolean;
 
   [prop: string]: any;
 }
@@ -30,10 +34,10 @@ const StyledFigure = styled.figure<ThumbNailProps>`
 
   & > img {
     display: block;
-    width: 100%;
-    height: 100%;
     object-fit: ${(props) => (props.fit ? 'cover' : `contain`)};
     transition: all 0.2s;
+    width: ${(props) => props.width || `100%`};
+    height: ${(props) => props.height || `100%`};
   }
 
   &:hover > img {
@@ -61,7 +65,19 @@ const StyledFigure = styled.figure<ThumbNailProps>`
   }}
 `;
 
-function ThumbNail({ round = 0, borderSize = 0, alt = '', src, width, height, fit = true, hover }: ThumbNailProps) {
+function ThumbNail({
+                     round = 0,
+                     borderSize = 0,
+                     alt = '',
+                     src,
+                     imgWidth,
+                     imgHeight,
+                     width,
+                     height,
+                     fit = true,
+                     hover,
+                     isLoading,
+                   }: ThumbNailProps) {
   const props = {
     borderSize,
     round,
@@ -69,10 +85,18 @@ function ThumbNail({ round = 0, borderSize = 0, alt = '', src, width, height, fi
     height,
     fit,
     hover,
+    imgWidth,
+    imgHeight,
+    alt,
+    src,
+    isLoading,
   };
   return (
     <StyledFigure {...props}>
-      <img alt={alt} src={src} />
+
+      {isLoading ? <Skeleton variant="rectangular" width="100%" height="100%" />
+        : <img alt={alt} src={src} />
+      }
     </StyledFigure>
   );
 }

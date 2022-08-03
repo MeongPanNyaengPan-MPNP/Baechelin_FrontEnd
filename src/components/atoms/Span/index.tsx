@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import Skeleton from '@mui/material/Skeleton';
 
 export interface SpanProps {
   children?: React.ReactChild;
@@ -19,6 +20,7 @@ export interface SpanProps {
   style?: any;
   ellipsis?: null | number;
   margin?: string;
+  isLoading?: boolean;
 
   [prop: string]: any;
 }
@@ -35,6 +37,8 @@ const StyledSpan = styled.span<SpanProps>`
   font-size: ${(props) => props.fontSize};
   font-weight: ${(props) => props.fontWeight};
   cursor: ${(props: SpanProps) => (props.cursor ? props.cursor : null)};
+  color: ${(props) => (props.isLoading ? 'transparent' : props.color)};
+
   line-height: 1.4;
   white-space: pre-wrap;
 
@@ -106,6 +110,7 @@ const Span = ({
   onClick,
   display,
   style,
+  isLoading,
   ellipsis = null,
 }: SpanProps) => {
   const needProps = {
@@ -121,12 +126,19 @@ const Span = ({
     display,
     ellipsis,
     cursor,
+    isLoading,
     style,
   };
 
   return (
     <StyledSpan {...needProps} className={className} onClick={onClick} style={style}>
-      {children}
+      {isLoading ? (
+        <Skeleton variant="rectangular" width="100%" height={fontSize}>
+          {children}
+        </Skeleton>
+      ) : (
+        children
+      )}
     </StyledSpan>
   );
 };
