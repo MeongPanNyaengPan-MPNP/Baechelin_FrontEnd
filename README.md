@@ -102,9 +102,9 @@
 
 # Project
 
-시연영상
+[시연영상](https://youtu.be/zVPvK5g6c-I)
 
-발표자료
+[발표영상](https://youtu.be/_0pyS0Lx0NU)
 
 [팀 노션](https://planet-punishment-427.notion.site/99-7-4-a179c828bbbf47aea74d2bea85f47372)    
 
@@ -141,7 +141,7 @@
 
 ### Service Architecture
 
-<img width="2343" alt="MPNP Architecture" src="https://user-images.githubusercontent.com/90380269/181498046-80e24864-074e-4b41-a561-db9183989d29.png">
+<img width="2228" alt="MPNP Architecture" src="https://user-images.githubusercontent.com/90380269/182749337-887ec52f-c1c5-4656-a1be-8b90f5041dba.png">
 
 <br>
 
