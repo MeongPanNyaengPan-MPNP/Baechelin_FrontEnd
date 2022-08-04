@@ -43,7 +43,6 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
   const pageChangeHandler = (pageNumber = 1) => {
     setPageNum(pageNumber);
   };
-
   useEffect(() => {
     // const result: { [key: number]: StoreMapResponseTypes[] }[] = [];
 
@@ -77,7 +76,7 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
         <MapStoreList totalCount={storeItems?.totalCount} storeItems={itemResult} isFetched={isFetched} />
         <S.PaginationBar>
           <Pagination
-            count={Number(storeItems?.totalPage) + 1}
+            count={storeItems?.totalPage && Number(storeItems?.totalPage) + 1}
             showFirstButton
             showLastButton
             size="medium"

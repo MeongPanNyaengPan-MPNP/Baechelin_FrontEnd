@@ -11,36 +11,15 @@ interface MarkerProps {
   };
   firstStoreName: string;
   storeItems: StoreMapResponseTypes[];
-  /*
-    onClick?: (marker: kakao.maps.Marker) => void;
-    onMouseOver?: (marker: kakao.maps.Marker) => void;
-    onMouseOut?: (marker: kakao.maps.Marker) => void;
-    onDragStart?: (marker: kakao.maps.Marker) => void;
-    onDragEnd?: (marker: kakao.maps.Marker) => void; */
+  mapItem?: kakao.maps.Map;
 }
-
-/* `
-  <div class='overlay_box'>
-    <span class='store_length'>+ ${len}</span>
-    <figure><img src='${item.storeImgList[0] || `/img/ui/no_picture.svg`}' alt='${item.name}'/></figure>
-    <div class='text_area'>
-      <h5>
-      <small>${item.category}</small>
-      <p>${item.name}</p>
-      </h5>
-      <div class='rate'>
-      <figure class='star'><img src='/img/ui/ic_star.png' alt='별 아이콘'/></figure>
-      <span>${item.pointAvg}</span>
-      </div>
-    </div>
-  </div>
-  `; */
 
 const OverlayDiv = (items: StoreMapResponseTypes[]) => {
   // eslint-disable-next-line react/destructuring-assignment
   const itemsEl = items.map(
     (item) => `
   <div class='overlay_box'>
+  <a href='/store/${item.storeId}'>
     <div class='text_area'>
       <h5>
         <p>${item.name}</p>
@@ -53,18 +32,22 @@ const OverlayDiv = (items: StoreMapResponseTypes[]) => {
         </div>
       </div>
     </div>
+    </a>
   </div>
   `,
   );
   const itemElString = itemsEl.join('');
-  return `<div class='overlay_group'>${itemElString}</div>`;
+  return `<div class='overlay_group'>
+
+${itemElString}
+</div>`;
 };
 
 /*
 const InfoWindowEl = ({ title, src, rate, category }: InfoWindowTypes) =>; */
 const Marker = React.forwardRef((props: MarkerProps, ref) => {
   // Marker 객체는 단 한번만 생성 되도록 함
-  const { position, storeItems, firstStoreName } = props;
+  const { position, storeItems, firstStoreName, mapItem } = props;
   // const container = React.useRef(document.createElement('div'));
   // , onClick, onMouseOut, onMouseOver, onDragEnd, onDragStart
   //
@@ -85,9 +68,8 @@ const Marker = React.forwardRef((props: MarkerProps, ref) => {
 
     return kakaoMarker;
   }, []);
-
   const overlayEl = useMemo(() => {
-    // 인포윈도우를 생성합니다
+    // 인포윈도우를 생성
     const overlay = new kakao.maps.CustomOverlay({
       map,
       content: OverlayDiv(storeItems),
@@ -95,12 +77,14 @@ const Marker = React.forwardRef((props: MarkerProps, ref) => {
       xAnchor: 0.5,
       yAnchor: 1,
       zIndex: 3,
+      clickable: true,
     });
     return overlay;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   /* 마우스오버시 오버레이 노출 */
   kakao.maps.event.addListener(marker, 'click', () => {
+    /* 리스트 액티브 이벤트 */
+    overlayEl.setVisible(false);
     const storeItemEl = document.querySelectorAll('.store_wrap');
     storeItemEl.forEach((el) => {
       el.classList.remove('active');
@@ -109,17 +93,26 @@ const Marker = React.forwardRef((props: MarkerProps, ref) => {
     if (!target) return;
     target.scrollIntoView({ behavior: 'smooth' });
     target.classList.add('active');
+
+    /* 해당 윈도우 셋팅 */
+    overlayEl.setVisible(true);
   });
-  kakao.maps.event.addListener(marker, 'mouseover', () => {
-    overlayEl.setMap(map);
-  });
-  kakao.maps.event.addListener(marker, 'mouseout', () => {
-    overlayEl.setMap(null);
-  });
+  React.useEffect(() => {
+    if (mapItem) {
+      kakao.maps.event.addListener(mapItem, 'click', () => {
+        overlayEl.setMap(null);
+      });
+      kakao.maps.event.addListener(marker, 'click', (mouseEvent: any) => {
+        console.log(mouseEvent);
+      });
+    }
+  }, []);
+
   useLayoutEffect(() => {
     if (map) {
       marker.setMap(map);
-      overlayEl.setMap(null);
+      overlayEl.setMap(map);
+      overlayEl.setVisible(false);
     }
     return () => {
       marker.setMap(null);

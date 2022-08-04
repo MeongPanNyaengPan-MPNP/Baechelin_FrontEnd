@@ -86,7 +86,7 @@ function ReviewForm({ storeName: storeId }: { storeName: string }) {
             defaultValue={5}
             max={5}
             color="#ED6F2A"
-            sx={{ fontSize: '3.2rem' }}
+            sx={{ fontSize: '4rem' }}
             readOnly={false}
           />
         </S.QuestionSection>
