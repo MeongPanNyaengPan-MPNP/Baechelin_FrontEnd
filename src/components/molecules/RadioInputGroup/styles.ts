@@ -7,6 +7,8 @@ export const RadioInputGroup = styled(RadioGroup)`
   flex-direction: row;
 `;
 export const Label = styled(FormControlLabel)`
+  margin-left: 0;
+
   &:hover {
     .MuiFormControlLabel-label {
       font-weight: bold;

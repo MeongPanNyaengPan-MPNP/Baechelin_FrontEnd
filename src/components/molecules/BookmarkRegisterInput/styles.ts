@@ -10,7 +10,6 @@ export const Container = styled.div<{ height: string; justify?: string }>`
   width: 95%;
   height: ${({ height }) => height || '1.5rem'};
 `;
-
 export const folderNameWrapper = styled.div<{ height: string }>`
   display: block;
   align-items: center;
@@ -28,6 +27,7 @@ export const Input = styled.input<{ fontSize: string; inputType: string }>`
   border: 1px solid ${Color.grey};
   background-color: ${Color.lightGrey};
   border-color: ${Color.darkGrey};
+  padding-left: 5px;
 `;
 
 export const Button = styled.button`

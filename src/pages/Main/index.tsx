@@ -6,6 +6,8 @@ import UseGeolocation from '@hooks/UseGeolocation';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import locationAtom from '@recoil/locationAtom';
 import { userInfo } from '@recoil/userAtom';
+import { STORE_LIST } from '@constants/useQueryKey';
+import { useQueryClient } from 'react-query';
 // TODO : 초기화, 전체 카테고리 넣기
 
 const mainVisualSlideItems = [
@@ -33,13 +35,18 @@ function Main() {
   const { currentLocation } = UseGeolocation();
   const [location, setLocation] = useRecoilState(locationAtom);
   const userInfoValue = useRecoilValue(userInfo);
-
+  const queryClient = useQueryClient();
   React.useEffect(() => {
     if (currentLocation !== null && location === null) {
       // localstorage 초기 셋팅
       setLocation(currentLocation);
     }
   }, [currentLocation]);
+  React.useEffect(() => () => {
+    queryClient.refetchQueries(STORE_LIST.ARROUND_STORE);
+    queryClient.refetchQueries(STORE_LIST.BEST_BOOKMARK_STORE);
+    queryClient.refetchQueries(STORE_LIST.BEST_POINT_STORE);
+  });
   return <MainTemplates userInfo={userInfoValue} filters={STORE_FILTERS} slideItems={mainVisualSlideItems} />;
 }
 

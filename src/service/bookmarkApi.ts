@@ -40,13 +40,14 @@ export const createBookmarkStore = (body: CreateBookmarkStoreBody) =>
     data: body,
   });
 
-export const deleteBookmarkStore = (params: { bookmarkId: number }) =>
-  request({
+export const deleteBookmarkStore = <T>(storeId: number) =>
+  request<T>({
     method: 'DELETE',
-    url: `/bookmark/${params}`,
+    url: `/bookmark/${storeId}`,
   });
 
-export const getBookmarkTop = () => request<GetBookmarkTopResponse[]>({
+export const getBookmarkTop = () =>
+  request<GetBookmarkTopResponse[]>({
     method: 'GET',
     url: '/bookmarkTop',
   });

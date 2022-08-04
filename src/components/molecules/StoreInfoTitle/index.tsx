@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
+import React from 'react';
 
 import Span from '@atoms/Span';
 import Icon from '@atoms/Icon';
 import Bookmark from '@molecules/Bookmark';
 
 import { StoreMapResponseTypes } from '@interfaces/StoreResponseTypes';
-import { CreateBookmarkFolderResponse, CreateBookmarkStoreBody } from '@interfaces/BookmarkTypes';
-import { createBookmarkStore } from '@service/bookmarkApi';
 import * as S from './styles';
 
 interface StoreInfoTitleProps {
@@ -17,30 +14,6 @@ interface StoreInfoTitleProps {
 }
 
 function StoreInfoTitle({ storeDetailData, bookmarkShow = true, categoryShow = true }: StoreInfoTitleProps) {
-  const queryClient = useQueryClient();
-  const [bookmarkStatus, setBookmarkStatus] = useState(storeDetailData?.bookmark);
-  const { mutate: fetchCreateBookmarkStore } = useMutation<
-    CreateBookmarkFolderResponse,
-    unknown,
-    CreateBookmarkStoreBody,
-    unknown
-  >(
-    ({ storeId, folderId }) =>
-      createBookmarkStore({
-        folderId,
-        storeId,
-      }),
-    {
-      onSuccess: () => {
-        // setCreate(false);
-        setBookmarkStatus('Y');
-        queryClient.invalidateQueries('getBookmarkTop');
-      },
-      onError: (err) => {
-        console.error(err);
-      },
-    },
-  );
   return (
     <S.Container>
       <S.TitleWrapper>
@@ -64,12 +37,7 @@ function StoreInfoTitle({ storeDetailData, bookmarkShow = true, categoryShow = t
       </S.TitleWrapper>
       {bookmarkShow && (
         <S.BookmarkArea>
-          <Bookmark
-            size="2.6rem"
-            marked={bookmarkStatus}
-            storeIdProps={storeDetailData?.storeId}
-            fetchCreateBookmarkStore={fetchCreateBookmarkStore}
-          />
+          <Bookmark size="2.6rem" marked={storeDetailData?.bookmark} storeIdProps={storeDetailData?.storeId} />
         </S.BookmarkArea>
       )}
     </S.Container>

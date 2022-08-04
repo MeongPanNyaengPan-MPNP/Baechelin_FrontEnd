@@ -38,7 +38,7 @@ function BookmarkSelect({ selectedOption = 'all', setSelectedOption, BookmarkDat
             전체보기
           </MenuItem>
           {BookmarkData?.map((v, i) => (
-            <MenuItem value={i}>
+            <MenuItem value={i} key={v.id}>
               <Icon iconName="folder" margin="0 0.5rem 0 0" />
               {v.folderName}
             </MenuItem>

@@ -14,7 +14,7 @@ function SkeletonGroup(props: SkeletonProps & { col?: number }) {
   return (
     <SkeletonContainer>
       {[...Array(col)].map(() => (
-        <SkeletonCard boxStyle={{ width }} />
+        <SkeletonCard key={Math.random() * 3} boxStyle={{ width }} />
       ))}
     </SkeletonContainer>
   );

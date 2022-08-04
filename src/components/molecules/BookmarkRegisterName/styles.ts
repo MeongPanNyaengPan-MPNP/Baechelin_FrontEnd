@@ -9,6 +9,10 @@ export const Container = styled.div<{ height: string; justify?: string; margin?:
   height: ${({ height }) => height || '1.6rem'};
   margin: ${({ margin }) => margin || '0'};
   cursor: pointer;
+
+  .MuiIcon-root {
+    margin-right: 0.2em;
+  }
 `;
 
 export const folderNameWrapper = styled.div<{ height: string }>`
