@@ -48,6 +48,10 @@ export const FolderConfirmButton = styled.button`
   width: 100%;
   height: 2.6rem;
   background-color: ${Color.orange};
+
+  &:disabled {
+    background-color: ${Color.darkGrey};
+  }
 `;
 
 export const InputContainer = styled.div`
@@ -72,7 +76,7 @@ export const folderNameWrapper = styled.div`
 
 export const Input = styled.input<{ fontSize: string }>`
   margin-left: 0.5rem;
-  width: 10.5rem;
+  width: 8.5rem;
   height: 1.8rem;
   border: 1px solid ${Color.grey};
   background-color: ${Color.lightGrey};

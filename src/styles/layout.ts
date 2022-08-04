@@ -4,7 +4,6 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   width: 100%;
   position: relative;
-  overflow: hidden;
   padding-bottom: 150px;
 `;
 

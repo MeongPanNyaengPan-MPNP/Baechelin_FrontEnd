@@ -36,10 +36,6 @@ export const BookmarkArea = styled.div`
   position: absolute;
   right: 15px;
   top: 15px;
-
-  .material-icons {
-    color: #a9a9a9;
-  }
 `;
 export const InfoContainer = styled.div`
   display: flex;
@@ -69,6 +65,7 @@ export const Container = styled.div`
   height: 100%;
   padding: 0 0 0 0;
   box-shadow: 0 7px 7px rgb(0 0 0 / 10%);
+  border-top: 1px solid ${Color.darkGrey};
 
   .thumbnail {
     width: 100px;
@@ -112,32 +109,12 @@ export const Inner = styled.div`
   width: 100%;
   height: 100%;
   background: ${Color.lightGrey};
-
-  .store_wrap {
-    position: relative;
-
-    &:last-child .store_item:last-child {
-      border-bottom: 0;
-    }
-  }
-
-  .store_wrap.active::after {
-    content: '';
-    position: absolute;
-    z-index: 1;
-    left: 0px;
-    top: 0;
-    width: 3px;
-    height: 100%;
-    background: ${Color.orange};
-  }
 `;
 export const ListSection = styled.div`
   width: 100%;
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-  background: #fff;
 `;
 export const MessageArea = styled.div`
   position: absolute;
@@ -146,4 +123,8 @@ export const MessageArea = styled.div`
   right: 0;
   width: 100%;
   height: 100%;
+
+  > div {
+    height: 100%;
+  }
 `;

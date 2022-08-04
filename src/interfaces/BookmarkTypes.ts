@@ -13,6 +13,7 @@ export interface GetUserBookmarkFoldersResponse {
   id: number;
   folderName: string;
   bookmarkList: BookmarkListTypes[];
+  thumbNail: string | null;
 }
 
 export interface CreateBookmarkFolderResponse {

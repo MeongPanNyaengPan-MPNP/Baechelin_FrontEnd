@@ -132,12 +132,9 @@ export const UseFetchToken = () => {
       onSuccess: (data) => {
         if (!data) return;
         setUserTokenState(data.token);
-        console.log('silentLogin Success');
       },
       onError: (err) => {
-        console.log('get Token ERROR', err);
         console.log(err);
-        console.log('silentLogin False');
       },
     });
   return { UseQueryToken };

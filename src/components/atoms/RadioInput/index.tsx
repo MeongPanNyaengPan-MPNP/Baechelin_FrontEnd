@@ -2,6 +2,7 @@ import React from 'react';
 import { CheckboxProps } from '@mui/material';
 import styled from 'styled-components';
 import Radio from '@mui/material/Radio';
+import { Color } from '@constants/styles';
 
 export type StyledRadioProps = {
   boxhidden?: boolean;
@@ -27,6 +28,7 @@ const RadioItem = styled(Radio)<StyledRadioProps>`
 
   &.Mui-checked + .MuiFormControlLabel-label {
     font-weight: bold;
+    border-bottom: 2px solid ${Color.orange};
   }
 `;
 

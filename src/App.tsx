@@ -44,7 +44,7 @@ function App() {
             <Route path="/user">
               <Route path="oauth/redirect/:prevPath" element={<Oauth />} />
               <Route path="bookmark" element={<Bookmark />} />
-              <Route path="oauth/redirect/" element={<NotFound />} />
+              <Route path="oauth/redirect/" element={<Oauth />} />
             </Route>
             <Route path="/store">
               <Route path=":storeId" element={<StoreDetail />} />

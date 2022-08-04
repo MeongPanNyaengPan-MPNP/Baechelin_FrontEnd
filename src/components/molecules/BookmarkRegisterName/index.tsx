@@ -29,7 +29,7 @@ function BookmarkRegisterFolderName({
   return (
     <S.Container height={height} justify={justify} margin={margin} onClick={onClick}>
       <Icon iconName={iconName} size={iconSize} />
-      <Span display="block" fontSize={fontSize} width="80px" style={{ margin: '0 0 0.2rem 0.5rem' }}>
+      <Span display="block" fontSize={fontSize} width="150px" ellipsis={1} style={{ margin: '0 0 0.2rem 0.5rem' }}>
         {name}
       </Span>
     </S.Container>

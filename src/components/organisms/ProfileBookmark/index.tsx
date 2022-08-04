@@ -69,6 +69,7 @@ function ProfileBookmark({ anchorEl, setAnchorEl, BookmarkTopData, getUserInfoDa
         </S.ContentTitle>
         {BookmarkTopData?.map((v) => (
           <ProfileBookmarkContent
+            key={v.storeId}
             name={v.name}
             address={v.address}
             phone={v.phoneNumber}

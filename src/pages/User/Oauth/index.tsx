@@ -11,9 +11,7 @@ function Oauth() {
   const navigate = useNavigate();
   const setSnackBar = useSetRecoilState(snackBarAtom);
   const setUserTokenState = useSetRecoilState(userToken);
-
   const token = searchParams.get('token');
-  console.log('redirect');
   const tokenNotFound = useCallback(
     (error: string, provider?: string | null) => {
       if (provider !== null && error === LOGIN.ALREADY_LOGIN_ACCOUNT) {
@@ -45,7 +43,10 @@ function Oauth() {
       setSnackBar((prev) => [...prev, '로그인 완료']);
     }
     const pathArray = prevPath?.split('-').join('/');
-    if (pathArray) {
+
+    if (prevPath === undefined) {
+      navigate('/'); // 이전 주소를 알 수 없을 때
+    } else if (prevPath && pathArray) {
       navigate(`${pathArray}`);
     }
   }, [navigate, prevPath, searchParams, setSnackBar, token, tokenExistCallBack, tokenNotFound]);

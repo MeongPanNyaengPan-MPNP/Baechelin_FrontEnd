@@ -13,27 +13,18 @@ export const StoreListArea = styled.div`
   right: 0;
   bottom: 0px;
   padding-bottom: 39px;
-  height: calc(100% - 45px);
+  height: calc(100% - 46px);
   width: 380px;
   z-index: 101;
   background: #fff;
 `;
-export const DisabledBox = styled.div`
-  position: absolute;
-  right: 0;
-  bottom: 0px;
-  padding-bottom: 40px;
-  height: calc(100% - 45px);
-  width: 380px;
-  z-index: 102;
-  background: #fff;
-`;
+
 export const PaginationBar = styled.div`
   position: absolute;
   right: 0;
   bottom: 0;
   width: 380px;
-  height: 40px;
+  height: 41px;
   z-index: 101;
   background: #fff;
   display: flex;
@@ -137,7 +128,22 @@ export const totalCount = styled.div`
     }
   }
 `;
+export const MapStoreList = styled.div`
+  background: ${Color.lightGrey};
 
+  position: relative;
+
+  &.active::after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    left: 0px;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: ${Color.orange};
+  }
+`;
 export const MessageArea = styled.div`
   position: absolute;
   left: 0;

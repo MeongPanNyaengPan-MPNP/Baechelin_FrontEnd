@@ -24,9 +24,8 @@ export const UseGeolocation = () => {
       lat: position.coords.latitude,
       lng: position.coords.longitude,
     });
-  const onError = (e: any) => {
+  const onError = () => {
     alert('현재 위치를 가져올 수 없습니다.');
-    console.log('error', e.message);
   };
 
   useEffect(() => {
