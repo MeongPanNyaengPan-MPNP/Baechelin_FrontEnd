@@ -38,6 +38,7 @@ const Map = React.forwardRef((props: ClickableListProps, ref) => {
       });
     }
   }, []);
+
   useImperativeHandle(ref, () => map, [map]);
   return (
     <>

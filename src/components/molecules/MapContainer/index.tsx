@@ -16,9 +16,8 @@ type MapContainerProps = {
 const MapContainer = React.forwardRef((props: MapContainerProps, ref) => {
   /* 사용자 위치 가져오기 */
   const { location, storeItems } = props;
-  const MapRef = useRef<kakao.maps.Map>(null);
+  const MapRef = useRef<kakao.maps.Map>();
   const MarkerRef = useRef<kakao.maps.Marker>();
-
   const setLatingQueryString = useSetRecoilState(LatingQueryString);
   const [neLatLng, setNeLating] = useState<LatLng | null>(null);
   const [swLatLng, setSwLatLng] = useState<LatLng | null>(null);
@@ -38,16 +37,17 @@ const MapContainer = React.forwardRef((props: MapContainerProps, ref) => {
     setLatingQueryString(queryString);
   }, [neLatLng, setLatingQueryString, swLatLng]);
 
-  useImperativeHandle(ref, () => MapRef, []);
+  useImperativeHandle(ref, () => MapRef, [MapRef]);
   return (
     <S.Container>
-      <S.MapArea>
+      <S.MapArea id="mapWrapper">
         <Map
           center={{
             lat: location?.lat || 37.498040446838296,
             lng: location?.lng || 127.02774015894893,
           }}
           ref={MapRef}
+          id="mapIem"
           mapEvent={mapBoundEvent}
         >
           {storeItems?.map((item) => (
@@ -55,6 +55,7 @@ const MapContainer = React.forwardRef((props: MapContainerProps, ref) => {
               key={item[0].storeId}
               firstStoreName={item[0].name}
               ref={MarkerRef}
+              mapItem={MapRef.current}
               position={{
                 lat: item[0].latitude,
                 lng: item[0].longitude,
