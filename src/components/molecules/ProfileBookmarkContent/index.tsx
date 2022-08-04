@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Span from '@atoms/Span';
 import Icon from '@atoms/Icon';
 
+import { IMAGE_URL } from '@constants/url';
 import * as S from './styles';
 
 interface ProfileBookmarkContentProps {
@@ -20,7 +21,7 @@ function ProfileBookmarkContent({
   rate = '3',
   address = '경기도 성남시 대왕판교로 211',
   phone = '032-1135-1311',
-  photo = 'https://content.api.news/v3/images/bin/104903dc87c2963a2d3e722aa85fe923?width=650',
+  photo = IMAGE_URL.NO_IMAGE,
   storeId,
 }: ProfileBookmarkContentProps) {
   const navigate = useNavigate();

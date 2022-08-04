@@ -40,7 +40,6 @@ function BookmarkTemplate() {
       onSuccess: () => {
         setCreate(false);
         refetch();
-        console.log('folder created');
       },
       onError: (err) => {
         console.error(err);
@@ -75,9 +74,6 @@ function BookmarkTemplate() {
     },
   });
 
-  console.log('selectedOption', selectedOption);
-  console.log('BookmarkData', BookmarkData);
-
   const onClickCreateButton = () => {
     setCreate((prev) => !prev);
   };
@@ -107,6 +103,7 @@ function BookmarkTemplate() {
                 key={v.id}
                 fetchDeleteBookmarkFolder={fetchDeleteBookmarkFolder}
                 fetchUpdateBookmarkFolder={fetchUpdateBookmarkFolder}
+                thumbNail={v.thumbNail}
                 index={i}
                 onClick={onClickCreatedCard}
               />
@@ -135,7 +132,7 @@ function BookmarkTemplate() {
                 iconName="create_new_folder"
                 name="새 폴더"
                 height="null"
-                iconSize="3rem"
+                iconSize="2.8rem"
                 fontSize="2.4rem"
                 justify="center"
               />

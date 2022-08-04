@@ -6,11 +6,10 @@ import { useRecoilValue } from 'recoil';
 import locationAtom from '@recoil/locationAtom';
 import { SearchLocationQueryString, SnbQueryString } from '@recoil/mainSnbAtom';
 import { StoreListQueryTypes } from '@interfaces/StoreResponseTypes';
-import { STORE_LIST, STORE_TOPIC } from '@constants/index';
+import { Color, STORE_LIST, STORE_TOPIC } from '@constants/index';
 import { Pagination } from '@mui/material';
 import { userInfo } from '@recoil/userAtom';
 import NoDataMessage from '@molecules/NodataMessage';
-import { useLocation } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
 
 import * as S from './styles';
@@ -25,7 +24,6 @@ export type StoreCardListProps = {
 
 function StoreCardList({ topic, title, keyword }: StoreCardListProps) {
   // const queryClient = useQueryClient();
-  const { pathname } = useLocation();
 
   const queryClient = useQueryClient();
   const location = useRecoilValue(locationAtom);
@@ -50,16 +48,13 @@ function StoreCardList({ topic, title, keyword }: StoreCardListProps) {
     data: topicData,
     isSuccess: topicDataIsSuccess,
     remove: topicRemove,
-    refetch: topicRefetch,
   } = UseGetStoreList(queryKey, SnbRecoilQuery, topic, pageNum);
   const {
     data: searchData,
     isSuccess: searchDataIsSuccess,
-    refetch: searchRefetch,
     remove: searchRemove,
   } = UseGetSearchStoreList(STORE_LIST.SEARCH_STORE, SnbRecoilQuery, SearchLocationQuery, keyword, pageNum);
   // 검색일 경우 keyword 바뀌면 refetch
-  console.log(searchRefetch, topicRefetch, pathname);
   React.useEffect(() => {
     searchRemove();
     topicRemove();
@@ -69,56 +64,80 @@ function StoreCardList({ topic, title, keyword }: StoreCardListProps) {
   const pageChangeHandler = (pageNumber: number) => {
     setPageNum(pageNumber);
   };
-  console.log('topicDataIsSuccess', !topicDataIsSuccess);
-  React.useEffect(() => {
-    console.log('effect');
-  }, []);
-
   return (
     <>
-      <h2>
-        <>
-          {topic === STORE_TOPIC.ARROUND &&
-            (userInfoValue?.name ? (
+      <S.CardListTitleArea>
+        <h2>
+          <>
+            {topic === STORE_TOPIC.ARROUND &&
+              (userInfoValue?.name ? (
+                <Span fontSize="2.4rem" fontWeight="bold">
+                  <>
+                    {userInfoValue?.name}님의 {title}
+                  </>
+                </Span>
+              ) : (
+                <Span fontSize="2.4rem" fontWeight="bold">
+                  <>나의 {title}</>
+                </Span>
+              ))}
+            {topic !== STORE_TOPIC.ARROUND && (
               <Span fontSize="2.4rem" fontWeight="bold">
-                <>
-                  {userInfoValue?.name}님의 {title}
-                </>
+                {title}
               </Span>
-            ) : (
-              <Span fontSize="2.4rem" fontWeight="bold">
-                <>나의 {title}</>
+            )}
+          </>
+        </h2>
+        <S.totalCountTextArea>
+          {topicData && (
+            <p>
+              총{' '}
+              <Span color={Color.orange} fontSize="1.4rem">
+                {topicData?.totalCount}
               </Span>
-            ))}
-          {topic !== STORE_TOPIC.ARROUND && (
-            <Span fontSize="2.4rem" fontWeight="bold">
-              {title}
-            </Span>
+              개의 배리어프리 가게
+            </p>
           )}
-        </>
-      </h2>
-      <S.CardList col={4} spaceBetween={40}>
-        {topicDataIsSuccess &&
-          (topicData?.totalPage >= 0 ? (
-            topicData?.cards?.map((cardItem) => (
+          {searchData && (
+            <p>
+              총{' '}
+              <Span color={Color.orange} fontSize="1.4rem">
+                {searchData?.totalCount}
+              </Span>
+              개의 배리어프리 가게
+            </p>
+          )}
+        </S.totalCountTextArea>
+      </S.CardListTitleArea>
+
+      {topicDataIsSuccess &&
+        (topicData?.totalPage >= 0 ? (
+          <S.CardList col={4} spaceBetween={40}>
+            {topicData?.cards?.map((cardItem) => (
               <S.CardItem key={cardItem.storeId}>
                 <StoreCard {...cardItem} />
               </S.CardItem>
-            ))
-          ) : (
+            ))}
+          </S.CardList>
+        ) : (
+          <S.MessageArea>
             <NoDataMessage message={['해당 카테고리 안에 가게가 없습니다.']} />
-          ))}
-        {searchDataIsSuccess &&
-          (searchData?.totalPage >= 0 ? (
-            searchData?.cards?.map((cardItem) => (
+          </S.MessageArea>
+        ))}
+      {searchDataIsSuccess &&
+        (searchData?.totalPage >= 0 ? (
+          <S.CardList col={4} spaceBetween={40}>
+            {searchData?.cards?.map((cardItem) => (
               <S.CardItem key={cardItem.storeId}>
                 <StoreCard {...cardItem} />
               </S.CardItem>
-            ))
-          ) : (
+            ))}
+          </S.CardList>
+        ) : (
+          <S.MessageArea>
             <NoDataMessage message={['검색 결과가 없습니다.', '다른 키워드로 검색해보세요!']} />
-          ))}
-      </S.CardList>
+          </S.MessageArea>
+        ))}
       {(topicData?.totalPage && topicData?.totalPage > -1) || (searchData?.totalPage && searchData?.totalPage > -1) ? (
         <S.PaginationArea>
           <Pagination

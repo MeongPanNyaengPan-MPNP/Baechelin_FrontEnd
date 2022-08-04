@@ -12,28 +12,29 @@ import { StoreMapListQueryTypes, StoreMapResponseTypes } from '@interfaces/Store
 import { LatingQueryString } from '@recoil/mapAtom';
 import { SnbQueryString } from '@recoil/mainSnbAtom';
 import { Pagination } from '@mui/material';
-import NoDataMessage from '@molecules/NodataMessage';
 
 import MyLocation from '@molecules/MyLocation';
 import Icon from '@atoms/Icon';
 import Span from '@atoms/Span';
+import MapStoreItem from '@molecules/MapStoreItem';
 import * as S from './styles';
 
 function MapWrapper({ filters }: { filters: FiltersType }) {
   const { currentLocation } = UseGeolocation();
   const [location, setLocation] = useRecoilState(locationAtom);
   const { UseMapData } = UseMapQuery();
-  const [pageNum, setPageNum] = useState<number>(1);
+  const [pageNum, setPageNum] = useState<number>(0);
   const latingQueryString = useRecoilValue(LatingQueryString);
   const snbQueryString = useRecoilValue(SnbQueryString);
   const { debounceVal, bool } = UseDebounce<string>(latingQueryString, 700);
-  const [itemResult, setitemResult] = useState<StoreMapResponseTypes[][]>([]);
+
+  const [groupStoreItemResult, setGroupStoreItemResult] = useState<StoreMapResponseTypes[][]>([]);
 
   const {
-    data: storeItems,
+    data: storeMapListData,
     isLoading,
     isFetched,
-  } = UseMapData<StoreMapListQueryTypes>(debounceVal, snbQueryString, pageNum - 1);
+  } = UseMapData<StoreMapListQueryTypes>(debounceVal, snbQueryString, pageNum);
 
   React.useEffect(() => {
     if (currentLocation !== null && location === null) {
@@ -44,10 +45,9 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
     setPageNum(pageNumber);
   };
   useEffect(() => {
-    // const result: { [key: number]: StoreMapResponseTypes[] }[] = [];
-
+    // 같은 위치 업장 배열로 묶기
     const lngRes: { [key: number]: StoreMapResponseTypes[] } = {};
-    storeItems?.cards?.forEach((item) => {
+    storeMapListData?.cards?.forEach((item) => {
       const lng = item.longitude;
       if (!lngRes[lng]) {
         lngRes[lng] = [item];
@@ -56,11 +56,14 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
       }
     });
     const result = Object.keys(lngRes).map((key) => lngRes[Number(key)]);
-    setitemResult(result);
-  }, [storeItems]);
+    setGroupStoreItemResult(result);
+  }, [storeMapListData]);
+
+  // 리스트가 바뀔 때마다 페이지네이션 초기화
   React.useEffect(() => {
-    setPageNum(1);
-  }, [bool]);
+    setPageNum(0);
+  }, [debounceVal, snbQueryString]);
+
   return (
     <S.Wrapper>
       <S.CategoryContainer>
@@ -70,33 +73,40 @@ function MapWrapper({ filters }: { filters: FiltersType }) {
         </S.MyLocationArea>
       </S.CategoryContainer>
       <S.Content>
-        <MapContainer location={location} storeItems={itemResult} />
+        <MapContainer location={location} storeItems={groupStoreItemResult} />
       </S.Content>
       <S.StoreListArea>
-        <MapStoreList totalCount={storeItems?.totalCount} storeItems={itemResult} isFetched={isFetched} />
+        <MapStoreList totalCount={storeMapListData?.totalCount} isFetched={isFetched} bool={bool} isLoading={isLoading}>
+          {storeMapListData &&
+            groupStoreItemResult?.length > 0 &&
+            !bool &&
+            groupStoreItemResult.map((stores) => (
+              <S.MapStoreList className="store_wrap" id={`wrap_${stores[0].storeId}`} key={`wrap_${stores[0].storeId}`}>
+                {stores.map((item) => (
+                  <MapStoreItem item={item} key={item.storeId} />
+                ))}
+              </S.MapStoreList>
+            ))}
+        </MapStoreList>
         <S.PaginationBar>
           <Pagination
-            count={storeItems?.totalPage && Number(storeItems?.totalPage) + 1}
+            count={storeMapListData?.totalPage && Number(storeMapListData?.totalPage) + 1}
             showFirstButton
             showLastButton
             size="medium"
             siblingCount={0}
             boundaryCount={1}
-            page={pageNum}
-            onChange={(e, page) => pageChangeHandler(page)}
+            page={pageNum + 1}
+            onChange={(e, page) => pageChangeHandler(page - 1)}
           />
         </S.PaginationBar>
       </S.StoreListArea>
-      {(bool || isLoading) && (
-        <S.DisabledBox>
-          <NoDataMessage message={['LOADING']} />
-        </S.DisabledBox>
-      )}
-      {!isLoading && Number(storeItems?.leftElement) > 3 && (
+
+      {!isLoading && Number(storeMapListData?.leftElement) > 3 && (
         <S.totalCount>
           <p>
             <button type="button" onClick={() => setPageNum((prevState) => prevState + 1)}>
-              {storeItems?.leftElement}개의 가게
+              {storeMapListData?.leftElement}개의 가게
               <Span fontSize="1.4rem" fontWeight={400}>
                 Click
               </Span>

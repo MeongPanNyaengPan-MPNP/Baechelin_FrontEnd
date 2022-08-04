@@ -188,7 +188,7 @@ export class Loader {
   }
 
   public createUrl(): string {
-    let {url} = this;
+    let { url } = this;
     url += `?appkey=${this.appkey}`;
 
     if (this.libraries.length) {
@@ -283,8 +283,6 @@ export class Loader {
 
     if (this.errors.length <= this.retries) {
       const delay = this.errors.length * 2 ** this.errors.length;
-
-      console.log(`Failed to load Kakao Maps script, retrying in ${delay} ms.`);
 
       setTimeout(() => {
         this.deleteScript();

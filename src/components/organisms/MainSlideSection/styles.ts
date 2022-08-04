@@ -6,7 +6,7 @@ export const MainStoreListSection = styled.section`
   max-width: 1240px; //TODO : Container 사이즈에 맞추기
   padding: 0 20px;
   margin: 30px auto 70px;
-  min-height: 320px;
+  min-height: 360px;
 
   & p[aria-label='link'] {
     margin-bottom: 18px;

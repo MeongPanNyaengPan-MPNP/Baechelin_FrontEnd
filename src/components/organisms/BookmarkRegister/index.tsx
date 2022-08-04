@@ -24,13 +24,21 @@ interface BookmarkRegisterProps {
     | undefined;
 }
 
-function BookmarkRegister({ anchorEl, setAnchorEl, storeIdProps, fetchCreateBookmarkStore }: BookmarkRegisterProps) {
+function BookmarkRegister({
+                            anchorEl,
+                            setAnchorEl,
+                            storeIdProps,
+                            fetchCreateBookmarkStore
+                          }: BookmarkRegisterProps) {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
   const [createFolder, setCreateFolder] = useState(false);
 
-  const { data: BookmarkData, refetch } = useQuery(['getBookmarkFolders'], () => getUserBookmarkFolders(), {
+  const {
+    data: BookmarkData,
+    refetch
+  } = useQuery(['getBookmarkFolders'], () => getUserBookmarkFolders(), {
     staleTime: 5000,
     cacheTime: Infinity,
     // enabled: !create,e
@@ -41,7 +49,6 @@ function BookmarkRegister({ anchorEl, setAnchorEl, storeIdProps, fetchCreateBook
     {
       onSuccess: () => {
         refetch();
-        console.log('folder created');
       },
       onError: (err) => {
         console.error(err);
@@ -49,12 +56,16 @@ function BookmarkRegister({ anchorEl, setAnchorEl, storeIdProps, fetchCreateBook
     },
   );
 
-  const { register, handleSubmit, setValue } = useForm<FormValue>();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: {
+      isDirty,
+      isValid
+    },
+  } = useForm<FormValue>({ mode: 'onChange' });
 
-  const onSubmit: SubmitHandler<FormValue> = (data) => {
-    setValue('folderName', '');
-    fetchCreateBookmarkFolder(data.folderName);
-  };
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -73,7 +84,13 @@ function BookmarkRegister({ anchorEl, setAnchorEl, storeIdProps, fetchCreateBook
   const onClickCreateFolder = () => {
     setCreateFolder((prev) => !prev);
   };
-
+  const onSubmit: SubmitHandler<FormValue> = (data) => {
+    setValue('folderName', '');
+    fetchCreateBookmarkFolder(data.folderName);
+    if (storeIdProps) {
+      onClickFolderName(Number(data.folderName), storeIdProps);
+    }
+  };
   return (
     <Popover
       id={id}
@@ -97,7 +114,7 @@ function BookmarkRegister({ anchorEl, setAnchorEl, storeIdProps, fetchCreateBook
             {createFolder && (
               <S.InputContainer>
                 <Icon iconName="folder" size="1.7rem" />
-                <S.Input fontSize="1.2rem" {...register('folderName')} />
+                <S.Input fontSize="1.2rem" {...register('folderName', { required: true })} />
               </S.InputContainer>
             )}
             {BookmarkData?.map((v) => (
@@ -110,7 +127,11 @@ function BookmarkRegister({ anchorEl, setAnchorEl, storeIdProps, fetchCreateBook
             ))}
           </S.Inner>
         </S.Container>
-        {createFolder && <S.FolderConfirmButton type="submit">확인</S.FolderConfirmButton>}
+        {createFolder && (
+          <S.FolderConfirmButton disabled={!isDirty || !isValid} type="submit">
+            확인
+          </S.FolderConfirmButton>
+        )}
       </form>
     </Popover>
   );

@@ -11,7 +11,7 @@ import {
   UpdateBookmarkFolderNameParam,
   UpdateBookmarkFolderNameQuery,
 } from '@interfaces/BookmarkTypes';
-
+import { IMAGE_URL } from '@constants/url';
 import * as S from './styles';
 
 interface BookmarkFolderCardProps {
@@ -28,6 +28,7 @@ interface BookmarkFolderCardProps {
   >;
   onClick?: (index: number) => void;
   index?: number;
+  thumbNail?: string | null;
 }
 
 function BookmarkFolderCard({
@@ -39,11 +40,12 @@ function BookmarkFolderCard({
   fetchUpdateBookmarkFolder,
   onClick = () => {},
   index = 0,
+  thumbNail,
 }: BookmarkFolderCardProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [status, setStatus] = useState<string | null>(type);
   const [folderName, setFolderName] = useState<string>('');
-
+  const [nameInputState, setNameInputState] = useState<boolean>(false);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -59,57 +61,62 @@ function BookmarkFolderCard({
   // };
 
   return (
-    <S.Container>
-      <S.ImageWrapper onClick={() => onClick(index)}>
-        {status !== 'create' && (
-          <S.Photos src="https://content.api.news/v3/images/bin/104903dc87c2963a2d3e722aa85fe923?width=650" />
-        )}
-      </S.ImageWrapper>
-      <S.TitleWrapper>
-        {status === 'update' && (
-          <>
+    <S.Wrapper nameInputState={nameInputState}>
+      <S.Container>
+        <S.ImageWrapper onClick={() => onClick(index)}>
+          {status !== 'create' && <S.Photos src={thumbNail || IMAGE_URL.NO_IMAGE} />}
+        </S.ImageWrapper>
+        <S.TitleWrapper>
+          {status === 'update' && (
+            <>
+              <BookmarkRegisterInput
+                type="update"
+                folderName={name}
+                status={status}
+                folderId={folderId}
+                setFolderName={setFolderName}
+                setStatus={setStatus}
+                setFormState={setNameInputState}
+                fetchUpdateBookmarkFolder={fetchUpdateBookmarkFolder}
+              />
+              {/* <Span>확인</Span> */}
+            </>
+          )}
+
+          {status === 'create' && (
             <BookmarkRegisterInput
-              type="update"
-              folderName={name}
-              folderId={folderId}
+              type="create"
+              status={status}
               setFolderName={setFolderName}
               setStatus={setStatus}
-              fetchUpdateBookmarkFolder={fetchUpdateBookmarkFolder}
+              setFormState={setNameInputState}
+              fetchCreateBookmarkFolder={fetchCreateBookmarkFolder}
             />
-            {/* <Span>확인</Span> */}
-          </>
-        )}
+          )}
 
-        {status === 'create' && (
-          <BookmarkRegisterInput
-            type="create"
-            setFolderName={setFolderName}
+          {!status && (
+            <>
+              <BookmarkRegisterFolderName
+                name={folderName}
+                fontSize="1.4rem"
+                height="null"
+                onClick={() => onClick(index)}
+              />
+              <Icon iconName="more_vert" cursor="pointer" onClick={handleClick} />
+            </>
+          )}
+
+          <BookmarkUpdateOverlay
+            anchorEl={anchorEl}
+            setAnchorEl={setAnchorEl}
             setStatus={setStatus}
-            fetchCreateBookmarkFolder={fetchCreateBookmarkFolder}
+            folderId={folderId}
+            fetchDeleteBookmarkFolder={fetchDeleteBookmarkFolder}
           />
-        )}
-
-        {!status && (
-          <>
-            <BookmarkRegisterFolderName
-              name={folderName}
-              fontSize="1.4rem"
-              height="null"
-              onClick={() => onClick(index)}
-            />
-            <Icon iconName="more_vert" cursor="pointer" onClick={handleClick} />
-          </>
-        )}
-
-        <BookmarkUpdateOverlay
-          anchorEl={anchorEl}
-          setAnchorEl={setAnchorEl}
-          setStatus={setStatus}
-          folderId={folderId}
-          fetchDeleteBookmarkFolder={fetchDeleteBookmarkFolder}
-        />
-      </S.TitleWrapper>
-    </S.Container>
+        </S.TitleWrapper>
+      </S.Container>
+      {nameInputState && <S.Message>폴더 명을 입력해주세요</S.Message>}
+    </S.Wrapper>
   );
 }
 

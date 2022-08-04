@@ -83,8 +83,7 @@ const Marker = React.forwardRef((props: MarkerProps, ref) => {
   }, []);
   /* 마우스오버시 오버레이 노출 */
   kakao.maps.event.addListener(marker, 'click', () => {
-    /* 리스트 액티브 이벤트 */
-    overlayEl.setVisible(false);
+    /* ------------ 리스트 액티브 이벤트 */
     const storeItemEl = document.querySelectorAll('.store_wrap');
     storeItemEl.forEach((el) => {
       el.classList.remove('active');
@@ -93,17 +92,13 @@ const Marker = React.forwardRef((props: MarkerProps, ref) => {
     if (!target) return;
     target.scrollIntoView({ behavior: 'smooth' });
     target.classList.add('active');
-
     /* 해당 윈도우 셋팅 */
     overlayEl.setVisible(true);
   });
   React.useEffect(() => {
     if (mapItem) {
       kakao.maps.event.addListener(mapItem, 'click', () => {
-        overlayEl.setMap(null);
-      });
-      kakao.maps.event.addListener(marker, 'click', (mouseEvent: any) => {
-        console.log(mouseEvent);
+        overlayEl.setVisible(false);
       });
     }
   }, []);

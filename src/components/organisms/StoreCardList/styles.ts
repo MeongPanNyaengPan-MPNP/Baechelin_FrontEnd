@@ -23,5 +23,15 @@ export const ButtonArea = styled.div`
   width: 100%;
   font-size: 2rem;
 `;
-
+export const CardListTitleArea = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+`;
+export const totalCountTextArea = styled.div`
+  text-align: right;
+`;
+export const MessageArea = styled.div`
+  margin-top: 20px;
+`;
 export { PaginationArea } from '@styles/ui';
