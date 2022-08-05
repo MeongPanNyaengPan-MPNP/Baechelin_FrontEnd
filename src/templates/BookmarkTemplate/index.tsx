@@ -13,10 +13,10 @@ import {
   getUserBookmarkFolders,
   updateBookmarkFolderName,
 } from '@service/bookmarkApi';
-import StoreCard from '@molecules/StoreCard';
 
 import { UpdateBookmarkFolderNameParam, UpdateBookmarkFolderNameQuery } from '@interfaces/BookmarkTypes';
 
+import NodataMessage from '@molecules/NodataMessage';
 import * as S from './styles';
 
 // interface BookmarkTemplateProps {
@@ -95,7 +95,7 @@ function BookmarkTemplate() {
         />
       </S.TitleWrapper>
       <S.BookmarkListWrapper>
-        {selectedOption === 'all'
+        {selectedOption === 'all' && BookmarkData && BookmarkData?.length > 0
           ? BookmarkData?.map((v: any, i) => (
               <BookmarkFolderCard
                 name={v.folderName}
@@ -108,18 +108,12 @@ function BookmarkTemplate() {
                 onClick={onClickCreatedCard}
               />
             ))
-          : BookmarkData &&
-            BookmarkData[Number(selectedOption)]?.bookmarkList.map((v) => {
-              const imageList: string[] = [];
-              if (v.storeImageList) {
-                imageList.push(v.storeImageList);
-              }
-              return (
-                <S.StoreCardsWrapper>
-                  <StoreCard {...v} storeImgList={imageList} size="M" bookmark="Y" />
-                </S.StoreCardsWrapper>
-              );
-            })}
+          : BookmarkData?.length === 0 && (
+              <NodataMessage
+                message={['북마크 폴더가 없습니다.', '배슐랭에서 내 주변의 배리어프리 가게를 담아보세요!']}
+              />
+            )}
+
         {create && <BookmarkFolderCard type="create" fetchCreateBookmarkFolder={fetchCreateBookmarkFolder} />}
       </S.BookmarkListWrapper>
       {selectedOption === 'all' && (

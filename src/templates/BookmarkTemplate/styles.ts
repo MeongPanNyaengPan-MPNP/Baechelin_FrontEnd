@@ -7,6 +7,7 @@ export const Container = styled.div`
   flex-direction: column;
   top: -2px;
   width: 1240px;
+  margin: 0 auto;
   padding: 4rem 20px 3.2rem;
 `;
 
@@ -22,7 +23,6 @@ export const BookmarkListWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  min-height: 50rem;
 `;
 
 export const StoreCardsWrapper = styled.div`

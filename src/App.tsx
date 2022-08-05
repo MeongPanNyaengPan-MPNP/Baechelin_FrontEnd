@@ -22,6 +22,7 @@ import StoreDetailPhotosModal from '@pages/StoreDetailPhotosModal';
 import ServiceInfo from '@pages/ServiceInfo';
 import AlertContainer from '@molecules/AlertContainer';
 import SearchMap from '@pages/SearchMap';
+import BookmarkDetail from '@pages/BookmarkDetail';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
 import PrivateRoute from './routes/PrivateRoutes';
@@ -43,8 +44,9 @@ function App() {
             <Route path="/map" element={<SearchMap />} />
             <Route path="/user">
               <Route path="oauth/redirect/:prevPath" element={<Oauth />} />
-              <Route path="bookmark" element={<Bookmark />} />
               <Route path="oauth/redirect/" element={<Oauth />} />
+              <Route path="bookmark" element={<Bookmark />} />
+              <Route path="bookmark/:folderId" element={<BookmarkDetail />} />
             </Route>
             <Route path="/store">
               <Route path=":storeId" element={<StoreDetail />} />

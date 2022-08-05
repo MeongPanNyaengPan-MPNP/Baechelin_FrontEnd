@@ -12,6 +12,7 @@ import {
   UpdateBookmarkFolderNameQuery,
 } from '@interfaces/BookmarkTypes';
 import { IMAGE_URL } from '@constants/url';
+import { useNavigate } from 'react-router-dom';
 import * as S from './styles';
 
 interface BookmarkFolderCardProps {
@@ -32,20 +33,22 @@ interface BookmarkFolderCardProps {
 }
 
 function BookmarkFolderCard({
-  type = null,
-  name,
-  folderId,
-  fetchCreateBookmarkFolder,
-  fetchDeleteBookmarkFolder,
-  fetchUpdateBookmarkFolder,
-  onClick = () => {},
-  index = 0,
-  thumbNail,
-}: BookmarkFolderCardProps) {
+                              type = null,
+                              name,
+                              folderId,
+                              fetchCreateBookmarkFolder,
+                              fetchDeleteBookmarkFolder,
+                              fetchUpdateBookmarkFolder,
+                              onClick = () => {
+                              },
+                              index = 0,
+                              thumbNail,
+                            }: BookmarkFolderCardProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [status, setStatus] = useState<string | null>(type);
   const [folderName, setFolderName] = useState<string>('');
   const [nameInputState, setNameInputState] = useState<boolean>(false);
+  const navigate = useNavigate();
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -60,11 +63,17 @@ function BookmarkFolderCard({
   //   setAnchorEl(null);
   // };
 
+  const handleFolderClick = React.useCallback(() => {
+    if (status === 'create') return;
+    navigate(`/user/bookmark/${folderId}`);
+  }, [folderId, navigate, status]);
+
   return (
     <S.Wrapper nameInputState={nameInputState}>
       <S.Container>
-        <S.ImageWrapper onClick={() => onClick(index)}>
+        <S.ImageWrapper onClick={handleFolderClick}>
           {status !== 'create' && <S.Photos src={thumbNail || IMAGE_URL.NO_IMAGE} />}
+          {status === 'create' && <S.Photos src={IMAGE_URL.NO_DATA} />}
         </S.ImageWrapper>
         <S.TitleWrapper>
           {status === 'update' && (

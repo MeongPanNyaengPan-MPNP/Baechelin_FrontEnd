@@ -47,6 +47,8 @@ function ReviewGroupSlide<T>({
         slidesPerGroup={slidesPerGroup}
         modules={[Pagination, Navigation, Autoplay]}
         mousewheel={{ invert: true }}
+        edgeSwipeThreshold={300}
+        edgeSwipeDetection
         autoplay={
           autoplayDelay
             ? {
