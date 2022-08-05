@@ -94,8 +94,6 @@
     
 - **지역과 키워드**로 찾고 싶은 가게를 **검색**할 수 있습니다.
 
-    
-<br>
 <br>
 
 ![Line 1](https://user-images.githubusercontent.com/90380269/181489532-4bbb5041-8de1-4ac9-89b2-9400e577ddd2.png)
@@ -138,13 +136,6 @@
 ### Service Architecture
 
 <img width="2228" alt="MPNP Architecture" src="https://user-images.githubusercontent.com/90380269/182749337-887ec52f-c1c5-4656-a1be-8b90f5041dba.png">
-
-<br>
-
-### ERD
-
-![배슐랭_ERD](https://user-images.githubusercontent.com/90380269/181498144-bb8968c8-f6be-44a6-8fca-6a9dba3bd8bf.png)
-
 
 ### API
 
@@ -283,7 +274,7 @@ props를 넘겨서 css에 변화를 주는 형태로 atomic design pattern의 �
 팀 멍판냥판 프론트엔드 개발진들🧡
 
 
-| [조예인🔰](https://github.com/ohyein00) | [장원배](https://github.com/calvin9150) |                                                                                   | `맵커스텀` `사용자 위치, 태그별 가게리스트 조회` `가게상세` `리뷰` `반응형` `모달,시스템메세지`
+| [조예인🔰](https://github.com/ohyein00) | [장원배](https://github.com/calvin9150) |                                                                                   | `맵커스텀` `사용자 위치, 태그별 가게리스트 조회` `가게상세` `리뷰` `로그인/회원가입` `북마크` `반응형` `모달,시스템메세지` `CI/CD`| `헤더` `북마크` `가게상세` |
 | :---------------------------------: | :----------------------------------: |
 | <img src="https://user-images.githubusercontent.com/90380269/181731418-725c924f-b1c0-42cf-9a98-e3aa40e73e6c.jpeg" alt="조예인" width="200px"/> |  <img src="https://user-images.githubusercontent.com/90380269/181731474-b263b4b7-9503-4557-81a9-81bbfd3b20c6.jpeg" alt="장원배" width="200px"/> |
 
