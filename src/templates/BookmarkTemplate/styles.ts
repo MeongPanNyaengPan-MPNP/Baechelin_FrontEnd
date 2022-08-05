@@ -8,7 +8,7 @@ export const Container = styled.div`
   top: -2px;
   width: 1240px;
   margin: 0 auto;
-  padding: 4rem 20px 3.2rem;
+  padding: 4rem 0px 1rem;
 `;
 
 export const TitleWrapper = styled.div`
@@ -23,18 +23,6 @@ export const BookmarkListWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-`;
-
-export const StoreCardsWrapper = styled.div`
-  width: 29rem;
-  height: 31.5rem;
-  margin-right: 4rem;
-  margin-bottom: 2.8rem;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-
-  &:nth-child(4n + 0) {
-    margin-right: 0;
-  }
 `;
 
 export const CreateBookmarkButtonWrapper = styled.div`

@@ -27,23 +27,20 @@ interface BookmarkFolderCardProps {
     UpdateBookmarkFolderNameParam & UpdateBookmarkFolderNameQuery,
     unknown
   >;
-  onClick?: (index: number) => void;
-  index?: number;
+  onClick?: (v: any) => void;
   thumbNail?: string | null;
 }
 
 function BookmarkFolderCard({
-                              type = null,
-                              name,
-                              folderId,
-                              fetchCreateBookmarkFolder,
-                              fetchDeleteBookmarkFolder,
-                              fetchUpdateBookmarkFolder,
-                              onClick = () => {
-                              },
-                              index = 0,
-                              thumbNail,
-                            }: BookmarkFolderCardProps) {
+  type = null,
+  name,
+  folderId,
+  fetchCreateBookmarkFolder,
+  fetchDeleteBookmarkFolder,
+  fetchUpdateBookmarkFolder,
+  onClick = () => {},
+  thumbNail,
+}: BookmarkFolderCardProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [status, setStatus] = useState<string | null>(type);
   const [folderName, setFolderName] = useState<string>('');
@@ -109,7 +106,7 @@ function BookmarkFolderCard({
                 name={folderName}
                 fontSize="1.4rem"
                 height="null"
-                onClick={() => onClick(index)}
+                onClick={() => onClick(folderId)}
               />
               <Icon iconName="more_vert" cursor="pointer" onClick={handleClick} />
             </>

@@ -18,12 +18,11 @@ function BookmarkSelect({ selectedOption = 'all', setSelectedOption, BookmarkDat
   // const [value, setValue] = useState('all');
   const navigate = useNavigate();
   const handleChange = (event: SelectChangeEvent) => {
-    console.log(event.target.value);
+    setSelectedOption(event.target.value);
     if (event.target.value === 'all') {
       navigate(`/user/bookmark`);
     } else {
       navigate(`/user/bookmark/${event.target.value}`);
-      setSelectedOption(event.target.value);
     }
   };
   return (
