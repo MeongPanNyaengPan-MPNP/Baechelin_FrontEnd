@@ -118,17 +118,13 @@
 
 ## Tech Stack
 
-### Language
+### Tools
 
-- Typescript
+- `React` `Typescript` `React-Query` `Recoil` `Styled-Component` `MUI` `Storybook` 
 
 ### Deploy
 
 - `Github Actions` `AWS CloudFront` `AWS S3`
-
-### Tech
-
-- `React` `Typescript` `React-Query` `Recoil` `Styled-Component` `Storybook` `Kakao Map Api` 
 
 ### Others
 
