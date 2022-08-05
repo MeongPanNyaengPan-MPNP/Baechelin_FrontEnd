@@ -199,11 +199,16 @@ client state 의 무게가 훨씬 가벼워짐.
 뷰와 비즈니스 로직을 분리하는 아토믹 디자인 패턴과 가장 잘 어울리는 스타일 라이브러리. 
 props를 넘겨서 css에 변화를 주는 형태로 atomic design pattern의 장점을 극대화 할 수 있음. 깔끔한 코드
 
-
+--------
 <br>
 
-### Trouble Shooting - 사용자의 마지막 액션만 실행하기
+<details>
 
+## Trouble Shooting
+<summary>
+사용자의 마지막 액션만 실행하기
+</summary>
+<div markdown="1">
 #### 도입이유
 
 사용자가 보고 있는 지도 영역을 확인해 해당 위치의 위 경도를 담아 서버로 데이터를 요청해야 함. 
@@ -273,6 +278,7 @@ props를 넘겨서 css에 변화를 주는 형태로 atomic design pattern의 �
 - 결과는 0.7초의 debounce의 delay를 주어 통상적인 속도로 일정 거리를 드래그 할 경우 맵API에서 제공하는 `tilesloaded` 만을 이용하는 것보다 API요청이 10회에서 1.5회로 눈에 띄게 줄어든 것을 확인함. 업장 목록도 안정적인 상태로 데이터를 받아오기 때문에 UX적으로도 개선된 모습을 보임
 
 <br>
+</details>
 
 ![Line 1](https://user-images.githubusercontent.com/90380269/181489532-4bbb5041-8de1-4ac9-89b2-9400e577ddd2.png)
 
