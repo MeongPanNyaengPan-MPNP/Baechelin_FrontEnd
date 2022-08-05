@@ -12,18 +12,11 @@ type MapStoreListProps = {
 };
 
 function MapStoreList(props: MapStoreListProps) {
-  const {
-    children,
-    isFetched,
-    totalCount,
-    bool,
-    isLoading
-  } = props;
+  const { children, isFetched, totalCount, bool, isLoading } = props;
   console.log(bool, isLoading);
   return (
     <S.Container>
       <S.Inner>
-
         <S.MessageArea>
           <NoDataMessage message={['주변에 배리어프리 가게를 찾는 중..']} />
         </S.MessageArea>

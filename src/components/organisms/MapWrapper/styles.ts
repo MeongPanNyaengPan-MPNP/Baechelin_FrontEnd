@@ -18,7 +18,11 @@ export const StoreListArea = styled.div`
   z-index: 101;
   background: #fff;
 `;
-
+export const MapStoreListInner = styled.div`
+  width: 100%;
+  height: 100%;
+  background: #fff;
+`;
 export const PaginationBar = styled.div`
   position: absolute;
   right: 0;

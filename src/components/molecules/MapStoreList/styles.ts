@@ -111,10 +111,12 @@ export const Inner = styled.div`
   background: ${Color.lightGrey};
 `;
 export const ListSection = styled.div`
+  position: relative;
   width: 100%;
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
+  background: ${Color.lightGrey};
 `;
 export const MessageArea = styled.div`
   position: absolute;

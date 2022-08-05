@@ -6,7 +6,6 @@ export const MainVisualSlideWrap = styled.div`
   width: 100%;
   margin: 0 auto;
   height: 420px;
-  padding-right: 17px;
 
   > .swiper {
     height: 420px;
