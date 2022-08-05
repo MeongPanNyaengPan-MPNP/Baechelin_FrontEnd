@@ -13,10 +13,10 @@ import {
   getUserBookmarkFolders,
   updateBookmarkFolderName,
 } from '@service/bookmarkApi';
-import StoreCard from '@molecules/StoreCard';
 
 import { UpdateBookmarkFolderNameParam, UpdateBookmarkFolderNameQuery } from '@interfaces/BookmarkTypes';
 
+import NodataMessage from '@molecules/NodataMessage';
 import * as S from './styles';
 
 // interface BookmarkTemplateProps {
@@ -78,8 +78,8 @@ function BookmarkTemplate() {
     setCreate((prev) => !prev);
   };
 
-  const onClickCreatedCard = (index: number) => {
-    setSelectedOption(index);
+  const onClickCreatedCard = (v: any) => {
+    setSelectedOption(v.id);
   };
 
   return (
@@ -95,8 +95,8 @@ function BookmarkTemplate() {
         />
       </S.TitleWrapper>
       <S.BookmarkListWrapper>
-        {selectedOption === 'all'
-          ? BookmarkData?.map((v: any, i) => (
+        {selectedOption === 'all' && BookmarkData && BookmarkData?.length > 0
+          ? BookmarkData?.map((v: any) => (
               <BookmarkFolderCard
                 name={v.folderName}
                 folderId={v.id}
@@ -104,22 +104,15 @@ function BookmarkTemplate() {
                 fetchDeleteBookmarkFolder={fetchDeleteBookmarkFolder}
                 fetchUpdateBookmarkFolder={fetchUpdateBookmarkFolder}
                 thumbNail={v.thumbNail}
-                index={i}
                 onClick={onClickCreatedCard}
               />
             ))
-          : BookmarkData &&
-            BookmarkData[Number(selectedOption)]?.bookmarkList.map((v) => {
-              const imageList: string[] = [];
-              if (v.storeImageList) {
-                imageList.push(v.storeImageList);
-              }
-              return (
-                <S.StoreCardsWrapper>
-                  <StoreCard {...v} storeImgList={imageList} size="M" bookmark="Y" />
-                </S.StoreCardsWrapper>
-              );
-            })}
+          : BookmarkData?.length === 0 && (
+              <NodataMessage
+                message={['북마크 폴더가 없습니다.', '배슐랭에서 내 주변의 배리어프리 가게를 담아보세요!']}
+              />
+            )}
+
         {create && <BookmarkFolderCard type="create" fetchCreateBookmarkFolder={fetchCreateBookmarkFolder} />}
       </S.BookmarkListWrapper>
       {selectedOption === 'all' && (

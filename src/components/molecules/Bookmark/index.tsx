@@ -16,24 +16,19 @@ interface BookmarkProps {
   storeIdProps?: number;
 }
 
-function Bookmark({
-                    size,
-                    marked = 'N',
-                    storeIdProps = 0
-                  }: BookmarkProps) {
+function Bookmark({ size, marked = 'N', storeIdProps = 0 }: BookmarkProps) {
   const { tokenExist } = UseLoginHooks();
   const queryClient = useQueryClient();
   const [bookmarkState, setBookmarkState] = React.useState<string>(marked);
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
-  const { mutate: fetchCreateBookmarkStore } = useMutation<CreateBookmarkFolderResponse,
+  const { mutate: fetchCreateBookmarkStore } = useMutation<
+    CreateBookmarkFolderResponse,
     unknown,
     CreateBookmarkStoreBody,
-    unknown>(
-    ({
-       storeId,
-       folderId
-     }) =>
+    unknown
+  >(
+    ({ storeId, folderId }) =>
       createBookmarkStore({
         folderId,
         storeId,
@@ -43,6 +38,7 @@ function Bookmark({
         // setCreate(false);
         setBookmarkState('Y');
         queryClient.invalidateQueries('getBookmarkTop');
+        queryClient.invalidateQueries('getBookmarkFolders');
       },
       onError: (err) => {
         console.error(err);
@@ -58,6 +54,7 @@ function Bookmark({
       onSuccess: () => {
         // setCreate(false);
         queryClient.invalidateQueries('getBookmarkTop');
+        queryClient.invalidateQueries('getBookmarkFolders');
       },
       onError: (err) => {
         console.error(err);
@@ -71,8 +68,7 @@ function Bookmark({
         submitButton: {
           show: true,
           message: '취소',
-          onClick() {
-          },
+          onClick() {},
         },
         cancelButton: {
           show: true,
@@ -117,7 +113,6 @@ function Bookmark({
           anchorEl={anchorEl}
           setAnchorEl={setAnchorEl}
           storeIdProps={storeIdProps}
-
           fetchCreateBookmarkStore={fetchCreateBookmarkStore}
         />
       )}

@@ -4,6 +4,8 @@ import { KeyboardArrowDown } from '@mui/icons-material';
 
 import Icon from '@atoms/Icon';
 import { GetUserBookmarkFoldersResponse } from '@interfaces/BookmarkTypes';
+import { useNavigate } from 'react-router-dom';
+
 import * as S from './styles';
 
 interface BookmarkSelectProps {
@@ -14,12 +16,15 @@ interface BookmarkSelectProps {
 
 function BookmarkSelect({ selectedOption = 'all', setSelectedOption, BookmarkData }: BookmarkSelectProps) {
   // const [value, setValue] = useState('all');
-
+  const navigate = useNavigate();
   const handleChange = (event: SelectChangeEvent) => {
-    // setValue(event.target.value as string);
     setSelectedOption(event.target.value);
+    if (event.target.value === 'all') {
+      navigate(`/user/bookmark`);
+    } else {
+      navigate(`/user/bookmark/${event.target.value}`);
+    }
   };
-
   return (
     <S.Container>
       <FormControl fullWidth>
@@ -37,8 +42,8 @@ function BookmarkSelect({ selectedOption = 'all', setSelectedOption, BookmarkDat
             <Icon iconName="folder" margin="0 0.5rem 0 0" />
             전체보기
           </MenuItem>
-          {BookmarkData?.map((v, i) => (
-            <MenuItem value={i} key={v.id}>
+          {BookmarkData?.map((v) => (
+            <MenuItem value={v.id} key={v.id}>
               <Icon iconName="folder" margin="0 0.5rem 0 0" />
               {v.folderName}
             </MenuItem>

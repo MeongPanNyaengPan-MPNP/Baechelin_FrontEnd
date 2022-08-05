@@ -1,3 +1,5 @@
+import { StoreResponseTypes } from '@interfaces/StoreResponseTypes';
+
 export interface BookmarkListTypes {
   name: string;
   pointAvg: number;
@@ -43,4 +45,14 @@ export interface GetBookmarkTopResponse {
   pointAvg: number;
   storeId?: number;
   storeImageList?: string;
+}
+
+export interface BookmarkDetailQueryTypes {
+  cards: StoreResponseTypes[];
+  totalCount: number;
+  totalPage: number;
+  hasNextPage: number;
+  leftElement: number;
+
+  (key: string): any;
 }

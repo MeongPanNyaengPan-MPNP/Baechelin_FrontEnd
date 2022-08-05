@@ -59,7 +59,7 @@ export const InputContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 95%;
+  width: 80%;
   height: 1.5rem;
   margin: 0.5rem 0;
 `;
@@ -87,5 +87,5 @@ export const Input = styled.input<{ fontSize: string }>`
 export const Button = styled.button`
   position: absolute;
   top: 0.1rem;
-  right: 0;
+  right: -4%;
 `;

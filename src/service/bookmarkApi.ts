@@ -1,4 +1,5 @@
 import {
+  BookmarkDetailQueryTypes,
   CreateBookmarkFolderResponse,
   CreateBookmarkStoreBody,
   GetBookmarkTopResponse,
@@ -11,6 +12,11 @@ export const getUserBookmarkFolders = () =>
   request<GetUserBookmarkFoldersResponse[]>({
     method: 'GET',
     url: '/folderList',
+  });
+export const getUserBookmarkDetailFolders = (folderId: number) =>
+  request<BookmarkDetailQueryTypes>({
+    method: 'GET',
+    url: `/folder/${folderId}`,
   });
 
 export const createBookmarkFolder = (body: { folderName: string }) =>
