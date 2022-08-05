@@ -78,8 +78,8 @@ function BookmarkTemplate() {
     setCreate((prev) => !prev);
   };
 
-  const onClickCreatedCard = (index: number) => {
-    setSelectedOption(index);
+  const onClickCreatedCard = (v: any) => {
+    setSelectedOption(v.id);
   };
 
   return (
@@ -96,7 +96,7 @@ function BookmarkTemplate() {
       </S.TitleWrapper>
       <S.BookmarkListWrapper>
         {selectedOption === 'all' && BookmarkData && BookmarkData?.length > 0
-          ? BookmarkData?.map((v: any, i) => (
+          ? BookmarkData?.map((v: any) => (
               <BookmarkFolderCard
                 name={v.folderName}
                 folderId={v.id}
@@ -104,7 +104,6 @@ function BookmarkTemplate() {
                 fetchDeleteBookmarkFolder={fetchDeleteBookmarkFolder}
                 fetchUpdateBookmarkFolder={fetchUpdateBookmarkFolder}
                 thumbNail={v.thumbNail}
-                index={i}
                 onClick={onClickCreatedCard}
               />
             ))

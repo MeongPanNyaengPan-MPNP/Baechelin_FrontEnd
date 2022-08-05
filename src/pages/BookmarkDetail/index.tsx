@@ -5,9 +5,10 @@ import { getUserBookmarkDetailFolders, getUserBookmarkFolders } from '@service/b
 import { useParams } from 'react-router-dom';
 import * as S from '@templates/BookmarkTemplate/styles';
 import StoreCard from '@molecules/StoreCard';
-import { CardList } from '@organisms/StoreCardList/styles';
 import Span from '@atoms/Span';
 import BookmarkSelect from '@molecules/BookmarkSelect';
+
+import { CardItem, CardList } from '@organisms/StoreCardList/styles';
 
 export { Container, Wrapper } from '@styles/layout';
 
@@ -45,21 +46,23 @@ function BookmarkDetail() {
       </S.TitleWrapper>
 
       <S.BookmarkListWrapper>
-        {BookmarkDetailData && BookmarkDetailData.cards.length > 0 ? (
-          <>
-            {BookmarkDetailData.cards.map((item) => (
-              <S.Container>
-                <CardList col={4} spaceBetween={40}>
-                  <StoreCard {...item} storeImgList={item.storeImgList} size="M" bookmark="Y" />
-                </CardList>
-              </S.Container>
-            ))}
-          </>
-        ) : (
-          <NodataMessage
-            message={['폴더안에 담긴 북마크가 없습니다.', '배슐랭에서 내 주변의 배리어프리 가게를 담아보세요!']}
-          />
-        )}
+        <S.Container>
+          <CardList col={4} spaceBetween={40}>
+            {BookmarkDetailData && BookmarkDetailData.cards.length > 0 ? (
+              <>
+                {BookmarkDetailData.cards.map((item) => (
+                  <CardItem>
+                    <StoreCard {...item} storeImgList={item.storeImgList} size="M" bookmark="Y" />
+                  </CardItem>
+                ))}
+              </>
+            ) : (
+              <NodataMessage
+                message={['폴더안에 담긴 북마크가 없습니다.', '배슐랭에서 내 주변의 배리어프리 가게를 담아보세요!']}
+              />
+            )}
+          </CardList>
+        </S.Container>
       </S.BookmarkListWrapper>
     </S.Container>
   );
