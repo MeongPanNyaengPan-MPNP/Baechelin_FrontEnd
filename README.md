@@ -126,7 +126,7 @@
 
 ### Others
 
-- Kakao Maps API
+- `Kakao Maps API`
 
 
 <br>
