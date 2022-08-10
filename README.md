@@ -246,7 +246,10 @@ props를 넘겨서 css에 변화를 주는 형태로 atomic design pattern의 �
 
     
 ## 이 프로젝트가 어떻게 진행되었는지 더 궁금하시다면?
-아래의 브이로그를 함꼐 봐주세요 😊
+
+프로젝트에 대한 피땀눈물이 브이로그로 촬영되었습니다 😊
+아래의 유튜브를 함꼐 봐주세요 
+ <br>
 https://www.youtube.com/embed/HtIU0XeMp3Q
 
 
