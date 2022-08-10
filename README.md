@@ -19,10 +19,14 @@
 ## 목차
 
 ### 1. [프로젝트 소개](#-features)
+ - 사회적 교통 약자를 위한 배리어프리 시설 정보 공유 및 위치 기반 맛집 추천 서비스
 ### 2. [기술 스텍 선정 이유](#-tech-stack)
+ - React,Typescript,React-query,Recoil,Styled-component,Kakao map api,Storybook
 ### 3. [트러블 슈팅](#-trouble-shooting)
-### 4. [개발진 소개](#-team-mpnp--frontend)
-
+ - 맵에서 사용자의 마지막 액션을 구해 API 호출 횟수 줄이기
+ - 로딩시간에 대한 유저 피드백을 반영해 스켈레톤 UI 적용하기 (아직 미기술)
+ - 로그인 페이지를 React-Router-Dom을 이용한 모달 페이지로 Private Routes 만들기 (아직 미기술)
+### 4. [프론트엔드 개발진](#-team-mpnp---frontend)
 ----
 
 # Project
@@ -50,7 +54,7 @@
 
 ## Features
 
-![KakaoTalk_20220804_182514308_AdobeExpress (3)](https://user-images.githubusercontent.com/74913700/184007183-228aa9ef-e5c2-4077-ada0-0d9e8bcf9b1f.gif)
+![KakaoTalk_20220804_182514308_AdobeExpress (4)](https://user-images.githubusercontent.com/74913700/184010718-dae2d5b6-bd9d-436b-892a-0f43974c3df6.gif)
 
 
 ### 🏘 내 주변에 있는 배리어 프리 가게
@@ -90,20 +94,12 @@
 
 ----
 
-
-
-## Project Timeline
-
-`2022-06-24` ~  `2022-08-01` (6주)
-
-## Project Design
-
-### Service Architecture
+# Service Architecture
 
 <img width="2228" alt="MPNP Architecture" src="https://user-images.githubusercontent.com/90380269/182749337-887ec52f-c1c5-4656-a1be-8b90f5041dba.png">
 
-
-## Tech Stack
+<br>
+# 기술 스택과 선정 이유
 
 ### Tools
 
@@ -117,13 +113,8 @@
 
 - `Kakao Maps API`
 
+----
 
-<br>
-
-
-<br>
-
-## 기술 스택과 선정 이유
 ### Core Tech
 #### React-Query
 #### Recoil
@@ -165,11 +156,16 @@ client state 의 무게가 훨씬 가벼워짐.
 props를 넘겨서 css에 변화를 주는 형태로 atomic design pattern의 장점을 극대화 할 수 있음. 깔끔한 코드
 
 --------
-## Trouble-Shooting
+
+# Trouble-Shooting
 
 <details>
 <summary>
-사용자의 마지막 액션만 실행하기
+사용자의 마지막 액션만 실행하기  <br>
+    <br>
+
+    Map API 에서 사용자 드래그로 인한 잦은 api 호출 횟수를 평균 10회에서 1회로 성능 최적화
+    
 </summary>
     
 <div markdown="1">
@@ -242,13 +238,16 @@ props를 넘겨서 css에 변화를 주는 형태로 atomic design pattern의 �
 
 # Team MPNP - Frontend
 
-<br>
-
-팀 멍판냥판 프론트엔드 개발진들🧡
-
-
 | [조예인🔰](https://github.com/ohyein00) |                                                                                 
 | :---------------------------------: |
 | <img src="https://user-images.githubusercontent.com/90380269/181731418-725c924f-b1c0-42cf-9a98-e3aa40e73e6c.jpeg" alt="조예인" width="200px"/> |  <img src="https://user-images.githubusercontent.com/90380269/181731474-b263b4b7-9503-4557-81a9-81bbfd3b20c6.jpeg" alt="장원배" width="200px"/> |
 | `맵커스텀` `사용자 위치, 태그별 가게리스트 조회`<br>`가게상세` `리뷰` `로그인/회원가입` `북마크`<br>`반응형` `모달,알림창` `CI/CD`|
 
+    
+## 이 프로젝트가 어떻게 진행되었는지 더 궁금하시다면? 😆
+
+# [브이로그](#https://www.youtube.com/watch?v=HtIU0XeMp3Q&t=320s)
+    
+#### Project Timeline
+
+`2022-06-24` ~  `2022-08-01` (6주)
