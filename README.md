@@ -18,15 +18,15 @@
 
 ## 목차
 
-### 1. [프로젝트 소개](#-features)
+### 1. [프로젝트 소개](#features)
  - 사회적 교통 약자를 위한 배리어프리 시설 정보 공유 및 위치 기반 맛집 추천 서비스
-### 2. [기술 스텍 선정 이유](#-tech-stack)
+### 2. [기술 스텍 선정 이유](#tech-stack)
  - React,Typescript,React-query,Recoil,Styled-component,Kakao map api,Storybook
-### 3. [트러블 슈팅](#-trouble-shooting)
+### 3. [트러블 슈팅](#trouble-shooting)
  - 맵에서 사용자의 마지막 액션을 구해 API 호출 횟수 줄이기
  - 로딩시간에 대한 유저 피드백을 반영해 스켈레톤 UI 적용하기 (아직 미기술)
  - 로그인 페이지를 React-Router-Dom을 이용한 모달 페이지로 Private Routes 만들기 (아직 미기술)
-### 4. [프론트엔드 개발진](#-team-mpnp---frontend)
+### 4. [프론트엔드 개발진](#team-mpnp---frontend)
 ----
 
 # Project
@@ -99,6 +99,7 @@
 <img width="2228" alt="MPNP Architecture" src="https://user-images.githubusercontent.com/90380269/182749337-887ec52f-c1c5-4656-a1be-8b90f5041dba.png">
 
 <br>
+
 # 기술 스택과 선정 이유
 
 ### Tools
