@@ -246,13 +246,9 @@ props를 넘겨서 css에 변화를 주는 형태로 atomic design pattern의 �
 
     
 ## 이 프로젝트가 어떻게 진행되었는지 더 궁금하시다면? 😆 아래의 브이로그를 함께 봐주세요!
+https://www.youtube.com/embed/HtIU0XeMp3Q
 
-<iframe width="1280" height="720" src="https://www.youtube.com/embed/HtIU0XeMp3Q" title="[항해99 일상 미리보기] 8주차 실전 프로젝트 - 조기 합류해서 사전스터디에 참여하면 좋은 이유  #항해99 #개발자브이로그 #코딩부트캠프" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-</iframe>
- 
- 
-# [브이로그](#)
-    
+
 #### Project Timeline
 
 `2022-06-24` ~  `2022-08-01` (6주)
