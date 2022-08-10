@@ -245,9 +245,13 @@ props를 넘겨서 css에 변화를 주는 형태로 atomic design pattern의 �
 | `맵커스텀` `사용자 위치, 태그별 가게리스트 조회`<br>`가게상세` `리뷰` `로그인/회원가입` `북마크`<br>`반응형` `모달,알림창` `CI/CD`|
 
     
-## 이 프로젝트가 어떻게 진행되었는지 더 궁금하시다면? 😆
+## 이 프로젝트가 어떻게 진행되었는지 더 궁금하시다면? 😆 아래의 브이로그를 함께 봐주세요!
 
-# [브이로그](#https://www.youtube.com/watch?v=HtIU0XeMp3Q&t=320s)
+<iframe width="1280" height="720" src="https://www.youtube.com/embed/HtIU0XeMp3Q" title="[항해99 일상 미리보기] 8주차 실전 프로젝트 - 조기 합류해서 사전스터디에 참여하면 좋은 이유  #항해99 #개발자브이로그 #코딩부트캠프" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+ 
+ 
+# [브이로그](#)
     
 #### Project Timeline
 
