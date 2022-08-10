@@ -216,7 +216,7 @@ props를 넘겨서 css에 변화를 주는 형태로 atomic design pattern의 �
 사용자 입장에서 봤을 경우 사용자는
 
 1. 드래그 도중에 스치는 지역의 데이터를 원하지 않음
-2. 약간에 딜레이가 있어도 그것이 3초 이상이 되는 딜레이가 아니라면 사용자 이탈률에 큰 영향을 미치지 않음 (아래 참고)
+2. 약간에 딜레이가 있어도 그것이 3초 이상이 되는 딜레이가 아니라면 사용자 이탈률에 큰 영향을 미치지 않음
 ![image](https://user-images.githubusercontent.com/74913700/183914365-e1294aa2-c5e4-45de-aa50-f36435d70a8c.png)
     
 출처:https://productest.kr/bbs/board.php?bo_table=kpi_bouncerate&wr_id=1
