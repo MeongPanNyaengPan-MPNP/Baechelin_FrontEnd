@@ -3,38 +3,26 @@
 
 # Bae-Chelin (배슐랭)
 
-<br>
-
 ### “사회적 교통 약자도 편하게 식사하세요”
-
 <br>
-<br>
-
-배슐랭은 사회적 교통 약자가 보다 쉽게 이용할 수 있는 배리어 프리 식당이나 카페 등 가게 정보를 알려주고 사용자 위치 맞춤 추천 서비스를 제공합니다.
+배슐랭은 <b>사회적 교통 약자가 보다 쉽게 이용할 수 있는</b> 배리어 프리 식당이나 카페 등<br>
+가게 정보를 알려주고 사용자 위치 맞춤 추천 서비스를 제공합니다.
 
 사회적 교통 약자분들 위한 음식점 정보와 유저들의 생생한 방문 경험이 담긴 리뷰들로 편하게 방문해보세요! 
-
 <br>
-
 배슐랭이 사회적 교통약자분들이 편하게 살아갈 수 있도록 한 걸음 나아가겠습니다.
-
-<br>
-<br>
 
 👩‍🦼 [배슐랭 바로가기](https://bae-chelin.com/)
 
-<br>
-
-![Line 1](https://user-images.githubusercontent.com/90380269/181489532-4bbb5041-8de1-4ac9-89b2-9400e577ddd2.png)
-
-<br>
-
-# Background
+<details>
+<summary>
+배슐랭의 탄생 배경
+ <br>
+</summary>
 
 ![background](https://user-images.githubusercontent.com/90380269/181490264-a9c64413-8c59-4ad7-863f-2e423e705858.png)
 
 <br>
-
 
 <b>배리어 프리 (Barrier-free)</b>는 사회적 약자가 생활하기에 불편함을 주는 물리전, 제도적 장벽을 제거하자는 운동입니다.
 
@@ -45,10 +33,17 @@
 
 **배슐랭**에서는 **배리어 프리 가게들을 알려주고, 위치 기반 맛집 정보 서비스를 제공**해 사회적 교통약자분들의 보다 편리한 가게 이용을 가능하게 합니다.
 
-
 <br>
 
-# Features
+</details>
+
+### 1. [프로젝트](#-Features)
+### 2. [프로젝트 시연 및 발표영상, 팀 노션](#-Project)
+### 3. [기술 스텍 및 라이브러리](#-Development)
+### 4. [트러블슈팅](#-Trouble-Shooting)
+--
+
+## Features
 
 ### 🏘 내 주변에 있는 배리어 프리 가게
     
@@ -137,10 +132,6 @@
 
 <img width="2228" alt="MPNP Architecture" src="https://user-images.githubusercontent.com/90380269/182749337-887ec52f-c1c5-4656-a1be-8b90f5041dba.png">
 
-### API
-
-[API 설계](https://planet-punishment-427.notion.site/API-829b965bd9ed4347ab51701fcf1d3896)
-
 
 <br>
 
@@ -189,6 +180,9 @@ props를 넘겨서 css에 변화를 주는 형태로 atomic design pattern의 �
 --------
 <br>
 
+![Line 1](https://user-images.githubusercontent.com/90380269/181489532-4bbb5041-8de1-4ac9-89b2-9400e577ddd2.png)
+
+
 ## Trouble-Shooting
 
 <details>
@@ -228,7 +222,8 @@ props를 넘겨서 css에 변화를 주는 형태로 atomic design pattern의 �
 
 #### 의견 결정
 
-방법 2인 디바운스 방식으로 결정함. 디바운스 시간을 짧게 가져간다 해도 `tilesloaded`을 그대로 사용하는 것보다는 적게 요청되는 것이 확인됨. 또한 로딩 지연 시간에 관한 부분은 이후 skeleton UI를 적용 시켜 UX를 보완하기로 함.
+방법 2인 디바운스 방식으로 결정함. 디바운스 시간을 짧게 가져간다 해도 `tilesloaded`을 그대로 사용하는 것보다는 적게 요청되는 것이 확인됨. 
+또한 로딩 지연 시간에 관한 부분은 이후 skeleton UI를 적용 시켜 UX를 보완하기로 함.
 
 - **해당 코드**
     
@@ -262,9 +257,6 @@ props를 넘겨서 css에 변화를 주는 형태로 atomic design pattern의 �
 
 <br>
 </details>
-<br>
-    
-![Line 1](https://user-images.githubusercontent.com/90380269/181489532-4bbb5041-8de1-4ac9-89b2-9400e577ddd2.png)
 
     
 # Team MPNP - Frontend
