@@ -100,7 +100,7 @@
 
 <br>
 
-# 
+# Tech Stack
 
 ### Tools
 
