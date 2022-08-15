@@ -24,8 +24,6 @@
  - React,Typescript,React-query,Recoil,Styled-component,Kakao map api,Storybook
 ### 3. [트러블 슈팅](#trouble-shooting)
  - 맵에서 사용자의 마지막 액션을 구해 API 호출 횟수 줄이기
- - 로딩시간에 대한 유저 피드백을 반영해 스켈레톤 UI 적용하기 (아직 미기술)
- - 로그인 페이지를 React-Router-Dom을 이용한 모달 페이지로 Private Routes 만들기 (아직 미기술)
 ### 4. [프론트엔드 개발진](#team-mpnp---frontend)
 ----
 
