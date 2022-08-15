@@ -20,8 +20,8 @@
 
 ### 1. [프로젝트 소개](#features)
  - 사회적 교통 약자를 위한 배리어프리 시설 정보 공유 및 위치 기반 맛집 추천 서비스
-### 2. [기술 스텍 선정 이유](#tech-stack)
- - React,Typescript,React-query,Recoil,Styled-component,Kakao map api,Storybook
+### 2. [기술 스텍 및 선정 이유](#tech-stack)
+ - `React`,`Typescript`,`React-query`,`Recoil`,`Styled-component`,`Kakao map api`,`Storybook`
 ### 3. [트러블 슈팅](#trouble-shooting)
  - 맵에서 사용자의 마지막 액션을 구해 API 호출 횟수 줄이기
 ### 4. [프론트엔드 개발진](#team-mpnp---frontend)
