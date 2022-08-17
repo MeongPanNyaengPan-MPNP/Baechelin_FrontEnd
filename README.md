@@ -31,7 +31,7 @@
 
 [시연영상](https://youtu.be/Rj_ltQcIaWg)
 
-[발표영상](https://youtu.be/_0pyS0Lx0NU)
+[발표영상](https://youtu.be/o-6XTDFP5q8)
 
 [팀 노션](https://planet-punishment-427.notion.site/99-7-4-a179c828bbbf47aea74d2bea85f47372)    
 
